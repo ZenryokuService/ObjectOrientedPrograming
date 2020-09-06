@@ -62,6 +62,7 @@ public class FirstJankenMain {
 	 */
 	private void printJankenAiko(boolean isJanken) {
 		// isJankenがtrueの時は「じゃんけん」を表示する
+		System.out.println("Hello");
 	}
 
 	/**
@@ -71,13 +72,14 @@ public class FirstJankenMain {
 	 */
 	private String acceptInput() {
 		// System.in = 標準入力
-		return null;
+		return "Hello";
 	}
 
 	/**
 	 * 4.「しょ！」を表示
 	 */
 	private void printSho() {
+		System.out.println("Sho");
 	}
 
 	/**

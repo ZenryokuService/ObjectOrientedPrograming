@@ -123,26 +123,18 @@
 										"$ref": "AAAAAAF0R/uhAGRh80g="
 									},
 									"font": "Arial;13;0",
-									"left": 178,
-<<<<<<< HEAD
-									"top": 290,
-=======
-									"top": 314,
->>>>>>> branch 'master' of https://github.com/ZenryokuService/ObjectOrientedPrograming.git
-									"width": 104,
+									"left": 146,
+									"top": 306,
+									"width": 180.55908203125,
 									"height": 13,
-									"text": "「しょ！」を表示",
+									"text": "「ポン！」or「しょ！」を表示",
 									"wordWrap": true
 								}
 							],
 							"font": "Arial;13;0",
-							"left": 168,
-<<<<<<< HEAD
-							"top": 280,
-=======
-							"top": 304,
->>>>>>> branch 'master' of https://github.com/ZenryokuService/ObjectOrientedPrograming.git
-							"width": 124,
+							"left": 136,
+							"top": 296,
+							"width": 200.55908203125,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF0R/uhAGRixvM="
@@ -249,11 +241,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 245,
-<<<<<<< HEAD
-									"top": 269,
-=======
-									"top": 281,
->>>>>>> branch 'master' of https://github.com/ZenryokuService/ObjectOrientedPrograming.git
+									"top": 277,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -271,11 +259,7 @@
 								"$ref": "AAAAAAF0R/q/JWRTm7Y="
 							},
 							"lineStyle": 2,
-<<<<<<< HEAD
-							"points": "231:272;231:280",
-=======
-							"points": "231:272;231:304",
->>>>>>> branch 'master' of https://github.com/ZenryokuService/ObjectOrientedPrograming.git
+							"points": "231:272;231:296",
 							"nameLabel": {
 								"$ref": "AAAAAAF0R/3uaGSLCvA="
 							}
@@ -302,11 +286,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 246,
-<<<<<<< HEAD
-									"top": 329,
-=======
-									"top": 341,
->>>>>>> branch 'master' of https://github.com/ZenryokuService/ObjectOrientedPrograming.git
+									"top": 337,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -324,11 +304,7 @@
 								"$ref": "AAAAAAF0R/uhAGRh80g="
 							},
 							"lineStyle": 2,
-<<<<<<< HEAD
-							"points": "232:312;232:360",
-=======
-							"points": "232:336;232:360",
->>>>>>> branch 'master' of https://github.com/ZenryokuService/ObjectOrientedPrograming.git
+							"points": "232:328;232:360",
 							"nameLabel": {
 								"$ref": "AAAAAAF0R/4WOWSUcm8="
 							}
@@ -591,7 +567,6 @@
 									"font": "Arial;13;0",
 									"left": 367,
 									"top": 122,
-<<<<<<< HEAD
 									"width": 229.0888671875,
 									"height": 13,
 									"text": "「じゃんけん」or「あいこで」判定処理",
@@ -602,18 +577,6 @@
 							"left": 352,
 							"top": 112,
 							"width": 254.0888671875,
-=======
-									"width": 227.55908203125,
-									"height": 13,
-									"text": "「じゃんけん」or「あいこで」判定処理",
-									"wordWrap": true
-								}
-							],
-							"font": "Arial;13;0",
-							"left": 352,
-							"top": 112,
-							"width": 252.55908203125,
->>>>>>> branch 'master' of https://github.com/ZenryokuService/ObjectOrientedPrograming.git
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF0SLSsefeC/MI="
@@ -1060,7 +1023,7 @@
 					"_parent": {
 						"$ref": "AAAAAAF0R/eaiWQ39I4="
 					},
-					"name": "「しょ！」を表示",
+					"name": "「ポン！」or「しょ！」を表示",
 					"ownedElements": [
 						{
 							"_type": "FCFlow",
@@ -1282,7 +1245,6 @@
 														"$ref": "AAAAAAF0SLmhm/fCnEw="
 													},
 													"font": "Arial;13;0",
-<<<<<<< HEAD
 													"left": 307,
 													"top": 106,
 													"width": 48.53857421875,
@@ -1295,20 +1257,6 @@
 											"left": 280,
 											"top": 96,
 											"width": 102.53857421875,
-=======
-													"left": 306,
-													"top": 106,
-													"width": 49.61181640625,
-													"height": 39,
-													"text": "IN: ユーザーの手, CPUの手",
-													"wordWrap": true
-												}
-											],
-											"font": "Arial;13;0",
-											"left": 280,
-											"top": 96,
-											"width": 101.61181640625,
->>>>>>> branch 'master' of https://github.com/ZenryokuService/ObjectOrientedPrograming.git
 											"height": 59,
 											"nameLabel": {
 												"$ref": "AAAAAAF0SLmhm/fDtLs="
