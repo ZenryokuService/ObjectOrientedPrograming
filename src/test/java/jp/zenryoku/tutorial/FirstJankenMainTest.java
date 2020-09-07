@@ -8,8 +8,11 @@ import java.lang.reflect.Method;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 
 /**
  * じゃんけんゲームのテストクラス。各手は以下のように定義する。
@@ -24,6 +27,8 @@ import org.junit.Test;
 public class FirstJankenMainTest {
 	/** テストクラス */
 	private static FirstJankenMain target;
+	/** ログ出力 */
+	private static final Logger LOG = LoggerFactory.getLogger(FirstJankenMainTest.class);
 	/** 標準出力確認 */
 	private static final ByteArrayOutputStream console = new ByteArrayOutputStream();
 	/** 改行コード */
@@ -38,6 +43,12 @@ public class FirstJankenMainTest {
 	private static final String YOU_WIN = "0";
 	/** プレーヤーの負け */
 	private static final String YOU_LOOSE = "1";
+	/** 引き分け */
+	private static final String AIKO = "2";
+	/** 終了するときのフラグ */
+	private static final boolean FINISH = true;
+	/** もう一度やるときのフラグ */
+	private static final boolean ONE_MORE = false;
 
 	/**
 	 * java.lang.refrectionを使用してプライベート修飾子のメソッドを起動します。
@@ -61,6 +72,9 @@ public class FirstJankenMainTest {
 		return testMethod;
 	}
 
+	/**
+	 * すべてのテストケースを実行するための準備をする。
+	 */
 	@BeforeClass
 	public static void initClass() {
 		// テスト対象クラスのインスタンス生成
@@ -69,6 +83,11 @@ public class FirstJankenMainTest {
 		System.setOut(new PrintStream(console));
 	}
 
+	/**
+	 * このテストクラスの実行終了後に行うべき後始末。
+	 * 基本的には、フィールド変数のインスタンスなどを開放するが、今回のフィールド変数は
+	 * 静的フィールド(staticフィールド)なので、アプリ終了時に解放されるので処理なし。
+	 */
 	@AfterClass
 	public static void terminatedClass() {
 		// 標準出力を元に戻す
@@ -76,10 +95,10 @@ public class FirstJankenMainTest {
 	}
 
 	/**
-	 * フィールド変数に使用するMapクラスが作成できることを確認。
+	 * 勝敗判定MAP作成処理。
 	 */
-	@Test
-	public void testCreateJudgeMap() {
+	@Before
+	public void testInit() {
 		// テストするメソッドを取得する ※警告が出るが、引数なし、返却ちなしのメソッドなので良しとする
 		Method test = getPrivateMethod(target.getClass(), "createJudgeMap", null);
 		// テストを実行する
@@ -98,7 +117,14 @@ public class FirstJankenMainTest {
 			e.printStackTrace();
 			Assert.fail("メソッドの起動時に問題が発生しました。");
 		}
+	}
 
+	/**
+	 * フィールド変数に使用するMapクラスが作成できることを確認。
+	 * ※テスト準備処理で勝敗判定MAP作成済み。
+	 */
+	@Test
+	public void testCreateJudgeMap() {
 		// 実行結果の確認、フィールド変数が生成できたか確認する。
 		String fieldName = "judgeMap";
 		try {
@@ -108,12 +134,23 @@ public class FirstJankenMainTest {
 			} else {
 				Assert.fail("フィールド変数が生成されていません。");
 			}
+			// アクセス権を変更する
+			field.setAccessible(true);
+			Object res =  field.get(target);
+			if (res != null) {
+				System.out.println("instance: " + res.toString());
+			} else {
+				Assert.fail("インスタンスが生成されていません");
+			}
 		} catch (NoSuchFieldException e) {
 			e.printStackTrace();
 			Assert.fail("フィールド変数:「" + fieldName + "」が見つかりません");
 		} catch (SecurityException e) {
 			e.printStackTrace();
 			Assert.fail("セキュリティ違反がありました。");
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			Assert.fail("アクセスができません。");
 		}
 	}
 
@@ -123,35 +160,6 @@ public class FirstJankenMainTest {
 	 */
 	@Test
 	public void testPrintJankenAiko_True() {
-		console.reset();
-		// テストするメソッドを取得する
-		Method test = getPrivateMethod(target.getClass(), "printJankenAiko", Boolean.class);
-		// テストを実行する
-		try {
-			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
-			test.setAccessible(true);
-			// ※警告が出るが、引数なし、返却ちなしのメソッドなので良しとする
-			test.invoke(target, true);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			Assert.fail("アクセスの仕方に問題があります。");
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-			Assert.fail("引数に問題があります。");
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-			Assert.fail("メソッドの起動時に問題が発生しました。");
-		}
-		// println()で出力されたものには改行コードがついている。
-		Assert.assertEquals("Hello" + lineSeparator, console.toString());
-	}
-
-	/**
-	 * printJankenAikoのテストを行う。
-	 * 引数にFalseを渡した場合
-	 */
-	@Test
-	public void testPrintJankenAiko_False() {
 		console.reset();
 		// テストするメソッドを取得する
 		Method test = getPrivateMethod(target.getClass(), "printJankenAiko", boolean.class);
@@ -172,7 +180,37 @@ public class FirstJankenMainTest {
 			Assert.fail("メソッドの起動時に問題が発生しました。");
 		}
 		// println()で出力されたものには改行コードがついている。
-		Assert.assertEquals("Hello" + lineSeparator, console.toString());
+		Assert.assertEquals("じゃんけん ..." + lineSeparator, console.toString());
+	}
+
+	/**
+	 * printJankenAikoのテストを行う。
+	 * 引数にFalseを渡した場合
+	 */
+	@Test
+	public void testPrintJankenAiko_False() {
+		console.reset();
+		// テストするメソッドを取得する
+		Method test = getPrivateMethod(target.getClass(), "printJankenAiko", boolean.class);
+		// テストを実行する
+		Object res = null;
+		try {
+			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
+			test.setAccessible(true);
+			// ※警告が出るが、引数なし、返却ちなしのメソッドなので良しとする
+			res = test.invoke(target, false);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			Assert.fail("アクセスの仕方に問題があります。");
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			Assert.fail("引数に問題があります。");
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+			Assert.fail("メソッドの起動時に問題が発生しました。");
+		}
+		// println()で出力されたものには改行コードがついている。
+		Assert.assertEquals("あいこで ..." + lineSeparator, console.toString());
 	}
 
 	/**
@@ -181,6 +219,7 @@ public class FirstJankenMainTest {
 	 */
 	@Test
 	public void testAcceptInput() {
+		console.reset();
 		// テストするメソッドを取得する
 		Method test = getPrivateMethod(target.getClass(), "acceptInput", null);
 		// テストを実行する
@@ -189,6 +228,8 @@ public class FirstJankenMainTest {
 			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
 			test.setAccessible(true);
 			// ※警告が出るが、引数なし、返却ちなしのメソッドなので良しとする
+			LOG.info(()->"*** Helloと入力するテスト ***");
+
 			res = test.invoke(target, null);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
@@ -206,18 +247,20 @@ public class FirstJankenMainTest {
 
 	/**
 	 * printShoのテストを行う。
+	 * テストケース作成時に、「ポン！」と「しょ！」を
+	 * 使い分ける必要があることに気が付いたので、メソッド名と処理内容を変更。
 	 */
 	@Test
-	public void testPrintSho() {
+	public void testPrintPonOrSho_True() {
 		console.reset();
 		// テストするメソッドを取得する
-		Method test = getPrivateMethod(target.getClass(), "printSho", null);
+		Method test = getPrivateMethod(target.getClass(), "printPonOrSho", boolean.class);
 		// テストを実行する
 		try {
 			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
 			test.setAccessible(true);
 			// ※警告が出るが、引数なし、返却ちなしのメソッドなので良しとする
-			test.invoke(target, null);
+			test.invoke(target, true);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 			Assert.fail("アクセスの仕方に問題があります。");
@@ -229,7 +272,37 @@ public class FirstJankenMainTest {
 			Assert.fail("メソッドの起動時に問題が発生しました。");
 		}
 
-		Assert.assertEquals("Sho" + lineSeparator, console.toString());
+		Assert.assertEquals("ポン！" + lineSeparator, console.toString());
+	}
+
+	/**
+	 * printShoのテストを行う。
+	 * テストケース作成時に、「ポン！」と「しょ！」を
+	 * 使い分ける必要があることに気が付いたので、メソッド名と処理内容を変更。
+	 */
+	@Test
+	public void testPrintPonOrSho_False() {
+		console.reset();
+		// テストするメソッドを取得する
+		Method test = getPrivateMethod(target.getClass(), "printPonOrSho", boolean.class);
+		// テストを実行する
+		try {
+			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
+			test.setAccessible(true);
+			// ※警告が出るが、引数なし、返却ちなしのメソッドなので良しとする
+			test.invoke(target, false);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			Assert.fail("アクセスの仕方に問題があります。");
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			Assert.fail("引数に問題があります。");
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+			Assert.fail("メソッドの起動時に問題が発生しました。");
+		}
+
+		Assert.assertEquals("しょ！" + lineSeparator, console.toString());
 	}
 
 	/**
@@ -246,7 +319,7 @@ public class FirstJankenMainTest {
 			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
 			test.setAccessible(true);
 			// グー(プレーヤー)とチョキ(CPU)でプレーヤーの勝ち
-			res = test.invoke(target, GU, CHOKI);
+			res = (int) test.invoke(target, GU, CHOKI);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 			Assert.fail("アクセスの仕方に問題があります。");
@@ -403,20 +476,20 @@ public class FirstJankenMainTest {
 
 	/**
 	 * printJudgeのテストを行う。
-	 * 勝敗判定を表示する
+	 * 勝敗判定を表示する(プレーヤーの勝利)
 	 */
 	@Test
-	public void testPrintJudge() {
+	public void testPrintJudge_WIN() {
 		console.reset();
 		// テストするメソッドを取得する
 		Method test = getPrivateMethod(target.getClass(), "printJudge", int.class);
 		// テストを実行する
-		Object res = null;
+		boolean res = false;
 		try {
 			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
 			test.setAccessible(true);
 			// プレーヤーの勝ち(文字列からINT型に変換
-			res = test.invoke(target, Integer.parseInt(YOU_WIN));
+			res = (boolean) test.invoke(target, Integer.parseInt(YOU_WIN));
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 			Assert.fail("アクセスの仕方に問題があります。");
@@ -427,7 +500,66 @@ public class FirstJankenMainTest {
 			e.printStackTrace();
 			Assert.fail("メソッドの起動時に問題が発生しました。");
 		}
-		Assert.assertEquals(YOU_WIN, res.toString());
+		Assert.assertEquals(FINISH, res);
 	}
 
+	/**
+	 * 不足ケースのため追加
+	 * printJudgeのテストを行う。
+	 * 勝敗判定を表示する(プレーヤーの負け)
+	 */
+	@Test
+	public void testPrintJudge_LOOSE() {
+		console.reset();
+		// テストするメソッドを取得する
+		Method test = getPrivateMethod(target.getClass(), "printJudge", int.class);
+		// テストを実行する
+		boolean res = false;
+		try {
+			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
+			test.setAccessible(true);
+			// プレーヤーの勝ち(文字列からINT型に変換
+			res = (boolean) test.invoke(target, Integer.parseInt(YOU_LOOSE));
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			Assert.fail("アクセスの仕方に問題があります。");
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			Assert.fail("引数に問題があります。");
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+			Assert.fail("メソッドの起動時に問題が発生しました。");
+		}
+		Assert.assertEquals(FINISH, res);
+	}
+
+	/**
+	 * 不足ケースのため追加
+	 * printJudgeのテストを行う。
+	 * 勝敗判定を表示する(あいこの時)
+	 */
+	@Test
+	public void testPrintJudge_AIKO() {
+		console.reset();
+		// テストするメソッドを取得する
+		Method test = getPrivateMethod(target.getClass(), "printJudge", int.class);
+		// テストを実行する
+		boolean res = false;
+		try {
+			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
+			test.setAccessible(true);
+			// プレーヤーの勝ち(文字列からINT型に変換
+			res = (boolean) test.invoke(target, Integer.parseInt(AIKO));
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			Assert.fail("アクセスの仕方に問題があります。");
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			Assert.fail("引数に問題があります。");
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+			Assert.fail("メソッドの起動時に問題が発生しました。");
+		}
+		Assert.assertEquals(ONE_MORE, res);
+	}
 }

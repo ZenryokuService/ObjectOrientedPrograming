@@ -1,6 +1,8 @@
 package jp.zenryoku.tutorial;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * じゃんけんゲームメインクラス。
@@ -16,9 +18,15 @@ public class FirstJankenMain {
 	private static final int YOU_LOOSE = 1;
 	/** 勝敗判定フラグ：あいこ(ユーザー) */
 	private static final int AIKO = 2;
+	/** グー */
+	private static final String GU = "0";
+	/** チョキ */
+	private static final String CHOKI = "1";
+	/** パー */
+	private static final String PA = "2";
 
 	/** 勝敗判定MAP **/
-	private Map<String, Boolean> judgeMap;
+	private Map<String, Integer> judgeMap;
 
 	/**
 	 * メインメソッド
@@ -37,7 +45,7 @@ public class FirstJankenMain {
 			// 3.ユーザーの入力(待ち)
 			String input = main.acceptInput();
 			// 4.「ポン！」or「しょ！」を表示
-			main.printSho();
+			main.printPonOrSho(true);
 			// 5.勝敗判定
 			int judge = main.judgeWinLoose(input, "0");
 			// 6.勝敗判定の表示
@@ -53,6 +61,19 @@ public class FirstJankenMain {
 	 */
 	private void createJudgeMap() {
 		// 勝敗判定MAPのインスタンスを生成する
+		judgeMap = new HashMap<String, Integer>();
+		// プレーヤーの勝ちケース
+		judgeMap.put(GU + CHOKI, YOU_WIN);
+		judgeMap.put(CHOKI + PA, YOU_WIN);
+		judgeMap.put(PA + GU, YOU_WIN);
+		// プレーヤーの負けケース
+		judgeMap.put(GU + PA, YOU_LOOSE);
+		judgeMap.put(CHOKI + GU, YOU_LOOSE);
+		judgeMap.put(PA + CHOKI, YOU_LOOSE);
+		// あいこのケース
+		judgeMap.put(GU + GU, AIKO);
+		judgeMap.put(CHOKI + CHOKI, AIKO);
+		judgeMap.put(PA + PA, AIKO);
 	}
 
 	/**
@@ -62,7 +83,11 @@ public class FirstJankenMain {
 	 */
 	private void printJankenAiko(boolean isJanken) {
 		// isJankenがtrueの時は「じゃんけん」を表示する
-		System.out.println("Hello");
+		if (isJanken) {
+			System.out.println("じゃんけん ...");
+		} else {
+			System.out.println("あいこで ...");
+		}
 	}
 
 	/**
@@ -72,14 +97,22 @@ public class FirstJankenMain {
 	 */
 	private String acceptInput() {
 		// System.in = 標準入力
-		return "Hello";
+		Scanner scan = new Scanner(System.in);
+		String input = scan.nextLine();
+		return input;
 	}
 
 	/**
-	 * 4.「しょ！」を表示
+	 * 4.「ポン！」or「しょ！」を表示
 	 */
-	private void printSho() {
-		System.out.println("Sho");
+	private void printPonOrSho(boolean isJanken) {
+		if (isJanken) {
+			// 「じゃんけん」の場合は「ポン！」
+			System.out.println("ポン！");
+		} else {
+			// 「あいこで」の場合は「しょ！」
+			System.out.println("しょ！");
+		}
 	}
 
 	/**
@@ -91,7 +124,10 @@ public class FirstJankenMain {
 	private int judgeWinLoose(String playerTe, String cpuTe) {
 		// 勝敗判定MAPのキーはプレーヤーの手とCPUの手を連結したもの
 		// 例：「01」＝ プレーヤー「グー」、CPU「チョキ」
-		return YOU_WIN;
+		// 範囲亭マップから勝敗判定結果を取得する。
+		String key = playerTe + cpuTe;
+		int result = judgeMap.get(key);
+		return result;
 	}
 
 	/**
@@ -101,7 +137,20 @@ public class FirstJankenMain {
 	 * @return true: 終了 false: もう一度
 	 */
 	private boolean printJudge(int resultJudge) {
+		boolean isFinish = true;
 		// 勝敗判定結果を表示する
-		return true;
+		switch(resultJudge) {
+		case YOU_WIN:
+			System.out.println("YOU WIN!");
+			break;
+		case YOU_LOOSE:
+			System.out.println("YOU LOOSE!");
+			break;
+		case AIKO:
+			isFinish = false;
+			System.out.println("DRAW!");
+			break;
+		}
+		return isFinish;
 	}
 }
