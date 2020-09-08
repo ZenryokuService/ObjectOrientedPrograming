@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -49,6 +50,13 @@ public class FirstJankenMainTest {
 	private static final boolean FINISH = true;
 	/** もう一度やるときのフラグ */
 	private static final boolean ONE_MORE = false;
+	/** じゃんけんの時に表示する表 */
+	private static final String printTable = "****************" + lineSeparator
+			+ "*グー   = 0    *" + lineSeparator
+			+ "*チョキ = 1    *" + lineSeparator
+			+ "*パー   = 2    *" + lineSeparator
+			+ "****************" + lineSeparator;
+
 
 	/**
 	 * java.lang.refrectionを使用してプライベート修飾子のメソッドを起動します。
@@ -122,29 +130,56 @@ public class FirstJankenMainTest {
 	/**
 	 * フィールド変数に使用するMapクラスが作成できることを確認。
 	 * ※テスト準備処理で勝敗判定MAP作成済み。
+	 * ＜追加実装＞
+	 * ・手マップをフィールドに追加
+	 * ・手マップ、勝敗判定マップの内容確認
 	 */
 	@Test
 	public void testCreateJudgeMap() {
 		// 実行結果の確認、フィールド変数が生成できたか確認する。
-		String fieldName = "judgeMap";
+		String judgeName = "judgeMap";
+		String teName = "teMap";
+		// judgeMapの確認
+		Map<String, Integer> mapJudge = null;
+		// teMapの確認
+		Map<String, String> mapTe = null;
 		try {
-			Field field = target.getClass().getDeclaredField(fieldName);
-			if (field != null) {
-				System.out.println("テスト成功、フィールド名: " + field.getName());
+			Field judgeField = target.getClass().getDeclaredField(judgeName);
+			Field teField = target.getClass().getDeclaredField(teName);
+			if (judgeField != null && teField != null) {
+				LOG.info(() ->"フィールド取得成功 ");
 			} else {
 				Assert.fail("フィールド変数が生成されていません。");
 			}
 			// アクセス権を変更する
-			field.setAccessible(true);
-			Object res =  field.get(target);
-			if (res != null) {
-				System.out.println("instance: " + res.toString());
+			judgeField.setAccessible(true);
+			teField.setAccessible(true);
+			mapJudge =  (Map<String, Integer>) judgeField.get(target);
+			mapTe = (Map<String, String>) teField.get(target);
+			if (mapJudge != null && mapTe != null) {
+				// judgeMapの内容確認
+				Assert.assertEquals(new Integer(YOU_WIN), mapJudge.get(GU + CHOKI)) ;
+				Assert.assertEquals(new Integer(YOU_WIN), mapJudge.get(CHOKI + PA)) ;
+				Assert.assertEquals(new Integer(YOU_WIN), mapJudge.get(PA + GU)) ;
+				Assert.assertEquals(new Integer(YOU_LOOSE), mapJudge.get(GU + PA)) ;
+				Assert.assertEquals(new Integer(YOU_LOOSE), mapJudge.get(CHOKI + GU)) ;
+				Assert.assertEquals(new Integer(YOU_LOOSE), mapJudge.get(PA + CHOKI)) ;
+				Assert.assertEquals(new Integer(AIKO), mapJudge.get(GU + GU)) ;
+				Assert.assertEquals(new Integer(AIKO), mapJudge.get(CHOKI + CHOKI)) ;
+				Assert.assertEquals(new Integer(AIKO), mapJudge.get(PA + PA)) ;
+				// teMapの内容確認
+				Assert.assertEquals("グー", mapTe.get(GU)) ;
+				Assert.assertEquals("チョキ", mapTe.get(CHOKI)) ;
+				Assert.assertEquals("パー", mapTe.get(PA)) ;
 			} else {
 				Assert.fail("インスタンスが生成されていません");
 			}
+		} catch (ClassCastException e) {
+			e.printStackTrace();
+			Assert.fail("クラスのキャストに失敗しました。");
 		} catch (NoSuchFieldException e) {
 			e.printStackTrace();
-			Assert.fail("フィールド変数:「" + fieldName + "」が見つかりません");
+			Assert.fail("フィールド変数:が見つかりません");
 		} catch (SecurityException e) {
 			e.printStackTrace();
 			Assert.fail("セキュリティ違反がありました。");
@@ -180,7 +215,7 @@ public class FirstJankenMainTest {
 			Assert.fail("メソッドの起動時に問題が発生しました。");
 		}
 		// println()で出力されたものには改行コードがついている。
-		Assert.assertEquals("じゃんけん ..." + lineSeparator, console.toString());
+		Assert.assertEquals(printTable + "じゃんけん ..." + lineSeparator, console.toString());
 	}
 
 	/**
@@ -209,8 +244,7 @@ public class FirstJankenMainTest {
 			e.printStackTrace();
 			Assert.fail("メソッドの起動時に問題が発生しました。");
 		}
-		// println()で出力されたものには改行コードがついている。
-		Assert.assertEquals("あいこで ..." + lineSeparator, console.toString());
+		Assert.assertEquals(printTable + "あいこで ..." + lineSeparator, console.toString());
 	}
 
 	/**
@@ -562,4 +596,64 @@ public class FirstJankenMainTest {
 		}
 		Assert.assertEquals(ONE_MORE, res);
 	}
+
+	/**
+	 * ＜追加実装＞
+	 * プレーヤーの手とCPUの手を表示する処理を実装していなかったので
+	 * 追加分のテストを行う
+	 */
+	@Test
+	public void testPrintTe() {
+		console.reset();
+		// テストするメソッドを取得する
+		Method test = getPrivateMethod(target.getClass(), "printTe", String.class, String.class);
+		// テストを実行する
+		boolean res = false;
+		try {
+			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
+			test.setAccessible(true);
+			// プレーヤーの勝ち(文字列からINT型に変換
+			test.invoke(target, GU, CHOKI);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			Assert.fail("アクセスの仕方に問題があります。");
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			Assert.fail("引数に問題があります。");
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+			Assert.fail("メソッドの起動時に問題が発生しました。");
+		}
+		Assert.assertEquals("ユーザー：グー" + lineSeparator + "CPU：チョキ" + lineSeparator, console.toString());
+	}
+
+	@Test
+	public void testInputCheck() {
+		// テストするメソッドを取得する
+		Method test = getPrivateMethod(target.getClass(), "inputCheck", String.class);
+		// テストを実行する
+		boolean res = false;
+		try {
+			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
+			test.setAccessible(true);
+			// プレーヤーの勝ち(文字列からINT型に変換
+			Assert.assertTrue((boolean) test.invoke(target, GU));
+			Assert.assertTrue((boolean) test.invoke(target, CHOKI));
+			Assert.assertTrue((boolean) test.invoke(target, PA));
+			// 想定外の値１
+			Assert.assertFalse((boolean) test.invoke(target, "3"));
+			// 想定外の値２
+			Assert.assertFalse((boolean) test.invoke(target, "-1"));
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			Assert.fail("アクセスの仕方に問題があります。");
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			Assert.fail("引数に問題があります。");
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+			Assert.fail("メソッドの起動時に問題が発生しました。");
+		}
+	}
+
 }

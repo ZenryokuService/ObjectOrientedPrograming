@@ -2,6 +2,7 @@ package jp.zenryoku.tutorial;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -27,6 +28,8 @@ public class FirstJankenMain {
 
 	/** 勝敗判定MAP **/
 	private Map<String, Integer> judgeMap;
+	/** 手のMAP(追加実装) */
+	private Map<String, String> teMap;
 
 	/**
 	 * メインメソッド
@@ -37,20 +40,36 @@ public class FirstJankenMain {
 		FirstJankenMain main = new FirstJankenMain();
 		// 1.勝敗判定MAP作成
 		main.createJudgeMap();
+		Random random = new Random();
 
+		// 追加実装: 「じゃんけん」と「あいこ」の判定が行えてない
+		boolean isJanken= true;
 		// 無限ループ
 		while(true) {
 			// 2.「じゃんけん」or「あいこで」のメッセージ表示
-			main.printJankenAiko(true);
+			main.printJankenAiko(isJanken);
 			// 3.ユーザーの入力(待ち)
 			String input = main.acceptInput();
+			if (main.inputCheck(input) == false) {
+				System.out.println("0-2の値を入力してください。");
+				continue;
+			}
+			// CPUの手を取得する(JavaSEのAPIを使用するのでテストしない)
+			String cpuTe = String.valueOf(random.nextInt(2));
 			// 4.「ポン！」or「しょ！」を表示
-			main.printPonOrSho(true);
+			main.printPonOrSho(isJanken);
+			// <追加>
+			main.printTe(input, cpuTe);
 			// 5.勝敗判定
-			int judge = main.judgeWinLoose(input, "0");
+			int judge = main.judgeWinLoose(input, cpuTe);
 			// 6.勝敗判定の表示
 			if (main.printJudge(judge)) {
+				// 追加実装：「じゃんけん」と「あいこ」の判定が行えてない
+				isJanken = true;
 				break;
+			} else {
+				// 追加実装：「じゃんけん」と「あいこ」の判定が行えてない
+				isJanken = false;
 			}
 		}
 		// 7.じゃんけんゲーム終了
@@ -74,6 +93,12 @@ public class FirstJankenMain {
 		judgeMap.put(GU + GU, AIKO);
 		judgeMap.put(CHOKI + CHOKI, AIKO);
 		judgeMap.put(PA + PA, AIKO);
+
+		// 手のマップ
+		teMap = new HashMap<String, String>();
+		teMap.put(GU, "グー");
+		teMap.put(CHOKI, "チョキ");
+		teMap.put(PA, "パー");
 	}
 
 	/**
@@ -82,6 +107,12 @@ public class FirstJankenMain {
 	 * @param isJanken true: 「じゃんけん」false: 「あいこ」
 	 */
 	private void printJankenAiko(boolean isJanken) {
+		// 追加実装、各手と入力値の票を表示する
+		System.out.println("****************");
+		System.out.println("*グー   = 0    *");
+		System.out.println("*チョキ = 1    *");
+		System.out.println("*パー   = 2    *");
+		System.out.println("****************");
 		// isJankenがtrueの時は「じゃんけん」を表示する
 		if (isJanken) {
 			System.out.println("じゃんけん ...");
@@ -152,5 +183,32 @@ public class FirstJankenMain {
 			break;
 		}
 		return isFinish;
+	}
+
+	/**
+	 * ＜追加実装＞
+	 * プレーヤーの手とCPUの手を表示する。
+	 * @param playerTe プレーヤーの手
+	 * @param cpuTe CPUの手
+	 */
+	private void printTe(String playerTe, String cpuTe) {
+		System.out.println("ユーザー：" + teMap.get(playerTe));
+		System.out.println("CPU：" + teMap.get(cpuTe));
+	}
+
+	/**
+	 * じゃんけんの手として適当な値であるか判定する。
+	 *
+	 * @param input ユーザー入力
+	 * @return true; じゃんけんの手として適当な値 / false: じゃんけんの手として不適当な値
+	 */
+	private boolean inputCheck(String input) {
+		// 判定フラグ
+		boolean isJankenTe = false;
+		// 正規表現で判定する
+		if (input.matches("[0-2]")) {
+			isJankenTe = true;
+		}
+		return isJankenTe;
 	}
 }
