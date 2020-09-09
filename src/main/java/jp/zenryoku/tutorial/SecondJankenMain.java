@@ -13,14 +13,15 @@ import jp.zenryoku.tutorial.calsses.JankenUtils;
  * @author 実装者の名前
  *
  */
-public class SecondJankenMain {
+public class SecondJankenMain extends JankenUtils {
 	/** じゃんけんゲームのユーティリティクラス */
 	private JankenUtils util;
-	/** コンソール表示のユーティリティクラス */
-	private ConsoleUtils console;
+//	/** コンソール表示のユーティリティクラス */
+//	private ConsoleUtils console;
 
 	/**
-	 *
+	 * メインメソッドの実装をオブジェクト指向プログラミングっぽく
+	 * クラスの継承を使用して実装しなおしてみる。
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -72,27 +73,28 @@ public class SecondJankenMain {
 	 * フィールド変数にインスタンスを生成して設定する。
 	 */
 	public SecondJankenMain() {
-		util = new JankenUtils();
-		console = new ConsoleUtils();
+		// 親クラスのコンストラクタを起動する
+		super();
+//		console = new ConsoleUtils();
 	}
 
 	/**
 	 * 「じゃんけん」、「あいこを表示する」
 	 */
 	private void printJankenAiko() {
-		// TODO-[追加実装: で修正した部分だが、設計時には判定フラグを引数に持っていた。]
-		console.printJankenAiko(true);
+		// 追加実装: で修正した部分だが、設計時には判定フラグを引数に持っていた。
+		ConsoleUtils.printJankenAiko(true);
 	}
 
-	/**
-	 * 入力受付。
-	 *
-	 * @return 入力した値
-	 */
-	private String acceptInput() {
-		return util.acceptInput();
-	}
-
+//	/** 親クラスにて実装しているのでコメントアウト
+//	 * 入力受付。
+//	 *
+//	 * @return 入力した値
+//	 */
+//	private String acceptInput() {
+//		return util.acceptInput();
+//	}
+//
 //	/**
 //	 * 「しょ！」を表示する
 //	 */
@@ -114,47 +116,56 @@ public class SecondJankenMain {
 		}
 	}
 
-	/**
-	 * 勝敗判定を取得する
-	 *
-	 * @param playerTe プレーヤーの手
-	 * @param cpuTe CPUの手
-	 * @return 勝敗結果(JankenConstで定義)
-	 * @see jp.zenryoku.class.JankenConst
-	 */
-	private JankenConst judgeWinLoose(String playerTe, String cpuTe) {
-		return util.judgeWinLoose(playerTe, cpuTe);
-	}
+//	/** 親クラスにて実装しているのでコメントアウト
+//	 * 勝敗判定を取得する
+//	 *
+//	 * @param playerTe プレーヤーの手
+//	 * @param cpuTe CPUの手
+//	 * @return 勝敗結果(JankenConstで定義)
+//	 * @see jp.zenryoku.class.JankenConst
+//	 */
+//	private JankenConst judgeWinLoose(String playerTe, String cpuTe) {
+//		return util.judgeWinLoose(playerTe, cpuTe);
+//	}
 
 	/**
 	 * 勝敗判定を表示し、繰り返すかどうかを返却する。
 	 *
-	 * @param judge 照会結果照会結果
+	 * @param judge 勝敗結果
 	 * @return boolean true: 終了する / false 繰り返す
 	 */
 	private boolean printJudge(JankenConst judge) {
-		return console.printJudge(judge);
+		boolean isFinish = true;
+		try {
+			isFinish = ConsoleUtils.printJudge(judge);
+		} catch (Exception e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+			// 想定外の入力があったのでアプリを強制終了する
+			System.exit(-1);
+		}
+		return isFinish;
 	}
 
-	/**
-	 * ＜追加実装＞
-	 * 入力チェックを行う
-	 *
-	 * @param input 入力した値
-	 * @return true: 入力OK / false 想定外の入力
-	 */
-	private boolean inputCheck(String input) {
-		return util.inputCheck(input);
-	}
-
-	/**
-	 * ＜追加実装＞
-	 * プレーヤーの手とCPUの手を表示する。
-	 *
-	 * @param playerTe プレーヤーの手
-	 * @param cpuTe CPUの手
-	 */
-	private void printTe(String playerTe, String cpuTe) {
-		util.printTe(playerTe, cpuTe);
-	}
- }
+//	/** 親クラスにて実装しているのでコメントアウト
+//	 * ＜追加実装＞
+//	 * 入力チェックを行う
+//	 *
+//	 * @param input 入力した値
+//	 * @return true: 入力OK / false 想定外の入力
+//	 */
+//	private boolean inputCheck(String input) {
+//		return util.inputCheck(input);
+//	}
+//
+//	/** 親クラスにて実装しているのでコメントアウト
+//	 * ＜追加実装＞
+//	 * プレーヤーの手とCPUの手を表示する。
+//	 *
+//	 * @param playerTe プレーヤーの手
+//	 * @param cpuTe CPUの手
+//	 */
+//	private void printTe(String playerTe, String cpuTe) {
+//		util.printTe(playerTe, cpuTe);
+//	}
+}
