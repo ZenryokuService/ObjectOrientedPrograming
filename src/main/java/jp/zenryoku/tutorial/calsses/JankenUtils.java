@@ -17,8 +17,8 @@ import java.util.Scanner;
 public class JankenUtils {
 	/** 勝敗判定MAP **/
 	private Map<String, JankenConst> judgeMap;
-//	/** 手のMAP(追加実装) */
-//	private Map<String, String> teMap;
+	/** 手のMAP(追加実装) */
+	private Map<String, String> teMap;
 	/** 入力受付 */
 	private Scanner scan;
 
@@ -53,11 +53,11 @@ public class JankenUtils {
 		judgeMap.put(CHOKI.toString() + CHOKI.toString(), AIKO);
 		judgeMap.put(PA.toString() + PA.toString(), AIKO);
 
-//		// (追加実装)手のマップ
-//		teMap = new HashMap<JankenConst, String>();
-//		teMap.put(GU, "グー");
-//		teMap.put(CHOKI, "チョキ");
-//		teMap.put(PA, "パー");
+		// (追加実装)手のマップ
+		teMap = new HashMap<String, String>();
+		teMap.put(GU.toString(), "グー");
+		teMap.put(CHOKI.toString(), "チョキ");
+		teMap.put(PA.toString(), "パー");
 	}
 
 	/**
@@ -101,17 +101,33 @@ public class JankenUtils {
 		this.judgeMap = judgeMap;
 	}
 
-//	/**
-//	 * ＜追加実装＞
-//	 * プレーヤーの手とCPUの手を表示する。
-//	 *
-//	 * @param playerTe プレーヤーの手
-//	 * @param cpuTe CPUの手
-//	 */
-//	public void printTe(String playerTe, String cpuTe) {
-//		System.out.println("ユーザー：" + teMap.get(playerTe));
-//		System.out.println("CPU：" + teMap.get(cpuTe));
-//	}
+	/**
+	 * ＜追加実装＞
+	 * プレーヤーの手とCPUの手を表示する。
+	 *
+	 * @param playerTe プレーヤーの手
+	 * @param cpuTe CPUの手
+	 */
+	public void printTe(String playerTe, String cpuTe) {
+		System.out.println("ユーザー：" + teMap.get(playerTe));
+		System.out.println("CPU：" + teMap.get(cpuTe));
+	}
 
+	/**
+	 * ＜追加実装＞
+	 * じゃんけんの手として適当な値であるか判定する。
+	 *
+	 * @param input ユーザー入力
+	 * @return true; じゃんけんの手として適当な値 / false: じゃんけんの手として不適当な値
+	 */
+	public boolean inputCheck(String input) {
+		// 判定フラグ
+		boolean isJankenTe = false;
+		// 正規表現で判定する
+		if (input.matches("[0-2]")) {
+			isJankenTe = true;
+		}
+		return isJankenTe;
 
+	}
 }

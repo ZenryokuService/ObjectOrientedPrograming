@@ -304,13 +304,13 @@ public class SecondJankenMainTest {
 	public void testPrintPonOrSho_Called() {
 		console.reset();
 		// テストするメソッドを取得する
-		Method test = getPrivateMethod(target.getClass(), "printSho", null);
+		Method test = getPrivateMethod(target.getClass(), "printPonOrSho", boolean.class);
 		// テストを実行する
 		try {
 			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
 			test.setAccessible(true);
 			// ※警告が出るが、引数なし、返却ちなしのメソッドなので良しとする
-			test.invoke(target, null);
+			test.invoke(target, true);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 			Assert.fail("アクセスの仕方に問題があります。");
@@ -322,7 +322,7 @@ public class SecondJankenMainTest {
 			Assert.fail("メソッドの起動時に問題が発生しました。");
 		}
 
-		Assert.assertEquals("Sho!" + lineSeparator, console.toString());
+		Assert.assertEquals("ポン！" + lineSeparator, console.toString());
 	}
 
 	/**
@@ -581,63 +581,66 @@ public class SecondJankenMainTest {
 //		}
 //		Assert.assertEquals(ONE_MORE, res);
 //	}
-//	/**
-//	 * ＜追加実装＞
-//	 * プレーヤーの手とCPUの手を表示する処理を実装していなかったので
-//	 * 追加分のテストを行う
-//	 */
-//	@Test
-//	public void testPrintTe() {
-//		console.reset();
-//		// テストするメソッドを取得する
-//		Method test = getPrivateMethod(target.getClass(), "printTe", String.class, String.class);
-//		// テストを実行する
-//		boolean res = false;
-//		try {
-//			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
-//			test.setAccessible(true);
-//			// プレーヤーの勝ち(文字列からINT型に変換
-//			test.invoke(target, GU, CHOKI);
-//		} catch (IllegalAccessException e) {
-//			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
-//		} catch (IllegalArgumentException e) {
-//			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
-//		} catch (InvocationTargetException e) {
-//			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
-//		}
-//		Assert.assertEquals("ユーザー：グー" + lineSeparator + "CPU：チョキ" + lineSeparator, console.toString());
-//	}
-//
-//	@Test
-//	public void testInputCheck() {
-//		// テストするメソッドを取得する
-//		Method test = getPrivateMethod(target.getClass(), "inputCheck", String.class);
-//		// テストを実行する
-//		boolean res = false;
-//		try {
-//			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
-//			test.setAccessible(true);
-//			// プレーヤーの勝ち(文字列からINT型に変換
-//			Assert.assertTrue((boolean) test.invoke(target, GU));
-//			Assert.assertTrue((boolean) test.invoke(target, CHOKI));
-//			Assert.assertTrue((boolean) test.invoke(target, PA));
-//			// 想定外の値１
-//			Assert.assertFalse((boolean) test.invoke(target, "3"));
-//			// 想定外の値２
-//			Assert.assertFalse((boolean) test.invoke(target, "-1"));
-//		} catch (IllegalAccessException e) {
-//			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
-//		} catch (IllegalArgumentException e) {
-//			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
-//		} catch (InvocationTargetException e) {
-//			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
-//		}
-//	}
+	/**
+	 * ＜追加実装＞
+	 * プレーヤーの手とCPUの手を表示する処理を実装していなかったので
+	 * 追加分のテストを行う
+	 */
+	@Test
+	public void testPrintTe() {
+		console.reset();
+		// テストするメソッドを取得する
+		Method test = getPrivateMethod(target.getClass(), "printTe", String.class, String.class);
+		// テストを実行する
+		boolean res = false;
+		try {
+			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
+			test.setAccessible(true);
+			// プレーヤーの勝ち(文字列からINT型に変換
+			test.invoke(target, GU.toString(), CHOKI.toString());
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			Assert.fail("アクセスの仕方に問題があります。");
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			Assert.fail("引数に問題があります。");
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+			Assert.fail("メソッドの起動時に問題が発生しました。");
+		}
+		Assert.assertEquals("ユーザー：グー" + lineSeparator + "CPU：チョキ" + lineSeparator, console.toString());
+	}
+
+	/**
+	 * 入力チェックの呼び出しテスト
+	 */
+	@Test
+	public void testInputCheck() {
+		// テストするメソッドを取得する
+		Method test = getPrivateMethod(target.getClass(), "inputCheck", String.class);
+		// テストを実行する
+		boolean res = false;
+		try {
+			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
+			test.setAccessible(true);
+			// プレーヤーの勝ち(文字列からINT型に変換
+			Assert.assertTrue((boolean) test.invoke(target, GU.toString()));
+			Assert.assertTrue((boolean) test.invoke(target, CHOKI.toString()));
+			Assert.assertTrue((boolean) test.invoke(target, PA.toString()));
+			// 想定外の値１
+			Assert.assertFalse((boolean) test.invoke(target, "3"));
+			// 想定外の値２
+			Assert.assertFalse((boolean) test.invoke(target, "-1"));
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			Assert.fail("アクセスの仕方に問題があります。");
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			Assert.fail("引数に問題があります。");
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+			Assert.fail("メソッドの起動時に問題が発生しました。");
+		}
+	}
 
 }
