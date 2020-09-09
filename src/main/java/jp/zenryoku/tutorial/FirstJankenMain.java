@@ -148,6 +148,7 @@ public class FirstJankenMain {
 
 	/**
 	 * 5.勝敗判定
+	 *
 	 * @param playerTe プレーヤーの手
 	 * @param cpuTe CPUの手
 	 * @return 勝敗判定 true: プレーヤーの勝ち false: プレーヤーの負け
@@ -155,7 +156,7 @@ public class FirstJankenMain {
 	private int judgeWinLoose(String playerTe, String cpuTe) {
 		// 勝敗判定MAPのキーはプレーヤーの手とCPUの手を連結したもの
 		// 例：「01」＝ プレーヤー「グー」、CPU「チョキ」
-		// 範囲亭マップから勝敗判定結果を取得する。
+		// 勝敗判定マップから勝敗判定結果を取得する。
 		String key = playerTe + cpuTe;
 		int result = judgeMap.get(key);
 		return result;
@@ -188,6 +189,7 @@ public class FirstJankenMain {
 	/**
 	 * ＜追加実装＞
 	 * プレーヤーの手とCPUの手を表示する。
+	 *
 	 * @param playerTe プレーヤーの手
 	 * @param cpuTe CPUの手
 	 */
@@ -197,6 +199,7 @@ public class FirstJankenMain {
 	}
 
 	/**
+	 * ＜追加実装＞
 	 * じゃんけんの手として適当な値であるか判定する。
 	 *
 	 * @param input ユーザー入力
