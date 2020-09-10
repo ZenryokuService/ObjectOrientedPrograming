@@ -23,7 +23,8 @@
 * [Functionalインターフェースの使い方に関して１](https://codechacha.com/ja/java8-functional-interface/)を参照
 * [Gitブランチ操作](https://git-scm.com/book/ja/v2/Git-%E3%81%AE%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E6%A9%9F%E8%83%BD-%E3%83%AA%E3%83%99%E3%83%BC%E3%82%B9)
 
-### 手順メモ
+# 手順メモ
+## Part1
 #### Chapter1
 1. FirstJankenMain.java
   * クラスを作成して、フローチャートにある処理をメソッドを作成する。※処理の中身は作成しない。
@@ -51,3 +52,9 @@
 1. Part1.Chapter2.Section1で作成したフローチャートのプロセスを参考にクラスの役割分担を考え、処理の塊一覧を作成(この一覧はメモのため省略(未コミット)
 2. 上のフローチャートと処理の塊一覧よりクラス図を作成する
 3. 列挙型の書き方を参考にした[サイト](https://techacademy.jp/magazine/9244)
+
+## Part2
+#### Chapter1
+1. ユーズケース図でやりたいことを可視化する([参考](https://www.uml-diagrams.org/use-case-subject.html))
+2. [STAR UMLの使い方](https://docs.staruml.io/user-guide/formatting-diagram)を参照
+
