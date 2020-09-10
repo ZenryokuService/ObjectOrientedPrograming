@@ -56,7 +56,7 @@ public class SecondJankenMain extends JankenUtils {
 			// 5.勝敗判定
 			JankenConst judge = main.judgeWinLoose(input, "0");
 			// 6.勝敗判定の表示
-			main.printJudge(judge);
+//			main.printJudge(judge);
 			if (main.printJudge(judge)) {
 				// 追加実装：「じゃんけん」と「あいこ」の判定が行えてない
 				isJanken = true;
