@@ -29,6 +29,9 @@ public class TextRpgLogic implements Games {
 	private Monster monster;
 	/** コマンドのマップ */
 	private Map<Integer, String> commandMap;
+	/** 戦闘終了フラグ */
+	private boolean isBattleFinish;
+
 
 	/**
 	 * コンストラクタ。
@@ -38,6 +41,8 @@ public class TextRpgLogic implements Games {
 		console = new ConsoleUtils();
 		// 入力受付部品
 		scan = new Scanner(System.in);
+		// 戦闘囚虜いうフラグの初期化
+		isBattleFinish = false;
 	}
 
 	/**
@@ -85,6 +90,9 @@ public class TextRpgLogic implements Games {
 		return scan.nextLine();
 	}
 
+	/**
+	 * データの更新処理。
+	 */
 	@Override
 	public boolean updateData(String input) {
 		// コマンドマップのキーは入力キー(index)になる
@@ -101,8 +109,9 @@ public class TextRpgLogic implements Games {
 		// データの更新処理
 		action(player, monster, input);
 
-//		// 更新したデータの表示
-//		render();
+		// 行動結果の表示後何かの入力があるまで待機
+		System.out.println("<Enter>");
+		acceptInput();
 
 		return true;
 	}
@@ -113,19 +122,14 @@ public class TextRpgLogic implements Games {
 	 */
 	@Override
 	public boolean render() {
-		boolean isBattleFinish = false;
-		// バトルステータスを表示
-		console.printBattleStatus(player);
-		// コマンドの入力を促す
-		console.printMessage("こうどうを、せんたくしてください。");
-		// コマンドの一覧を表示する
-		commandMap = console.printCommandList(player);
-		if (player.isUnableToFigit()) {
-			System.out.println( player.getName() + "は、せんとうふのうになった。");
-			isBattleFinish = true;
-		} else if (monster.isUnableToFigit()) {
-			System.out.println(monster.getName() + "をたおした！");
-			isBattleFinish = true;
+
+		if(isBattleFinish == false) {
+			// バトルステータスを表示
+			console.printBattleStatus(player);
+			// コマンドの入力を促す
+			console.printMessage("こうどうを、せんたくしてください。");
+			// コマンドの一覧を表示する
+			commandMap = console.printCommandList(player);
 		}
 		return isBattleFinish;
 	}
@@ -173,6 +177,17 @@ public class TextRpgLogic implements Games {
 		// 攻撃の結果を計算する
 		monster.setHP(monster.getHP() - attack);
 
+		// モンスターを倒したか判定する
+		if (player.isUnableToFigit()) {
+			System.out.println( player.getName() + "は、せんとうふのうになった。");
+			isBattleFinish = true;
+		} else if (monster.isUnableToFigit()) {
+			System.out.println(monster.getName() + "をたおした！");
+			isBattleFinish = true;
+		}
+		if (isBattleFinish) {
+			return;
+		}
 		// 2.モンスターの攻撃
 		console.printMessage(monster.getName() + "のこうげき");
 		int damage = monster.attack() - player.getDiffence();
@@ -220,7 +235,7 @@ public class TextRpgLogic implements Games {
 	 */
 	private MainWepon createMainWepon() {
 		MainWepon wepon = new MainWepon("ひのきのぼう");
-		wepon.setOffence(7);
+		wepon.setOffence(15);
 		return wepon;
 	}
 
