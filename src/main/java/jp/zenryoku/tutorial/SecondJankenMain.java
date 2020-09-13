@@ -14,8 +14,8 @@ import jp.zenryoku.tutorial.calsses.JankenUtils;
  *
  */
 public class SecondJankenMain extends JankenUtils {
-	/** じゃんけんゲームのユーティリティクラス */
-	private JankenUtils util;
+//	/** じゃんけんゲームのユーティリティクラス */
+//	private JankenUtils util;
 //	/** コンソール表示のユーティリティクラス */
 //	private ConsoleUtils console;
 
