@@ -3,6 +3,8 @@
 
 #### 使用する外部アプリケーション
 1. [StarUML](http://staruml.io/)
+2. [Github](https://git-scm.com/book/ja/v2)
+    * 文字コードを変更するために環境変数を追加するコマンド「set LESSCHARSET=utf-8」
 
 ## フローチャートを作る
 1. 必要な処理をリストアップする
