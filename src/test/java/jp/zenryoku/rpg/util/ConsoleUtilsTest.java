@@ -167,4 +167,13 @@ public class ConsoleUtilsTest {
 		String expect = "1: たたかう" + SEP + "2: ぼうぎょ" + SEP + "3: にげる" + SEP;
 		assertEquals(expect, console.toString());
 	}
+
+	/**
+	 * コンソールクリアのテスト
+	 */
+	public void testClearConsole() {
+		System.out.println("********* Testing *********");
+		target.clearConsole();
+		assertEquals("", console.toString());
+	}
 }

@@ -1,5 +1,7 @@
 package jp.zenryoku.rpg.util;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,6 +16,11 @@ public class ConsoleUtils {
 	private final String SEPARATOR = System.lineSeparator();
 	/** 表示するステータスの文字数 */
 	private final int STATUS_LEN = 6;
+	/** OS名 */
+	private final String OS_NAME = System.getProperty("os.name");
+	/** 標準出力の切り替え先 */
+	private static final ByteArrayOutputStream console = new ByteArrayOutputStream();
+
 
 	/**
 	 * コンストラクタ。
@@ -21,6 +28,7 @@ public class ConsoleUtils {
 	 *
 	 */
 	public ConsoleUtils() {
+		//System.setOut(new PrintStream(console));
 	}
 
 	/**
@@ -160,4 +168,25 @@ public class ConsoleUtils {
 		return space.toString();
 	}
 
+	/**
+	 * コンソールをクリアする。
+	 */
+	public void clearConsole() {
+		try {
+			if (OS_NAME.contains("Windows")) {
+//				Runtime r = Runtime.getRuntime();
+//				r.exec(new String[] {"cmd", "/c ", "cls"});
+				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+			} else {
+				// Windows以外はこれでいけるらしい TODO-[後で確認]
+				Runtime.getRuntime().exec("clear");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		} catch (InterruptedException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+	}
 }

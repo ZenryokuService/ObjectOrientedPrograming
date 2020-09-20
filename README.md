@@ -3,6 +3,8 @@
 
 #### 使用する外部アプリケーション
 1. [StarUML](http://staruml.io/)
+2. [Github](https://git-scm.com/book/ja/v2)
+    * 文字コードを変更するために環境変数を追加するコマンド「set LESSCHARSET=utf-8」
 
 ## フローチャートを作る
 1. 必要な処理をリストアップする
@@ -111,3 +113,6 @@
 9. 防御コマンドを使用したときは、防御力を1.5倍にして攻撃はしない。
 10. **updateData()**の返却値がfalseの時は、ユーザーエラーのハンドル処理を行う。
 11. **render()**の返却値がtrueの場合ループ処理を抜け、戦闘シーンを終了する。、
+
+## 追加実装
+* コンソールクリア：[参考サイト](https://www.it-swarm.dev/ja/java/java%EF%BC%9A%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB%E3%82%92%E3%82%AF%E3%83%AA%E3%82%A2%E3%81%99%E3%82%8B/969727671/)から、```new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();```で実行可能
