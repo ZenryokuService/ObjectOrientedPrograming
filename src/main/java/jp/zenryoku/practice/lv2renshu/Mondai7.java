@@ -13,7 +13,7 @@ public class Mondai7 {
 				System.out.println("Good bye!");
 				break;
 			} else {
-				System.out.println(input);
+				System.out.println("あなたは「" + input + "」と入力しました。");
 			}
 		}
 	}
