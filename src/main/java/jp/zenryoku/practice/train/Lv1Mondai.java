@@ -1,6 +1,12 @@
 package jp.zenryoku.practice.train;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.junit.AfterClass;
@@ -314,4 +320,65 @@ public class Lv1Mondai {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	public void lv18Traing() throws IOException {
+		// ファイルの読みこみ
+		BufferedReader buf = Files.newBufferedReader(Paths.get("src/main/resources/Wepons.csv"));
+		// データの取得
+		String line = null;
+
+		while((line = buf.readLine()) != null) {
+			System.out.println(line);
+		}
+	}
+
+	@Test
+	public void lv19Traing() throws IOException {
+		// ファイルの読みこみ
+		BufferedReader buf = Files.newBufferedReader(Paths.get("src/main/resources/Wepons.csv"));
+		// データの取得
+		String line = null;
+		List<String[]> list = new ArrayList<String[]>();
+
+		// リストへデータを配列に変換して追加
+		while((line = buf.readLine()) != null) {
+			list.add(line.split(","));
+		}
+
+		// listのサイズ
+		System.out.println("CSVののデータ数は" + (list.size() - 1));
+		// 配列を表示する
+		String[] header = list.get(0);
+		String[] data = list.get(2);
+
+		for (int i = 0; i < header.length; i++) {
+			System.out.println(header[i] + ": " + data[i]);
+		}
+	}
+
+	@Test
+	public void lv20Traing() throws IOException {
+		// ファイルの読みこみ
+		BufferedReader buf = Files.newBufferedReader(Paths.get("src/main/resources/Wepons.csv"));
+		// データの取得
+		String line = null;
+		List<String[]> list = new LinkedList<String[]>();
+
+		// リストへデータを配列に変換して追加
+		while((line = buf.readLine()) != null) {
+			list.add(line.split(","));
+		}
+
+		// listのサイズ
+		System.out.println("CSVののデータ数は" + (list.size() - 1));
+		// 配列を表示する
+		String[] header = list.get(0);
+		String[] data = list.get(2);
+
+		for (int i = 0; i < header.length; i++) {
+			System.out.println(header[i] + ": " + data[i]);
+		}
+	}
+
 }
