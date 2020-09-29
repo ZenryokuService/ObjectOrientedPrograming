@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 import org.junit.AfterClass;
@@ -381,4 +382,16 @@ public class Lv1Mondai {
 		}
 	}
 
+	@Test
+	public void lv21Traing() {
+		Properties prop = new Properties();
+		try {
+			prop.load(Files.newBufferedReader(Paths.get("src/main/resources/test.properties")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		prop.forEach((key, value) -> {
+			System.out.println("KEY: " + key + "VALUE: " + prop.get(key));
+		});
+	}
 }
