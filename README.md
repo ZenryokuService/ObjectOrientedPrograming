@@ -6,6 +6,9 @@
 2. [Github](https://git-scm.com/book/ja/v2)
     * 文字コードを変更するために環境変数を追加するコマンド「set LESSCHARSET=utf-8」
 
+#### 他のUMLツール
+* [astah](https://astah.change-vision.com/ja/download.html)
+
 ## フローチャートを作る
 1. 必要な処理をリストアップする
 2. 処理の順序を矢印で作成する
