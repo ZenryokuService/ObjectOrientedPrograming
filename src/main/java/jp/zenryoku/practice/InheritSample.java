@@ -35,3 +35,4 @@ public class InheritSample {
 		child2.hello();
 	}
 }
+

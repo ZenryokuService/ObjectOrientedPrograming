@@ -15,7 +15,7 @@ public class Thread2Cls extends Thread {
 		System.out.println("Thread2Cls: 処理を開始します");
 		
 		while(true) {
-			System.out.println("Thread2: 5秒待機します");
+			System.out.println("Thread2: 3秒待機します");
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {

@@ -23,7 +23,7 @@ public class Thread1Cls extends Thread {
 				System.out.println("Thread1Cls: 終了します");
 				break;
 			}
-			System.out.println("Thread1: [" + input + "] 5秒待機します");
+			System.out.println("Thread1: [" + input + "] 3秒待機します");
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {

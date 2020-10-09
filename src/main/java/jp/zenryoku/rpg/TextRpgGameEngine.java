@@ -23,7 +23,7 @@ public class TextRpgGameEngine extends Thread {
 	 * @see フローチャート
 	 */
 	@Override
-	public void start() {
+	public void run() {
 		// 0.ゲーム起動のための準備処理
 		// 1. 戦闘開始の文言「XXXがあらわれた！」を表示する
 		textRpgLogic.init();
