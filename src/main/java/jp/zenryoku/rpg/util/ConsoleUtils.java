@@ -56,13 +56,13 @@ public class ConsoleUtils {
 
 		 // Lvを表示する[12 - (ステータス部分(6文字) + 値(最大３桁) + 1(アスタリスク)]
 		 String lv = String.valueOf(player.getLevel());
-		 build.append("  Lv: " + lv + appendSpace(lv, isGusu) + "*" + SEPARATOR);
+		 build.append("* LV: " + lv + appendSpace(lv, isGusu) + "*" + SEPARATOR);
 		 // HPを表示する
 		 String hp = String.valueOf(player.getHP());
-		 build.append("  HP: " + hp + appendSpace(hp, isGusu) + "*" + SEPARATOR);
+		 build.append("* HP: " + hp + appendSpace(hp, isGusu) + "*" + SEPARATOR);
 		 // MPを表示する
 		 String mp = String.valueOf(player.getMP());
-		 build.append("  MP: " + mp + appendSpace(mp, isGusu) + "*" + SEPARATOR);
+		 build.append("* MP: " + mp + appendSpace(mp, isGusu) + "*" + SEPARATOR);
 		// 外枠を作成
 		appendLine(build, name.length(), isGusu);
 		System.out.println(build.toString());
@@ -94,6 +94,7 @@ public class ConsoleUtils {
 
 	/**
 	 * 名前の(マルチバイトは2倍にするの)長さ分「*」をStringBuilderに追加する。
+	 * 
 	 *
 	 * @param build StringBuilder
 	 * @param nameLen 名前
@@ -123,6 +124,9 @@ public class ConsoleUtils {
 		build.append(" " + name + " ");
 		for (int i = 0; i < astah; i++) {
 			build.append("*");
+		}
+		if (astah <= 2) {
+			build.append(" ");
 		}
 		return isGusu;
 	}
