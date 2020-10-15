@@ -59,11 +59,11 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "**** test ****\r\n" +
-				"  Lv: 10     *\r\n" +
-				"  HP: 20     *\r\n" +
-				"  MP: 10     *\r\n" +
-				"**************" + SEP + SEP;
+		String expect = "**** test ****" + SEP
+				+ "* LV: 10     *" + SEP
+				+ "* HP: 20     *" + SEP
+				+ "* MP: 10     *" + SEP
+				+ "**************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 
@@ -82,11 +82,11 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "*** test123 ***\r\n" +
-				"  Lv: 20      *\r\n" +
-				"  HP: 200     *\r\n" +
-				"  MP: 100     *\r\n" +
-				"***************" + SEP + SEP;
+		String expect = "*** test123 ***"+ SEP
+				+ "* LV: 20      *" + SEP
+				+ "* HP: 200     *" + SEP
+				+ "* MP: 100     *" + SEP
+				+ "***************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 
@@ -105,11 +105,11 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "** プレーヤ **\r\n" +
-				"  Lv: 1      *\r\n" +
-				"  HP: 3      *\r\n" +
-				"  MP: 1      *\r\n" +
-				"**************" + SEP + SEP;
+		String expect = "** プレーヤ ** " + SEP
+				+ "* LV: 1      *" + SEP
+				+ "* HP: 3      *" + SEP
+				+ "* MP: 1      *" + SEP
+				+ "**************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 
@@ -127,11 +127,11 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "***** あ *****\r\n" +
-				"  Lv: 1      *\r\n" +
-				"  HP: 3      *\r\n" +
-				"  MP: 1      *\r\n" +
-				"**************" + SEP + SEP;
+		String expect = "***** あ *****" + SEP
+				+ "* LV: 1      *" + SEP
+				+ "* HP: 3      *" + SEP
+				+ "* MP: 1      *" + SEP
+				+ "**************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 
@@ -150,11 +150,11 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "**** test1 ****\r\n" +
-				"  Lv: 1       *\r\n" +
-				"  HP: 3       *\r\n" +
-				"  MP: 1       *\r\n" +
-				"***************" + SEP + SEP;
+		String expect = "**** test1 ****" + SEP
+				+ "* LV: 1       *" + SEP
+				+ "* HP: 3       *" + SEP
+				+ "* MP: 1       *" + SEP
+				+ "***************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 	/**
