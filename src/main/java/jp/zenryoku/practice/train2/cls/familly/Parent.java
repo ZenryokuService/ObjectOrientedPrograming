@@ -1,6 +1,6 @@
 package jp.zenryoku.practice.train2.cls.familly;
 
-public class Parent {
+public class Parent extends Gosenzo {
 	/** 家計 */
 	public static int kakei = 1000;
 	/** 苗字 */
@@ -18,6 +18,12 @@ public class Parent {
 		name = "takao";
 		age = 50;
 		favorit = "ケツで箸を割る";
+	}
+
+	/** Gosenzoクラスの抽象メソッド */
+	@Override
+	public String kekkeiGenkai() {
+		return "白目をむく";
 	}
 
 	/** 自己紹介 */
