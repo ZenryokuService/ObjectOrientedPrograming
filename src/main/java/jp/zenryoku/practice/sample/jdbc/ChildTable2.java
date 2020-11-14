@@ -1,4 +1,4 @@
-package jp.zenryoku.practice.sample;
+package jp.zenryoku.practice.sample.jdbc;
 
 /** 子クラス2: test1テーブル用クラス */
 public class ChildTable2 extends Parent2{

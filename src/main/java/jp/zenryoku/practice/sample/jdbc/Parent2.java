@@ -1,4 +1,4 @@
-package jp.zenryoku.practice.sample;
+package jp.zenryoku.practice.sample.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
