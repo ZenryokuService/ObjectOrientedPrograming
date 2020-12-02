@@ -59,7 +59,7 @@ public class FirstJankenMainTest {
 
 
 	/**
-	 * java.lang.refrectionを使用してプライベート修飾子のメソッドを起動します。
+	 * java.lang.refrectionを使用してプライベート修飾子のメソッドを取得します。
 	 * ※privateは外部から参照することができないのでアクセス権を変更する必要がある。
 	 * 　実装方法: clazz.setAccessible(true);
 	 *
