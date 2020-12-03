@@ -14,7 +14,7 @@ import jp.zenryoku.tutorial.calsses.JankenConst;
 import jp.zenryoku.tutorial.calsses.JankenUtils;
 
 public class JankenUtilsTest {
-	/** テスト多少クラス */
+	/** テスト対象クラス */
 	private static JankenUtils target;
 	/** ログ出力 */
 	private static final Logger LOG = LoggerFactory.getLogger(JankenUtilsTest.class);

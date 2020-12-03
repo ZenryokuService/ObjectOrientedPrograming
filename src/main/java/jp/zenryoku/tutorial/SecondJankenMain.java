@@ -37,7 +37,7 @@ public class SecondJankenMain extends JankenUtils {
 		// 無限ループ
 		while(true) {
 			// 2.「じゃんけん」or「あいこで」のメッセージ表示
-			main.printJankenAiko();
+			main.printJankenAiko(isJanken);
 			// 3.ユーザーの入力(待ち)
 			String input = main.acceptInput();
 			// 追加実装する(入力チェック)
@@ -49,12 +49,12 @@ public class SecondJankenMain extends JankenUtils {
 			// CPUの手を取得する(JavaSEのAPIを使用するのでテストしない)
 			String cpuTe = String.valueOf(random.nextInt(2));
 			// 4.「ポン！」or「しょ！」を表示
-			main.printPonOrSho(true);
+			main.printPonOrSho(isJanken);
 			//main.printSho();
 			// <追加実装>
 			main.printTe(input, cpuTe);
 			// 5.勝敗判定
-			JankenConst judge = main.judgeWinLoose(input, "0");
+			JankenConst judge = main.judgeWinLoose(input, cpuTe);
 			// 6.勝敗判定の表示
 //			main.printJudge(judge);
 			if (main.printJudge(judge)) {
@@ -81,9 +81,9 @@ public class SecondJankenMain extends JankenUtils {
 	/**
 	 * 「じゃんけん」、「あいこを表示する」
 	 */
-	private void printJankenAiko() {
+	private void printJankenAiko(boolean isJanken) {
 		// 追加実装: で修正した部分だが、設計時には判定フラグを引数に持っていた。
-		ConsoleUtils.printJankenAiko(true);
+		ConsoleUtils.printJankenAiko(isJanken);
 	}
 
 //	/** 親クラスにて実装しているのでコメントアウト
