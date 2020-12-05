@@ -1,14 +1,17 @@
 package jp.zenryoku.rpg;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 /**
  *
  * @author 実装者の名前
  *
  */
+@TestInstance(Lifecycle.PER_CLASS)
 public class TextRpgGameEngineTest {
 	/** テスト対象クラス */
 	private TextRpgGameEngine target;
@@ -16,13 +19,13 @@ public class TextRpgGameEngineTest {
 	/**
 	 * テスト準備
 	 */
-	@Before
+	@BeforeAll
 	public void init() {
 		Games game = new TextRpgLogic();
 		target = new TextRpgGameEngine(game);
 	}
 
-	@After
+	@AfterAll
 	public void terminated() {
 		target = null;
 	}

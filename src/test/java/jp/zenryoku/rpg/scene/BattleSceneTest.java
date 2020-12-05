@@ -1,15 +1,20 @@
 package jp.zenryoku.rpg.scene;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
+@Disabled
+@TestInstance(Lifecycle.PER_CLASS)
 public class BattleSceneTest {
 	/** 戦闘シーン */
 	private BattleScene target;
 
-	@Before
+	@BeforeAll
 	public void init() {
 		target = new BattleScene();
 	}
@@ -21,7 +26,7 @@ public class BattleSceneTest {
 	@Test
 	public void testInit() {
 		try {
-			target.init();
+			target.init("title");
 		} catch (Exception e) {
 			fail();
 		}
@@ -33,7 +38,7 @@ public class BattleSceneTest {
 	@Test
 	public void testUpateData() {
 		// マップを作成する必要があるため、初期表示を行う
-		target.init();
+		target.init("title");
 		assertTrue(target.updateData("1"));
 		assertTrue(target.updateData("2"));
 		assertTrue(target.updateData("3"));
@@ -45,7 +50,7 @@ public class BattleSceneTest {
 	 */
 	@Test
 	public void testRender() {
-		target.init();
+		target.init("trial");
 		assertTrue(target.updateData("1"));
 		target.render();
 	}

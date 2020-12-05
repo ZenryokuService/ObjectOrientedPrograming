@@ -56,7 +56,7 @@ public class BattleScene  implements Games {
 	 * @see フローチャート
 	 */
 	@Override
-	public void init() {
+	public void init(String title) {
 		// プレーヤーの作成
 		player = new Player("プレーヤ");
 		// 装備

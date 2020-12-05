@@ -26,7 +26,7 @@ public class TextRpgGameEngine extends Thread {
 	public void run() {
 		// 0.ゲーム起動のための準備処理
 		// 1. 戦闘開始の文言「XXXがあらわれた！」を表示する
-		textRpgLogic.init();
+		textRpgLogic.init("title");
 		// 2.ゲームループ開始
 		// 3.初期表示(ステータスの表示)
 		while(true) {

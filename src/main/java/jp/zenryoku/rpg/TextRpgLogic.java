@@ -38,7 +38,7 @@ public class TextRpgLogic implements Games {
 	 * @see フローチャート
 	 */
 	@Override
-	public void init() {
+	public void init(String title) {
 		// 改行コード
 		String SEP = System.lineSeparator();
 		// title.txtの読み込み

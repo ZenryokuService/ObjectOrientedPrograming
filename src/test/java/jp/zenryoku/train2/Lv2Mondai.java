@@ -1,6 +1,7 @@
-package jp.zenryoku.practice.train2;
+package jp.zenryoku.train2;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import jp.zenryoku.practice.train2.cls.familly.ChildAni;
 import jp.zenryoku.practice.train2.cls.familly.ChildOtoto;

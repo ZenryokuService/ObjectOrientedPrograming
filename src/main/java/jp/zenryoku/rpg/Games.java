@@ -7,7 +7,7 @@ package jp.zenryoku.rpg;
  */
 public interface Games {
 	/** 初期表示処理 */
-	public void init();
+	public void init(String title);
 	/** 入力受付処理 */
 	public String acceptInput();
 	/** データの更新処理 */

@@ -5,16 +5,19 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
 import jp.zenryoku.tutorial.calsses.ConsoleUtils;
 import jp.zenryoku.tutorial.calsses.JankenConst;
 
+@TestInstance(Lifecycle.PER_CLASS)
 public class ConsoleUtilsTest {
 //	/** テスト対象クラス */
 //	private static ConsoleUtils target;
@@ -34,7 +37,7 @@ public class ConsoleUtilsTest {
 	/**
 	 * すべてのテストケースを実行するための準備をする。
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		// 静的メソッドに修正したのでインスタンス化は不要
 //		target = new ConsoleUtils();
@@ -46,7 +49,7 @@ public class ConsoleUtilsTest {
 	 * 基本的には、フィールド変数のインスタンスなどを開放するが、今回のフィールド変数は
 	 * 静的フィールド(staticフィールド)なので、アプリ終了時に解放されるので処理なし。
 	 */
-	@AfterClass
+	@AfterAll
 	public static void terminatedClass() {
 		// 標準出力を元に戻す
 		System.setOut(System.out);
@@ -55,7 +58,7 @@ public class ConsoleUtilsTest {
 	/**
 	 * テストを実行する準備をする
 	 */
-	@Before
+	@BeforeEach
 	public void testInit() {
 		// 標準出力を空にする
 		console.reset();
@@ -111,6 +114,7 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintJudge_WIN() throws Exception {
+		console.reset();
 		ConsoleUtils.printJudge(JankenConst.YOU_WIN);
 		assertEquals("YOU WIN!" + lineSeparator, console.toString());
 	}

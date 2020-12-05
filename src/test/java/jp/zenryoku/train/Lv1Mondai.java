@@ -1,4 +1,4 @@
-package jp.zenryoku.practice.train;
+package jp.zenryoku.train;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
-import org.junit.AfterClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
 
 import jp.zenryoku.practice.train.cls.Training1;
 
@@ -19,7 +19,7 @@ public class Lv1Mondai {
 	/**
 	 * テストの実行が終わったら標準入力のストリームを閉じる
 	 */
-	@AfterClass
+	@AfterAll
 	public static void terminated() {
 		try {
 			System.in.close();
@@ -28,7 +28,7 @@ public class Lv1Mondai {
 		}
 	}
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public void lv1Traing() {
 		int num = 0;
 		System.out.printf("数字の値は%dです", num);

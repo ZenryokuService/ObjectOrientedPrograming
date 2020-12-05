@@ -1,18 +1,23 @@
 package jp.zenryoku.tutorial.classes;
 
 import static jp.zenryoku.tutorial.calsses.JankenConst.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Map;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
 import jp.zenryoku.tutorial.calsses.JankenConst;
 import jp.zenryoku.tutorial.calsses.JankenUtils;
 
+@Disabled
+@TestInstance(Lifecycle.PER_CLASS)
 public class JankenUtilsTest {
 	/** テスト対象クラス */
 	private static JankenUtils target;
@@ -22,7 +27,7 @@ public class JankenUtilsTest {
 	/**
 	 * すべてのテストケースを実行するための準備をする。
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		target  = new JankenUtils();
 	}

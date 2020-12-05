@@ -5,9 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
@@ -20,6 +22,7 @@ import jp.zenryoku.tutorial.FirstJankenMainTest;
  *
  * @author 実装者の名前
  */
+@TestInstance(Lifecycle.PER_CLASS)
 public class ConsoleUtilsTest {
 	/** テスト対象クラス */
 	private static ConsoleUtils target;
@@ -30,7 +33,7 @@ public class ConsoleUtilsTest {
 	/** 改行コード */
 	private static final String SEP = System.lineSeparator();
 
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		target = new ConsoleUtils();
 		// 標準出力の出力先を変更する
@@ -39,7 +42,7 @@ public class ConsoleUtilsTest {
 	/**
 	 * テストの準備
 	 */
-	@Before
+	@BeforeEach
 	public void init() {
 		console.reset();
 	}

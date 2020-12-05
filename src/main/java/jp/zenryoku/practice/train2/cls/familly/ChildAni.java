@@ -35,7 +35,6 @@ public class ChildAni extends Parent implements CommandIF {
      * コマンド実行する
      * @param index
      */
-    @Override
     public int exeCommand(String index) {
     	CommandData data = super.getCommandList().get(Integer.parseInt(index));
     	System.out.println(this.name + "の" + data.getCommandName());
