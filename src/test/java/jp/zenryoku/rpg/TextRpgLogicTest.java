@@ -39,6 +39,7 @@ public class TextRpgLogicTest {
 	/**
 	 * データを更新するテスト。
 	 */
+	@Test
 	public void testUpateData() {
 	}
 
