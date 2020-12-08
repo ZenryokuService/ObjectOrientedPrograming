@@ -1,0 +1,32 @@
+.root {
+	-fx-background-color: rgb(225, 228, 255);
+}
+
+.playerArea {
+   -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+   -fx-background-color: rgba(0,0,0,0.8);
+   -fx-fixed-cell-size;
+   -fx-padding: 15;
+   -fx-border-color: rgb(255, 255, 255);
+   -fx-border-radius: 5;
+   -fx-border-width: 5;
+   -fx-fixed-cell-size: -1;
+}
+
+.playerBox {
+   -fx-fill-width: true;
+}
+
+.playerText {
+   -fx-font-size: 16px;
+   -fx-font-family: "Arial Black";
+	-fx-text-fill: rgb(255, 255, 255);
+   -fx-text-alignment: center;
+}
+
+.playerName {
+   -fx-font-size: 16px;
+   -fx-font-family: "Arial Black";
+	-fx-text-fill: rgb(255, 255, 255);
+
+}

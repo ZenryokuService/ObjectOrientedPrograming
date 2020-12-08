@@ -8,7 +8,7 @@ import java.net.Socket;
 
 import jp.zenryoku.procon.server.ProConServerConst;
 
-public abstract class ServerTestHelper {
+public abstract class ServerTestHelper extends Thread {
 	/** サーバー */
 	protected ServerSocket server;
 	/** 改行文字 */

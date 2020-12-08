@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="804.0" style="-fx-background-color: rgb(225, 228, 255);" stylesheets="@../../src/main/java/jp/zenryoku/procon/ProConBattleView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Pane id="player1" prefHeight="200.0" styleClass="playerArea">
+               <children>
+                  <VBox alignment="CENTER" styleClass="playerBox">
+                     <children>
+                        <HBox id="player1.1line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player1.Lv" prefHeight="29.0" prefWidth="30.0" styleClass="playerText" text="Lv:" />
+                              <Label id="player1.LvValue" prefHeight="31.0" prefWidth="27.0" styleClass="playerText" text="99" />
+                              <Label id="player1.name" prefHeight="24.0" prefWidth="80.0" styleClass="playerName" text="Player10" />
+                           </children>
+                        </HBox>
+                        <HBox id="player1.2line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player1.HP" prefHeight="29.0" prefWidth="39.0" styleClass="playerText" text="HP: " />
+                              <Label id="player1.HPValue" prefHeight="31.0" prefWidth="39.0" styleClass="playerText" text="99" />
+                              <Label id="player1.job" prefHeight="27.0" prefWidth="66.0" styleClass="playerName" text="Jobs" />
+                           </children>
+                        </HBox>
+                        <HBox id="player1.3line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player1.MP" prefHeight="29.0" prefWidth="40.0" styleClass="playerText" text="MP: " />
+                              <Label id="player1.HPValue" prefHeight="31.0" prefWidth="32.0" styleClass="playerText" text="99" />
+                              <Label id="player1.satus" prefHeight="24.0" prefWidth="70.0" styleClass="playerName" text="Status" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Pane id="player2" prefHeight="100.0" prefWidth="185.0" styleClass="playerArea">
+               <children>
+                  <VBox prefHeight="101.0" prefWidth="153.0">
+                     <children>
+                        <HBox id="player2.1line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player2.Lv" prefHeight="29.0" prefWidth="30.0" styleClass="playerText" text="Lv:" />
+                              <Label id="player2.LvValue" prefHeight="31.0" prefWidth="27.0" styleClass="playerText" text="99" />
+                              <Label id="player2.name" prefHeight="24.0" prefWidth="80.0" styleClass="playerName" text="Player20" />
+                           </children>
+                        </HBox>
+                        <HBox id="player2.2line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player2.HP" prefHeight="29.0" prefWidth="39.0" styleClass="playerText" text="HP: " />
+                              <Label id="player2.HPValue" prefHeight="31.0" prefWidth="39.0" styleClass="playerText" text="99" />
+                              <Label id="player2.job" prefHeight="27.0" prefWidth="66.0" styleClass="playerName" text="Jobs" />
+                           </children>
+                        </HBox>
+                        <HBox id="player2.3line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player2.MP" prefHeight="29.0" prefWidth="40.0" styleClass="playerText" text="MP: " />
+                              <Label id="player2.HPValue" prefHeight="31.0" prefWidth="32.0" styleClass="playerText" text="99" />
+                              <Label id="player2.satus" prefHeight="24.0" prefWidth="70.0" styleClass="playerName" text="Status" />
+                           </children>
+                        </HBox>
+                    </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Pane id="player3" prefHeight="200.0" styleClass="playerArea">
+               <children>
+                  <VBox prefHeight="101.0" prefWidth="153.0">
+                     <children>
+                        <HBox id="player3.1line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player3.Lv" prefHeight="29.0" prefWidth="30.0" styleClass="playerText" text="Lv:" />
+                              <Label id="player3.LvValue" prefHeight="31.0" prefWidth="27.0" styleClass="playerText" text="99" />
+                              <Label id="player3.name" prefHeight="24.0" prefWidth="80.0" styleClass="playerName" text="Player30" />
+                           </children>
+                        </HBox>
+                        <HBox id="player3.2line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player3.HP" prefHeight="29.0" prefWidth="39.0" styleClass="playerText" text="HP: " />
+                              <Label id="player3.HPValue" prefHeight="31.0" prefWidth="39.0" styleClass="playerText" text="99" />
+                              <Label id="player3.job" prefHeight="27.0" prefWidth="66.0" styleClass="playerName" text="Jobs" />
+                           </children>
+                        </HBox>
+                        <HBox id="player3.3line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player3.MP" prefHeight="29.0" prefWidth="40.0" styleClass="playerText" text="MP: " />
+                              <Label id="player3.HPValue" prefHeight="31.0" prefWidth="32.0" styleClass="playerText" text="99" />
+                              <Label id="player3.satus" prefHeight="24.0" prefWidth="70.0" styleClass="playerName" text="Status" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Pane id="player4" prefHeight="200.0" styleClass="playerArea">
+               <children>
+                  <VBox prefHeight="101.0" prefWidth="153.0">
+                     <children>
+                        <HBox id="player4.1line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player4.Lv" prefHeight="29.0" prefWidth="30.0" styleClass="playerText" text="Lv:" />
+                              <Label id="player4.LvValue" prefHeight="31.0" prefWidth="27.0" styleClass="playerText" text="99" />
+                              <Label id="player4.name" prefHeight="24.0" prefWidth="80.0" styleClass="playerName" text="Player40" />
+                           </children>
+                        </HBox>
+                        <HBox id="player4.2line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player4.HP" prefHeight="29.0" prefWidth="39.0" styleClass="playerText" text="HP: " />
+                              <Label id="player4.HPValue" prefHeight="31.0" prefWidth="39.0" styleClass="playerText" text="99" />
+                              <Label id="player4.job" prefHeight="27.0" prefWidth="66.0" styleClass="playerName" text="Jobs" />
+                           </children>
+                        </HBox>
+                        <HBox id="player4.3line" alignment="CENTER" prefHeight="33.0" prefWidth="153.0">
+                           <children>
+                              <Label id="player4.MP" prefHeight="29.0" prefWidth="40.0" styleClass="playerText" text="MP: " />
+                              <Label id="player4.HPValue" prefHeight="31.0" prefWidth="32.0" styleClass="playerText" text="99" />
+                              <Label id="player4.satus" prefHeight="24.0" prefWidth="70.0" styleClass="playerName" text="Status" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <TextArea prefHeight="117.0" prefWidth="798.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <left>
+      <GridPane alignment="CENTER" gridLinesVisible="true" prefHeight="388.0" prefWidth="798.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="32.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+   </left>
+   <padding>
+      <Insets bottom="2.0" left="3.0" right="3.0" top="1.0" />
+   </padding>
+</BorderPane>

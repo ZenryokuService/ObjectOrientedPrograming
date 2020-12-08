@@ -22,6 +22,11 @@ public enum ProConServerConst {
 	public static final int CLIENT_3_PORT = 8022;
 	/** クライアント４の起動するポート番号 */
 	public static final int CLIENT_4_PORT = 8023;
-
+	/** 改行コード */
+	public static final String SEP = System.lineSeparator();
+	/** プロコンサーバーアクセスコード */
+	public static final String ACCESS_CD = "coderdojo";
+	/** サーバーとの通信待ち時間 */
+	public static final long WAIT = 500;
 
 }
