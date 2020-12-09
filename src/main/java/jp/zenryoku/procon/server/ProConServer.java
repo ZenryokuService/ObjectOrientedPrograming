@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ProConServer extends Thread {
+public class ProConServer implements Runnable {
 	/** サーバ */
 	private Socket socket;
 	/** サーバー停止フラグ  */
@@ -38,13 +38,23 @@ public class ProConServer extends Thread {
 				System.out.println("Server: OutputStream");
 				// レスポンス
 				response = new PrintWriter(socket.getOutputStream());
-			while((line = request.readLine()) != null) {
+				int ch = -1;
+				StringBuilder build = new StringBuilder();
+				while((ch = request.read()) != -1) {
+					build.append((char) ch);
+					if (ch == 10 || ch == 13) {
+						break;
+					}
+				}
+				line = build.toString();
 				System.out.println("サーバー受信: " + line);
 				response.println(line);
-				response.flush();
 				System.out.println("サーバー送信: " + line);
-			}
-			//isStop = false;
+				response.flush();
+
+				request.close();
+				response.close();
+				//isStop = false;
 //		}
 		} catch (IOException e) {
 			e.printStackTrace();

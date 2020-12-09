@@ -3,6 +3,8 @@ package jp.zenryoku.procon;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -101,11 +103,13 @@ public class ProConRPGLogic extends Application implements Games {
 
 		public void run() {
 			isStop = false;
+			ExecutorService service = Executors.newCachedThreadPool();
+
 			try {
 				while (isStop == false) {
 					System.out.println("Run FxServer");
 					Socket socket = server.accept();
-					new ProConServer(socket).start();
+					service.submit(new ProConServer(socket));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
