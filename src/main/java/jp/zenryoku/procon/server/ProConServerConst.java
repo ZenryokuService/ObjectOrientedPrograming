@@ -28,5 +28,7 @@ public enum ProConServerConst {
 	public static final String ACCESS_CD = "coderdojo";
 	/** サーバーとの通信待ち時間 */
 	public static final long WAIT = 500;
+	/** イメージデータの最大サイズ */
+	public static final int MAX_IMG_SIZE = 300;
 
 }
