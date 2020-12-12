@@ -30,5 +30,12 @@ public enum ProConServerConst {
 	public static final long WAIT = 500;
 	/** イメージデータの最大サイズ */
 	public static final int MAX_IMG_SIZE = 300;
+	/** サーバー停止コマンド */
+	public static final String BYE = "bye";
+	/** Map画面開始コマンド */
+	public static final String MAP_START = "start";
+	/** 通常リクエスト */
+	public static final String SEND_REQUEST = "request";
+
 
 }

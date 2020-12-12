@@ -33,10 +33,62 @@ public class ClientSuperCls {
 		isStop = false;
 	}
 
-	public void connectServer() throws IOException {
+	private void connectServer() throws IOException {
 		if (socket.isConnected() == false) {
 			throw new IOException("接続が切れました。");
 		}
+	}
+
+	/** SocketからBufferedReaderを取得する */
+	private BufferedReader getBufferdReader() throws IOException {
+		return new BufferedReader(new InputStreamReader(socket.getInputStream()));
+	}
+
+	/** SocketからPrintWriterを取得する */
+	private PrintWriter getPrintWriter() throws IOException {
+		return new PrintWriter(socket.getOutputStream());
+	}
+
+	/** SocketからObjectOutputStreamを取得する */
+	public ObjectOutputStream getObjectOutputStream() throws IOException {
+		return new ObjectOutputStream(socket.getOutputStream());
+	}
+
+	/**
+	 * プロコンサーバーへ初回リクエストを送信する。
+	 *
+	 * @param サーバーを止めるフラグ ture: サーバー停止リクエスト false: サーバーにコマンドを送信
+	 * @throws IOException
+	 */
+	public void firstRequest(boolean callStop) throws IOException {
+		BufferedReader input = this.getBufferdReader();
+		ObjectOutputStream output = this.getObjectOutputStream();
+		// 送受信するクラス
+		ClientData data = createInitData();
+		// 初期リクエストを送信する
+		this.sendRequest(output, data);
+
+		System.out.println("FirstRequest Client: " + this.getResponse(input));
+
+		if (callStop) {
+			this.sendRequest(new PrintWriter(socket.getOutputStream()), ProConServerConst.BYE);
+		} else {
+			this.sendRequest(new PrintWriter(socket.getOutputStream()), ProConServerConst.SEND_REQUEST);
+		}
+	}
+
+	/**
+	 * Map画面でコマンドの送受信を行う。
+	 *
+	 * @param response サーバーからのレスポンス
+	 * @return 次に実行するコマンド
+	 */
+	public void commandRequest(String response) throws IOException {
+		String res = "response: " + response;
+		PrintWriter request = this.getPrintWriter();
+		System.out.println("Client Send: " + res);
+		request.write(res);
+		request.flush();
 	}
 
 	/**
@@ -50,20 +102,24 @@ public class ClientSuperCls {
 		// 初期リクエストを送信する
 		this.sendRequest(output, data);
 
+		input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		System.out.println("exevuteRpg Client: " + this.getResponse(input));
+
+		output = new ObjectOutputStream(socket.getOutputStream());
+		this.sendRequest(new PrintWriter(socket.getOutputStream()), "bye");
 		// サーバーとの通信処理
 		while (isStop == false) {
+			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			output = new ObjectOutputStream(socket.getOutputStream());
 			// サーバーからのレスポンスを取得する
 			String response = this.getResponse(input);
-			String request = "finish" + handleResponse(response);
-System.out.println("Client Recieve: " + request);
+			String request = handleResponse(response);
+System.out.println("exevuteRpg Client Recieve: " + request);
 			// 処理の待機処理(U16プロコンサーバーに習う)
-			Thread.sleep(ProConServerConst.WAIT);
-
-			if (request.startsWith("finish")) {
-				System.out.println("プロコンRPGを終了します。");
-				break;
-			}
+//			Thread.sleep(ProConServerConst.WAIT);
+			data.setCommand("bye");
 			this.sendRequest(output, data);
+			//isStop = true;
 		}
 	}
 
@@ -75,6 +131,7 @@ System.out.println("Client Recieve: " + request);
 	 */
 	public String handleResponse(String response) {
 		System.out.println("クライアント：" + response);
+
 		return response;
 	}
 	/**
@@ -123,8 +180,11 @@ System.out.println("Client Recieve: " + request);
 		System.out.println("*** Client ***");
 		while ((ch = response.read()) != -1) {
 			build.append((char) ch);
+			if (ch == 10 || ch == 13) {
+				break;
+			}
 		}
-		response.close();
+		//response.close();
 		System.out.println("Client Recieve: " + build.toString());
 		return build.toString();
 	}
@@ -151,9 +211,11 @@ System.out.println("Client Recieve: " + request);
 	 */
 	protected ClientData createInitData() {
 		ClientData data = new ClientData();
+		data.setAccessCd(ProConServerConst.ACCESS_CD);
 		data.setName("Takunoji");
 		data.setBirthDay("19800328");
 		data.setImage(imageToByte("gost"));
+
 
 		return data;
 
@@ -182,5 +244,7 @@ System.out.println("Client Recieve: " + request);
 		return result;
 	}
 
+	private void aaaa() {
 
+	}
  }

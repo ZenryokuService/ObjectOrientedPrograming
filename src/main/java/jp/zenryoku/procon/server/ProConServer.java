@@ -3,8 +3,12 @@ package jp.zenryoku.procon.server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+
+import jp.zenryoku.procon.client.ClientData;
 
 public class ProConServer implements Runnable {
 	/** サーバ */
@@ -25,17 +29,51 @@ public class ProConServer implements Runnable {
 		this.socket = socket;
 	}
 
+	/** SocketからBufferedReaderを取得する */
+	private BufferedReader getBufferdReader() throws IOException {
+		return new BufferedReader(new InputStreamReader(socket.getInputStream()));
+	}
+
+	/** SocketからPrintWriterを取得する */
+	private PrintWriter getPrintWriter() throws IOException {
+		return new PrintWriter(socket.getOutputStream());
+	}
+
+	/** SocketからObjectOutputStreamを取得する */
+	private ObjectOutputStream getObjectOutputStream() throws IOException {
+		return new ObjectOutputStream(socket.getOutputStream());
+	}
+
+	/**
+	 * 初回リクエスト送受信、クラスオブジェクトを受ける。
+	 */
+	private void firstRequest() throws IOException, ClassNotFoundException {
+		// クライアントからのデータを送信
+		ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+		ClientData firstRequest = (ClientData) input.readObject();
+		System.out.println("Server AccessCode: " + firstRequest.getAccessCd());
+		System.out.println("Server Name: " + firstRequest.getName());
+		System.out.println("Server BirthDay: " + firstRequest.getBirthDay());
+
+
+		// レスポンスを返却
+		PrintWriter firstResponse = new PrintWriter(socket.getOutputStream());
+		firstResponse.println("ok");
+		firstResponse.flush();
+	}
+
 	@Override
-	public void run() {
+	public synchronized void run() {
 		System.out.println("ProConServer開始" + socket.getLocalPort());
 		String line = null;
+		System.out.println("Accept");
+		System.out.println("Server: InputStream: " + socket.getInetAddress());
 		try {
-//			while(isStop == false) {
-				System.out.println("Accept");
-				System.out.println("Server: InputStream: " + socket.getInetAddress());
-				// クライアントからの送信
+			// クライアントからの送信
+			this.firstRequest();
+
+			while(isStop == false) {
 				request = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				System.out.println("Server: OutputStream");
 				// レスポンス
 				response = new PrintWriter(socket.getOutputStream());
 				int ch = -1;
@@ -47,17 +85,25 @@ public class ProConServer implements Runnable {
 					}
 				}
 				line = build.toString();
+				if (line.startsWith("bye")) {
+					System.out.println("プロコンサーバーを終了します。");
+					break;
+				}
 				System.out.println("サーバー受信: " + line);
-				response.println(line);
+				// 改行を入れないと読み取りが終わらない
+				response.println(line + ProConServerConst.SEP);
 				System.out.println("サーバー送信: " + line);
 				response.flush();
 
-				request.close();
-				response.close();
+//				request.close();
+//				response.close();
 				//isStop = false;
-//		}
-		} catch (IOException e) {
+			}
+		} catch (IOException ie) {
+			ie.printStackTrace();
+		} catch ( ClassNotFoundException e) {
 			e.printStackTrace();
+
 		}
 	}
 
