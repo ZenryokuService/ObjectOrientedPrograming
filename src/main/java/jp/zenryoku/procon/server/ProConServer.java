@@ -9,7 +9,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import jp.zenryoku.procon.client.ClientData;
+import lombok.Data;
 
+@Data
 public class ProConServer implements Runnable {
 	/** サーバ */
 	private Socket socket;

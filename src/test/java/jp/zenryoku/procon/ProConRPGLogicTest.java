@@ -3,10 +3,9 @@ package jp.zenryoku.procon;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-@Disabled
+//@Disabled
 public class ProConRPGLogicTest extends ServerTestHelper {
 	/** テスト対象 */
 	private static ProConRPGLogic logic;

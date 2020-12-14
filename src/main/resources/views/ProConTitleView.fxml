@@ -76,8 +76,8 @@
          <children>
             <HBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="-5.0" opacity="0.64" prefHeight="79.0" prefWidth="600.0" spacing="100.0">
                <children>
-                  <Button mnemonicParsing="false" text="Start" />
-                  <Button mnemonicParsing="false" text="exit" />
+                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;" styleClass="titleButton" text="Exit" />
+                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;" styleClass="titleButton" text="Start" />
                </children>
             </HBox>
          </children>

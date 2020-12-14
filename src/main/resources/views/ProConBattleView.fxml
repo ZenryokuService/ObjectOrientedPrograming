@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="804.0" style="-fx-background-color: rgb(225, 228, 255);" stylesheets="@../../src/main/java/jp/zenryoku/procon/ProConBattleView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="804.0" style="-fx-background-color: rgb(225, 228, 255);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -164,4 +165,8 @@
    <padding>
       <Insets bottom="2.0" left="3.0" right="3.0" top="1.0" />
    </padding>
+   <stylesheets>
+      <URL value="@../../src/main/java/jp/zenryoku/procon/ProConBattleView.css" />
+      <URL value="@ProConBattleView.css" />
+   </stylesheets>
 </BorderPane>
