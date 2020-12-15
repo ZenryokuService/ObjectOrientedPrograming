@@ -7,12 +7,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Observable;
 
 import jp.zenryoku.procon.client.ClientData;
 import lombok.Data;
 
 @Data
-public class ProConServer implements Runnable {
+public class ProConServer extends Observable implements Runnable {
 	/** サーバ */
 	private Socket socket;
 	/** サーバー停止フラグ  */
@@ -57,11 +58,18 @@ public class ProConServer implements Runnable {
 		System.out.println("Server Name: " + firstRequest.getName());
 		System.out.println("Server BirthDay: " + firstRequest.getBirthDay());
 
-
+		// 画面側にイメージなどを設定する
+		sendDataToView();
 		// レスポンスを返却
 		PrintWriter firstResponse = new PrintWriter(socket.getOutputStream());
 		firstResponse.println("ok");
 		firstResponse.flush();
+
+		// 監視オブジェクトへ通知
+		notifyObservers(firstRequest);
+	}
+
+	private void sendDataToView() {
 	}
 
 	@Override

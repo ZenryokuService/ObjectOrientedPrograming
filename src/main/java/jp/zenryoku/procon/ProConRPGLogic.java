@@ -3,6 +3,10 @@ package jp.zenryoku.procon;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -12,10 +16,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jp.zenryoku.procon.client.ClientData;
 import jp.zenryoku.procon.server.ProConServer;
 import jp.zenryoku.procon.server.ProConServerConst;
 import jp.zenryoku.rpg.Games;
+import lombok.Data;
 
+@SuppressWarnings("restriction")
 public class ProConRPGLogic extends Application implements Games {
 	/** 画面のサーバー */
 	private MainServer server;
@@ -50,8 +57,9 @@ public class ProConRPGLogic extends Application implements Games {
 
 	@Override
 	public void init(String title) {
+		String[] args = new String[] {title};
 		// JavaFXスタート
-		launch(title);
+		launch(args);
 	}
 	@Override
 	public String acceptInput() {
@@ -91,13 +99,17 @@ public class ProConRPGLogic extends Application implements Games {
 	 *
 	 * @author 実装者の名前
 	 */
-	private class MainServer extends Thread {
+	@Data
+	private class MainServer extends Thread implements Observer {
 		/** サーバ */
 		private ServerSocket server;
 		/** サーバー停止フラグ  */
 		private boolean isStop;
+		/** プロコンサーバーMap */
+		private Map<String, ProConServer> map;
 
 		public MainServer() throws Exception {
+			map = new HashMap<String, ProConServer>();
 			server = new ServerSocket(ProConServerConst.SERVER_PORT);
 		}
 
@@ -106,10 +118,16 @@ public class ProConRPGLogic extends Application implements Games {
 			ExecutorService service = Executors.newCachedThreadPool();
 
 			try {
+				int count = 1;
+				String key = "Player";
 				while (isStop == false) {
 					System.out.println("Run FxServer");
 					Socket socket = server.accept();
-					service.submit(new ProConServer(socket));
+
+					ProConServer pro = new ProConServer(socket);
+					map.put(key + count, pro);
+					service.submit(pro);
+					count++;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -130,6 +148,20 @@ public class ProConRPGLogic extends Application implements Games {
 			} finally {
 				server = null;
 			}
+		}
+
+		/**
+		 * ProConServerの変更通知を受け取る。
+		 * @param proconServer Observableクラス(ProConServer)
+		 * @param param Observerbale#notifyObserversメソッドに渡す引数
+		 */
+		@Override
+		public void update(Observable proconServer, Object param) {
+			ClientData res = (ClientData) param;
+			res.getName();
+			res.getBirthDay();
+			res.getImage();
+			//proConServer.
 		}
 	}
 }
