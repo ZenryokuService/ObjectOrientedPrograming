@@ -28,6 +28,7 @@ public class ProConServerTest extends ServerTestHelper {
 		try {
 			server = new ProConRPGLogic();
 			server.exeServer();
+			server.init("Test");
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("テスト失敗；" + e.getMessage());

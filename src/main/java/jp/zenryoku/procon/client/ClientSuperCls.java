@@ -244,7 +244,8 @@ System.out.println("exevuteRpg Client Recieve: " + request);
 		return result;
 	}
 
-	private void aaaa() {
-
+	public static void main(String[] args) throws Exception {
+		ClientSuperCls cls = new ClientSuperCls("localhost");
+		cls.firstRequest(true);
 	}
  }

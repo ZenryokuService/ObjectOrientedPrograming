@@ -31,11 +31,15 @@ public class ProConRPGLogic extends Application implements Games, Observer {
 	private MainServer server;
 
 	public ProConRPGLogic() throws Exception {
-
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
+		try {
+			exeServer();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		primaryStage.initStyle(StageStyle.TRANSPARENT);
 		System.out.println("Hello");
 		// FXMLのロード
@@ -60,6 +64,7 @@ public class ProConRPGLogic extends Application implements Games, Observer {
 
 	@Override
 	public void init(String title) {
+		System.out.println("title");
 		String[] args = new String[] {title};
 		// JavaFXスタート
 		launch(args);
