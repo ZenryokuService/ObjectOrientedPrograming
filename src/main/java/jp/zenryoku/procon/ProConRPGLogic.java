@@ -1,5 +1,7 @@
 package jp.zenryoku.procon;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -9,6 +11,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.imageio.ImageIO;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +26,7 @@ import jp.zenryoku.procon.server.ProConServerConst;
 import jp.zenryoku.rpg.Games;
 import lombok.Data;
 
-@SuppressWarnings("restriction")
-public class ProConRPGLogic extends Application implements Games {
+public class ProConRPGLogic extends Application implements Games, Observer {
 	/** 画面のサーバー */
 	private MainServer server;
 
@@ -93,6 +96,22 @@ public class ProConRPGLogic extends Application implements Games {
 	public void finalize() {
 
 	}
+
+	/**
+	 * 引数には、ClientDataを渡している。
+	 * {@link ProConServer#notifyObservers(Object)}
+	 */
+	@Override
+	public void update(Observable o, Object clientData) {
+		ClientData data = (ClientData) clientData;
+		try {
+			BufferedImage playerImage = ImageIO.read(new ByteArrayInputStream(data.getImage()));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * クライアントのリクエストを受け付けるサーバー。
 	 * 通称プロコンサーバー

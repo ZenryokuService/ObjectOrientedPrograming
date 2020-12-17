@@ -70,6 +70,9 @@ public class ProConServer extends Observable implements Runnable {
 	}
 
 	private void sendDataToView() {
+		// 処理リクエスト受信完了
+		notifyObservers(this);
+
 	}
 
 	@Override
