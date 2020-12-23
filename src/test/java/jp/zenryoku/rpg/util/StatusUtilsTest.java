@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import jp.zenryoku.rpg.util.status.PlayerStatus;
+
 public class StatusUtilsTest {
 
 	/**
@@ -22,7 +24,7 @@ public class StatusUtilsTest {
 		assertEquals("8", yoga[5]);
 		assertEquals("9", yoga[6]);
 		assertEquals("3", yoga[7]);
-		assertEquals("9", yoga[8]);
+		assertEquals("4", yoga[8]);
 	}
 
 
@@ -38,7 +40,23 @@ public class StatusUtilsTest {
 	}
 
 	@Test
-	public void testSuhiMap() {
+	public void testCreatePlayerStatus() throws Exception {
+		String[] suhi = StatusUtils.createYogaSuhi("19991204");
+
+		 System.out.println("*** Denug ***");
+		for (String su : suhi) System.out.println(su);
+
+		PlayerStatus status = StatusUtils.createStatus(suhi);
+		assertEquals(0, status.getPow());// 0
+		assertEquals(0, status.getBin());// 0
+		assertEquals(1, status.getTai());// 1
+		assertEquals(3, status.getKi());// 3
+		assertEquals(0, status.getGak());// 0
+		assertEquals(0, status.getMei());// 0
+		assertEquals(1, status.getSei());// 1
+		assertEquals(1, status.getKan());// 1
+		assertEquals(1, status.getSin());// 1
+		assertEquals(2, status.getRei());// 2
 
 	}
 }
