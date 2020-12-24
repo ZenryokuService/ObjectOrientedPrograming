@@ -10,6 +10,26 @@ import jp.zenryoku.rpg.util.status.PlayerStatus;
 public class StatusUtils {
 	/** エラーのフラグ */
 	public static final int ERROR = 0;
+	/** ケテル */
+	public static final String KETER = "1";
+	/** コクマー */
+	public static final String CHOKHMAH = "2";
+	/** ビナー */
+	public static final String BINAH = "3";
+	/** ケセド */
+	public static final String CHESED = "4";
+	/** ゲプラ */
+	public static final String GEVURAH = "5";
+	/** ティファレト */
+	public static final String TIPHERETH = "6";
+	/** ネツァク */
+	public static final String NETZACH = "7";
+	/** ボド */
+	public static final String HOD = "8";
+	/** イェソド */
+	public static final String YESOD = "9";
+	/** マルクト */
+	public static final String MALKUTH = "10";
 
 	private enum StatusValue {
 
@@ -35,26 +55,6 @@ public class StatusUtils {
 			return this.value;
 		}
 	}
-	/** 1:力 */
-	private static final String POW = "1";
-	/** 2:敏 */
-	private static final String BIN = "2";
-	/** 3:体 */
-	private static final String TAI = "3";
-	/** 4:器 */
-	private static final String KI = "4";
-	/** 5:学 */
-	private static final String GAK = "5";
-	/** 6:命 */
-	private static final String MEI = "6";
-	/** 7:精 */
-	private static final String SEI = "7";
-	/** 8:感 */
-	private static final String KAN = "8";
-	/** 9:信 */
-	private static final String SIN = "9";
-	/** 10:霊  */
-	private static final String REI = "10";
 
 	/**
 	 * 生年月日から、「月」「日」「月と日の合計」「西暦の下2桁」を算出する。
@@ -217,56 +217,183 @@ public class StatusUtils {
 
 		for (String su : suhi) {
 			switch(su) {
-				case POW:
+				case PlayerStatus.POW:
 					stat[0]++;
 					break;
-				case BIN:
+				case PlayerStatus.BIN:
 					stat[1]++;
 					break;
-				case TAI:
+				case PlayerStatus.TAI:
 					stat[2]++;
 					break;
-				case KI:
+				case PlayerStatus.KI:
 					stat[3]++;
 					break;
-				case GAK:
+				case PlayerStatus.GAK:
 					stat[4]++;
 					break;
-				case MEI:
+				case PlayerStatus.MEI:
 					stat[5]++;
 					break;
-				case SEI:
+				case PlayerStatus.SEI:
 					stat[6]++;
 					break;
-				case KAN:
+				case PlayerStatus.KAN:
 					stat[7]++;
 					break;
-				case SIN:
+				case PlayerStatus.SIN:
 					stat[8]++;
 					break;
-				case REI:
+				case PlayerStatus.REI:
 					stat[9]++;
 					break;
 				default :
 					throw new Exception("引数の値が不正です。" + su);
 			}
 		}
-		PlayerStatus status = new PlayerStatus();
-		status.setPow(stat[0]);
-		status.setBin(stat[1]);
-		status.setTai(stat[2]);
-		status.setKi(stat[3]);
-		status.setGak(stat[4]);
-		status.setMei(stat[5]);
-		status.setSei(stat[6]);
-		status.setKan(stat[7]);
-		status.setSin(stat[8]);
-		status.setRei(stat[9]);
+		PlayerStatus status = new PlayerStatus(stat);
 
 		return status;
 	}
 
 	private static String convertIntToString(int val) {
 		return String.format("%02d", val);
+	}
+
+	public static void addPlayerStatus(PlayerStatus status, String[] suhi) {
+		// 2, 3, 7, 8の値を取得
+		String no2 = suhi[1];
+		String no3 = suhi[2];
+		String no7 = suhi[6];
+		String no8 = suhi[7];
+		try {
+			status.add(selectTarot(""));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 大アルカナに対応するステータスを生成する。
+	 * @param tarotKey セフィロトのパスを表すキー
+	 * @throws Exception
+	 */
+	public static PlayerStatus selectTarot(String tarotKey) throws Exception {
+		PlayerStatus status = null;
+		switch(tarotKey) {
+		case PlayerStatus.THE_FOOL:
+			status = new PlayerStatus(new int[] {0, 0, 1, 1, 0, 0, 0, 0, 1, 0});
+			break;
+		case PlayerStatus.THE_MAGICIAN:
+			status = new PlayerStatus(new int[] {1, 0, 1, 0, 0, 0, 0, 1, 0, 0});
+			break;
+		case PlayerStatus.THE_PRIESTESS:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 1, 0, 0, 1, 1, 0});
+			break;
+		case PlayerStatus.THE_EMPRESS:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_EMPEROR:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_HIEROPHANT:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_LOVERS:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_CHARIOT:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.STRENGTH:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_HERMIT:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.WHEEL_OF_FORTUNE:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.JUSTICE:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_HANGED_MAN:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.DEATH:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.TEMPERANCE:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_DEVIL:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_TOWER:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_STAR:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_MOON:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_SUN:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.JUDGEMENT:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case PlayerStatus.THE_WORLD:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		default:
+			throw new Exception("タロットキーが不適当です。" + tarotKey);
+		}
+		return status;
+	}
+
+	/**
+	 * 大アルカナに対応するステータスを生成する。
+	 * @param sephirothNo セフィロトの番号(1-10)
+	 * @throws Exception
+	 */
+	public static PlayerStatus selectSephira(String sephirothNo) throws Exception {
+		PlayerStatus status = null;
+		switch(sephirothNo) {
+		case KETER:
+			status = new PlayerStatus(new int[] {0, 0, 1, 1, 0, 0, 0, 0, 1, 0});
+			break;
+		case CHOKHMAH:
+			status = new PlayerStatus(new int[] {1, 0, 1, 0, 0, 0, 0, 1, 0, 0});
+			break;
+		case BINAH:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 1, 0, 0, 1, 1, 0});
+			break;
+		case CHESED:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case GEVURAH:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case TIPHERETH:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case NETZACH:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case HOD:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case YESOD:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		case MALKUTH:
+			status = new PlayerStatus(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			break;
+		default:
+			throw new Exception("セフィロトNoが不適当です。" + sephirothNo);
+		}
+		return status;
 	}
 }
