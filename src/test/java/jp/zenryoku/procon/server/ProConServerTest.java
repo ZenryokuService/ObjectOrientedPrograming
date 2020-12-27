@@ -55,7 +55,7 @@ public class ProConServerTest extends ServerTestHelper {
 	@Test
 	public void testConstructor() {
 		try {
-			cls = new ClientSuperCls("localhost");
+			cls = new ClientSuperCls("localhost", ProConServerConst.CLIENT_1_PORT);
 			cls.firstRequest(true);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -66,7 +66,7 @@ public class ProConServerTest extends ServerTestHelper {
 	@Test
 	public void testMapCommand() {
 		try {
-			cls = new ClientSuperCls("localhost");
+			cls = new ClientSuperCls("localhost", ProConServerConst.CLIENT_1_PORT);
 			cls.firstRequest(false);
 			cls.commandRequest("move");
 			cls.commandRequest("bye");

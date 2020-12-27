@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import jp.zenryoku.procon.ProConRPGLogic;
 import jp.zenryoku.procon.ServerTestHelper;
+import jp.zenryoku.procon.server.ProConServerConst;
 
 public class ClientSuperClsTest extends ServerTestHelper {
 	/** プロコンサーバー */
@@ -23,7 +24,7 @@ public class ClientSuperClsTest extends ServerTestHelper {
 		try {
 			server = new ProConRPGLogic();
 			server.exeServer();
-			target = new ClientSuperCls("localhost");
+			target = new ClientSuperCls("localhost", ProConServerConst.CLIENT_1_PORT);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("テスト失敗；" + e.getMessage());

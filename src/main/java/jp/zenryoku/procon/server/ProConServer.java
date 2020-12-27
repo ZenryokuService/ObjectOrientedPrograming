@@ -7,13 +7,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Observable;
 
+import jp.zenryoku.procon.ProConDataObject;
+import jp.zenryoku.procon.ProConRPGLogic;
 import jp.zenryoku.procon.client.ClientData;
 import lombok.Data;
 
 @Data
-public class ProConServer extends Observable implements Runnable {
+public class ProConServer implements Runnable {
 	/** サーバ */
 	private Socket socket;
 	/** サーバー停止フラグ  */
@@ -22,6 +23,12 @@ public class ProConServer extends Observable implements Runnable {
 	private BufferedReader request;
 	/** クライアントへのレスポンス */
 	private PrintWriter response;
+	/** クライアントからのデータ */
+	private ClientData firstRequest;
+	/** ProConRPGLogic */
+	private ProConRPGLogic logic;
+	/** 準備完了フラグ */
+	private boolean isReady;
 
 	/**
 	 * コンストラクタ。
@@ -29,7 +36,18 @@ public class ProConServer extends Observable implements Runnable {
 	 */
 	public ProConServer(Socket socket) throws Exception {
 		isStop = false;
+		isReady = false;
 		this.socket = socket;
+	}
+
+	/**
+	 * コンストラクタ。
+	 * サーバーをポート番号
+	 */
+	public ProConServer(Socket socket, ProConRPGLogic logic) throws Exception {
+		isStop = false;
+		this.socket = socket;
+		this.logic = logic;
 	}
 
 	/** SocketからBufferedReaderを取得する */
@@ -50,28 +68,36 @@ public class ProConServer extends Observable implements Runnable {
 	/**
 	 * 初回リクエスト送受信、クラスオブジェクトを受ける。
 	 */
-	private void firstRequest() throws IOException, ClassNotFoundException {
+	private void firstRequest() throws IOException, ClassNotFoundException, Exception {
 		// クライアントからのデータを送信
 		ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-		ClientData firstRequest = (ClientData) input.readObject();
+		firstRequest = (ClientData) input.readObject();
 		System.out.println("Server AccessCode: " + firstRequest.getAccessCd());
 		System.out.println("Server Name: " + firstRequest.getName());
 		System.out.println("Server BirthDay: " + firstRequest.getBirthDay());
 
 		// 画面側にイメージなどを設定する
-		sendDataToView();
+		sendDataToView(firstRequest, firstRequest.getPlayerNo());
 		// レスポンスを返却
 		PrintWriter firstResponse = new PrintWriter(socket.getOutputStream());
 		firstResponse.println("ok");
 		firstResponse.flush();
 
-		// 監視オブジェクトへ通知
-		notifyObservers(firstRequest);
+
+		// 通知
+		synchronized(this) {
+			System.out.println("sync ProConServer");
+			setReady(true);
+			notify();
+		}
 	}
 
-	private void sendDataToView() {
+	private void sendDataToView(ClientData data, int playerNo) throws Exception {
+		isReady = true;
 		// 処理リクエスト受信完了
-		notifyObservers(this);
+		System.out.println("*** sendDataToView *** / " + data.getName());
+		//logic.setClientData(data, playerNo);
+		ProConDataObject.getInstance(data);
 
 	}
 
@@ -84,7 +110,7 @@ public class ProConServer extends Observable implements Runnable {
 		try {
 			// クライアントからの送信
 			this.firstRequest();
-
+			Thread.sleep(300);
 			while(isStop == false) {
 				request = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				// レスポンス
@@ -116,10 +142,16 @@ public class ProConServer extends Observable implements Runnable {
 			ie.printStackTrace();
 		} catch ( ClassNotFoundException e) {
 			e.printStackTrace();
-
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
+//	@Override
+	public ClientData call() {
+		System.out.println("*** Called ***");
+		return firstRequest;
+	}
 	@Override
 	public void finalize() {
 		try {

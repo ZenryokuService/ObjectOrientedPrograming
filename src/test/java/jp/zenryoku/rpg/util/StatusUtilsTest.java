@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import jp.zenryoku.rpg.util.status.PlayerStatus;
+import jp.zenryoku.rpg.charactors.params.PlayerStatus;
 
 public class StatusUtilsTest {
 

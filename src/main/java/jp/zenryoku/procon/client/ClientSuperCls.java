@@ -28,8 +28,8 @@ public class ClientSuperCls {
 	 * @param hostName 接続するサーバーのホスト(PCの名前、IPアドレス)
 	 * @throws IOException サーバーへの接続に失敗
 	 */
-	public ClientSuperCls(String hostName) throws IOException {
-		socket = new Socket(hostName, ProConServerConst.SERVER_PORT);
+	public ClientSuperCls(String hostName, int portNo) throws IOException {
+		socket = new Socket(hostName, portNo);
 		isStop = false;
 	}
 
@@ -94,7 +94,7 @@ public class ClientSuperCls {
 	/**
 	 * プロコンRPGを開始する。
 	 */
-	public void exevuteRpg() throws Exception {
+	public synchronized void exevuteRpg() throws Exception {
 		BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 		// 送受信するクラス
@@ -102,6 +102,7 @@ public class ClientSuperCls {
 		// 初期リクエストを送信する
 		this.sendRequest(output, data);
 
+		System.out.println("sehdRequest: ");
 		input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		System.out.println("exevuteRpg Client: " + this.getResponse(input));
 
@@ -114,11 +115,14 @@ public class ClientSuperCls {
 			// サーバーからのレスポンスを取得する
 			String response = this.getResponse(input);
 			String request = handleResponse(response);
-System.out.println("exevuteRpg Client Recieve: " + request);
+//System.out.println("exevuteRpg Client Recieve: " + request);
 			// 処理の待機処理(U16プロコンサーバーに習う)
-//			Thread.sleep(ProConServerConst.WAIT);
+			Thread.sleep(ProConServerConst.WAIT);
 			data.setCommand("bye");
-			this.sendRequest(output, data);
+
+			PrintWriter send = new PrintWriter(socket.getOutputStream());
+			this.sendRequest(send, data.getCommand());
+			this.getResponse(input);
 			//isStop = true;
 		}
 	}
@@ -151,6 +155,8 @@ System.out.println("exevuteRpg Client Recieve: " + request);
 
 	/**
 	 * リクエストをプロコンサーバーへ送信する。
+	 * ProConDataObjectに値がセットされたら次の処理へ進む。
+	 *
 	 *
 	 * @param message
 	 * @throws IOException
@@ -159,9 +165,10 @@ System.out.println("exevuteRpg Client Recieve: " + request);
 		if (isEmpty(message)) {
 			throw new IOException("リクエストメッセージが入っていません");
 		}
+		System.out.println("*** sendRequest" + message + " ***");
 		request.writeObject(message);
 		request.flush();
-//		request.close();
+
 	}
 
 
@@ -177,7 +184,7 @@ System.out.println("exevuteRpg Client Recieve: " + request);
 		String line = null;
 		StringBuilder build = new StringBuilder();
 		int ch = -1;
-		System.out.println("*** Client ***");
+		System.out.println("*** getResponse ***");
 		while ((ch = response.read()) != -1) {
 			build.append((char) ch);
 			if (ch == 10 || ch == 13) {
@@ -185,7 +192,7 @@ System.out.println("exevuteRpg Client Recieve: " + request);
 			}
 		}
 		//response.close();
-		System.out.println("Client Recieve: " + build.toString());
+		//System.out.println("Client Recieve: " + build.toString());
 		return build.toString();
 	}
 
@@ -210,11 +217,13 @@ System.out.println("exevuteRpg Client Recieve: " + request);
 	 * 3. 32 x 32の画像ファイル
 	 */
 	protected ClientData createInitData() {
+		System.out.println("*** createInitData ***");
 		ClientData data = new ClientData();
 		data.setAccessCd(ProConServerConst.ACCESS_CD);
 		data.setName("Takunoji");
 		data.setBirthDay("19800328");
 		data.setImage(imageToByte("gost"));
+		data.setPlayerNo(ProConServerConst.PLAYER1_NO);
 
 
 		return data;
@@ -244,8 +253,20 @@ System.out.println("exevuteRpg Client Recieve: " + request);
 		return result;
 	}
 
+	public void finalize() {
+		try {
+			socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			socket = null;
+		}
+	}
 	public static void main(String[] args) throws Exception {
-		ClientSuperCls cls = new ClientSuperCls("localhost");
-		cls.firstRequest(true);
+		ClientSuperCls cls = new ClientSuperCls("localhost", ProConServerConst.CLIENT_1_PORT);
+		cls.exevuteRpg();
+//		cls.firstRequest(false);
+//		cls.commandRequest("abcd");
+//		cls.commandRequest("bye");
 	}
  }

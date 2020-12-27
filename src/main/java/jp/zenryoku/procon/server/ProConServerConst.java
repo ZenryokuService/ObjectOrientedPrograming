@@ -36,6 +36,14 @@ public enum ProConServerConst {
 	public static final String MAP_START = "start";
 	/** 通常リクエスト */
 	public static final String SEND_REQUEST = "request";
-
-
+	/** プレイヤー1の番号 */
+	public static final int PLAYER1_NO = 1;
+	/** プレイヤー2の番号 */
+	public static final int PLAYER2_NO = 2;
+	/** プレイヤー3の番号 */
+	public static final int PLAYER3_NO = 3;
+	/** プレイヤー4の番号 */
+	public static final int PLAYER4_NO = 4;
+	/** 参加 */
+	public static final String ATTEND = "参加";
 }

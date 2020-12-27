@@ -14,6 +14,8 @@ import lombok.Data;
 public class ClientData implements Serializable {
 	/** アクセスコード */
 	private String accessCd;
+	/** プレーヤー番号 */
+	private int playerNo;
 	/** プレーヤーの名前 */
 	private String name;
 	/** 生年月日 */

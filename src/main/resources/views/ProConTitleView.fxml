@@ -5,7 +5,16 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: cssImage/ProConMap.png;" stylesheets="@ProConTitleView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" fx:controller="jp.zenryoku.procon.ProConRPGLogic"
+		maxHeight="-Infinity"
+		maxWidth="-Infinity"
+		minHeight="-Infinity"
+		minWidth="-Infinity"
+		prefHeight="400.0"
+		prefWidth="600.0"
+		style="-fx-background-image: cssImage/ProConMap.png;"
+		stylesheets="@ProConTitleView.css" xmlns="http://javafx.com/javafx/8"
+		xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="141.0" prefWidth="600.0">
          <children>
@@ -26,9 +35,9 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label id="player1.label" alignment="CENTER" prefHeight="42.0" prefWidth="86.0" text="Player1:" textAlignment="CENTER" />
-                        <Label id="player1.participate" prefHeight="27.0" prefWidth="70.0" text="未参加" />
-                        <ImageView id="player1.image" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Label fx:id="player1Name" alignment="CENTER" prefHeight="42.0" prefWidth="86.0" text="Player1:" textAlignment="CENTER" />
+                        <Label fx:id="player1Attend" prefHeight="27.0" prefWidth="70.0" text="未参加" />
+                        <ImageView fx:id="player1Image" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@cssImage/playerNone.png" />
                            </image>
@@ -37,9 +46,9 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <Label id="player2.label" alignment="CENTER" prefHeight="42.0" prefWidth="86.0" text="Player2:" textAlignment="CENTER" />
-                        <Label id="player2.participate" prefHeight="27.0" prefWidth="70.0" text="未参加" />
-                        <ImageView id="player2.image" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Label id="player2Name" alignment="CENTER" prefHeight="42.0" prefWidth="86.0" text="Player2:" textAlignment="CENTER" />
+                        <Label id="player2Attend" prefHeight="27.0" prefWidth="70.0" text="未参加" />
+                        <ImageView id="player2Image" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@cssImage/playerNone.png" />
                            </image>
@@ -48,9 +57,9 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Label id="player4.label" alignment="CENTER" prefHeight="42.0" prefWidth="86.0" text="Player4:" textAlignment="CENTER" />
-                        <Label id="player4.participate" prefHeight="27.0" prefWidth="70.0" text="未参加" />
-                        <ImageView id="player4.image" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Label id="player4Name" alignment="CENTER" prefHeight="42.0" prefWidth="86.0" text="Player4:" textAlignment="CENTER" />
+                        <Label id="player4Attend" prefHeight="27.0" prefWidth="70.0" text="未参加" />
+                        <ImageView id="player4Image" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@cssImage/playerNone.png" />
                            </image>
@@ -59,9 +68,9 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Label id="player3.label" alignment="CENTER" prefHeight="42.0" prefWidth="86.0" text="Player3:" textAlignment="CENTER" />
-                        <Label id="player3.participate" prefHeight="27.0" prefWidth="70.0" text="未参加" />
-                        <ImageView id="player3.image" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Label id="player3Name" alignment="CENTER" prefHeight="42.0" prefWidth="86.0" text="Player3:" textAlignment="CENTER" />
+                        <Label id="player3Attend" prefHeight="27.0" prefWidth="70.0" text="未参加" />
+                        <ImageView id="player3Image" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@cssImage/playerNone.png" />
                            </image>

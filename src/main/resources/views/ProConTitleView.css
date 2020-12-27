@@ -15,7 +15,7 @@
 .playerArea {
    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
    -fx-background-color: rgba(0,0,0,0.8);
-   -fx-fixed-cell-size;
+   -fx-fixed-cell-size:15;
    -fx-padding: 15;
    -fx-border-color: rgb(255, 255, 255);
    -fx-border-radius: 5;

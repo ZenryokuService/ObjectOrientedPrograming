@@ -1,6 +1,6 @@
 package jp.zenryoku.rpg.charactors;
 
-import jp.zenryoku.rpg.charactors.params.Status;
+import jp.zenryoku.rpg.charactors.params.PlayerStatus;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 import lombok.Data;
@@ -38,7 +38,7 @@ public class Player {
 	/** 戦闘可能フラグ */
 	private boolean canBattle;
 	/** ステータスオブジェクト */
-	private Status status;
+	private PlayerStatus status;
 	/**
 	 * コンストラクタ。
 	 * @param name
@@ -49,6 +49,10 @@ public class Player {
 		setLevel(1);
 		setHP(20);
 		setMP(10);
+	}
+
+	public Player(String name, String birthDate) {
+
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package jp.zenryoku.rpg.charactors.params;
 
+import java.util.Map;
+
 import lombok.Data;
 
 /**
@@ -36,117 +38,76 @@ import lombok.Data;
  * @author 実装者の名前
  */
 @Data
-public class Status {
-	/** 1: 力 */
-	private int riki;
-	/** 2: 敏 */
-	private int bin;
-	/** 3: 体 */
-	private int tai;
-	/** 4: 器 */
-	private int ki;
-	/** 5: 学 */
-	private int gaku;
-	/** 6: 命 */
-	private int mei;
-	/** 7: 精 */
-	private int sei;
-	/** 8: 感 */
-	private int kan;
-	/** 9: 信 */
-	private int sin;
-	/** 10:霊 */
-	private int rei;
+public abstract class Status {
+	/** 1:力 */
+	public static final String POW = "1";
+	/** 2:敏 */
+	public static final String BIN = "2";
+	/** 3:体 */
+	public static final String TAI = "3";
+	/** 4:器 */
+	public static final String KI = "4";
+	/** 5:学 */
+	public static final String GAK = "5";
+	/** 6:命 */
+	public static final String MEI = "6";
+	/** 7:精 */
+	public static final String SEI = "7";
+	/** 8:感 */
+	public static final String KAN = "8";
+	/** 9:信 */
+	public static final String SIN = "9";
+	/** 10:霊  */
+	public static final String REI = "10";
 
-	/**
-	 * @return 近距離攻撃力
-	 */
-	public int nearAttack() {
-		return riki + bin + tai;
-	}
+	/** セフィロト */
+	public Map<String, Integer> sephiroth;
+	/** The Fool */
+	public static final String THE_FOOL = "12";
+	/** The Magicial */
+	public static final String THE_MAGICIAN = "13";
+	/** The High Preestess */
+	public static final String THE_PRIESTESS = "16";
+	/** The Empress */
+	public static final String THE_EMPRESS = "23";
+	/** The Emperor */
+	public static final String THE_EMPEROR = "26";
+	/** The Hierophant */
+	public static final String THE_HIEROPHANT = "24";
+	/** The Lovers */
+	public static final String THE_LOVERS = "36";
+	/** The Chariot */
+	public static final String THE_CHARIOT = "35";
+	/** Strength */
+	public static final String STRENGTH = "45";
+	/** The Hermit */
+	public static final String THE_HERMIT = "46";
+	/** Wheel of Fortune */
+	public static final String WHEEL_OF_FORTUNE = "47";
+	/** 11.Justice */
+	public static final String JUSTICE = "56";
+	/** 12.The Hanged Man */
+	public static final String THE_HANGED_MAN= "58";
+	/** 13.Death */
+	public static final String DEATH = "67";
+	/** 14.Temperance */
+	public static final String TEMPERANCE = "69";
+	/** 15.The Devil */
+	public static final String THE_DEVIL = "68";
+	/** 16.The Tower */
+	public static final String THE_TOWER = "78";
+	/** 17.The Star */
+	public static final String THE_STAR = "79";
+	/** 18.The Moon */
+	public static final String THE_MOON = "710";
+	/** 19.The Sun */
+	public static final String THE_SUN = "89";
+	/** 20.Judgement */
+	public static final String JUDGEMENT = "810";
+	/** 21.The World */
+	public static final String THE_WORLD = "910";
 
-	/**
-	 * @return 中距離攻撃力
-	 */
-	public int midAttack() {
-		return riki + bin + ki;
-	}
-
-	/**
-	 * @return 長距離攻撃力
-	 */
-	public int longAttack() {
-		return riki + tai + ki;
-	}
-
-	/**
-	 * @return 射撃攻撃力
-	 */
-	public int shootAttack() {
-		return bin + ki + mei;
-	}
-
-	/**
-	 * @return 防御力
-	 */
-	public int diffence() {
-		return bin + tai + sei;
-	}
-
-	/**
-	 * @return 回避力
-	 */
-	public int escape() {
-		return bin + gaku + kan;
-	}
-
-	/**
-	 * @return 成長力
-	 */
-	public int lvup() {
-		return gaku + sei + kan;
-	}
-
-	/**
-	 * @return 起動力
-	 */
-	public int move() {
-		return bin + tai + mei;
-	}
-
-	/**
-	 * @return 技術力
-	 */
-	public int technic() {
-		return ki + gaku + sei;
-	}
-
-	/**
-	 * @return 運気
-	 */
-	public int luck() {
-		return gaku + sin + rei;
-	}
-
-	/**
-	 * @return 魔法攻撃力
-	 */
-	public int magicAttack() {
-		return mei + sei + rei;
-	}
-
-	/**
-	 * @return 魔法回復力
-	 */
-	public int magicHeal() {
-		return mei + sei + rei;
-	}
-
-	/**
-	 * @return 補助魔法力
-	 */
-	public int magicUtil() {
-		return kan + sin + rei;
-	}
+	/** ヨガ数秘 */
+	protected String[] yoga;
 
 }

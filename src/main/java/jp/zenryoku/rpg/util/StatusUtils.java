@@ -1,6 +1,6 @@
 package jp.zenryoku.rpg.util;
 
-import jp.zenryoku.rpg.util.status.PlayerStatus;
+import jp.zenryoku.rpg.charactors.params.PlayerStatus;
 
 /**
  * ステータス生成、そのほかステータス関連の処理の実装クラス。
