@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import jp.zenryoku.procon.server.ProConServer;
 import jp.zenryoku.procon.server.ProConServerConst;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * クライアントのリクエストを受け付けるサーバー。
@@ -17,6 +18,7 @@ import lombok.Data;
  *
  * @author 実装者の名前
  */
+@EqualsAndHashCode(callSuper=false)
 @Data
 public class MainServer extends Thread {
 	/** ProConRPGLogic */
@@ -61,6 +63,7 @@ public class MainServer extends Thread {
 //			service.submit(pro3);
 //			service.submit(pro4);
 
+			// ProConServerからの通知待機
 			synchronized(pro1) {
 				System.out.println("sync MainServer");
 				while(pro1.isReady() == false) {
@@ -74,12 +77,6 @@ public class MainServer extends Thread {
 					}
 				});
 			}
-			// 初回リクエストを受ける
-//			ClientData data2 = pro2.getFirstRequest();
-//			ClientData data3 = pro3.getFirstRequest();
-//			ClientData data4 = pro4.getFirstRequest();
-
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -114,4 +111,19 @@ public class MainServer extends Thread {
 		server3 = null;
 		server4 = null;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder build = new StringBuilder();
+		build.append("Server1 = portNo: " +  server1 == null ? "Disabled" : server1.getLocalPort() + ProConServerConst.SEP);
+		build.append("Server2 = portNo: " +  server2 == null ? "Disabled" : server2.getLocalPort() + ProConServerConst.SEP);
+		build.append("Server3 = portNo: " +  server3 == null ? "Disabled" : server3.getLocalPort() + ProConServerConst.SEP);
+		build.append("Server4 = portNo: " +  server4 == null ? "Disabled" : server4.getLocalPort() + ProConServerConst.SEP);
+		return build.toString();
+	}
+
+//	@Override
+//	public int hashCode() {
+//		return this.hashCode();
+//	}
 }

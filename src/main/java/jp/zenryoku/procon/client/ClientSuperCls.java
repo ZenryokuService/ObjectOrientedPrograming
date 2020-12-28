@@ -9,7 +9,6 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
-import java.nio.ByteBuffer;
 import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
@@ -31,12 +30,6 @@ public class ClientSuperCls {
 	public ClientSuperCls(String hostName, int portNo) throws IOException {
 		socket = new Socket(hostName, portNo);
 		isStop = false;
-	}
-
-	private void connectServer() throws IOException {
-		if (socket.isConnected() == false) {
-			throw new IOException("接続が切れました。");
-		}
 	}
 
 	/** SocketからBufferedReaderを取得する */
@@ -112,10 +105,12 @@ public class ClientSuperCls {
 		while (isStop == false) {
 			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			output = new ObjectOutputStream(socket.getOutputStream());
+
+			// TODO-[テストコード ]
 			// サーバーからのレスポンスを取得する
 			String response = this.getResponse(input);
 			String request = handleResponse(response);
-//System.out.println("exevuteRpg Client Recieve: " + request);
+			System.out.println("exevuteRpg Client Recieve: " + request);
 			// 処理の待機処理(U16プロコンサーバーに習う)
 			Thread.sleep(ProConServerConst.WAIT);
 			data.setCommand("bye");
@@ -150,7 +145,6 @@ public class ClientSuperCls {
 		}
 		request.println(message);
 		request.flush();
-//		request.close();
 	}
 
 	/**
@@ -181,7 +175,6 @@ public class ClientSuperCls {
 	 */
 	public String getResponse(BufferedReader response) throws IOException {
 
-		String line = null;
 		StringBuilder build = new StringBuilder();
 		int ch = -1;
 		System.out.println("*** getResponse ***");
@@ -191,8 +184,7 @@ public class ClientSuperCls {
 				break;
 			}
 		}
-		//response.close();
-		//System.out.println("Client Recieve: " + build.toString());
+		System.out.println("Client Recieve: " + build.toString());
 		return build.toString();
 	}
 
@@ -222,12 +214,10 @@ public class ClientSuperCls {
 		data.setAccessCd(ProConServerConst.ACCESS_CD);
 		data.setName("Takunoji");
 		data.setBirthDay("19800328");
-		data.setImage(imageToByte("gost"));
+		data.setImageByte(imageToByte("gost"));
 		data.setPlayerNo(ProConServerConst.PLAYER1_NO);
 
-
 		return data;
-
 	}
 
 	/**
@@ -246,13 +236,33 @@ public class ClientSuperCls {
 			// イメージをバイト配列に書き込み
 			ImageIO.write(img, "png", outStream);
 
-			result = ByteBuffer.allocate(ProConServerConst.MAX_IMG_SIZE).putInt(outStream.size()).array();
+			result = outStream.toByteArray();
+			//result = ByteBuffer.allocate(ProConServerConst.MAX_IMG_SIZE).putInt(outStream.size()).array();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
 
+	/**
+	 * イメージファイルを取得して、返却する。
+	 * 取得するイメージファイルは、src/main/resources/char以下のPNGファイル)
+	 *
+	 * @param fileName ファイルの名前(拡張子は除く)
+	 * @return
+	 */
+	protected BufferedImage getImage(String fileName) {
+		BufferedImage result = null;
+		try {
+			URL imgUrl = Paths.get("resources/char_img/" + fileName + ".png").toUri().toURL();
+			result = ImageIO.read(imgUrl);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
 	public void finalize() {
 		try {
 			socket.close();
@@ -262,6 +272,8 @@ public class ClientSuperCls {
 			socket = null;
 		}
 	}
+
+	/** テストコード */
 	public static void main(String[] args) throws Exception {
 		ClientSuperCls cls = new ClientSuperCls("localhost", ProConServerConst.CLIENT_1_PORT);
 		cls.exevuteRpg();

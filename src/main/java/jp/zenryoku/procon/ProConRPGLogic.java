@@ -20,7 +20,11 @@ import javafx.stage.StageStyle;
 import jp.zenryoku.procon.client.ClientData;
 import jp.zenryoku.procon.server.ProConServerConst;
 import jp.zenryoku.rpg.Games;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper=false)
+@Data
 public class ProConRPGLogic extends Application implements Games {
 	/** 画面のサーバー */
 	private MainServer server;
@@ -73,22 +77,26 @@ public class ProConRPGLogic extends Application implements Games {
 	private ImageView player4Image;
 
 
+	/** デフォルトコンストラクタ */
 	public ProConRPGLogic() throws Exception {
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
+		// MainServerを起動する
 		try {
 			exeServer();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		// タイトル画面の作成
 		primaryStage.initStyle(StageStyle.TRANSPARENT);
 
 		// FXMLのロード
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ProConTitleView.fxml"));
 		VBox root = null;
 
+		// 画面コンポーネントのロード
 		try {
 			root = (VBox) loader.load();
 			loader.setRoot(root);
@@ -97,6 +105,7 @@ public class ProConRPGLogic extends Application implements Games {
 			e.printStackTrace();
 		}
 
+		// 画面コンポーネントに値を設定する
 		setComponents(loader);
 
 		Scene scene = new Scene(root);
@@ -108,51 +117,66 @@ public class ProConRPGLogic extends Application implements Games {
 
 	}
 
+	/**
+	 * @FXMLでコンポーネントが取得できなかったので、プログラムを書く
+	 *
+	 * @param loader FXMLLoader
+	 */
 	private void setComponents(FXMLLoader loader) {
+		// プレーヤー名
 		player1Name = (Label) loader.getNamespace().get("player1Name");
 		player2Name = (Label) loader.getNamespace().get("player2Name");
 		player3Name = (Label) loader.getNamespace().get("player3Name");
 		player4Name = (Label) loader.getNamespace().get("player4Name");
 
+		// プレーヤー名
 		player1Attend = (Label) loader.getNamespace().get("player1Attend");
 		player2Attend = (Label) loader.getNamespace().get("player2Attend");
 		player3Attend = (Label) loader.getNamespace().get("player3Attend");
 		player4Attend = (Label) loader.getNamespace().get("player4Attend");
 
+		// プレーヤー・イメージ
 		player1Image = (ImageView) loader.getNamespace().get("player1Image");
 		player2Image = (ImageView) loader.getNamespace().get("player2Image");
 		player3Image = (ImageView) loader.getNamespace().get("player3Image");
 		player4Image = (ImageView) loader.getNamespace().get("player4Image");
 	}
 
+	/** タイトル画面を起動する */
 	@Override
 	public void init(String title) {
-		System.out.println("title");
+		System.out.println("title: " + title);
 		String[] args = new String[] {title};
 		// JavaFXスタート
 		launch(args);
 	}
 
+	/**
+	 * ゲームでの入力処理
+	 */
 	@Override
 	public String acceptInput() {
-		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 
+	/**
+	 * ゲームでのデータ更新処理
+	 */
 	@Override
 	public boolean updateData(String input) {
-		// TODO 自動生成されたメソッド・スタブ
-		return false;
-	}
-
-	@Override
-	public boolean render() {
-		// TODO 自動生成されたメソッド・スタブ
 		return false;
 	}
 
 	/**
-	 * ServreSocketを起動する。
+	 * ゲームでの画面更新処理
+	 */
+	@Override
+	public boolean render() {
+		return false;
+	}
+
+	/**
+	 * MainServerとタイトル画面を起動する。
 	 *
 	 * @throws Exception
 	 */
@@ -162,6 +186,10 @@ public class ProConRPGLogic extends Application implements Games {
 		System.out.println("MainServer Start");
 	}
 
+	/**
+	 * インスタンスが破棄されるときに起動する。
+	 */
+	@Override
 	public void finalize() {
 		server = null;
 		data1 = null;
@@ -183,11 +211,25 @@ public class ProConRPGLogic extends Application implements Games {
 
 	}
 
+	/**
+	 * バイト配列から、イメージ(img)を生成する。
+	 *
+	 * @param imgByte
+	 * @return
+	 * @throws IOException
+	 */
 	private BufferedImage createBufferedImage(byte[] imgByte) throws IOException {
 		InputStream in = new ByteArrayInputStream(imgByte);
 		return ImageIO.read(in);
 	}
 
+	/**
+	 * MainServerで受け取ったクライアントデータをセットする。
+	 *
+	 * @param data クライアントデータ
+	 * @param playerNo プレーヤー番号(1-4)
+	 * @throws Exception
+	 */
 	public synchronized void setClientData(ClientData data, int playerNo) throws Exception {
 		System.out.println("*** setClientData : " + player1Name + " / " + data + " / " + playerNo + " ***");
 		switch (playerNo) {
@@ -195,31 +237,63 @@ public class ProConRPGLogic extends Application implements Games {
 			data1 = data;
 			player1Name.setText(data.getName());
 			player1Attend.setText(ProConServerConst.ATTEND);
-			setPlayerImage(createBufferedImage(data.getImage()), playerNo);
+			setPlayerImage(data.getImageByte(), playerNo);
 			break;
 		case ProConServerConst.PLAYER2_NO:
 			data2 = data;
 			player2Name.setText(data.getName());
 			player2Attend.setText(ProConServerConst.ATTEND);
-			setPlayerImage(createBufferedImage(data.getImage()), playerNo);
+			setPlayerImage(data.getImage(), playerNo);
 			break;
 		case ProConServerConst.PLAYER3_NO:
 			data3 = data;
 			player3Name.setText(data.getName());
 			player3Attend.setText(ProConServerConst.ATTEND);
-			setPlayerImage(createBufferedImage(data.getImage()), playerNo);
+			setPlayerImage(data.getImage(), playerNo);
 			break;
 		case ProConServerConst.PLAYER4_NO:
 			data4 = data;
 			player4Name.setText(data.getName());
 			player4Attend.setText(ProConServerConst.ATTEND);
-			setPlayerImage(createBufferedImage(data.getImage()), playerNo);
+			setPlayerImage(data.getImage(), playerNo);
 			break;
 		default:
 			throw new Exception("player番号	が不適切です。" + playerNo);
 		}
 	}
 
+	/**
+	 * プレーヤーの送信した画像データをタイトル画面に設定する
+	 * @param playerImage 受信したクライアントの画像データ
+	 * @param playerNo プレイヤー番号
+	 * @throws Exception
+	 */
+	private void setPlayerImage(byte[] playerImage, int playerNo) throws Exception {
+		BufferedImage image = ImageIO.read(new ByteArrayInputStream(playerImage));
+		switch (playerNo) {
+		case ProConServerConst.PLAYER1_NO:
+			player1Image.setImage(SwingFXUtils.toFXImage(image, null));
+			break;
+		case ProConServerConst.PLAYER2_NO:
+			player2Image.setImage(SwingFXUtils.toFXImage(image, null));
+			break;
+		case ProConServerConst.PLAYER3_NO:
+			player3Image.setImage(SwingFXUtils.toFXImage(image, null));
+			break;
+		case ProConServerConst.PLAYER4_NO:
+			player4Image.setImage(SwingFXUtils.toFXImage(image, null));
+			break;
+		default:
+			throw new Exception("playerカウンターが不適切です。" + playerNo);
+		}
+	}
+
+	/**
+	 * プレーヤーの送信した画像データをタイトル画面に設定する
+	 * @param playerImage 受信したクライアントの画像データ
+	 * @param playerNo プレイヤー番号
+	 * @throws Exception
+	 */
 	private void setPlayerImage(BufferedImage playerImage, int playerNo) throws Exception {
 		switch (playerNo) {
 		case ProConServerConst.PLAYER1_NO:

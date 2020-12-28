@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import com.sun.javafx.logging.Logger;
+
 import jp.zenryoku.procon.ProConDataObject;
 import jp.zenryoku.procon.ProConRPGLogic;
 import jp.zenryoku.procon.client.ClientData;
@@ -15,6 +17,8 @@ import lombok.Data;
 
 @Data
 public class ProConServer implements Runnable {
+	/** Logger */
+	private Logger LOG = new Logger();
 	/** サーバ */
 	private Socket socket;
 	/** サーバー停止フラグ  */
@@ -51,17 +55,17 @@ public class ProConServer implements Runnable {
 	}
 
 	/** SocketからBufferedReaderを取得する */
-	private BufferedReader getBufferdReader() throws IOException {
+	protected BufferedReader getBufferdReader() throws IOException {
 		return new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	}
 
 	/** SocketからPrintWriterを取得する */
-	private PrintWriter getPrintWriter() throws IOException {
+	protected PrintWriter getPrintWriter() throws IOException {
 		return new PrintWriter(socket.getOutputStream());
 	}
 
 	/** SocketからObjectOutputStreamを取得する */
-	private ObjectOutputStream getObjectOutputStream() throws IOException {
+	protected ObjectOutputStream getObjectOutputStream() throws IOException {
 		return new ObjectOutputStream(socket.getOutputStream());
 	}
 
@@ -72,7 +76,7 @@ public class ProConServer implements Runnable {
 		// クライアントからのデータを送信
 		ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
 		firstRequest = (ClientData) input.readObject();
-		System.out.println("Server AccessCode: " + firstRequest.getAccessCd());
+		LOG.addMessage("Server AccessCode: " + firstRequest.getAccessCd());
 		System.out.println("Server Name: " + firstRequest.getName());
 		System.out.println("Server BirthDay: " + firstRequest.getBirthDay());
 
@@ -96,7 +100,6 @@ public class ProConServer implements Runnable {
 		isReady = true;
 		// 処理リクエスト受信完了
 		System.out.println("*** sendDataToView *** / " + data.getName());
-		//logic.setClientData(data, playerNo);
 		ProConDataObject.getInstance(data);
 
 	}
@@ -134,8 +137,6 @@ public class ProConServer implements Runnable {
 				System.out.println("サーバー送信: " + line);
 				response.flush();
 
-//				request.close();
-//				response.close();
 				//isStop = false;
 			}
 		} catch (IOException ie) {
@@ -147,11 +148,6 @@ public class ProConServer implements Runnable {
 		}
 	}
 
-//	@Override
-	public ClientData call() {
-		System.out.println("*** Called ***");
-		return firstRequest;
-	}
 	@Override
 	public void finalize() {
 		try {
