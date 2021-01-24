@@ -1,4 +1,4 @@
-package jp.zenryoku.practice.lv1reshu;
+package jp.zenryoku.practice.lv1renshu;
 
 public class Mondai3 {
 	public static void main(String[] args) {
