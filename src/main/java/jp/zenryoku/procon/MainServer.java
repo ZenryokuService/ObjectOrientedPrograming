@@ -92,6 +92,7 @@ public class MainServer extends Thread {
 		}
 	}
 
+	@Override
 	public void finalize() {
 		try {
 			if (server1 != null) server1.close();
@@ -121,9 +122,4 @@ public class MainServer extends Thread {
 		build.append("Server4 = portNo: " +  server4 == null ? "Disabled" : server4.getLocalPort() + ProConServerConst.SEP);
 		return build.toString();
 	}
-
-//	@Override
-//	public int hashCode() {
-//		return this.hashCode();
-//	}
 }

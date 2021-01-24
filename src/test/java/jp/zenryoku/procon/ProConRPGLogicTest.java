@@ -31,15 +31,22 @@ public class ProConRPGLogicTest extends ServerTestHelper {
 			e.printStackTrace();
 			fail("サーバーサーバー起動失敗");
 		}
-		clientSocket(0, "LogicTest");
-		clientSocket(0, "Logic123");
-		clientSocket(0, "LogicAAA");
-		clientSocket(0, "LogicLGOS");
+
+		try {
+
+			clientSocket(0, "LogicTest");
+			clientSocket(1, "Logic123");
+			clientSocket(2, "LogicAAA");
+			clientSocket(3, "LogicLGOS");
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("MainServerでエラー");
+		}
 	}
 
 	@Test
 	public void testTitleView() {
-		logic.init("TestFX");
+		//logic.init("TestFX");
 	}
 
 }

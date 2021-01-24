@@ -28,7 +28,7 @@ public abstract class ServerTestHelper extends Thread {
 	protected void clientSocket(int num, String mes) {
 		try {
 			System.out.println("クライアント：テスト開始: " + num);
-			Socket socket = new Socket("localhost", ProConServerConst.SERVER_PORT + num);
+			Socket socket = new Socket("localhost", ProConServerConst.CLIENT_1_PORT + num);
 			System.out.println("クライアント：接続確認  " + socket.isConnected());
 			PrintWriter in = new PrintWriter(socket.getOutputStream());
 			System.out.println("クライアント：送信開始");
