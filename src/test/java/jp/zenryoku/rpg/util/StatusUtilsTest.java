@@ -28,6 +28,9 @@ public class StatusUtilsTest {
 	}
 
 
+	/**
+	 * 数秘術の計算方法で、文字列からint型に変換する
+	 */
 	@Test
 	public void testConvertStringToInt() {
 		assertEquals(8, StatusUtils.convertStringToInt("44"));
@@ -39,6 +42,11 @@ public class StatusUtilsTest {
 		assertEquals(8, StatusUtils.convertStringToInt("80"));
 	}
 
+	/**
+	 * 生年月日から数秘文字列Arrayを取得して、PlayerStatusを生成する。
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void testCreatePlayerStatus() throws Exception {
 		String[] suhi = StatusUtils.createYogaSuhi("19991204");
@@ -57,6 +65,19 @@ public class StatusUtilsTest {
 		assertEquals(1, status.getKan());// 1
 		assertEquals(1, status.getSin());// 1
 		assertEquals(2, status.getRei());// 2
+
+		String[] suhi2 = StatusUtils.createYogaSuhi("19991205");
+		PlayerStatus status2 = StatusUtils.createStatus(suhi2);
+		assertEquals(0, status2.getPow());// 0
+		assertEquals(0, status2.getBin());// 0
+		assertEquals(1, status2.getTai());// 1
+		assertEquals(1, status2.getKi());// 3 -> 1
+		assertEquals(2, status2.getGak());// 0 -> 2
+		assertEquals(0, status2.getMei());// 0
+		assertEquals(0, status2.getSei());// 1 -> 0
+		assertEquals(1, status2.getKan());// 1
+		assertEquals(2, status2.getSin());// 1 -> 2
+		assertEquals(2, status2.getRei());// 2
 
 	}
 }
