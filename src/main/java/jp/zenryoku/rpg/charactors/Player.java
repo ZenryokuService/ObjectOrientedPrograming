@@ -3,6 +3,7 @@ package jp.zenryoku.rpg.charactors;
 import jp.zenryoku.rpg.charactors.params.PlayerStatus;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
+import jp.zenryoku.rpg.util.StatusUtils;
 import lombok.Data;
 
 /**
@@ -41,6 +42,8 @@ public class Player {
 	private PlayerStatus status;
 	/**
 	 * コンストラクタ。
+	 * デフォルト値を指定してPlayerを生成する。
+	 *
 	 * @param name
 	 */
 	public Player(String name) {
@@ -51,8 +54,18 @@ public class Player {
 		setMP(10);
 	}
 
-	public Player(String name, String birthDate) {
+	/**
+	 * 生年月日よりPlayerStatusを生成してPlayerを生成。
+	 *
+	 * @param name Playerの名前
+	 * @param birthDate 生年月日
+	 */
+	public Player(String name, String birthDate) throws Exception {
+		String[] suhi = StatusUtils.createYogaSuhi(birthDate);
+		PlayerStatus status = StatusUtils.createStatus(suhi);
 
+		Player player = new Player(name);
+		player.setStatus(status);
 	}
 
 	/**

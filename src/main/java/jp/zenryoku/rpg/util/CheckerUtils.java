@@ -41,4 +41,38 @@ public class CheckerUtils {
 		}
 		return false;
 	}
+
+	/**
+	 * チェックディジットを生成する
+	 * @param num コードなどの数字
+	 * @return 生成したチェックディジット / NULL: エラーの時
+	 */
+	public static Integer createCheckDigit(String num) {
+		if (num != null && !num.matches("[0-9]+")) {
+			return null;
+		}
+		char[] ch = num.toCharArray();
+		int gokei = 0;
+		for (int i = 0; i < ch.length; i ++) {
+			String val = String.valueOf(ch[i]);
+			int valNum = Integer.parseInt(val);
+			gokei += valNum;
+		}
+		int amari = gokei % 10;
+		return amari;
+	}
+
+	/**
+	 * チェックディジット付きの番号の検査をする。
+	 *
+	 * @param num チェックディジット(下1桁)を取り除いた数字
+	 * @param digit チェックディジット(下1桁)
+	 * @return true: 検査OK / false: 検査NG
+	 */
+	public static boolean checkCheckDigit(String num, String digit) {
+		String no = num.substring(0, num.length() - 1);
+		String dig = createCheckDigit(no).toString();
+
+		return digit.equals(dig);
+	}
 }
