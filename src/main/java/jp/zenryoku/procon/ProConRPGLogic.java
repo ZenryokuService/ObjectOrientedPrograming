@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -311,5 +312,26 @@ public class ProConRPGLogic extends Application implements Games {
 		default:
 			throw new Exception("playerカウンターが不適切です。" + playerNo);
 		}
+	}
+
+	/**
+	 * Startボタンを押下時の処理
+	 * @param event
+	 */
+	@FXML
+	public void startAction(ActionEvent event) {
+		System.out.println("プロコン・クエストを開始します。");
+	}
+
+	/**
+	 * Exitボタン押下時の処理
+	 * @param event
+	 */
+	@FXML
+	public void exitAction(ActionEvent event) {
+		System.out.println("プロコン・クエストを終了します。");
+		finalize();
+		// 正常終了
+		System.exit(0);
 	}
 }

@@ -27,4 +27,10 @@ public class Lv3StringAndDoubleTest {
 		assertTrue(target.checkIsNumber("12345"));
 	}
 
+	@Test
+	public void testDoubleToBinally() {
+		assertEquals("11", target.convertDecimal("1011", true));
+		assertEquals("1.625", target.convertDecimal("1.101", false));
+	}
+
 }
