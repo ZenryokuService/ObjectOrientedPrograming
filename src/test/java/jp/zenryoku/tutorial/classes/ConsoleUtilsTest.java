@@ -91,6 +91,7 @@ public class ConsoleUtilsTest {
 	/**
 	 * 「ポン！」か「しょ！」を表示する
 	 */
+	@Test
 	public void testPrintPonOrSho_True() {
 		ConsoleUtils.printPonOrSho(true);
 		assertEquals("ポン！" + lineSeparator, console.toString());
@@ -99,6 +100,7 @@ public class ConsoleUtilsTest {
 	/**
 	 * 「ポン！」か「しょ！」を表示する
 	 */
+	@Test
 	public void testPrintPonOrSho_False() {
 		ConsoleUtils.printPonOrSho(false);
 		assertEquals("しょ！" + lineSeparator, console.toString());
