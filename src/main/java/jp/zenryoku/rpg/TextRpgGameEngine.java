@@ -22,7 +22,6 @@ public class TextRpgGameEngine extends Thread {
 	/**
 	 * Threadクラスのメソッドをオーバーライド。
 	 * これで、マルチスレッドでの処理が可能になる。
-	 * @see フローチャート
 	 */
 	@Override
 	public void run() {
