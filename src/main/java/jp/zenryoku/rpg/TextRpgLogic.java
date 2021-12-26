@@ -6,27 +6,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+import jp.zenryoku.RpgLogic;
 import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
+import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.util.CheckerUtils;
 
-public class TextRpgLogic implements Games {
-	/** 標準入力 */
-	private Scanner scan;
-	/** タイトル画面デザイン */
-	private BufferedReader reader;
+public class TextRpgLogic extends RpgLogic {
 
 	/**
 	 * コンストラクタ。
 	 * フィールド変数のインスタンスを生成
 	 */
 	public TextRpgLogic() {
-		scan = new Scanner(System.in);
-		try {
-			reader = Files.newBufferedReader(Paths.get("src/main/resources", "title.txt"));
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(-1);
-		}
+		super();
 	}
 
 	/**
@@ -35,13 +28,9 @@ public class TextRpgLogic implements Games {
 	 * 2. NewGameかContinue(未実装)
 	 * 3. 選択された方のシーンを表示
 	 *
-	 * @see フローチャート
 	 */
 	@Override
 	public void init(String title) {
-		// 改行コード
-		String SEP = System.lineSeparator();
-		// title.txtの読み込み
 		StringBuilder build = new StringBuilder();
 		String line = null;
 		try {
@@ -61,22 +50,19 @@ public class TextRpgLogic implements Games {
 		System.out.println(build.toString());
 	}
 
-	/**
-	 * 入力受付処理。
-	 * ※JavaAPIを呼び出すだけなので、テスト不要。
-	 */
-	@Override
-	public String acceptInput() {
-		// 入力受付を返却する(一行分)
-		return scan.nextLine();
-	}
+
 
 	/**
 	 * データの更新処理。
+	 * @input String 選択したコマンド番号
+	 * @return true: 次の処理 false: もう一度
 	 */
 	@Override
 	public boolean updateData(String input) {
 		// 入力チェック
+		if (CheckerUtils.isCommandInput(input, "[0-2]")) {
+			executeScene();
+		}
 
 		return true;
 	}
@@ -87,6 +73,7 @@ public class TextRpgLogic implements Games {
 	 */
 	@Override
 	public boolean render() {
+
 		return true;
 	}
 
@@ -94,5 +81,18 @@ public class TextRpgLogic implements Games {
 	 * 選択したシーンを呼び出す処理。
 	 */
 	private void action(Player player, Monster monster, String input) {
+	}
+
+	@Override
+	public RpgConst getEndStatus() {
+		return status;
+	}
+
+	/**
+	 * バトルシーンの実装
+	 */
+	@Override
+	protected void executeScene() {
+		scene.playScene();
 	}
 }

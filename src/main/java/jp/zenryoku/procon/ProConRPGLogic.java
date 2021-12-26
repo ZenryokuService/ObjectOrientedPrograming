@@ -21,6 +21,7 @@ import javafx.stage.StageStyle;
 import jp.zenryoku.procon.client.ClientData;
 import jp.zenryoku.procon.server.ProConServerConst;
 import jp.zenryoku.rpg.Games;
+import jp.zenryoku.rpg.constants.RpgConst;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -76,6 +77,8 @@ public class ProConRPGLogic extends Application implements Games {
 	/** プレーヤー４の画像 */
 	@FXML
 	private ImageView player4Image;
+	/** 終了ステータス */
+	private RpgConst status;
 
 
 	/** デフォルトコンストラクタ */
@@ -176,6 +179,9 @@ public class ProConRPGLogic extends Application implements Games {
 		return false;
 	}
 
+	public RpgConst getEndStatus() {
+		return status;
+	}
 	/**
 	 * MainServerとタイトル画面を起動する。
 	 *

@@ -1,5 +1,7 @@
 package jp.zenryoku.rpg;
 
+import jp.zenryoku.rpg.constants.RpgConst;
+
 /**
  * テキストRPG(戦闘シーンのみ)を実装する。
  *
@@ -32,7 +34,7 @@ public class TextRpgGameEngine extends Thread {
 		while(true) {
 			// 4. 入力受付
 			String input = textRpgLogic.acceptInput();
-			if ("bye".contentEquals(input)) {
+			if ("bye".equals(input)) {
 				System.out.println("ゲームを終了します。");
 				break;
 			}
@@ -42,8 +44,12 @@ public class TextRpgGameEngine extends Thread {
 			}
 			// 6. 画面(コンソール)の更新
 			if (textRpgLogic.render()) {
-				// TRUEが返ってきた場合は、戦闘終了
-				System.out.println("たたかいが、おわりました。");
+				// TRUEが返ってきた場合は、終了
+				if (textRpgLogic.getEndStatus() == RpgConst.SAVE) {
+					System.out.println("お疲れ様でした。次の冒険で会いましょう。");
+				} else {
+					System.out.println("たたかいが、おわりました。");
+				}
 				break;
 			}
 		}

@@ -3,15 +3,18 @@ package jp.zenryoku.rpg.scene;
 import java.util.Map;
 import java.util.Scanner;
 
+import javafx.scene.Scene;
 import jp.zenryoku.rpg.Games;
+import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
+import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 
-public class BattleScene  implements Games {
+public class BattleScene  implements RpgScene {
 	/** 定数：攻撃フラグ */
 	private static final String ATTACK = "1";
 	/** 定数：防御フラグ */
@@ -32,6 +35,8 @@ public class BattleScene  implements Games {
 	private Map<Integer, String> commandMap;
 	/** 戦闘終了フラグ */
 	private boolean isBattleFinish;
+	/** 終了ステータス */
+	private RpgConst status;
 
 
 	/**
@@ -53,7 +58,6 @@ public class BattleScene  implements Games {
 	 * 3. コマンドの入力を促す
 	 * 4. コマンドの一覧を表示する
 	 *
-	 * @see フローチャート
 	 */
 	@Override
 	public void init(String title) {
@@ -93,6 +97,7 @@ public class BattleScene  implements Games {
 
 	/**
 	 * データの更新処理。
+	 * @return true: 次の処理 false: やり直し
 	 */
 	@Override
 	public boolean updateData(String input) {
@@ -136,6 +141,9 @@ public class BattleScene  implements Games {
 		return isBattleFinish;
 	}
 
+	public RpgConst getEndStatus() {
+		return status;
+	}
 	/**
 	 * 選択した行動を行う処理。
 	 * @param player プレーヤー
@@ -250,5 +258,20 @@ public class BattleScene  implements Games {
 		armor.setDiffence(4);
 
 		return armor;
+	}
+
+	/**
+	 * バトルシーンを起動する
+	 */
+	public void playScene() {
+		init("バトル");
+		while(true) {
+			String command = acceptInput();
+			if (updateData(command) && render()) {
+				break;
+			}
+		}
+
+
 	}
 }
