@@ -14,7 +14,7 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
-import jp.zenryoku.tutorial.calsses.ConsoleUtils;
+import jp.zenryoku.tutorial.calsses.JankenConsoleUtils;
 import jp.zenryoku.tutorial.calsses.JankenConst;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -69,7 +69,7 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintJankenAiko_True() {
-		ConsoleUtils.printJankenAiko(true);
+		JankenConsoleUtils.printJankenAiko(true);
 		assertEquals(printTable + "じゃんけん ..." + lineSeparator, console.toString());
 	}
 
@@ -78,7 +78,7 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintJankenAiko_False() {
-		ConsoleUtils.printJankenAiko(false);
+		JankenConsoleUtils.printJankenAiko(false);
 		assertEquals(printTable + "あいこで ..." + lineSeparator, console.toString());
 	}
 
@@ -95,7 +95,7 @@ public class ConsoleUtilsTest {
 	 * 「ポン！」か「しょ！」を表示する
 	 */
 	public void testPrintPonOrSho_True() {
-		ConsoleUtils.printPonOrSho(true);
+		JankenConsoleUtils.printPonOrSho(true);
 		assertEquals("ポン！" + lineSeparator, console.toString());
 	}
 
@@ -103,7 +103,7 @@ public class ConsoleUtilsTest {
 	 * 「ポン！」か「しょ！」を表示する
 	 */
 	public void testPrintPonOrSho_False() {
-		ConsoleUtils.printPonOrSho(false);
+		JankenConsoleUtils.printPonOrSho(false);
 		assertEquals("しょ！" + lineSeparator, console.toString());
 	}
 
@@ -115,7 +115,7 @@ public class ConsoleUtilsTest {
 	@Test
 	public void testPrintJudge_WIN() throws Exception {
 		console.reset();
-		ConsoleUtils.printJudge(JankenConst.YOU_WIN);
+		JankenConsoleUtils.printJudge(JankenConst.YOU_WIN);
 		assertEquals("YOU WIN!" + lineSeparator, console.toString());
 	}
 
@@ -126,7 +126,7 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintJudge_LOOSE() throws Exception {
-		ConsoleUtils.printJudge(JankenConst.YOU_LOOSE);
+		JankenConsoleUtils.printJudge(JankenConst.YOU_LOOSE);
 		assertEquals("YOU LOOSE!" + lineSeparator, console.toString());
 	}
 
@@ -137,7 +137,7 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintJudge() throws Exception {
-		ConsoleUtils.printJudge(JankenConst.AIKO);
+		JankenConsoleUtils.printJudge(JankenConst.AIKO);
 		assertEquals("DRAW!" + lineSeparator, console.toString());
 	}
 

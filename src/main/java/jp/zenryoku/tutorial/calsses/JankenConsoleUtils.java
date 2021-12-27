@@ -7,7 +7,7 @@ package jp.zenryoku.tutorial.calsses;
  *
  * @author 実装者の名前
  */
-public class ConsoleUtils {
+public class JankenConsoleUtils {
 
 	/**
 	 * 2.「じゃんけん」or「あいこで」のメッセージ表示

@@ -1,6 +1,5 @@
 package jp.zenryoku.tutorial.level2;
 
-import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -8,38 +7,33 @@ import java.util.Scanner;
  * 今回は、〇か×か当てるゲーム。
  */
 public class Lv2Main {
-    /** 週r等フラグ */
+    /** 終了フラグ */
     private static boolean isFinish;
 
     public static void main(String[] arg) {
         isFinish = false;
         // 標準入力を受け取るクラスをインスタンス化
-        Scanner scan = new Scanner(System.in);
+        Scanner scan = MarubatsuUtils.getScanner();
 
         while (true) {
-            System.out.println("「〇×あてゲーム」 0: 〇 1: ×。");
+            // ゲーム開始文言
+            MarubatsuConsole.printGameStart();
             // 標準入力を受け取る
             int input = scan.nextInt();
             // isFinishがtrueならば処理終了。
             if (isFinish) {
-                System.out.println("プログラムを終了します。");
+                MarubatsuConsole.printTerminated();
                 break;
             }
             // 0か1の値を返却する
-            Random rdm = new Random();
-            int res = rdm.nextInt(1);
+            int res = MarubatsuUtils.nextInt(2);
 
             // 0: 〇 1: ×で当たったかどうかの判定
-            boolean isAtari = res == input;
-            String value = input == 0 ? "〇" : "×";
-            if (isAtari) {
-                System.out.println("あたり：" + value);
-            } else {
-                System.out.println("はずれ：" + value);
-            }
-            System.out.println("続けますか？ 0: 続ける  1: やめる");
-            int next = scan.nextInt();
-            if (next == 1) {
+            boolean isAtari = MarubatsuUtils.judgeAtariOrNot(res, input);
+            MarubatsuConsole.printAtatiorNot(isAtari, input);
+
+            // 続けるのかどうか判定する
+            if (MarubatsuConsole.printNextPlayOrNot(scan)) {
                 break;
             }
         }

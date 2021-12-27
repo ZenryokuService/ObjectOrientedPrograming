@@ -37,10 +37,10 @@ public class TextRpgGameEngine extends Thread {
 				System.out.println("ゲームを終了します。");
 				break;
 			}
-			// 5. データの更新処理
-			if (textRpgLogic.updateData(input) == false) {
-				continue;
-			}
+//			// 5. データの更新処理
+//			if (textRpgLogic.updateData(input) == false) {
+//				continue;
+//			}
 			// 6. 画面(コンソール)の更新
 			if (textRpgLogic.render()) {
 				// TRUEが返ってきた場合は、終了

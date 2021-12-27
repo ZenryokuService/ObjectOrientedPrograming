@@ -50,31 +50,15 @@ public class TextRpgLogic extends RpgLogic {
 		System.out.println(build.toString());
 	}
 
-
-
-	/**
-	 * データの更新処理。
-	 * @input String 選択したコマンド番号
-	 * @return true: 次の処理 false: もう一度
-	 */
-	@Override
-	public boolean updateData(String input) {
-		// 入力チェック
-		if (CheckerUtils.isCommandInput(input, "[0-2]")) {
-			executeScene();
-		}
-
-		return true;
-	}
-
 	/**
 	 * 更新したデータを表示する。
 	 * 戦闘終了時にはTRUEを返却する。
 	 */
 	@Override
 	public boolean render() {
-
-		return true;
+		boolean endScene = executeScene();
+		status = RpgConst.CLEAR;
+		return endScene;
 	}
 
 	/**
@@ -89,10 +73,11 @@ public class TextRpgLogic extends RpgLogic {
 	}
 
 	/**
-	 * バトルシーンの実装
+	 * Ver0.5: バトルシーンの実装
+	 * Ver0.6: シーンの実装
 	 */
 	@Override
-	protected void executeScene() {
-		scene.playScene();
+	protected boolean executeScene() {
+		return scene.playScene();
 	}
 }

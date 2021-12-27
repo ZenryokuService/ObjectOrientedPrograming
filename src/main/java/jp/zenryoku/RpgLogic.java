@@ -4,6 +4,7 @@ import jp.zenryoku.rpg.Games;
 import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.scene.BattleScene;
+import jp.zenryoku.rpg.util.CheckerUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -57,6 +58,21 @@ public abstract class RpgLogic implements Games {
         return scan.nextLine();
     }
 
-    protected abstract void executeScene();
+    /** TODO-[不要なら削除する]
+     * データの更新処理。
+     * @input String 選択したコマンド番号
+     * @return true: 次の処理 false: もう一度
+     */
+    @Override
+    public boolean updateData(String input) {
+        boolean isNext = false;
+        // 入力チェック
+        if (CheckerUtils.isCommandInput(input, "[0-2]")) {
+            isNext = executeScene();
+        }
+        return isNext;
+    }
+    /** 各シーンを実行する */
+    protected abstract boolean executeScene();
 
 }

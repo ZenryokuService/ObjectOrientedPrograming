@@ -59,7 +59,6 @@ public class BattleScene  implements RpgScene {
 	 * 4. コマンドの一覧を表示する
 	 *
 	 */
-	@Override
 	public void init(String title) {
 		// プレーヤーの作成
 		player = new Player("プレーヤ");
@@ -89,7 +88,6 @@ public class BattleScene  implements RpgScene {
 	 * 入力受付処理。
 	 * ※JavaAPIを呼び出すだけなので、テスト不要。
 	 */
-	@Override
 	public String acceptInput() {
 		// 入力受付を返却する(一行分)
 		return scan.nextLine();
@@ -99,7 +97,6 @@ public class BattleScene  implements RpgScene {
 	 * データの更新処理。
 	 * @return true: 次の処理 false: やり直し
 	 */
-	@Override
 	public boolean updateData(String input) {
 		// コマンドマップのキーは入力キー(index)になる
 		// ※TreeMapなのでソート済み
@@ -127,9 +124,9 @@ public class BattleScene  implements RpgScene {
 	 * 更新したデータを表示する。
 	 * 戦闘終了時にはTRUEを返却する。
 	 */
-	@Override
 	public boolean render() {
-
+		// コンソールのクリア
+		console.clearConsole();
 		if(isBattleFinish == false) {
 			// バトルステータスを表示
 			console.printBattleStatus(player);
@@ -263,7 +260,7 @@ public class BattleScene  implements RpgScene {
 	/**
 	 * バトルシーンを起動する
 	 */
-	public void playScene() {
+	public boolean playScene() {
 		init("バトル");
 		while(true) {
 			String command = acceptInput();
@@ -271,7 +268,6 @@ public class BattleScene  implements RpgScene {
 				break;
 			}
 		}
-
-
+		return true;
 	}
 }

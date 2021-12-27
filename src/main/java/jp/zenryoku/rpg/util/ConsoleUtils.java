@@ -2,6 +2,7 @@ package jp.zenryoku.rpg.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.TreeMap;
@@ -28,7 +29,18 @@ public class ConsoleUtils {
 	 *
 	 */
 	public ConsoleUtils() {
-		//System.setOut(new PrintStream(console));
+	}
+
+	/**
+	 * コンストラクタ。
+	 * Propertyファイルを読み込みステータス表示のフォーマットを取得する。
+	 *
+	 */
+	public ConsoleUtils(boolean isTest) {
+		if (isTest) {
+			// テストのときはPrintStreamクラスをし標準出力先に変更する
+			System.setOut(new PrintStream(console));
+		}
 	}
 
 	/**
@@ -97,7 +109,7 @@ public class ConsoleUtils {
 	 * 
 	 *
 	 * @param build StringBuilder
-	 * @param nameLen 名前
+	 * @param name 名前
 	 * @return isGusu 出力するアスタの数が true: 偶数(全部で14文字) / false: 奇数(全部で15文字)
 	 */
 	private boolean appendLine(StringBuilder build, String name, boolean isMultiByte) {
@@ -154,7 +166,7 @@ public class ConsoleUtils {
 	/**
 	 * ステータス表示のために、引数の後ろにスペースを追加する。
 	 *
-	 * @param statusVlue 最終的にスペースが追加された文字列
+	 * @param statusValue 最終的にスペースが追加された文字列
 	 */
 	private String appendSpace(String statusValue, boolean isGusu) {
 		StringBuilder space = new StringBuilder();
@@ -189,7 +201,6 @@ public class ConsoleUtils {
 			e.printStackTrace();
 			System.exit(-1);
 		} catch (InterruptedException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 	}
