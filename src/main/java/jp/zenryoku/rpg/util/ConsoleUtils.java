@@ -11,6 +11,8 @@ import jp.zenryoku.rpg.charactors.Command;
 import jp.zenryoku.rpg.charactors.Player;
 
 public class ConsoleUtils {
+	/** 自分のクラスのインスタンス */
+	private static ConsoleUtils instance;
 	/** 枠線上部、下部(一人分の長さ(半角８文字、全角４文字)) */
 	private final int MAX_LEN = 12;
 	/** 改行文字 */
@@ -22,13 +24,18 @@ public class ConsoleUtils {
 	/** 標準出力の切り替え先 */
 	private static final ByteArrayOutputStream console = new ByteArrayOutputStream();
 
+	public static ConsoleUtils getInstance() {
+		if (instance == null) {
+			instance = new ConsoleUtils(false);
+		}
+		return instance;
+	}
 
-	/**
-	 * コンストラクタ。
-	 * Propertyファイルを読み込みステータス表示のフォーマットを取得する。
-	 *
-	 */
-	public ConsoleUtils() {
+	public static ConsoleUtils getInstanceForTest() {
+		if (instance == null) {
+			instance = new ConsoleUtils(true);
+		}
+		return instance;
 	}
 
 	/**

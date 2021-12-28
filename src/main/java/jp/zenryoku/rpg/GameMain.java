@@ -1,5 +1,7 @@
 package jp.zenryoku.rpg;
 
+import jp.zenryoku.RpgLogic;
+
 public class GameMain {
 	/**
 	 * ゲームを起動するクラス。メインメソッドがある。
@@ -9,7 +11,7 @@ public class GameMain {
 	 * @param args プログラム引数
 	 */
 	public static void main(String[] args) {
-		Games gameLogic = new TextRpgLogic();
+		RpgLogic gameLogic = new TextRpgLogic();
 		TextRpgGameEngine engine  = new TextRpgGameEngine(gameLogic);
 
 		try {

@@ -1,5 +1,6 @@
 package jp.zenryoku.rpg;
 
+import jp.zenryoku.RpgLogic;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ public class TextRpgGameEngineTest {
 	 */
 	@BeforeAll
 	public void init() {
-		Games game = new TextRpgLogic();
+		RpgLogic game = new TextRpgLogic();
 		target = new TextRpgGameEngine(game);
 	}
 

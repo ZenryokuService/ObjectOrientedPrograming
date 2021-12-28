@@ -1,5 +1,6 @@
 package jp.zenryoku.rpg;
 
+import jp.zenryoku.RpgLogic;
 import jp.zenryoku.rpg.constants.RpgConst;
 
 /**
@@ -9,14 +10,14 @@ import jp.zenryoku.rpg.constants.RpgConst;
  */
 public class TextRpgGameEngine extends Thread {
 	/** テキストRPGクラス */
-	private Games textRpgLogic;
+	private RpgLogic textRpgLogic;
 
 	/**
 	 * コンストラクタ。テキストRPGのロジックを実装したクラスを保持する。
 	 *
 	 * @param gameLogic ロジックを実装したクラス
 	 */
-	public TextRpgGameEngine(Games gameLogic) {
+	public TextRpgGameEngine(RpgLogic gameLogic) {
 		textRpgLogic = gameLogic;
 	}
 	/**
@@ -41,15 +42,19 @@ public class TextRpgGameEngine extends Thread {
 //			if (textRpgLogic.updateData(input) == false) {
 //				continue;
 //			}
-			// 6. 画面(コンソール)の更新
-			if (textRpgLogic.render()) {
-				// TRUEが返ってきた場合は、終了
-				if (textRpgLogic.getEndStatus() == RpgConst.SAVE) {
-					System.out.println("お疲れ様でした。次の冒険で会いましょう。");
-				} else {
-					System.out.println("たたかいが、おわりました。");
+			// 6. シーンの実行
+			try {
+				if (textRpgLogic.executeScene()) {
+					// TRUEが返ってきた場合は、終了
+					if (textRpgLogic.getEndStatus() == RpgConst.SAVE) {
+						System.out.println("お疲れ様でした。次の冒険で会いましょう。");
+					} else {
+						System.out.println("== Fin ==");
+					}
+					break;
 				}
-				break;
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}

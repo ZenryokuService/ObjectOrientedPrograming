@@ -16,7 +16,7 @@ public class BattleSceneTest {
 
 	@BeforeAll
 	public void init() {
-		target = new BattleScene();
+		target = new BattleScene("0", "F");
 	}
 
 	/**
@@ -26,7 +26,7 @@ public class BattleSceneTest {
 	@Test
 	public void testInit() {
 		try {
-			target.init("title");
+			target.initScene();
 		} catch (Exception e) {
 			fail();
 		}
@@ -38,7 +38,7 @@ public class BattleSceneTest {
 	@Test
 	public void testUpateData() {
 		// マップを作成する必要があるため、初期表示を行う
-		target.init("title");
+		target.initScene();
 		assertTrue(target.updateData("1"));
 		assertTrue(target.updateData("2"));
 		assertTrue(target.updateData("3"));
@@ -50,7 +50,7 @@ public class BattleSceneTest {
 	 */
 	@Test
 	public void testRender() {
-		target.init("trial");
+		target.initScene();
 		assertTrue(target.updateData("1"));
 		target.render();
 	}

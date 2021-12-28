@@ -35,7 +35,7 @@ public class ConsoleUtilsTest {
 
 	@BeforeAll
 	public static void initClass() {
-		target = new ConsoleUtils();
+		target = ConsoleUtils.getInstance();
 		// 標準出力の出力先を変更する
 		System.setOut(new PrintStream(console));
 	}

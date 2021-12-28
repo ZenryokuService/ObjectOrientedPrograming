@@ -14,7 +14,7 @@ import jp.zenryoku.rpg.item.equip.MainWepon;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 
-public class BattleScene  implements RpgScene {
+public class BattleScene extends RpgScene {
 	/** 定数：攻撃フラグ */
 	private static final String ATTACK = "1";
 	/** 定数：防御フラグ */
@@ -42,9 +42,10 @@ public class BattleScene  implements RpgScene {
 	/**
 	 * コンストラクタ。
 	 */
-	public BattleScene() {
+	public BattleScene(String sceneIdex, String sceneType) {
+		super(sceneIdex, sceneType);
 		// コンソール出力部品
-		console = new ConsoleUtils();
+		console = ConsoleUtils.getInstance();
 		// 入力受付部品
 		scan = new Scanner(System.in);
 		// 戦闘囚虜いうフラグの初期化
@@ -59,7 +60,7 @@ public class BattleScene  implements RpgScene {
 	 * 4. コマンドの一覧を表示する
 	 *
 	 */
-	public void init(String title) {
+	public void initScene() {
 		// プレーヤーの作成
 		player = new Player("プレーヤ");
 		// 装備
@@ -112,14 +113,16 @@ public class BattleScene  implements RpgScene {
 		// データの更新処理
 		action(player, monster, input);
 
+		stopTextLoad();
+		return true;
+	}
+
+	public void stopTextLoad() {
 		// 行動結果の表示後何かの入力があるまで待機
 		System.out.println("<Enter>");
 		acceptInput();
 		console.clearConsole();
-
-		return true;
 	}
-
 	/**
 	 * 更新したデータを表示する。
 	 * 戦闘終了時にはTRUEを返却する。
@@ -261,13 +264,13 @@ public class BattleScene  implements RpgScene {
 	 * バトルシーンを起動する
 	 */
 	public boolean playScene() {
-		init("バトル");
+		initScene();
 		while(true) {
 			String command = acceptInput();
 			if (updateData(command) && render()) {
 				break;
 			}
 		}
-		return true;
+		return false;
 	}
 }

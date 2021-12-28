@@ -10,6 +10,7 @@ import jp.zenryoku.RpgLogic;
 import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.CheckerUtils;
 
 public class TextRpgLogic extends RpgLogic {
@@ -19,7 +20,6 @@ public class TextRpgLogic extends RpgLogic {
 	 * フィールド変数のインスタンスを生成
 	 */
 	public TextRpgLogic() {
-		super();
 	}
 
 	/**
@@ -56,9 +56,9 @@ public class TextRpgLogic extends RpgLogic {
 	 */
 	@Override
 	public boolean render() {
-		boolean endScene = executeScene();
-		status = RpgConst.CLEAR;
-		return endScene;
+//		boolean endScene = executeScene();
+//		status = RpgConst.CLEAR;
+		return true;
 	}
 
 	/**
@@ -77,7 +77,19 @@ public class TextRpgLogic extends RpgLogic {
 	 * Ver0.6: シーンの実装
 	 */
 	@Override
-	protected boolean executeScene() {
-		return scene.playScene();
+	public boolean executeScene() throws Exception {
+		scene.playScene();
+		String next = scene.nextIndex;
+		if (next == null) {
+			status = RpgConst.CLEAR;
+			return true;
+		}
+		RpgScene nextScene = getSceneList().get(Integer.parseInt(next));
+		if (nextScene == null) {
+			throw new RpgException("シーンインデックスが不適切です。: " + next);
+		}
+		// シーンを次のものに切り替える
+		scene = nextScene;
+		return false;
 	}
 }
