@@ -25,8 +25,6 @@ public class BattleScene extends RpgScene {
 	private ConsoleUtils console;
 	/** 入力受付部品 */
 	private Scanner scan;
-	/** 改行コード */
-	private final String SEP = System.lineSeparator();
 	/** Player */
 	private Player player;
 	/** モンスター */
@@ -35,8 +33,7 @@ public class BattleScene extends RpgScene {
 	private Map<Integer, String> commandMap;
 	/** 戦闘終了フラグ */
 	private boolean isBattleFinish;
-	/** 終了ステータス */
-	private RpgConst status;
+
 
 
 	/**
@@ -117,6 +114,10 @@ public class BattleScene extends RpgScene {
 		return true;
 	}
 
+	/**
+	 * テキストのロードを一時停止します。
+	 * Enterキーを入力することで次の処理が流れます。
+	 */
 	public void stopTextLoad() {
 		// 行動結果の表示後何かの入力があるまで待機
 		System.out.println("<Enter>");
@@ -219,12 +220,18 @@ public class BattleScene extends RpgScene {
 		// 2.モンスターの攻撃
 		console.printMessage(monster.getName() + "のこうげき");
 		// diffence()は防御コマンド実行
-		int damage = monster.attack() - player.diffence();
+		double defPower = player.diffence() * 1.5;
+		// 小数点は切り捨てするので単純にint型にキャストする
+		int damage = monster.attack() - (int) defPower;
 		if (damage <= 0) {
 			console.printMessage("ダメージをうけなかった。");
 		} else {
 			console.printMessage(player.getName() + "は" + damage + "のダメージをうけた。");
 			player.setHP(player.getHP() - damage);
+		}
+		// 戦闘不能
+		if (player.getHP() <= 0) {
+			player.setCanBattle(false);
 		}
 	}
 
@@ -263,7 +270,8 @@ public class BattleScene extends RpgScene {
 	/**
 	 * バトルシーンを起動する
 	 */
-	public boolean playScene() {
+	public boolean playScene() throws Exception {
+		boolean isFinish = false;
 		initScene();
 		while(true) {
 			String command = acceptInput();
@@ -271,6 +279,10 @@ public class BattleScene extends RpgScene {
 				break;
 			}
 		}
-		return false;
+		if (nextIndex == null) {
+			isFinish = true;
+		}
+
+		return isFinish;
 	}
 }

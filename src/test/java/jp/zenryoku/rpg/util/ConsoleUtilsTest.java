@@ -179,4 +179,6 @@ public class ConsoleUtilsTest {
 		target.clearConsole();
 		assertEquals("", console.toString());
 	}
+
+
 }

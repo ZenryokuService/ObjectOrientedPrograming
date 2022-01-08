@@ -60,7 +60,10 @@ public abstract class Status {
 	/** 10:霊  */
 	public static final String REI = "10";
 
-	/** セフィロト */
+	/** TODO-[2022-01-04: 使用方法が決まってない]
+	 * セフィロトのパスを使用して、タロットの大アルカナを表現する。
+	 *  「12」であれば、セフィラの１－２のパスを示し、「710」であれば７－１０のパスを示す。
+	 */
 	public Map<String, Integer> sephiroth;
 	/** The Fool */
 	public static final String THE_FOOL = "12";

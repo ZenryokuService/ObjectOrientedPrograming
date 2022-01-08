@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 import jp.zenryoku.rpg.charactors.Command;
 import jp.zenryoku.rpg.charactors.Player;
 
+/**
+ * 標準入出力のユーティリティ
+ */
 public class ConsoleUtils {
 	/** 自分のクラスのインスタンス */
 	private static ConsoleUtils instance;
@@ -23,6 +27,9 @@ public class ConsoleUtils {
 	private final String OS_NAME = System.getProperty("os.name");
 	/** 標準出力の切り替え先 */
 	private static final ByteArrayOutputStream console = new ByteArrayOutputStream();
+	/** 標準入力の受付 */
+	private static Scanner scan;
+
 
 	public static ConsoleUtils getInstance() {
 		if (instance == null) {
@@ -44,12 +51,26 @@ public class ConsoleUtils {
 	 *
 	 */
 	public ConsoleUtils(boolean isTest) {
+		scan = new Scanner(System.in);
 		if (isTest) {
 			// テストのときはPrintStreamクラスをし標準出力先に変更する
 			System.setOut(new PrintStream(console));
 		}
 	}
 
+	public String acceptInput(String message) {
+		System.out.println(message);
+		boolean isOK = false;
+		String input = null;
+		while (isOK == false) {
+			input = scan.nextLine();
+			isOK = input == null || "".equals(input) ? false : true;
+			if (isOK == false) {
+				System.out.println("未入力です。");
+			}
+		}
+		return input;
+	}
 	/**
 	 * メッセージをコンソールに表示する。
 	 * @param message メッセージ

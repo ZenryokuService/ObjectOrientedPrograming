@@ -1,7 +1,5 @@
 package jp.zenryoku.rpg;
 
-import jp.zenryoku.RpgLogic;
-
 public class GameMain {
 	/**
 	 * ゲームを起動するクラス。メインメソッドがある。

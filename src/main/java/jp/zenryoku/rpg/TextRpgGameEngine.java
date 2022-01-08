@@ -1,7 +1,8 @@
 package jp.zenryoku.rpg;
 
-import jp.zenryoku.RpgLogic;
+import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.exception.RpgException;
 
 /**
  * テキストRPG(戦闘シーンのみ)を実装する。
@@ -9,6 +10,8 @@ import jp.zenryoku.rpg.constants.RpgConst;
  * @author 作成者の名前
  */
 public class TextRpgGameEngine extends Thread {
+	/** でバックモード */
+	public final boolean isDebug = false;
 	/** テキストRPGクラス */
 	private RpgLogic textRpgLogic;
 
@@ -27,13 +30,25 @@ public class TextRpgGameEngine extends Thread {
 	@Override
 	public void run() {
 		// 0.ゲーム起動のための準備処理
-		// 1. 戦闘開始の文言「XXXがあらわれた！」を表示する
 		textRpgLogic.init("title");
-		// 2.ゲームループ開始
-		// 3.初期表示(ステータスの表示)
+		// プレーヤー生成
+		try {
+			textRpgLogic.executeScene();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		if (isDebug) textRpgLogic.getSceneList().forEach(scene -> {
+			System.out.println("Index: " + scene.sceneIndex);
+		});
+
 		while(true) {
-			// 4. 入力受付
-			String input = textRpgLogic.acceptInput();
+			String input = null;
+			if (textRpgLogic.getSkipNextMessage() == false && textRpgLogic.getStatus() != RpgConst.CLEAR) {
+				System.out.println("<次へ>");
+				// 4. 入力受付
+				input = textRpgLogic.acceptInput();
+			}
 			if ("bye".equals(input)) {
 				System.out.println("ゲームを終了します。");
 				break;
@@ -47,14 +62,23 @@ public class TextRpgGameEngine extends Thread {
 				if (textRpgLogic.executeScene()) {
 					// TRUEが返ってきた場合は、終了
 					if (textRpgLogic.getEndStatus() == RpgConst.SAVE) {
-						System.out.println("お疲れ様でした。次の冒険で会いましょう。");
+						System.out.println(MessageConst.END_SAVE.toString());
+					} else if (textRpgLogic.getEndStatus() == RpgConst.GAME_OVER) {
+						System.out.println(MessageConst.END_GAMEOVER.toString());
 					} else {
-						System.out.println("== Fin ==");
+						System.out.println(MessageConst.END_FIN.toString());
 					}
 					break;
 				}
+			} catch(RpgException re) {
+				System.out.println("*** Testing ***");
+				System.out.println(re.getMessage());
+				re.printStackTrace();
+				break;
 			} catch (Exception e) {
+				System.out.println(e.getMessage());
 				e.printStackTrace();
+				break;
 			}
 		}
 	}

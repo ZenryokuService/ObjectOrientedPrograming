@@ -1,16 +1,11 @@
 package jp.zenryoku.rpg;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Scanner;
 
-import jp.zenryoku.RpgLogic;
-import jp.zenryoku.rpg.charactors.Player;
-import jp.zenryoku.rpg.charactors.monsters.Monster;
+import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.scene.StoryScene;
 import jp.zenryoku.rpg.util.CheckerUtils;
 
 public class TextRpgLogic extends RpgLogic {
@@ -27,12 +22,14 @@ public class TextRpgLogic extends RpgLogic {
 	 * 1. タイトル表示
 	 * 2. NewGameかContinue(未実装)
 	 * 3. 選択された方のシーンを表示
+	 * 4. 「start」「continue」の選択処理を行う
 	 *
 	 */
 	@Override
 	public void init(String title) {
 		StringBuilder build = new StringBuilder();
 		String line = null;
+		RpgScene result = null;
 		try {
 			while((line = reader.readLine()) != null) {
 				build.append(line + SEP);
@@ -48,23 +45,24 @@ public class TextRpgLogic extends RpgLogic {
 		}
 		// 読み込んだタイトル画面の表示
 		System.out.println(build.toString());
-	}
-
-	/**
-	 * 更新したデータを表示する。
-	 * 戦闘終了時にはTRUEを返却する。
-	 */
-	@Override
-	public boolean render() {
-//		boolean endScene = executeScene();
-//		status = RpgConst.CLEAR;
-		return true;
-	}
-
-	/**
-	 * 選択したシーンを呼び出す処理。
-	 */
-	private void action(Player player, Monster monster, String input) {
+		boolean isOK = false;
+		while (true) {
+			String input = acceptInput();
+			int in = 0;
+			if (CheckerUtils.isCommandInput(input,"[1-2]")) {
+				in = Integer.parseInt(input);
+			}
+			if (RpgConst.INIT_START.getStatus() == in) {
+				scene = new StoryScene("0", "Z");
+				// プレーヤー生成の次は、シーンインデックス = 1に飛ぶ
+				scene.setNextIndex("1");
+				break;
+			} else if (RpgConst.INIT_CONTINUE.getStatus() == in) {
+				// TODO-[今後実装する]
+				System.out.println("未実装です。");
+			}
+			System.out.println(MessageConst.ERR_INPUT.toString() + "1: start 2: continue");
+		}
 	}
 
 	@Override
@@ -75,21 +73,36 @@ public class TextRpgLogic extends RpgLogic {
 	/**
 	 * Ver0.5: バトルシーンの実装
 	 * Ver0.6: シーンの実装
+	 * 1. RpgScene#playScene()を実行。
+	 * 2. シーンに設定されている、skipNextMessageをLogicクラスに設定する。
+	 * 　　※これで、処理に反映される。
+	 * 3. 次のシーンインデックスが終了ステータスの場合ゲーム終了する。
 	 */
 	@Override
 	public boolean executeScene() throws Exception {
+
 		scene.playScene();
+		skipNextMessage = scene.getSkipNextMessage();
 		String next = scene.nextIndex;
+
+		if (isDebug) System.out.println("current Idx: " + scene.sceneIndex + " sceneType: " + scene.sceneType + " next sceneIndex: " + next);
+
 		if (next == null) {
+			throw new RpgException("次のシーン指定が不適切です。: ");
+		}
+		if (RpgConst.CLEAR.getSceneType().equals(next)) {
 			status = RpgConst.CLEAR;
 			return true;
+		} else if (RpgConst.GAME_OVER.getSceneType().equals(next)) {
+			status = RpgConst.GAME_OVER;
+			return true;
+		} else if (RpgConst.SAVE.getSceneType().equals(next)) {
+			status = RpgConst.SAVE;
+			return true;
 		}
-		RpgScene nextScene = getSceneList().get(Integer.parseInt(next));
-		if (nextScene == null) {
-			throw new RpgException("シーンインデックスが不適切です。: " + next);
-		}
-		// シーンを次のものに切り替える
-		scene = nextScene;
+
+		// 次のシーンをセットする
+		setNextScene(next);
 		return false;
 	}
 }

@@ -33,7 +33,7 @@ public class CheckerUtilsTest {
 	/**
 	 * CheckerUtils#isCommandInputのテスト
 	 */
-	@Test
+	//@Test
 	public void testCommandInput() {
 		assertTrue(CheckerUtils.isCommandInput("1", "[1-3]"));
 		assertTrue(CheckerUtils.isCommandInput("2", "[1-3]"));
@@ -61,4 +61,5 @@ public class CheckerUtilsTest {
 		assertTrue("7".equals(checkDigit));
 
 	}
+
 }

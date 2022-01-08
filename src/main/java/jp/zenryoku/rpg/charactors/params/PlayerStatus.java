@@ -10,6 +10,9 @@ import lombok.Data;
  */
 @Data
 public class PlayerStatus extends Status {
+	////////////////////////////
+	//// ベースになるステータス ////
+	////////////////////////////
 	/** 1:力 */
 	private int pow;
 	/** 2:敏 */
@@ -30,6 +33,18 @@ public class PlayerStatus extends Status {
 	private int sin;
 	/** 10:霊  */
 	private int rei;
+	////////////////////////////
+	//  戦闘に使用するステータス  //
+	////////////////////////////
+	/** 生命力 */
+	private int HP;
+	/** マジックポイント */
+	private int MP;
+	/** 攻撃力 */
+	private int atk;
+	/** 防御力 */
+	private int def;
+
 
 	/** コンストラクタ */
 	public PlayerStatus(int[] status) throws Exception {
