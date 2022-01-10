@@ -1,5 +1,8 @@
 package jp.zenryoku.rpg.util;
 
+import jp.zenryoku.rpg.constants.MessageConst;
+import jp.zenryoku.rpg.exception.RpgException;
+
 public class CheckerUtils {
 
 	/**

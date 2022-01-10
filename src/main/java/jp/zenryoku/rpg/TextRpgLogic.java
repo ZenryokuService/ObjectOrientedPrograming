@@ -5,6 +5,7 @@ import java.io.IOException;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.scene.CreatePlayerScene;
 import jp.zenryoku.rpg.scene.StoryScene;
 import jp.zenryoku.rpg.util.CheckerUtils;
 
@@ -15,6 +16,7 @@ public class TextRpgLogic extends RpgLogic {
 	 * フィールド変数のインスタンスを生成
 	 */
 	public TextRpgLogic() {
+		super();
 	}
 
 	/**
@@ -52,16 +54,17 @@ public class TextRpgLogic extends RpgLogic {
 			if (CheckerUtils.isCommandInput(input,"[1-2]")) {
 				in = Integer.parseInt(input);
 			}
-			if (RpgConst.INIT_START.getStatus() == in) {
-				scene = new StoryScene("0", "Z");
+			if (RpgConst.INIT_START.getStatus() == (in - 1)) {
+				scene = new CreatePlayerScene("0", "Z");
 				// プレーヤー生成の次は、シーンインデックス = 1に飛ぶ
 				scene.setNextIndex("1");
 				break;
-			} else if (RpgConst.INIT_CONTINUE.getStatus() == in) {
+			} else if (RpgConst.INIT_CONTINUE.getStatus() == (in - 2)) {
 				// TODO-[今後実装する]
 				System.out.println("未実装です。");
+			} else {
+				System.out.println(MessageConst.ERR_INPUT.toString() + "1: start 2: continue");
 			}
-			System.out.println(MessageConst.ERR_INPUT.toString() + "1: start 2: continue");
 		}
 	}
 

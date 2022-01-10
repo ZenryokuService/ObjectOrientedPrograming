@@ -1,11 +1,17 @@
 package jp.zenryoku.rpg.util;
 
+import jp.zenryoku.rpg.data.ParamGenerator;
+import jp.zenryoku.rpg.data.RpgItemType;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import java.io.BufferedReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * 計算ユーティリティクラスのテスト
@@ -59,6 +65,44 @@ public class CalcUtilsTest {
             fail("エラーが出る想定");
         } catch (RpgException e) {
 
+        }
+    }
+
+    //@Test
+    public void testCalcRpgData() {
+        BufferedReader buf = null;
+        try {
+            buf = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorItem.txt"));
+            buf.readLine();
+            ParamGenerator.getInstance().createItemTypeMap(buf);
+            target.calcRpgData("物理攻撃力: 物理的な攻撃力を示す。式= (ちから + 武器攻撃力) * (1 + (0.1 * 熟練度)): ATK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testSepKako() {
+        BufferedReader buf = null;
+        try {
+            buf = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorItem.txt"));
+            buf.readLine();
+            ParamGenerator gen = ParamGenerator.getInstance();
+            gen.createItemTypeMap(buf);
+            buf = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGenerator.txt"));
+            buf.readLine();
+            gen.createParam(buf);
+            buf = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorStatus.txt"));
+            buf.readLine();
+            gen.createStatus(buf);
+
+
+            ParamGenerator.getInstance().getAllMap().forEach((key, val) -> {System.out.println(key + " : " + val.getName());});
+            String res = target.sepTankoSiki("(ちから + 武器攻撃力) * (1 + (0.1 * じゅくれんど))");
+            assertEquals("( POW + WEV) * (1 + (0.1 *  JKR))", res);
+        } catch (Exception e) {
+            fail(e.getMessage());
         }
     }
 }

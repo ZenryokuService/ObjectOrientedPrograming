@@ -26,7 +26,7 @@ public class ParamGeneratorTest {
 
     @BeforeEach
     public void resetParam() {
-        target.getDataMap().clear();
+        target.getConfig().getParamMap().clear();
     }
     @Test
     public void testSetDiceCode1() {
@@ -58,8 +58,8 @@ public class ParamGeneratorTest {
             assertEquals("CONFIG_PARAM", buf.readLine());
             // ２行目を飛ばす。
             //buf.readLine();
-            target.createStatusParam(buf);
-            Map<String, RpgData> res = target.getDataMap();
+            target.createParam(buf);
+            Map<String, RpgData> res = target.getConfig().getParamMap();
             //assertEquals(6, res.size());
             if (isDebug) res.forEach((key, val) -> {
                 System.out.println("Key: " + key + " Value: " + val.getKigo() + " " + val.getDiscription());
@@ -76,8 +76,8 @@ public class ParamGeneratorTest {
         try {
             buf = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorJob.txt"));
             assertEquals("CONFIG_JOB", buf.readLine());
-            target.createJobList(buf);
-            if (isDebug) target.getConfig().getJobList().forEach(System.out::println);
+            target.createJobMap(buf);
+            if (isDebug) target.getConfig().getJobMap().forEach((key, val) -> { System.out.println(key + " : "+ val);});
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -85,24 +85,37 @@ public class ParamGeneratorTest {
     }
 
     @Test
-    public void testFormula() {
+    public void testCreateFormula() {
         BufferedReader buf = null;
         try {
+            // 職業マップ
             BufferedReader job = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorJob.txt"));
             job.readLine(); // 1行飛ばす
-            target.createJobList(job);
+            target.createJobMap(job);
+            // アイテムマップ
             BufferedReader item = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorItem.txt"));
             item.readLine(); // 1行飛ばす
-            target.createItemList(item);
+            target.createItemTypeMap(item);
+            item.readLine();
+            item.readLine();
+            target.createItemMap(item);
+            // ステータスマップ
+            BufferedReader status = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorStatus.txt"));
+            status.readLine();
+            target.createStatus(status);
+            // パラメータマップ
+            BufferedReader param = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGenerator.txt"));
+            param.readLine();
+            target.createParam(param);
+
             buf = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorFormula.txt"));
             assertEquals("CONFIG_FORMULA", buf.readLine());
-            target.createFormulaList(buf);
-            List<RpgFormula> list = target.getConfig().getFormulaList();
-            if (isDebug) list.forEach(System.out::println);
-            // データマップを生成する
-            target.createDataMap();
+            target.createFormulaMap(buf);
+            Map<String, RpgData> list = target.getConfig().getFormulaMap();
+            if (true) list.forEach((key, val) -> { System.out.println(key + " : "+ val);});
+
             // 計算式の生成を行う。
-            target.createFormula(list.get(0).getFormulaStr());
+//            target.createFormula(list.get(0).getFormulaStr());
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -115,24 +128,35 @@ public class ParamGeneratorTest {
         try {
             buf = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorItem.txt"));
             assertEquals("CONFIG_ITEM", buf.readLine());
-            target.createItemList(buf);
-            List<RpgItem> list = target.getConfig().getItemList();
-            if (isDebug) list.forEach(System.out::println);
+            String line = null;
+            //buf.readLine();
+            target.createItemTypeMap(buf);
+            buf.readLine();
+            assertEquals("ITEM_LIST", buf.readLine());
+            target.createItemMap(buf);
+            Map<String, RpgData> list = target.getConfig().getItemMap();
+            if (isDebug) list.forEach((key, val) -> { System.out.println(key + " : "+ val.getName());});
             // 計算式の生成を行う。
             //target.createFormula(list.get(0).getFormulaStr());
-        } catch (Exception e) {
+        } catch (IOException | RpgException e) {
             e.printStackTrace();
             fail(e.getMessage());
         }
     }
 
-    //@Test
-    public void testCreateFormula() {
-        try {
-            target.createFormula("物理攻撃力= (ちから + 武器攻撃力) * (1 + (0.1 * 熟練度))");
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
-    }
+//    @Test
+//    public void testCreateItemType() {
+//        try {
+//            target.createItemTypeMap("アイテム種類: アイテムの種類を設定する。 ITM(薬草などの通常アイテム) WEP(武器の類) ARM(防具の類): アイテム(ITM) 武器(WEP) 防具(ARM)");
+//            target.createItemTypeMap("アイテム効果: 各アイテムの持っている効果。薬草であれば回復量、武器であれば武器攻撃力を示す。防具の場合は防具防御力: アイテム効果(ITV) 武器攻撃力(WEV) 防具防御力(ARV)");
+//            target.createItemTypeMap("値段: 各アイテムの値段、ここでは通貨の単位を記述する: ニギ(NIG)");
+//            target.createItemTypeMap("アイテム副作用: アイテムの副作用、「もっていると魔法を受け付けなくなる」など: アイテム副作用(SIV)");
+//        } catch (RpgException e) {
+//            fail(e.getMessage());
+//        }
+//        Map<String, RpgItemType> map = target.getConfig().getItemTypeMap();
+//        map.forEach((key, val) -> {
+//            assertEquals(key, map.get(key).getName());
+//        });
+//    }
 }

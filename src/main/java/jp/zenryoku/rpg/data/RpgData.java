@@ -6,13 +6,21 @@ import lombok.Data;
 @Data
 public class RpgData {
     /** データタイプ */
-    private RpgConst type;
+    protected RpgConst type;
     /** パラメータ名　*/
-    private String name;
+    protected String name;
     /** 説明 */
-    private String discription;
+    protected String discription;
     /** 記号 */
-    private String kigo;
+    protected String kigo;
     /** パラメータ値 */
-    private Integer value;
+    protected Integer value;
+
+    public RpgData() {
+    }
+
+    public RpgData(RpgConst type) {
+        this.type = type;
+    }
+
 }

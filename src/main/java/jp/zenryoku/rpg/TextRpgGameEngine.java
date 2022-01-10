@@ -71,7 +71,6 @@ public class TextRpgGameEngine extends Thread {
 					break;
 				}
 			} catch(RpgException re) {
-				System.out.println("*** Testing ***");
 				System.out.println(re.getMessage());
 				re.printStackTrace();
 				break;

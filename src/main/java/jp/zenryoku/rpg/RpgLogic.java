@@ -11,6 +11,7 @@ import jp.zenryoku.rpg.exception.StoryTextException;
 import jp.zenryoku.rpg.scene.*;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import lombok.Data;
+import org.nd4j.shade.jackson.databind.deser.impl.CreatorCandidate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,6 +53,8 @@ public abstract class RpgLogic implements Games {
         scan = new Scanner(System.in);
         // 冒険の記録
         record = new AdventureRecord();
+        // シーンリスト
+        sceneList = new ArrayList<>();
 
         // title.txtの読み込み
         reader = getBufferedReader("src/main/resources", "title.txt");
@@ -132,11 +135,30 @@ public abstract class RpgLogic implements Games {
                 }
                 // 設定オブジェクトの生成
                 if (line.equals("CONFIG_PARAM")) {
-                    ParamGenerator.getInstance().createStatusParam(storyTxt);
+                    ParamGenerator.getInstance().createParam(storyTxt);
+                    continue;
+                }
+                if (line.equals("CONFIG_STATUS")) {
+                    ParamGenerator.getInstance().createStatus(storyTxt);
+                    continue;
+                }
+                if (line.equals("CONFIG_ITEM")) {
+                    ParamGenerator.getInstance().createItemTypeMap(storyTxt);
+                    continue;
+                }
+                if (line.equals("CONFIG_FORMULA")) {
+                    ParamGenerator.getInstance().createFormulaMap(storyTxt);
+                    continue;
                 }
                 if (line.equals("CONFIG_JOB")) {
-
+                    ParamGenerator.getInstance().createJobMap(storyTxt);
+                    continue;
                 }
+                if (line.equals("ITEM_LIST")) {
+                    ParamGenerator.getInstance().createItemMap(storyTxt);
+                    continue;
+                }
+
                 //// ファイル読み込み処理は、参照渡しを使用せず、値渡しで実装する ////
                 // シーン開始行の判定
                 if (line.matches("[0-9]{0,1000}:[A-Z]")) {

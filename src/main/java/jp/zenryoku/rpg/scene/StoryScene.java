@@ -3,6 +3,7 @@ package jp.zenryoku.rpg.scene;
 import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.ParamGenerator;
+import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 
@@ -130,13 +131,14 @@ public class StoryScene extends RpgScene {
         return false;
     }
 
+    /** 表示する行数をRpgConst#PRINT_LINEに設定する */
     protected void printStory() {
         int count = 0;
         // ストーリーを表示する
         for (String text : textList) {
             System.out.println(text);
-            if (count > 7) {
-                ConsoleUtils.getInstance().printMessage("<次へ>");
+            if (count > RpgConfig.getInstance().getPrintLine()) {
+                ConsoleUtils.getInstance().acceptInput("<次へ>", false);
                 count = 0;
             }
             count++;

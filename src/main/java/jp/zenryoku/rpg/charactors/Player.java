@@ -40,6 +40,9 @@ public class Player {
 	private boolean canBattle;
 	/** ステータスオブジェクト */
 	private PlayerStatus status;
+
+	public Player() {
+	}
 	/**
 	 * コンストラクタ。
 	 * デフォルト値を指定してPlayerを生成する。

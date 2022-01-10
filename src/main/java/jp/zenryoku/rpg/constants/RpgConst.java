@@ -54,10 +54,20 @@ public enum RpgConst {
     ////////////////////////////////
     // RPGで使用するデータのタイプ(2) //
     ////////////////////////////////
+    /** そのほかに使用するパラメータ */
+    DATA_TYPE_PARAM(2,"param"),
+    /** ステータス・パラメータ */
     DATA_TYPE_STATUS(2,"status"),
+    /** 各種計算式 */
     DATA_TYPE_FORMULA(2,"formula"),
+    /** アイテム(武器なども含む)の設定 */
     DATA_TYPE_ITEM(2,"item"),
+    /** アイテム(武器なども含む)の種類の設定 */
+    DATA_TYPE_ITEM_TYPE(2,"itemtype"),
+    /** 職業の設定 */
     DATA_TYPE_JOB(2,"job"),
+    /** 装備品の設定 */
+    DATA_TYPE_EQUIP(2,"equip"),
     ;
 
     /** ゲームステータス(1:終了時に保存、2:クリア、3:次のシーン...) */
