@@ -379,7 +379,6 @@ public class ConsoleUtils {
 		StringBuilder space = new StringBuilder();
 		int len = 0;
 		if (isGusu) {
-			System.out.println("*** Tesing ***");
 			// 偶数の場合、最大文字数 + 2(スペース2個分) - 1(後ろにつけるアスタ分)
 			len = (max + 2) - statusValue.length();
 		} else {

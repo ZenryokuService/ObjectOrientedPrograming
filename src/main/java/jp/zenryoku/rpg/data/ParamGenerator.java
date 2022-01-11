@@ -30,7 +30,7 @@ public class ParamGenerator {
     private Map<String, RpgData> formulaMap;
     /** アイテム(武器なども含む)設定 */
     private Map<String, RpgData> itemMap;
-    /** アイテムタイプの設定 */
+    /** アイテムタイプ、アイテムの設定 */
     private Map<String, RpgData> itemTypeMap;
 
     /** プライベート・コンストラクタ */
@@ -64,6 +64,7 @@ public class ParamGenerator {
 
     /**
      * java.util.MapにKey=名前, Value=RpgDataとして設定情報を登録する。
+     * ストーリーテキストからそのほかのデータオブジェクトを生成する。
      * @throws RpgException
      */
     @Deprecated
@@ -331,7 +332,10 @@ public class ParamGenerator {
         return data;
     }
 
-    /** 表示する行数を指定する */
+    /**
+     * ストーリーテキストから表示する行数を指定する
+     * <printLine: 数字>のように指定する。CONFIG_PARAMから2行目に書く必要がある。
+     */
     public void setPrintLine(String line) throws Exception {
         if (line.matches("\\<printLine: [0-9]{1,2}\\>") == false) {
             throw new RpgException(MessageConst.ERR_PRINT_LINE.toString() + line);

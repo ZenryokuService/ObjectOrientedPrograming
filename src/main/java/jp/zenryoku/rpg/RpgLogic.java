@@ -24,7 +24,7 @@ import java.util.Scanner;
 @Data
 public abstract class RpgLogic implements Games {
     /** デバックフラグ */
-    public final boolean isDebug = true;
+    public final boolean isDebug = false;
     /** 改行コード */
     protected String SEP;
     /** 標準入力 */
