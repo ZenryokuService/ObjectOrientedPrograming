@@ -33,5 +33,11 @@ public class MarubatsuUtilsTest {
 
         assertFalse(MarubatsuUtils.judgeAtariOrNot(0, 1));
         assertFalse(MarubatsuUtils.judgeAtariOrNot(1, 0));
+
+        // 当たりを表示するチェック、これは標準出力に表示する(当たりの場合)
+        MarubatsuUtils.judgeAtariOrNot(0, 0);
+        // はずれの場合
+        MarubatsuUtils.judgeAtariOrNot(1, 0);
+
     }
 }

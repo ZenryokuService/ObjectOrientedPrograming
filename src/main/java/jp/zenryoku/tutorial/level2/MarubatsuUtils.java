@@ -45,6 +45,10 @@ public class MarubatsuUtils {
      * @return true: 等しい　false: 違う
      */
     public static boolean judgeAtariOrNot(int res, int input) {
+        // 0か1で「〇」「×」の判断をしている
+        String result = res == 0 ? "〇" : "×";
+        // 生成した乱数を表示する
+        System.out.println("「〇」「×」の結果: " + result);
         // 0: 〇 1: ×で当たったかどうかの判定
         return res == input;
     }

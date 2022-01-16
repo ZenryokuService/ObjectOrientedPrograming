@@ -7,7 +7,11 @@ public class MarubatsuConsole {
      * 〇×あてゲームの開始文言を表示
      */
     public static void printGameStart() {
-        System.out.println("「〇×あてゲーム」 0: 〇 1: ×。");
+        // 表示内容をちょっとおしゃれにする。
+        System.out.println("******************************");
+        System.out.println("*「〇×あてゲーム」 0: 〇 1: ×。 *");
+        System.out.println("******************************");
+        System.out.println("※0は「〇」を表し1は「×」を表します。");
     }
 
     /**
@@ -20,6 +24,7 @@ public class MarubatsuConsole {
     /**
      * 当たったかどうかを表示する。
      * @param isAtari 当たり判定の結果
+     * @param input 入力した値
      */
     public static void printAtatiorNot(boolean isAtari, int input) {
         String value = input == 0 ? "〇" : "×";
