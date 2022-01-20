@@ -6,6 +6,7 @@ import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.AdventureRecord;
 import jp.zenryoku.rpg.data.ParamGenerator;
+import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.exception.StoryTextException;
 import jp.zenryoku.rpg.scene.*;
@@ -174,6 +175,10 @@ public abstract class RpgLogic implements Games {
                     isSelectLine = true;
                     continue;
                 }
+                // アイテムショップの設定
+                if (line.matches("\\<item\\:[a-zA-Z]{3,10}\\>")) {
+                    setItemShop(line, storyTxt);
+                }
 
                 // ストーリーテキストのシーン終了部分
                 if (line.startsWith("END_SCENE ")) {
@@ -337,6 +342,19 @@ public abstract class RpgLogic implements Games {
             System.exit(-1);
         }
         return buf;
+    }
+
+    private void setItemShop(String line, BufferedReader txt) throws IOException {
+        String shopName = line.split(":")[1];
+        String items = null;
+        RpgConfig conf = RpgConfig.getInstance();
+        while ((items = txt.readLine()) != "</item>") {
+            String[] sep = items.split("\\.");
+            // 番号
+            String num = sep[0];
+            // アイテム情報
+            String itemInfo = sep[1];
+        }
     }
     /**
      * 入力受付処理。

@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Data
 public abstract class RpgScene {
-    public final boolean isDebug = true;
+    public final boolean isDebug = false;
     /** 改行文字 */
     protected final String SEP = System.lineSeparator();
     /** 終了ステータス */

@@ -124,7 +124,7 @@ END_SCENE C
 2. 短剣, 50, PW=3
 3. ぬのの服, 45, DW=2
 4. どくけし, 30, ST=PSN
-
+</item>
 END_SCENE 1
 
 5:C

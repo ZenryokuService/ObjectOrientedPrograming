@@ -23,7 +23,7 @@ public class ConsoleUtils {
 	/** 自分のクラスのインスタンス */
 	private static ConsoleUtils instance;
 	/** 枠線上部、下部(一人分の長さ(半角８文字、全角４文字)) */
-	private final int MAX_LEN = 12;
+	private final int MAX_LEN = 14;
 	/** 改行文字 */
 	private final String SEPARATOR = System.lineSeparator();
 	/** 表示するステータスの文字数 */
@@ -193,7 +193,12 @@ public class ConsoleUtils {
 		List<RpgStatus> statusList = player.getStatusList();
 		int max = 0;
 		for (RpgStatus s : statusList) {
-			int len = s.getName().length();
+			String n = s.getName();
+			boolean isMulti = CheckerUtils.isMultiByteStr(n);
+			int len = n.length();
+			if (isMulti) {
+				len = len * 2;
+			}
 			if (max < len) {
 				max = len;
 			}
@@ -355,10 +360,10 @@ public class ConsoleUtils {
 		int len = 0;
 		if (isGusu) {
 			// 偶数の場合、最大文字数 + 2(スペース2個分) - 1(後ろにつけるアスタ分)
-			len = (STATUS_LEN + 2) - statusValue.length() - 1;
+			len = (STATUS_LEN + 3) - statusValue.length();
 		} else {
 			// 奇数の場合、最大文字数 + 3(スペース2個分)
-			len = (STATUS_LEN + 3) - statusValue.length() - 1;
+			len = (STATUS_LEN + 4) - statusValue.length();
 		}
 		for (int i = 0; i < len; i++) {
 			space.append(" ");
@@ -380,10 +385,10 @@ public class ConsoleUtils {
 		int len = 0;
 		if (isGusu) {
 			// 偶数の場合、最大文字数 + 2(スペース2個分) - 1(後ろにつけるアスタ分)
-			len = (max + 2) - statusValue.length();
+			len = (max - 1) - statusValue.length();
 		} else {
 			// 奇数の場合、最大文字数 + 3(スペース2個分)
-			len = (max + 3) - statusValue.length();
+			len = (max + 0) - statusValue.length();
 		}
 		for (int i = 0; i < len; i++) {
 			space.append(" ");
