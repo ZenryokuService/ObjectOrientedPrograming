@@ -15,5 +15,6 @@
 
 ## Diagrams
 **/src/main/resources/TextRpgClasses.mdj (StarUML)**
+[PDF is here](./resources/TextRpgDiagram.pdf)
 
  
