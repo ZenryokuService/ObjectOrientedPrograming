@@ -177,7 +177,7 @@ public abstract class RpgLogic implements Games {
                 }
                 // アイテムショップの設定
                 if (line.matches("\\<item\\:[a-zA-Z]{3,10}\\>")) {
-                    setItemShop(line, storyTxt);
+                    setItemShop(line, storyTxt, sceneObj);
                 }
 
                 // ストーリーテキストのシーン終了部分
@@ -344,16 +344,21 @@ public abstract class RpgLogic implements Games {
         return buf;
     }
 
-    private void setItemShop(String line, BufferedReader txt) throws IOException {
+    private void setItemShop(String line, BufferedReader txt, RpgScene sceneObj) throws IOException, RpgException {
+        if ((sceneObj instanceof ShopScene) == false) {
+            throw new RpgException(MessageConst.SCENE_TYPE_ERR.toString());
+        }
         String shopName = line.split(":")[1];
         String items = null;
         RpgConfig conf = RpgConfig.getInstance();
-        while ((items = txt.readLine()) != "</item>") {
+        while ((items = txt.readLine()).equals("</item>") == false) {
+            if (isDebug) System.out.println(items);
             String[] sep = items.split("\\.");
             // 番号
             String num = sep[0];
             // アイテム情報
             String itemInfo = sep[1];
+
         }
     }
     /**

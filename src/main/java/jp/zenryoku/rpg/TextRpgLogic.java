@@ -83,7 +83,7 @@ public class TextRpgLogic extends RpgLogic {
 	 */
 	@Override
 	public boolean executeScene() throws Exception {
-
+		if (isDebug) System.out.println(MessageConst.ON_SCENE.toString());
 		scene.playScene();
 		skipNextMessage = scene.getSkipNextMessage();
 		String next = scene.nextIndex;

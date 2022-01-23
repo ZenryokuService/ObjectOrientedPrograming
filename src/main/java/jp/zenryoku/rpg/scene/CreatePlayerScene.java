@@ -34,6 +34,12 @@ public class CreatePlayerScene extends StoryScene {
     }
 
     /**
+     * ダイスコードから何面ダイスで何回振るか表示する。
+     */
+    private void printDiceInfo() {
+        System.out.println(config.getDiceFaces() + "面ダイスを" + config.getDiceTimes() + "回振ります。");
+    }
+    /**
      *  プレーヤー作成用のシーン。
      *
      * @return 処理継続のフラグ = false
@@ -59,11 +65,11 @@ public class CreatePlayerScene extends StoryScene {
         System.out.println(MessageConst.INPUT_STATUS);
 
         CalcUtils calc = CalcUtils.getInstance();
-        int diceTimes = config.getDiceTimes();
         // ステータスマップ取得
         List<RpgStatus> status = player.getStatusList();
         if (isDebug) System.out.println("map.size: " + status.size());
-        boolean isRepeat = true;
+
+        printDiceInfo();
         while (true) {
             for (RpgStatus val : status) {
                 int res = calc.throwDice(config.getDiceTimes(), config.getDiceFaces()

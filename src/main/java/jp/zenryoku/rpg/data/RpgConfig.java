@@ -34,6 +34,8 @@ public class RpgConfig {
     private Map<String, RpgData> itemMap;
     /** アイテムタイプリスト */
     private Map<String, RpgData> itemTypeMap;
+    /** ショップリスト */
+
     /** プレーヤーパーティ */
     private PlayerParty party;
 

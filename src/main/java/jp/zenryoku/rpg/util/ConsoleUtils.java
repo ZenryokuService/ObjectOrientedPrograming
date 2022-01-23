@@ -11,8 +11,10 @@ import java.util.TreeMap;
 
 import jp.zenryoku.rpg.charactors.Command;
 import jp.zenryoku.rpg.charactors.Player;
+import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.MessageConst;
+import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.RpgStatus;
 
@@ -414,5 +416,110 @@ public class ConsoleUtils {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 設定情報を読み込んだ後の情報を表示する。
+	 * 例:
+	 * help -> 全体を表示する
+	 * help param -> パラメータのみを表示する
+	 * help status -> ステータスのみを表示する
+	 *
+	 */
+	public void printConfig(String command) {
+		RpgConfig conf = RpgConfig.getInstance();
+		String[] sep = command.split(" ");
+		String target = null;
+		if (sep.length == 2) {
+			target = sep[1];
+		} else {
+			// 全部表示
+			printMap(conf.getParamMap());
+			printMap(conf.getStatusMap());
+			printMap(conf.getItemTypeMap());
+			printMap(conf.getItemMap());
+			printMap(conf.getFormulaMap());
+			return;
+		}
+
+		// パラメータ用
+		if ("param".equals(target)) {
+			printMap(conf.getParamMap());
+		}
+		// ステータス
+		if ("status".equals(target)) {
+			printMap(conf.getStatusMap());
+		}
+		// アイテムタイプ
+		if ("itemType".equals(target)) {
+			printMap(conf.getItemTypeMap());
+		}
+		// アイテム
+		if ("item".equals(target)) {
+			printMap(conf.getItemMap());
+		}
+		// 計算式
+		if ("formula".equals(target)) {
+			printMap(conf.getFormulaMap());
+		}
+	}
+
+	public void printMenu() {
+		RpgConfig conf = RpgConfig.getInstance();
+		PlayerParty party = conf.getParty();
+		Player player = party.getPlayer();
+
+		System.out.println(MessageConst.MENU);
+		System.out.println(MessageConst.IS_MENU);
+
+		boolean isMenu = true;
+		ConsoleUtils console = ConsoleUtils.getInstance();
+		while (isMenu) {
+			String input = console.acceptInput(MessageConst.DO_SELECT.toString(), "[1-3]");
+			if ("1".equals(input)) {
+				// 装備の変更をおこなう
+
+			} else if ("2".equals(input)) {
+				// アイテムの使用をおこなう
+			} else if ("3".equals(input)) {
+				// まほうの使用をおこなう
+
+			}
+		}
+	}
+
+	/**
+	 * そうびの変更を行う。
+	 */
+	private void selectEquipMent() {
+
+	}
+
+	/**
+	 * アイテムの使用
+	 */
+	private void useItems() {
+
+	}
+
+	/**
+	 * まほうの使用
+	 */
+	private void useMagics() {
+
+	}
+
+	/**
+	 * 引数のマップ内容をすべて表示する。
+	 * @param map
+	 */
+	private void printMap(Map<String, RpgData> map) {
+		map.forEach((key, val) -> {
+			String disc = val.getDiscription();
+			String res = disc != null ? disc : val.getName();
+			System.out.println(key + " : " + res + "<" + val.getKigo() + ">");
+		});
+		// 表示の区切り
+		acceptInput("", false);
 	}
 }

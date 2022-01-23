@@ -134,10 +134,11 @@ public class StoryScene extends RpgScene {
     /** 表示する行数をRpgConst#PRINT_LINEに設定する */
     protected void printStory() {
         int count = 0;
+        int printLine = RpgConfig.getInstance().getPrintLine();
         // ストーリーを表示する
         for (String text : textList) {
             System.out.println(text);
-            if (count > RpgConfig.getInstance().getPrintLine()) {
+            if (printLine != 0 && count > printLine) {
                 ConsoleUtils.getInstance().acceptInput("<次へ>", false);
                 count = 0;
             }

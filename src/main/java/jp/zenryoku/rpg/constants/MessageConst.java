@@ -1,6 +1,10 @@
 package jp.zenryoku.rpg.constants;
 
 public enum MessageConst {
+    /** ルート */
+    ON_ROOT("<Root>"),
+    /** シーン */
+    ON_SCENE("<Scene>"),
     /** ゲームオーバー */
     END_GAMEOVER(""),
     /** 終了時メッセージ(保存) */
@@ -57,8 +61,19 @@ public enum MessageConst {
     ERR_NO_KEY_GENPARA("パラメータ生成時のマップキーがありません"),
     /** 設定オブジェクトが違います。 */
     ERR_SETTING_OBJECT("設定オブジェクトが違います。"),
+    /** メニュー */
+    MENU("*** メニュー ***" + RpgConst.SEP
+            + "* 1. そうび    *" + RpgConst.SEP
+            + "* 2. アイテム  *" + RpgConst.SEP
+            + "* 3. まほう    *" + RpgConst.SEP
+            + "***************" + RpgConst.SEP),
+    /** メニュー中 */
+    IS_MENU("<メニュー>"),
+    /** 選択してください */
+    DO_SELECT("選択してください。exitでメニューを終了します。"),
     ;
 
+    /** メッセージ */
     private String message;
 
     private MessageConst(String message) {

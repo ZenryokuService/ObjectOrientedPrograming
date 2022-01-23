@@ -101,13 +101,13 @@ public class ParamGenerator {
                     throw new RpgException(MessageConst.PLAYER_STATUS_SEPARATE3.toString() + SEP + line);
                 }
                 // 0:ステータス名
-                data.setName(setting[0]);
+                data.setName(setting[0].trim());
                 // 1:説明
-                data.setDiscription(setting[1]);
+                data.setDiscription(setting[1].trim());
                 // 2:記号(ATKなど)
-                data.setKigo(setting[2]);
+                data.setKigo(setting[2].trim());
                 // データマップに登録
-                statusMap.put(data.getName(), data);
+                statusMap.put(data.getName().trim(), data);
             }
             config.setStatusMap(statusMap);
         } catch (IOException | RpgException e) {
@@ -129,21 +129,25 @@ public class ParamGenerator {
             // ダイスコードの設定(１行目)
             setDiceCode(buf.readLine());
             // 表示行数の指定(2行目)
-            setPrintLine(buf.readLine());
+            String sepLine = buf.readLine();
+            setPrintLine(sepLine.startsWith("#") ? "" : sepLine);
             while ((line = buf.readLine()).equals("END_PARAM") == false) {
+                if (line.startsWith("# ")) {
+                    continue;
+                }
                 RpgData data = new RpgData(RpgConst.DATA_TYPE_PARAM);
                 String[] setting = line.split(":");
                 if (setting.length != 3) {
                     throw new RpgException(MessageConst.PLAYER_STATUS_SEPARATE3.toString() + SEP + line);
                 }
                 // 0:ステータス名
-                data.setName(setting[0]);
+                data.setName(setting[0].trim());
                 // 1:説明
-                data.setDiscription(setting[1]);
+                data.setDiscription(setting[1].trim());
                 // 2:記号(ATKなど)
-                data.setKigo(setting[2]);
+                data.setKigo(setting[2].trim());
                 // データマップに登録
-                dataMap.put(data.getName(), data);
+                dataMap.put(data.getName().trim(), data);
             }
             config.setParamMap(dataMap);
         } catch (IOException | RpgException e) {
@@ -168,13 +172,13 @@ public class ParamGenerator {
                     throw new RpgException(MessageConst.JOB_SEPARATE3.toString() + SEP + line);
                 }
                 // 0:ステータス名
-                data.setName(setting[0]);
+                data.setName(setting[0].trim());
                 // 1:説明
-                data.setDiscription(setting[1]);
+                data.setDiscription(setting[1].trim());
                 // 2:記号(ATKなど)
-                data.setKigo(setting[2]);
+                data.setKigo(setting[2].trim());
                 // 職業リストに追加
-                jobMap.put(setting[0], data);
+                jobMap.put(setting[0].trim(), data);
             }
             config.setJobMap(jobMap);
         } catch (IOException | RpgException e) {
@@ -201,16 +205,16 @@ public class ParamGenerator {
                 }
                 String discription = setting[1];
                 // 0:ステータス名
-                data.setName(setting[0]);
+                data.setName(setting[0].trim());
                 // 1:説明
-                data.setDiscription(discription);
+                data.setDiscription(discription.trim());
                 // 2:記号(ATKなど)
-                data.setKigo(setting[2]);
+                data.setKigo(setting[2].trim());
                 // 3. 説明の中から式を取り出す
                 int start = discription.indexOf('=') + 1;
                 data.setFormulaStr(util.sepTankoSiki(discription.substring(start).trim()));
                 // 計算式リストに追加
-                formulaMap.put(data.getName(), data);
+                formulaMap.put(data.getName().trim(), data);
             }
             config.setFormulaMap(formulaMap);
         } catch (IOException | RpgException e) {
@@ -236,17 +240,17 @@ public class ParamGenerator {
                     throw new RpgException(MessageConst.ITEM_SEPARATE3.toString() + SEP + line + " length: " + setting.length);
                 }
                 // 0:名前
-                data.setName(setting[0]);
+                data.setName(setting[0].trim());
                 // 1:種類の記号
-                data.setDiscription(setting[1]);
+                data.setDiscription(setting[1].trim());
                 // 2:効果記号と値
-                data.setKigo(setting[2]);
+                data.setKigo(setting[2].trim());
                 // 3. 副作用
-                data.setTargetSideEffect(setting[3]);
+                data.setTargetSideEffect(setting[3].trim());
                 // 4. 副作用の数値
-                data.setSideEffectValue(setting[4]);
+                data.setSideEffectValue(setting[4].trim());
                 // アイテムリストに追加
-                itemMap.put(setting[0], data);
+                itemMap.put(setting[0].trim(), data);
             }
             config.setItemMap(itemMap);
         } catch (IOException | RpgException e) {
@@ -271,8 +275,7 @@ public class ParamGenerator {
                 if (data.length != 3) {
                     throw new RpgException(MessageConst.ITEM_SEPARATE3.toString() + SEP + line +  " length: " + data.length);
                 }
-                String name = data[0];
-                String discription = data[1];
+                String discription = data[1].trim();
                 String[] value = data[2].trim().split(" ");
 
                 Map<String, RpgData> itemTypeMap = config.getItemTypeMap();
@@ -282,9 +285,10 @@ public class ParamGenerator {
                     String conv2 = conv1.substring(0,conv1.length() - 1);
                     String[] hako = conv2.split(" ");
 
-                    itemType.setName(hako[0]);
-                    itemType.setKigo(hako[1]);
-                    itemTypeMap.put(hako[0], itemType);
+                    itemType.setName(hako[0].trim());
+                    itemType.setKigo(hako[1].trim());
+                    itemType.setDiscription(discription);
+                    itemTypeMap.put(hako[0].trim(), itemType);
                 }
                 config.setItemTypeMap(itemTypeMap);
             }
@@ -306,8 +310,9 @@ public class ParamGenerator {
         String dice = diceCode.replace("<", "").replace(">", "");
         String[] res = dice.split("D");
         config.setDiceCode(true);
-        config.setDiceTimes(Integer.parseInt(res[0]));
-        config.setDiceFaces(Integer.parseInt(res[1]));
+        config.setDiceTimes(Integer.parseInt(res[0].trim()));
+        config.setDiceFaces(Integer.parseInt(res[1].trim()));
+        config.setDiceFaces(Integer.parseInt(res[1].trim()));
     }
 
     /**
@@ -336,7 +341,10 @@ public class ParamGenerator {
      * ストーリーテキストから表示する行数を指定する
      * <printLine: 数字>のように指定する。CONFIG_PARAMから2行目に書く必要がある。
      */
-    public void setPrintLine(String line) throws Exception {
+    private void setPrintLine(String line) throws Exception {
+        if ("".equals(line)) {
+            return;
+        }
         if (line.matches("\\<printLine: [0-9]{1,2}\\>") == false) {
             throw new RpgException(MessageConst.ERR_PRINT_LINE.toString() + line);
         }

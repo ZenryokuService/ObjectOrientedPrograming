@@ -1,5 +1,7 @@
 package jp.zenryoku.rpg.item;
 
+import jp.zenryoku.rpg.data.RpgItemType;
+
 /**
  * アイテムを表現するクラス。
  *
@@ -8,6 +10,9 @@ package jp.zenryoku.rpg.item;
 public class Items {
 	/** 名前 */
 	private String name;
+	/** アイテムタイプ */
+	private RpgItemType itemType;
+
 	/** 効果(実装計画が未定のため仮) */
 	private Object effect;
 

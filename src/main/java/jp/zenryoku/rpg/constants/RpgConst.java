@@ -69,7 +69,8 @@ public enum RpgConst {
     /** 装備品の設定 */
     DATA_TYPE_EQUIP(2,"equip"),
     ;
-
+    /** 改行コード */
+    public static final String SEP = System.lineSeparator();
     /** ゲームステータス(1:終了時に保存、2:クリア、3:次のシーン...) */
     private int status;
     /** シーンタイプ */

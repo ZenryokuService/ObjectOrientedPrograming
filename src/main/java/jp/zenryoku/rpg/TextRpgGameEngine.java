@@ -3,6 +3,7 @@ package jp.zenryoku.rpg;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.util.ConsoleUtils;
 
 /**
  * テキストRPG(戦闘シーンのみ)を実装する。
@@ -44,19 +45,26 @@ public class TextRpgGameEngine extends Thread {
 
 		while(true) {
 			String input = null;
+			if (isDebug) System.out.println(MessageConst.ON_ROOT.toString());
+
 			if (textRpgLogic.getSkipNextMessage() == false && textRpgLogic.getStatus() != RpgConst.CLEAR) {
-				System.out.println("<次へ>");
+				System.out.println(MessageConst.ON_ROOT);
 				// 4. 入力受付
 				input = textRpgLogic.acceptInput();
 			}
+			// ゲームの終了
 			if ("bye".equals(input)) {
 				System.out.println("ゲームを終了します。");
 				break;
 			}
-//			// 5. データの更新処理
-//			if (textRpgLogic.updateData(input) == false) {
-//				continue;
-//			}
+			// ヘルプ
+			if (input != null && input.startsWith("help")) {
+				ConsoleUtils.getInstance().printConfig(input);
+			}
+			// メニューの表示
+			if (input != null && input.startsWith("menu")) {
+				ConsoleUtils.getInstance().printConfig(input);
+			}
 			// 6. シーンの実行
 			try {
 				if (textRpgLogic.executeScene()) {
