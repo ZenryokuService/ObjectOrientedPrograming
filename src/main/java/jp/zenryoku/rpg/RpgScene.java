@@ -41,12 +41,10 @@ public abstract class RpgScene {
 
     /**
      * デフォルトコンストラクタ。
-     * こちらのコンストラクタは基本的に使用しない。
      */
     public RpgScene() {
         textList = new ArrayList<String>();
         commentList = new ArrayList<String>();
-
     }
 
     /**

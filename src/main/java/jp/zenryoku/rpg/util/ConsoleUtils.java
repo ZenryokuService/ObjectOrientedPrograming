@@ -14,14 +14,19 @@ import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.MessageConst;
+import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
+import jp.zenryoku.rpg.data.RpgItem;
 import jp.zenryoku.rpg.data.RpgStatus;
+import jp.zenryoku.rpg.exception.RpgException;
 
 /**
  * 標準入出力のユーティリティ
  */
 public class ConsoleUtils {
+	/** デバック */
+	private final boolean isDebug = false;
 	/** 自分のクラスのインスタンス */
 	private static ConsoleUtils instance;
 	/** 枠線上部、下部(一人分の長さ(半角８文字、全角４文字)) */
@@ -434,56 +439,83 @@ public class ConsoleUtils {
 			target = sep[1];
 		} else {
 			// 全部表示
+			System.out.println("パラメータ");
 			printMap(conf.getParamMap());
+			System.out.println("ステータス");
 			printMap(conf.getStatusMap());
+			System.out.println("アイテムタイプ");
 			printMap(conf.getItemTypeMap());
+			System.out.println("アイテム一覧");
 			printMap(conf.getItemMap());
+			System.out.println("計算式");
 			printMap(conf.getFormulaMap());
 			return;
 		}
 
 		// パラメータ用
 		if ("param".equals(target)) {
+			System.out.println("パラメータ");
 			printMap(conf.getParamMap());
 		}
 		// ステータス
 		if ("status".equals(target)) {
+			System.out.println("ステータス");
 			printMap(conf.getStatusMap());
 		}
 		// アイテムタイプ
 		if ("itemType".equals(target)) {
+			System.out.println("アイテムタイプ");
 			printMap(conf.getItemTypeMap());
 		}
 		// アイテム
 		if ("item".equals(target)) {
+			System.out.println("アイテム一覧");
 			printMap(conf.getItemMap());
 		}
 		// 計算式
 		if ("formula".equals(target)) {
+			System.out.println("計算式");
 			printMap(conf.getFormulaMap());
 		}
 	}
 
-	public void printMenu() {
+	public void printMenu() throws RpgException {
 		RpgConfig conf = RpgConfig.getInstance();
 		PlayerParty party = conf.getParty();
 		Player player = party.getPlayer();
-
+		ConsoleUtils console = ConsoleUtils.getInstance();
+		List<RpgItem> itemList = player.getItemBag();
 		System.out.println(MessageConst.MENU);
-		System.out.println(MessageConst.IS_MENU);
+		//System.out.println(MessageConst.IS_MENU);
 
 		boolean isMenu = true;
-		ConsoleUtils console = ConsoleUtils.getInstance();
+
+
 		while (isMenu) {
-			String input = console.acceptInput(MessageConst.DO_SELECT.toString(), "[1-3]");
+			if (isDebug) System.out.println("アイテムサイズ: " + itemList.size());
+			System.out.println("＜アイテム＞");
+			// 所持アイテムの表示
+			for (int i = 0; i < itemList.size(); i++) {
+				RpgItem item = itemList.get(i);
+				System.out.println((i + 1) + ". " + item.getName());
+			}
+			String input = console.acceptInput(MessageConst.MENU_DO_SELECT.toString(), "[1-3]");
 			if ("1".equals(input)) {
 				// 装備の変更をおこなう
-
+				String selectSobi = console.acceptInput(MessageConst.EQUIP_SELECT.toString());
+				RpgItem sobi = itemList.get(Integer.parseInt(selectSobi) - 1);
+				System.out.println(sobi.getName() + " : " + sobi.getItemType() + " : " + sobi.getItemValueKigo());
+				RpgData type = conf.getItemTypeMap().get(sobi.getItemType());
+				if (RpgConst.WEP.equals(type.getKigo()) == false) {
+					throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + " : " + type.getName());
+				}
 			} else if ("2".equals(input)) {
 				// アイテムの使用をおこなう
 			} else if ("3".equals(input)) {
 				// まほうの使用をおこなう
 
+			} else if ("exit".equals(input)) {
+				break;
 			}
 		}
 	}
@@ -491,7 +523,8 @@ public class ConsoleUtils {
 	/**
 	 * そうびの変更を行う。
 	 */
-	private void selectEquipMent() {
+	private void selectEquipMent(Player player, RpgConfig conf) {
+
 
 	}
 
@@ -521,5 +554,9 @@ public class ConsoleUtils {
 		});
 		// 表示の区切り
 		acceptInput("", false);
+	}
+
+	private void printList(List<RpgItem> list) {
+
 	}
 }

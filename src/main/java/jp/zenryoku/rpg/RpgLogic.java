@@ -4,9 +4,8 @@ import jp.zenryoku.rpg.Games;
 import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
-import jp.zenryoku.rpg.data.AdventureRecord;
-import jp.zenryoku.rpg.data.ParamGenerator;
-import jp.zenryoku.rpg.data.RpgConfig;
+import jp.zenryoku.rpg.data.*;
+import jp.zenryoku.rpg.data.shop.ItemShop;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.exception.StoryTextException;
 import jp.zenryoku.rpg.scene.*;
@@ -20,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 @Data
@@ -178,6 +178,7 @@ public abstract class RpgLogic implements Games {
                 // アイテムショップの設定
                 if (line.matches("\\<item\\:[a-zA-Z]{3,10}\\>")) {
                     setItemShop(line, storyTxt, sceneObj);
+                    continue;
                 }
 
                 // ストーリーテキストのシーン終了部分
@@ -351,15 +352,30 @@ public abstract class RpgLogic implements Games {
         String shopName = line.split(":")[1];
         String items = null;
         RpgConfig conf = RpgConfig.getInstance();
+        ShopScene scene = (ShopScene) sceneObj;
+        Map<String, RpgData> itemMap = conf.getItemMap();
+        // アイテムショップインスタンス
+        ItemShop shop = new ItemShop(shopName);
+        scene.setShop(shop);
+        // データはカンマ区切りになっている
         while ((items = txt.readLine()).equals("</item>") == false) {
             if (isDebug) System.out.println(items);
-            String[] sep = items.split("\\.");
-            // 番号
-            String num = sep[0];
-            // アイテム情報
-            String itemInfo = sep[1];
-
+            // 設定オブジェクトよりデータ取得
+            String[] data = items.split(",");
+            if (data.length != 2) {
+                throw new RpgException(MessageConst.ERR_ITEM_CSV.toString());
+            }
+            // アイテム名(アイテムリストのキーになっている)
+            RpgData i = itemMap.get(data[0]);
+            if ((i instanceof RpgItem) == false) {
+                throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString()
+                        + ": " + i.getClass().getName());
+            }
+            RpgItem itemData = (RpgItem) i;
+            shop.addItemList(itemData);
         }
+        // 改めてsceneObjにセットする
+        sceneObj = scene;
     }
     /**
      * 入力受付処理。

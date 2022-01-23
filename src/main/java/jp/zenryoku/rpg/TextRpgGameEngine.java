@@ -61,12 +61,12 @@ public class TextRpgGameEngine extends Thread {
 			if (input != null && input.startsWith("help")) {
 				ConsoleUtils.getInstance().printConfig(input);
 			}
-			// メニューの表示
-			if (input != null && input.startsWith("menu")) {
-				ConsoleUtils.getInstance().printConfig(input);
-			}
-			// 6. シーンの実行
 			try {
+				// メニューの表示
+				if (input != null && input.startsWith("menu")) {
+					ConsoleUtils.getInstance().printMenu();
+				}
+				// 6. シーンの実行
 				if (textRpgLogic.executeScene()) {
 					// TRUEが返ってきた場合は、終了
 					if (textRpgLogic.getEndStatus() == RpgConst.SAVE) {

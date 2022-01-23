@@ -52,8 +52,8 @@ ITEM_LIST
 ぼくとう:WEP:WEV=3: 30:ITN-1
 やくそう:ITM:HP+10: 30: ITN-1
 ぬののふく:ARM:ARV=3: 30: ITN- 2
-短剣:WEP:WEV=50:50:ITN-1
-どくけし: ITM:ITV=30: POI=0: ITN-1
+たんけん:WEP:WEV=50:50:ITN-1
+どくけし: ITM:ITV=POI: 30: ITN-1
 END_ITEM_LIST
 
 CONFIG_FORMULA
@@ -128,10 +128,10 @@ END_SCENE C
 4:B
 店舗です。
 <item:ShopName>
-1. やくそう, 30, HP=10
-2. 短剣, 50, PW=3
-3. ぬのの服, 45, DW=2
-4. どくけし, 30, ST=PSN
+やくそう, 30
+たんけん, 50
+ぬののふく, 45
+どくけし, 30
 </item>
 END_SCENE 1
 

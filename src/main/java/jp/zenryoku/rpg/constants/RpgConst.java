@@ -69,8 +69,18 @@ public enum RpgConst {
     /** 装備品の設定 */
     DATA_TYPE_EQUIP(2,"equip"),
     ;
+
     /** 改行コード */
     public static final String SEP = System.lineSeparator();
+    /** アイテム保持可能数(デフォルト) */
+    public static int ITEM_HOLD_NUM = 5;
+    /** 武器を示す記号 */
+    public static final String WEP = "WEP";
+    /** 防具を示す記号 */
+    public static final String ARM = "ARM";
+    /** 通常のアイテムを示す記号 */
+    public static final String ITM = "ITM";
+
     /** ゲームステータス(1:終了時に保存、2:クリア、3:次のシーン...) */
     private int status;
     /** シーンタイプ */

@@ -1,10 +1,16 @@
 package jp.zenryoku.rpg.charactors;
 
 import jp.zenryoku.rpg.charactors.params.PlayerStatus;
+import jp.zenryoku.rpg.constants.MessageConst;
+import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.RpgItem;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 import jp.zenryoku.rpg.util.StatusUtils;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * プレーヤーを表現するクラス。
@@ -40,8 +46,12 @@ public class Player {
 	private boolean canBattle;
 	/** ステータスオブジェクト */
 	private PlayerStatus status;
+	/** アイテム袋 */
+	private List<RpgItem> itemBag;
 
 	public Player() {
+		// リストのサイズを5で初期化
+		itemBag = new ArrayList<RpgItem>(RpgConst.ITEM_HOLD_NUM);
 	}
 	/**
 	 * コンストラクタ。
@@ -50,6 +60,7 @@ public class Player {
 	 * @param name
 	 */
 	public Player(String name) {
+		this();
 		this.name = name;
 		// レベル1の設定
 		setLevel(1);
@@ -64,6 +75,7 @@ public class Player {
 	 * @param birthDate 生年月日
 	 */
 	public Player(String name, String birthDate) throws Exception {
+		this();
 		String[] suhi = StatusUtils.createYogaSuhi(birthDate);
 		PlayerStatus status = StatusUtils.createStatus(suhi);
 
@@ -96,6 +108,15 @@ public class Player {
 		System.out.println(player.getName() + "たちは、にげだした。");
 	}
 
+	public void addItem(RpgItem item) {
+		// TODO-[アイテム保持可能数の実装]
+		int current = itemBag.size();
+		if (current > RpgConst.ITEM_HOLD_NUM) {
+			System.out.println(MessageConst.CANNOT_HOLD.toString());
+			return;
+		}
+		itemBag.add(item);
+	}
 	/**
 	 * 戦闘不能か判定する。
 	 * @return ture: 戦闘不能 / false: 戦闘可能

@@ -1,8 +1,25 @@
 package jp.zenryoku.rpg.scene;
 
 import jp.zenryoku.rpg.RpgScene;
+import jp.zenryoku.rpg.charactors.Player;
+import jp.zenryoku.rpg.charactors.PlayerParty;
+import jp.zenryoku.rpg.constants.MessageConst;
+import jp.zenryoku.rpg.data.RpgConfig;
+import jp.zenryoku.rpg.data.RpgItem;
+import jp.zenryoku.rpg.data.RpgShop;
+import jp.zenryoku.rpg.data.shop.ItemShop;
+import jp.zenryoku.rpg.util.ConsoleUtils;
+import lombok.Data;
 
+import java.util.List;
+
+@Data
 public class ShopScene extends StoryScene {
+    /** ショップのインスタンス */
+    private ItemShop shop;
+
+
+    /** コンストラクタ */
     public ShopScene(String sceneIdx, String sceneType) {
         super(sceneIdx, sceneType);
     }
@@ -11,6 +28,38 @@ public class ShopScene extends StoryScene {
     public boolean playScene() throws Exception {
         // ストーリーテキストの内容を表示
         super.playScene();
+
+        ConsoleUtils console = ConsoleUtils.getInstance();
+        List<RpgItem> list = shop.getItemList();
+        int size = list.size();
+        String max = String.valueOf(size);
+
+        Player player = RpgConfig.getInstance().getParty().getPlayer();
+
+        while (true) {
+            list.forEach(item -> {
+                System.out.println("名前: " + item.getName()
+                        + " 記号: " + item.getKigo()
+                        + " タイプ: " + item.getType()
+                        + " アイテム記号: " + item.getItemType()
+                        + " アイテム効果記号" + item.getItemValueKigo()
+                        + " 金額: " + item.getMoney() + SEP
+                        + " 説明: " + item.getDiscription());
+            });
+            String select = console.acceptInput(MessageConst.DO_SELECT.toString(), "[1-" + max + "]");
+            RpgItem it = list.get(Integer.parseInt(select));
+            String res = console.acceptInput(it.getName() + MessageConst.YOU_BUY_THIS.toString(), "[y|n]");
+            if ("y".equals(res)) {
+                System.out.println(MessageConst.THANKS);
+                player.addItem(it);
+            }
+            String res1 = console.acceptInput(MessageConst.DO_YOU_WANT_MORE.toString(), "[y|n]");
+            if ("n".equals(res1)) {
+                System.out.println(MessageConst.THANKS_BYE.toString());
+                break;
+            }
+        }
+
 
         return false;
     }

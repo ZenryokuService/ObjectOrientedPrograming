@@ -232,6 +232,7 @@ public class ParamGenerator {
      */
     public void createItemMap(BufferedReader buf) throws RpgException  {
         String line = null;
+        RpgConfig conf = RpgConfig.getInstance();
         try {
             while ((line = buf.readLine()).equals("END_ITEM_LIST") == false) {
                 RpgItem data = new RpgItem();
@@ -242,17 +243,19 @@ public class ParamGenerator {
                 // 0:名前
                 data.setName(setting[0].trim());
                 // 1:種類の記号
-                data.setDiscription(setting[1].trim());
+                data.setItemType(setting[1].trim());
                 // 2:効果記号と値
-                data.setKigo(setting[2].trim());
-                // 3. 副作用
-                data.setTargetSideEffect(setting[3].trim());
+                data.setItemValueKigo(setting[2].trim());
+                // 3. 金額
+                data.setMoney(Integer.parseInt(setting[3].trim()));
                 // 4. 副作用の数値
                 data.setSideEffectValue(setting[4].trim());
                 // アイテムリストに追加
                 itemMap.put(setting[0].trim(), data);
             }
             config.setItemMap(itemMap);
+        } catch (NumberFormatException e) {
+            throw new RpgException(e.getMessage() + " : " + line);
         } catch (IOException | RpgException e) {
             throw new RpgException(e.getMessage());
         } catch (Exception e) {
@@ -281,10 +284,7 @@ public class ParamGenerator {
                 Map<String, RpgData> itemTypeMap = config.getItemTypeMap();
                 for (String type : value) {
                     RpgItemType itemType = new RpgItemType();
-                    String conv1 = type.replaceAll("[\\(|\\)]", " ");
-                    String conv2 = conv1.substring(0,conv1.length() - 1);
-                    String[] hako = conv2.split(" ");
-
+                    String[] hako = sepNameAndKigo(type);
                     itemType.setName(hako[0].trim());
                     itemType.setKigo(hako[1].trim());
                     itemType.setDiscription(discription);
@@ -297,6 +297,23 @@ public class ParamGenerator {
         }
     }
 
+    public String[] sepNameAndKigo(String third) {
+        String[] types = third.split(" ");
+        String[] hako = new String[types.length * 2];
+
+        for (int i = 0; i < types.length; i++) {
+
+            String type = types[i];
+            String conv0 = type.replaceAll("[\\(]", " ");
+            String conv1 = conv0.replaceAll("[\\)]", "");
+            String conv2 = conv1.substring(0,conv1.length());
+            String[] tmp = conv2.split(" ");
+            hako[i * 2] = tmp[0];
+            hako[(i * 2) + 1] = tmp[1];
+        }
+
+        return hako;
+    }
     /**
      * ダイスコードから、以下を取得する
      * 1. 何面ダイスか？

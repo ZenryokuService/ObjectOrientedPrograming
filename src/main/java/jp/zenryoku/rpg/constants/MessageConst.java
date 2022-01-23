@@ -1,6 +1,7 @@
 package jp.zenryoku.rpg.constants;
 
 public enum MessageConst {
+    //// 通常メッセージ ///
     /** ルート */
     ON_ROOT("<Root>"),
     /** シーン */
@@ -25,6 +26,32 @@ public enum MessageConst {
     CHECK_STATUS("ステータスをこれで決定してよいですか？"),
     /** ステータスオブジェクトではありません。 */
     NO_MUCH_STATUS("ステータスオブジェクトではありません。"),
+    /** メニュー */
+    MENU("*** メニュー ***" + RpgConst.SEP
+            + "* 1. そうび    *" + RpgConst.SEP
+            + "* 2. アイテム  *" + RpgConst.SEP
+            + "* 3. まほう    *" + RpgConst.SEP
+            + "***************" + RpgConst.SEP),
+    /** メニュー中 */
+    IS_MENU("<メニュー>"),
+    /** メニューを選択してください。exitでメニューを終了します。 */
+    MENU_DO_SELECT("選択してください。exitでメニューを終了します。"),
+    /** 選択してください */
+    DO_SELECT("選択してください。"),
+    /** 装備の変更を行います。 */
+    EQUIP_SELECT("装備の変更を行います。装備するアイテム番号を入力してください。"),
+    /** ありがとうございます。 */
+    THANKS("ありがとうございます。"),
+    /** ありがとうございました。 */
+    THANKS_BYE("ありがとうございました。"),
+    /** 荷物がいっぱいです。 */
+    CANNOT_HOLD("にもつがいっぱいです。"),
+    /** でよろしいですか？ */
+    YOU_BUY_THIS("でよろしいですか?(y=yes, n=no)"),
+    /** ほかにようじはありますか？ */
+    DO_YOU_WANT_MORE("ほかにようじはありますか？(y=yes, n=no)"),
+    /** アイテムデータの設定ミス */
+    //// エラーメッセージ ///
     /** 想定外のエラー */
     UNEXPECTED_ERR("想定外のエラーです。"),
     /** シーンタイプの設定エラー */
@@ -61,16 +88,8 @@ public enum MessageConst {
     ERR_NO_KEY_GENPARA("パラメータ生成時のマップキーがありません"),
     /** 設定オブジェクトが違います。 */
     ERR_SETTING_OBJECT("設定オブジェクトが違います。"),
-    /** メニュー */
-    MENU("*** メニュー ***" + RpgConst.SEP
-            + "* 1. そうび    *" + RpgConst.SEP
-            + "* 2. アイテム  *" + RpgConst.SEP
-            + "* 3. まほう    *" + RpgConst.SEP
-            + "***************" + RpgConst.SEP),
-    /** メニュー中 */
-    IS_MENU("<メニュー>"),
-    /** 選択してください */
-    DO_SELECT("選択してください。exitでメニューを終了します。"),
+    ERR_ITEM_CSV("ショップのアイテムはカンマ区切りで指定してください。"),
+
     ;
 
     /** メッセージ */

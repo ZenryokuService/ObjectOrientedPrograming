@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParamGeneratorTest {
-    private static boolean isDebug = false;
+    private static boolean isDebug = true;
     private static ParamGenerator target;
     @BeforeAll
     public static void init() {
@@ -134,6 +134,8 @@ public class ParamGeneratorTest {
             buf.readLine();
             assertEquals("ITEM_LIST", buf.readLine());
             target.createItemMap(buf);
+            Map<String, RpgData> tList = target.getConfig().getItemTypeMap();
+            if (isDebug) tList.forEach((key, val) -> { System.out.println(key + " : "+ val.getKigo() + " : " + val.getDiscription());});
             Map<String, RpgData> list = target.getConfig().getItemMap();
             if (isDebug) list.forEach((key, val) -> { System.out.println(key + " : "+ val.getName());});
             // 計算式の生成を行う。
@@ -144,19 +146,35 @@ public class ParamGeneratorTest {
         }
     }
 
-//    @Test
-//    public void testCreateItemType() {
-//        try {
-//            target.createItemTypeMap("アイテム種類: アイテムの種類を設定する。 ITM(薬草などの通常アイテム) WEP(武器の類) ARM(防具の類): アイテム(ITM) 武器(WEP) 防具(ARM)");
-//            target.createItemTypeMap("アイテム効果: 各アイテムの持っている効果。薬草であれば回復量、武器であれば武器攻撃力を示す。防具の場合は防具防御力: アイテム効果(ITV) 武器攻撃力(WEV) 防具防御力(ARV)");
-//            target.createItemTypeMap("値段: 各アイテムの値段、ここでは通貨の単位を記述する: ニギ(NIG)");
-//            target.createItemTypeMap("アイテム副作用: アイテムの副作用、「もっていると魔法を受け付けなくなる」など: アイテム副作用(SIV)");
-//        } catch (RpgException e) {
-//            fail(e.getMessage());
-//        }
-//        Map<String, RpgItemType> map = target.getConfig().getItemTypeMap();
-//        map.forEach((key, val) -> {
-//            assertEquals(key, map.get(key).getName());
-//        });
-//    }
+    @Test
+    public void testSepNameKigo() {
+        try {
+            String[] res1 = target.sepNameAndKigo("アイテム(ITM) 武器(WEP) 防具(ARM)");
+            assertEquals("アイテム", res1[0]);
+            assertEquals("ITM", res1[1]);
+            assertEquals("武器", res1[2]);
+            assertEquals("WEP", res1[3]);
+            assertEquals("防具", res1[4]);
+            assertEquals("ARM", res1[5]);
+            String[] res2 = target.sepNameAndKigo("アイテム効果(ITV) 武器攻撃力(WEV) 防具防御力(ARV)");
+            assertEquals("アイテム効果", res2[0]);
+            assertEquals("ITV", res2[1]);
+            assertEquals("武器攻撃力", res2[2]);
+            assertEquals("WEV", res2[3]);
+            assertEquals("防具防御力", res2[4]);
+            assertEquals("ARV", res2[5]);
+            String[] res3 = target.sepNameAndKigo("ニギ(NIG)");
+            assertEquals("ニギ", res3[0]);
+            assertEquals("NIG", res3[1]);
+            String[] res4 = target.sepNameAndKigo("アイテム副作用(SIV)");
+            assertEquals("アイテム副作用", res4[0]);
+            assertEquals("SIV", res4[1]);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+        Map<String, RpgData> map = target.getConfig().getItemTypeMap();
+        map.forEach((key, val) -> {
+            assertEquals(key, map.get(key).getName());
+        });
+    }
 }

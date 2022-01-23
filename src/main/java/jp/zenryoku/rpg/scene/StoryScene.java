@@ -16,6 +16,10 @@ import java.util.List;
  */
 public class StoryScene extends RpgScene {
 
+
+    public StoryScene() {
+        super();
+    }
     /**
      * コンストラクタ
      * @param sceneIdx シーンインデックス

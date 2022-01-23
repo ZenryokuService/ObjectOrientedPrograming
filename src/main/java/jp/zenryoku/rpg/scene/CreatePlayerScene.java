@@ -84,6 +84,7 @@ public class CreatePlayerScene extends StoryScene {
                 break;
             }
         }
+        config.setParty(party);
         return false;
     }
 }
