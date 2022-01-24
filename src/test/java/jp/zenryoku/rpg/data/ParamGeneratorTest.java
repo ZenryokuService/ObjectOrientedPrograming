@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -28,6 +29,24 @@ public class ParamGeneratorTest {
     public void resetParam() {
         target.getConfig().getParamMap().clear();
     }
+
+    /**
+     * プライベートメソッドの取得、アクセスを許可して返却する。
+     * @param methodName 取得するメソッド名
+     * @return 対象のメソッド
+     * @throws RpgException
+     */
+    private Method getTargetMethod(String methodName, Class<?>... cls) throws RpgException {
+        Method mes = null;
+        try {
+            mes = target.getClass().getDeclaredMethod(methodName, cls);
+            mes.setAccessible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mes;
+    }
+
     @Test
     public void testSetDiceCode1() {
         try {
@@ -149,24 +168,25 @@ public class ParamGeneratorTest {
     @Test
     public void testSepNameKigo() {
         try {
-            String[] res1 = target.sepNameAndKigo("アイテム(ITM) 武器(WEP) 防具(ARM)");
+            Method mes = this.getTargetMethod("sepNameAndKigo", String.class);
+            String[] res1 = (String[]) mes.invoke(target, "アイテム(ITM) 武器(WEP) 防具(ARM)");
             assertEquals("アイテム", res1[0]);
             assertEquals("ITM", res1[1]);
             assertEquals("武器", res1[2]);
             assertEquals("WEP", res1[3]);
             assertEquals("防具", res1[4]);
             assertEquals("ARM", res1[5]);
-            String[] res2 = target.sepNameAndKigo("アイテム効果(ITV) 武器攻撃力(WEV) 防具防御力(ARV)");
+            String[] res2 = (String[]) mes.invoke(target,"アイテム効果(ITV) 武器攻撃力(WEV) 防具防御力(ARV)");
             assertEquals("アイテム効果", res2[0]);
             assertEquals("ITV", res2[1]);
             assertEquals("武器攻撃力", res2[2]);
             assertEquals("WEV", res2[3]);
             assertEquals("防具防御力", res2[4]);
             assertEquals("ARV", res2[5]);
-            String[] res3 = target.sepNameAndKigo("ニギ(NIG)");
+            String[] res3 = (String[]) mes.invoke(target,"ニギ(NIG)");
             assertEquals("ニギ", res3[0]);
             assertEquals("NIG", res3[1]);
-            String[] res4 = target.sepNameAndKigo("アイテム副作用(SIV)");
+            String[] res4 = (String[]) mes.invoke(target,"アイテム副作用(SIV)");
             assertEquals("アイテム副作用", res4[0]);
             assertEquals("SIV", res4[1]);
         } catch (Exception e) {
@@ -176,5 +196,13 @@ public class ParamGeneratorTest {
         map.forEach((key, val) -> {
             assertEquals(key, map.get(key).getName());
         });
+    }
+
+    /**
+     * アイテムの記号から武器、防具、通常アイテムの分類をしたうえで
+     * 各アイテムリストのアイテム・オブジェクトのインスタンスをマップに登録する。
+     */
+    public void createItemInstance() {
+
     }
 }

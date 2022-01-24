@@ -297,7 +297,12 @@ public class ParamGenerator {
         }
     }
 
-    public String[] sepNameAndKigo(String third) {
+    /**
+     * ストーリーテキストのアイテムタイプの「名前(記号)」を読み込み、配列にして返却する。
+     * @param third　「名前(記号)」が可変長で設定されている(ストーリーテキスト)
+     * @return　[0]=名前 [1]=記号
+     */
+    private String[] sepNameAndKigo(String third) {
         String[] types = third.split(" ");
         String[] hako = new String[types.length * 2];
 
@@ -314,6 +319,15 @@ public class ParamGenerator {
 
         return hako;
     }
+
+    /**
+     * アイテムの記号から武器、防具、通常アイテムの分類をしたうえで
+     * 各アイテムリストのアイテム・オブジェクトのインスタンスをマップに登録する。
+     */
+    public void createItemInstance() {
+
+    }
+
     /**
      * ダイスコードから、以下を取得する
      * 1. 何面ダイスか？
