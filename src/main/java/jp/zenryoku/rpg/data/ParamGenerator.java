@@ -321,13 +321,37 @@ public class ParamGenerator {
     }
 
     /**
-     * アイテムの記号から武器、防具、通常アイテムの分類をしたうえで
-     * 各アイテムリストのアイテム・オブジェクトのインスタンスをマップに登録する。
+     * カテゴリ設定処理　CONFIG_PARAM
      */
-    public void createItemInstance() {
+    public void createConfigParams(BufferedReader buf) throws IOException, RpgException {
 
     }
 
+    /**
+     * CONFIG_PARAMの1行からRGPデータを作成する。
+     * @param line ストーリーテキストの１行
+     * @return RpgData
+     */
+    private RpgData createRpgDataFromConfig(String line, Map<String, RpgData> map) throws RpgException {
+        String[] sep = line.split(":");
+
+        if (sep.length != 4) {
+            throw new RpgException(MessageConst.ERR_CONFIG_PARAM.toString() + line);
+        }
+        // データの設定
+        RpgData data = new RpgData();
+        data.setName(sep[0]);
+        data.setKigo(sep[1]);
+        data.setDiscription(sep[2]);
+        // 親の設定
+        String parent = sep[3];
+        data.setParent(parent);
+        if ("-".equals(parent) == false) {
+            RpgData parentData = map.get(parent);
+            data.setParentCls(parentData);
+        }
+        return data;
+    }
     /**
      * ダイスコードから、以下を取得する
      * 1. 何面ダイスか？

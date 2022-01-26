@@ -15,6 +15,10 @@ public class RpgData {
     protected String kigo;
     /** パラメータ値 */
     protected Integer value;
+    /** 親カテゴリ */
+    protected String parent;
+    /** 親カテゴリクラス */
+    protected RpgData parentCls;
 
     public RpgData() {
     }

@@ -80,6 +80,8 @@ public enum MessageConst {
     ERR_DICE_CODE("ダイスコードが不適切です"),
     /** ダイスコード生成時のエラーメッセージ */
     ERR_PRINT_LINE("表示する行数の指定が不適切です"),
+    /** CONFIG_PARAMの設定が不適切です。 */
+    ERR_CONFIG_PARAM("CONFIG_PARAMの設定が不適切です。"),
     /** データマップを未生成によるエラー */
     ERR_ITEMTYPEMAP_SIZE0("アイテム設定を生成(ParamGenerator#createItemTypeMap())してから実行してください。"),
     /** ファイルの読み込みに失敗 */

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -103,7 +104,7 @@ public class ParamGeneratorTest {
         }
     }
 
-    @Test
+    //@Test
     public void testCreateFormula() {
         BufferedReader buf = null;
         try {
@@ -141,7 +142,7 @@ public class ParamGeneratorTest {
         }
     }
 
-    @Test
+    //@Test
     public void testItem() {
         BufferedReader buf = null;
         try {
@@ -199,10 +200,66 @@ public class ParamGeneratorTest {
     }
 
     /**
-     * アイテムの記号から武器、防具、通常アイテムの分類をしたうえで
-     * 各アイテムリストのアイテム・オブジェクトのインスタンスをマップに登録する。
+     * カテゴリ設定処理のテスト
      */
-    public void createItemInstance() {
+    public void createConfigParams() {
+        BufferedReader buf = null;
+        try {
+            buf = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorItem.txt"));
+            Method mes = this.getTargetMethod("createConfigParams", BufferedReader.class);
+            String[] res1 = (String[]) mes.invoke(target, "アイテム(ITM) 武器(WEP) 防具(ARM)");
+            assertEquals("アイテム", res1[0]);
+            assertEquals("ITM", res1[1]);
+            assertEquals("武器", res1[2]);
+            assertEquals("WEP", res1[3]);
+            assertEquals("防具", res1[4]);
+            assertEquals("ARM", res1[5]);
+            String[] res2 = (String[]) mes.invoke(target,"アイテム効果(ITV) 武器攻撃力(WEV) 防具防御力(ARV)");
+            assertEquals("アイテム効果", res2[0]);
+            assertEquals("ITV", res2[1]);
+            assertEquals("武器攻撃力", res2[2]);
+            assertEquals("WEV", res2[3]);
+            assertEquals("防具防御力", res2[4]);
+            assertEquals("ARV", res2[5]);
+            String[] res3 = (String[]) mes.invoke(target,"ニギ(NIG)");
+            assertEquals("ニギ", res3[0]);
+            assertEquals("NIG", res3[1]);
+            String[] res4 = (String[]) mes.invoke(target,"アイテム副作用(SIV)");
+            assertEquals("アイテム副作用", res4[0]);
+            assertEquals("SIV", res4[1]);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+        Map<String, RpgData> map = target.getConfig().getItemTypeMap();
+        map.forEach((key, val) -> {
+            assertEquals(key, map.get(key).getName());
+        });
+    }
 
+    @Test
+    public void testCreateRpgDataFromConfig() {
+        Map<String, RpgData> map = new HashMap<>();
+        RpgData parentData = new RpgData();
+        parentData.setKigo("STS");
+        map.put("STS", parentData);
+        try {
+            Method mes = this.getTargetMethod("createRpgDataFromConfig", String.class, Map.class);
+            RpgData res = (RpgData) mes.invoke(target, "アイテム:ITM:薬草など使用することでその効果を発揮するもの:-", map);
+            assertEquals("アイテム", res.getName());
+            assertEquals("ITM", res.getKigo());
+            assertEquals("薬草など使用することでその効果を発揮するもの", res.getDiscription());
+            assertEquals("-", res.getParent());
+
+            RpgData res1 = (RpgData) mes.invoke(target, "どく:POI:ステータス異常を示す、1ターンごとに体力の10%程のダメージを受ける、戦闘後元に戻る:STS", map);
+            assertEquals("どく", res1.getName());
+            assertEquals("POI", res1.getKigo());
+            assertEquals("ステータス異常を示す、1ターンごとに体力の10%程のダメージを受ける、戦闘後元に戻る", res1.getDiscription());
+            assertEquals("STS", res1.getParent());
+            assertEquals("STS", res1.getParentCls().getKigo());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
     }
 }

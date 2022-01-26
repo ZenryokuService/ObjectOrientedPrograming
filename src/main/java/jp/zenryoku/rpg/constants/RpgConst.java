@@ -80,6 +80,8 @@ public enum RpgConst {
     public static final String ARM = "ARM";
     /** 通常のアイテムを示す記号 */
     public static final String ITM = "ITM";
+    /** データクラスのぱっけ０時名 */
+    public static final String DATA_PACKAGE = "jp.zenryoku.rpg.data";
 
     /** ゲームステータス(1:終了時に保存、2:クリア、3:次のシーン...) */
     private int status;
