@@ -9,10 +9,14 @@ import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.RpgItem;
+import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BattleScene extends RpgScene {
 	/** 定数：攻撃フラグ */
@@ -251,8 +255,15 @@ public class BattleScene extends RpgScene {
 	 * @return MainWepon
 	 */
 	private MainWepon createMainWepon() {
-		MainWepon wepon = new MainWepon("ひのきのぼう");
-		wepon.setOffence(15);
+		RpgItem item = new RpgItem();
+		item.setName("ひのきのぼう");
+		item.setItemValueKigo("WEV+1");
+		MainWepon wepon = null;
+		try {
+			wepon = new MainWepon(item);
+		} catch(RpgException e) {
+			return null;
+		}
 		return wepon;
 	}
 

@@ -20,6 +20,7 @@ import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.RpgItem;
 import jp.zenryoku.rpg.data.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.item.equip.MainWepon;
 
 /**
  * 標準入出力のユーティリティ
@@ -493,22 +494,30 @@ public class ConsoleUtils {
 
 		while (isMenu) {
 			if (isDebug) System.out.println("アイテムサイズ: " + itemList.size());
-			System.out.println("＜アイテム＞");
-			// 所持アイテムの表示
-			for (int i = 0; i < itemList.size(); i++) {
-				RpgItem item = itemList.get(i);
-				System.out.println((i + 1) + ". " + item.getName());
-			}
 			String input = console.acceptInput(MessageConst.MENU_DO_SELECT.toString(), "[1-3]");
 			if ("1".equals(input)) {
+				System.out.println("＜アイテム＞");
+				// 所持アイテムの表示
+				for (int i = 0; i < itemList.size(); i++) {
+					RpgItem item = itemList.get(i);
+					System.out.println((i + 1) + ". " + item.getName());
+				}
 				// 装備の変更をおこなう
 				String selectSobi = console.acceptInput(MessageConst.EQUIP_SELECT.toString());
 				RpgItem sobi = itemList.get(Integer.parseInt(selectSobi) - 1);
 				System.out.println(sobi.getName() + " : " + sobi.getItemType() + " : " + sobi.getItemValueKigo());
-				RpgData type = conf.getItemTypeMap().get(sobi.getItemType());
-				if (RpgConst.WEP.equals(type.getKigo()) == false) {
+				if (isDebug) {
+					Map<String, RpgData> testMap = conf.getItemMap();
+					testMap.forEach((key, val) -> {
+						RpgItem item = (RpgItem) val;
+						System.out.println("Key: " + key + " : " + "Val: " + item.getItemType());
+					});
+				}
+				RpgItem type = (RpgItem) conf.getItemMap().get(sobi.getName());
+				if (RpgConst.WEP.equals(type.getItemType()) == false) {
 					throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + " : " + type.getName());
 				}
+				player.setMainWepon(new MainWepon(type));
 			} else if ("2".equals(input)) {
 				// アイテムの使用をおこなう
 			} else if ("3".equals(input)) {

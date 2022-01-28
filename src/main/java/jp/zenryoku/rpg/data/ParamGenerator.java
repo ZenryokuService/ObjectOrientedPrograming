@@ -18,8 +18,8 @@ public class ParamGenerator {
     private static final String SEP = System.lineSeparator();
     /** インスタンス */
     private static ParamGenerator instance;
-    /** そのほかの設定情報 */
-    private Map<String, RpgData> dataMap;
+    /** パラメータ設定情報 */
+    private Map<String, RpgData> paramMap;
     /** ステータス設定情報(順番を保持する) */
     private Map<String, RpgData> statusMap;
     /** 職業マップ */
@@ -32,6 +32,8 @@ public class ParamGenerator {
     private Map<String, RpgData> itemMap;
     /** アイテムタイプ、アイテムの設定 */
     private Map<String, RpgData> itemTypeMap;
+    /** 全てのパラメータを格納するマップ */
+    private Map<String, RpgData> dataMap;
 
     /** プライベート・コンストラクタ */
     private ParamGenerator() {
@@ -42,13 +44,15 @@ public class ParamGenerator {
         config.setItemMap(new HashMap<>());
         config.setItemTypeMap(new HashMap<>());
         config.setJobMap(new HashMap<>());
+        config.setDataMap(new HashMap<>());
         // このクラス内で使用するための変数
-        dataMap = config.getParamMap();
+        paramMap = config.getParamMap();
         jobMap = config.getJobMap();
         formulaMap = config.getFormulaMap();
         itemMap = config.getItemMap();
         itemTypeMap = config.getItemTypeMap();
         statusMap = config.getStatusMap();
+        dataMap = config.getDataMap();
     }
 
     /**
@@ -131,25 +135,7 @@ public class ParamGenerator {
             // 表示行数の指定(2行目)
             String sepLine = buf.readLine();
             setPrintLine(sepLine.startsWith("#") ? "" : sepLine);
-            while ((line = buf.readLine()).equals("END_PARAM") == false) {
-                if (line.startsWith("# ")) {
-                    continue;
-                }
-                RpgData data = new RpgData(RpgConst.DATA_TYPE_PARAM);
-                String[] setting = line.split(":");
-                if (setting.length != 3) {
-                    throw new RpgException(MessageConst.PLAYER_STATUS_SEPARATE3.toString() + SEP + line);
-                }
-                // 0:ステータス名
-                data.setName(setting[0].trim());
-                // 1:説明
-                data.setDiscription(setting[1].trim());
-                // 2:記号(ATKなど)
-                data.setKigo(setting[2].trim());
-                // データマップに登録
-                dataMap.put(data.getName().trim(), data);
-            }
-            config.setParamMap(dataMap);
+            this.createConfigParams(buf);
         } catch (IOException | RpgException e) {
             throw new RpgException(e.getMessage());
         } catch (Exception e) {
@@ -238,7 +224,7 @@ public class ParamGenerator {
                 RpgItem data = new RpgItem();
                 String[] setting = line.split(":");
                 if (setting.length != 5) {
-                    throw new RpgException(MessageConst.ITEM_SEPARATE3.toString() + SEP + line + " length: " + setting.length);
+                    throw new RpgException(MessageConst.ITEM_SEPARATE5.toString() + SEP + line + " length: " + setting.length);
                 }
                 // 0:名前
                 data.setName(setting[0].trim());
@@ -276,7 +262,7 @@ public class ParamGenerator {
                 String[] data = line.split(":");
 
                 if (data.length != 3) {
-                    throw new RpgException(MessageConst.ITEM_SEPARATE3.toString() + SEP + line +  " length: " + data.length);
+                    throw new RpgException(MessageConst.ITEM_SEPARATE5.toString() + SEP + line +  " length: " + data.length);
                 }
                 String discription = data[1].trim();
                 String[] value = data[2].trim().split(" ");
@@ -322,9 +308,14 @@ public class ParamGenerator {
 
     /**
      * カテゴリ設定処理　CONFIG_PARAM
+     * パラメータMap(Key=記号, Value=RpgData)
      */
     public void createConfigParams(BufferedReader buf) throws IOException, RpgException {
-
+        String line = null;
+        while(!(line = buf.readLine()).equals("END_PARAM")) {
+            RpgData data = createRpgDataFromConfig(line, paramMap);
+            paramMap.put(data.getKigo(), data);
+        }
     }
 
     /**
@@ -348,6 +339,9 @@ public class ParamGenerator {
         data.setParent(parent);
         if ("-".equals(parent) == false) {
             RpgData parentData = map.get(parent);
+            if (parentData == null) {
+                throw new RpgException(MessageConst.ERR_PARAM_KIGO.toString());
+            }
             data.setParentCls(parentData);
         }
         return data;

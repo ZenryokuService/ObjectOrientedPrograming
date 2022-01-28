@@ -8,6 +8,7 @@ import jp.zenryoku.rpg.data.RpgItemType;
  * @author 実装者の名前
  */
 public class Items {
+	protected static final boolean isDebug = false;
 	/** 名前 */
 	private String name;
 	/** アイテムタイプ */

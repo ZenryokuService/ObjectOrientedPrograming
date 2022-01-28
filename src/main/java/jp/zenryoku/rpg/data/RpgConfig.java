@@ -22,7 +22,9 @@ public class RpgConfig {
     private int diceFaces;
     /** 表示する行数の指定 */
     private int printLine;
-    /** そのほかのパラメータリスト */
+    /** 全ての設定を格納する */
+    private Map<String, RpgData> dataMap;
+    /** パラメータリスト */
     private Map<String, RpgData> paramMap;
     /** ステータスリスト */
     private Map<String, RpgData> statusMap;

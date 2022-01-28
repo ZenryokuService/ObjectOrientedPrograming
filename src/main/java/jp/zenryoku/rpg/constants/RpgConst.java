@@ -76,6 +76,8 @@ public enum RpgConst {
     public static int ITEM_HOLD_NUM = 5;
     /** 武器を示す記号 */
     public static final String WEP = "WEP";
+    /** 武器攻撃力を示す記号 */
+    public static final String WEV = "WEV";
     /** 防具を示す記号 */
     public static final String ARM = "ARM";
     /** 通常のアイテムを示す記号 */
