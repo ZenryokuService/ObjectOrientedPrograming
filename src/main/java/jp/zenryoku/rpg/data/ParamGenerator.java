@@ -312,7 +312,7 @@ public class ParamGenerator {
      */
     public void createConfigParams(BufferedReader buf) throws IOException, RpgException {
         String line = null;
-        while(!(line = buf.readLine()).equals("END_PARAM")) {
+        while((line = buf.readLine()).equals("END_PARAM") == false) {
             RpgData data = createRpgDataFromConfig(line, paramMap);
             paramMap.put(data.getKigo(), data);
         }

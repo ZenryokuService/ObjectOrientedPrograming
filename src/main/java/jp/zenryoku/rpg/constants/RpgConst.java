@@ -73,13 +73,19 @@ public enum RpgConst {
     /** 改行コード */
     public static final String SEP = System.lineSeparator();
     /** アイテム保持可能数(デフォルト) */
-    public static int ITEM_HOLD_NUM = 5;
+    public static final int ITEM_HOLD_NUM = 5;
+    /** 武器を表示する */
+    public static final String BUKI = "ぶき";
     /** 武器を示す記号 */
     public static final String WEP = "WEP";
     /** 武器攻撃力を示す記号 */
     public static final String WEV = "WEV";
+    /** 防具を表示する */
+    public static final String BOG = "ぼうぐ";
     /** 防具を示す記号 */
     public static final String ARM = "ARM";
+    /** アイテムを表示する */
+    public static final String AITEM = "アイテム";
     /** 通常のアイテムを示す記号 */
     public static final String ITM = "ITM";
     /** データクラスのぱっけ０時名 */

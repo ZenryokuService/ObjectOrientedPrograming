@@ -4,8 +4,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import jp.zenryoku.rpg.TextRpgLogic;
+import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
+import jp.zenryoku.rpg.data.RpgConfig;
+import jp.zenryoku.rpg.data.RpgData;
+import jp.zenryoku.rpg.data.RpgItem;
+import jp.zenryoku.rpg.data.RpgStatus;
+import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.item.Items;
+import jp.zenryoku.rpg.item.equip.Armor;
+import jp.zenryoku.rpg.item.equip.MainWepon;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +40,8 @@ import jp.zenryoku.tutorial.FirstJankenMainTest;
 public class ConsoleUtilsTest {
 	/** テスト対象クラス */
 	private static ConsoleUtils target;
+	/** 設定クラス */
+	private static RpgConfig conf;
 	/** ログ出力 */
 	private static final Logger LOG = LoggerFactory.getLogger(FirstJankenMainTest.class);
 	/** 標準出力確認 */
@@ -39,6 +54,10 @@ public class ConsoleUtilsTest {
 		target = ConsoleUtils.getInstance();
 		// 標準出力の出力先を変更する
 		System.setOut(new PrintStream(console));
+		// 設定クラスのインスタンス
+		conf = RpgConfig.getInstance();
+		createPlayerStatus();
+
 	}
 	/**
 	 * テストの準備
@@ -48,10 +67,51 @@ public class ConsoleUtilsTest {
 		console.reset();
 	}
 
+	/** プレーヤーのステータスを生成する */
+	private static List<RpgStatus> createPlayerStatus() {
+		List<RpgStatus> statuses = new ArrayList<>();
+		RpgStatus pow = new RpgStatus();
+		pow.setName("ちから");
+		pow.setKigo("POW");
+		pow.setDiscription("PPPPPの説明");
+		pow.setValue(1);
+		statuses.add(pow);
+		RpgStatus agi = new RpgStatus();
+		agi.setName("すばやさ");
+		agi.setKigo("AGI");
+		agi.setDiscription("すばやさの説明");
+		agi.setValue(2);
+		statuses.add(agi);
+		RpgStatus nt = new RpgStatus();
+		nt.setName("かしこさ");
+		nt.setKigo("INT");
+		nt.setDiscription("かしこさの説明");
+		nt.setValue(3);
+		statuses.add(nt);
+		RpgStatus dex = new RpgStatus();
+		dex.setName("きようさ");
+		dex.setKigo("DEX");
+		dex.setDiscription("きようさの説明");
+		dex.setValue(4);
+		statuses.add(dex);
+		RpgStatus ksm = new RpgStatus();
+		ksm.setName("カリスマ");
+		ksm.setKigo("KSM");
+		ksm.setDiscription("カリスマの説明");
+		ksm.setValue(5);
+		statuses.add(ksm);
+
+		Map<String, RpgData> map = new HashMap<>();
+		statuses.forEach(data -> {
+			map.put(data.getKigo(), data);
+		});
+		conf.setStatusMap(map);
+		return statuses;
+	}
 	/**
 	 * ステータス表示のテスト:2桁
 	 */
-	//@Test
+	@Test
 	public void testPrintBattleStatus1() {
 		// プレーヤーは一人
 		Player player = new Player("test");
@@ -64,17 +124,17 @@ public class ConsoleUtilsTest {
 		LOG.info(() -> SEP + console.toString());
 
 		String expect = "***** test *****" + SEP
-				+ "* LV: 10     *" + SEP
-				+ "* HP: 20     *" + SEP
-				+ "* MP: 10     *" + SEP
-				+ "**************" + SEP + SEP;
+				+ "* LV: 10        *" + SEP
+				+ "* HP: 20        *" + SEP
+				+ "* MP: 10        *" + SEP
+				+ "*****************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 
 	/**
 	 * ステータス表示のテスト:3桁
 	 */
-	//@Test
+	@Test
 	public void testPrintBattleStatus2() {
 		// プレーヤーは一人
 		Player player = new Player("test123");
@@ -86,18 +146,18 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "**** test123 ****"+ SEP
-				+ "* LV: 20      *" + SEP
-				+ "* HP: 200     *" + SEP
-				+ "* MP: 100     *" + SEP
-				+ "***************" + SEP + SEP;
+		String expect = "**** test123  ****"+ SEP
+				+ "* LV: 20         *" + SEP
+				+ "* HP: 200        *" + SEP
+				+ "* MP: 100        *" + SEP
+				+ "******************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 
 	/**
 	 * ステータス表示のテスト:1桁
 	 */
-	//@Test
+	@Test
 	public void testPrintBattleStatus3() {
 		// プレーヤーは一人
 		Player player = new Player("プレーヤ");
@@ -109,18 +169,18 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "*** プレーヤ *** " + SEP
-				+ "* LV: 1      *" + SEP
-				+ "* HP: 3      *" + SEP
-				+ "* MP: 1      *" + SEP
-				+ "****************" + SEP + SEP;
+		String expect = "*** プレーヤ  ***" + SEP
+				+ "* LV: 1         *" + SEP
+				+ "* HP: 3         *" + SEP
+				+ "* MP: 1         *" + SEP
+				+ "*****************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 
 	/**
 	 * ステータス表示のテスト:1桁
 	 */
-	//@Test
+	@Test
 	public void testPrintBattleStatus4() {
 		// プレーヤーは一人
 		Player player = new Player("あ");
@@ -131,18 +191,18 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "***** あ *****" + SEP
-				+ "* LV: 1      *" + SEP
-				+ "* HP: 3      *" + SEP
-				+ "* MP: 1      *" + SEP
-				+ "****************" + SEP + SEP;
+		String expect = "****** あ  ******" + SEP
+				+ "* LV: 1         *" + SEP
+				+ "* HP: 3         *" + SEP
+				+ "* MP: 1         *" + SEP
+				+ "*****************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 
 	/**
 	 * ステータス表示のテスト:1桁
 	 */
-	//@Test
+	@Test
 	public void testPrintBattleStatus5() {
 		// プレーヤーは一人
 		Player player = new Player("test1");
@@ -154,12 +214,88 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "**** test1 ****" + SEP
-				+ "* LV: 1       *" + SEP
-				+ "* HP: 3       *" + SEP
-				+ "* MP: 1       *" + SEP
-				+ "***************" + SEP + SEP;
+		String expect = "***** test1  *****" + SEP
+				+ "* LV: 1          *" + SEP
+				+ "* HP: 3          *" + SEP
+				+ "* MP: 1          *" + SEP
+				+ "******************" + SEP + SEP;
 		assertEquals(expect, console.toString());
+	}
+
+	/**
+	 * プレーヤーセ生成時、総部確認時に表示するフルステータス。
+	 */
+	@Test
+	public void testPrintStatus() {
+
+		try {
+			// プレーヤーは一人
+			PlayerCharactor player = new PlayerCharactor("tes");
+			player.setLevel(1);
+			// 名前の文字数は、全角は４文字、半角８文字まで
+			//player.setName();
+			player.setHP(3);
+			player.setMP(1);
+			player.setStatusList(createPlayerStatus());
+
+			target.printStatus(player);
+			LOG.info(() -> SEP + console.toString());
+
+			String expect = "***************  tes  ***************" + SEP
+					+ "* LV: 1          * ぶき:なし        *" + SEP
+					+ "* HP: 3          * ぼうぐ:なし      *" + SEP
+					+ "* MP: 1          *                  *" + SEP
+					+ "* ちから: 1      *                  *" + SEP
+					+ "* すばやさ: 2    *                  *" + SEP
+					+ "* かしこさ: 3    *                  *" + SEP
+					+ "* きようさ: 4    *                  *" + SEP
+					+ "* カリスマ: 5    *                  *" + SEP
+					+ "*************************************" + SEP + SEP;
+			assertEquals(expect, console.toString());
+		} catch (RpgException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+
+	/**
+	 * プレーヤーセ生成時、総部確認時に表示するフルステータス。
+	 */
+	@Test
+	public void testPrintStatus2() {
+
+		try {
+			// プレーヤーは一人
+			PlayerCharactor player = new PlayerCharactor("こたろう");
+			player.setLevel(10);
+			// 名前の文字数は、全角は４文字、半角８文字まで
+			//player.setName();
+			player.setHP(999);
+			player.setMP(999);
+			player.setStatusList(createPlayerStatus());
+			MainWepon wep = new MainWepon("やまだのつるぎ");
+			player.setMainWepon(wep);
+			Armor arm = new Armor("みかわしのふく");
+			player.setArmor(arm);
+
+			target.printStatus(player);
+			LOG.info(() -> SEP + console.toString());
+
+			String expect = "***************** こたろう  *****************" + SEP
+					+ "* LV: 10         * ぶき:やまだのつるぎ      *" + SEP
+					+ "* HP: 999        * ぼうぐ:みかわしのふく    *" + SEP
+					+ "* MP: 999        *                          *" + SEP
+					+ "* ちから: 1      *                          *" + SEP
+					+ "* すばやさ: 2    *                          *" + SEP
+					+ "* かしこさ: 3    *                          *" + SEP
+					+ "* きようさ: 4    *                          *" + SEP
+					+ "* カリスマ: 5    *                          *" + SEP
+					+ "*********************************************" + SEP + SEP;
+			assertEquals(expect, console.toString());
+		} catch (RpgException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 	}
 	/**
 	 * 行動選択肢リストの表示。
@@ -181,15 +317,8 @@ public class ConsoleUtilsTest {
 		assertEquals("", console.toString());
 	}
 
-	@Test
+	//@Test
 	public void testPrintConfig() {
-		new TextRpgLogic();
-		target.printConfig("");
-		target.printConfig("param");
-		target.printConfig("status");
-		target.printConfig("itemType");
-		target.printConfig("item");
-		target.printConfig("formula");
 
 	}
 

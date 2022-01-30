@@ -1,5 +1,6 @@
 package jp.zenryoku.rpg.item.equip;
 
+import jp.zenryoku.rpg.data.RpgItem;
 import jp.zenryoku.rpg.item.Items;
 
 public class Armor extends Items {
@@ -12,6 +13,10 @@ public class Armor extends Items {
 	 */
 	public Armor(String name) {
 		super(name);
+	}
+
+	public Armor(RpgItem item) {
+		super(item.getName());
 	}
 
 	/**

@@ -10,6 +10,9 @@ public class MainWepon extends Items {
 	/** 攻撃力 */
 	private int offence;
 
+	public MainWepon(String name) {
+		super(name);
+	}
 	/**
 	 * コンストラクタ。
 	 * @param item RpgItem
