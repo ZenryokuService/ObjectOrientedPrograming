@@ -21,6 +21,7 @@ import jp.zenryoku.rpg.data.RpgItem;
 import jp.zenryoku.rpg.data.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.Items;
+import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 
 /**
@@ -190,20 +191,23 @@ public class ConsoleUtils {
 		// Lvを表示する[12 - (ステータス部分(6文字) + 値(最大３桁) + 1(アスタリスク)]
 		String lv = String.valueOf(player.getLevel());
 		build.append("* LV: " + lv + appendSpace(lv, isGusu) + addAstah);
+		// 武器
 		String wep = getSobiName((Items) player.getMainWepon());
 		boolean wepIsGusu = wep.length() % 2 == 0;
+		int sobiSpace = sotowaku - sobisize;
 		if (isMultiByte) {
-			build.append(" " + RpgConst.BUKI + ":" + wep + appendSpace(wep, wepIsGusu, 16) + "*" + SEPARATOR);
+			build.append(" " + RpgConst.BUKI + ":" + wep + appendSpace(wep, wepIsGusu, sobiSpace) + "*" + SEPARATOR);
 		} else {
 			build.append(" " + RpgConst.BUKI + ":" + wep + appendSpace(wep, wepIsGusu, 8) + "*" + SEPARATOR);
 		}
 		// HPを表示する
 		String hp = String.valueOf(player.getHP());
 		build.append("* HP: " + hp + appendSpace(hp, isGusu) + addAstah);
+		// 防具
 		String arm = getSobiName((Items) player.getArmor());
 		boolean armIsGusu = arm.length() % 2 == 0;
 		if (isMultiByte) {
-			build.append(" " + RpgConst.BOG + ":" + arm + appendSpace(arm, armIsGusu, 14) + "*" + SEPARATOR);
+			build.append(" " + RpgConst.BOG + ":" + arm + appendSpace(arm, armIsGusu, sobiSpace - 2) + "*" + SEPARATOR);
 		} else {
 			build.append(" " + RpgConst.BOG + ":" + arm + appendSpace(arm, armIsGusu, 6) + "*" + SEPARATOR);
 		}
@@ -211,7 +215,7 @@ public class ConsoleUtils {
 		String mp = String.valueOf(player.getMP());
 		build.append("* MP: " + mp + appendSpace(mp, isGusu) + addAstah);
 		if (isMultiByte) {
-			build.append(appendSpace("", true, 25)  + "*" + SEPARATOR);
+			build.append(appendSpace("", true, sobisize + 11)  + "*" + SEPARATOR);
 		} else {
 			build.append(appendSpace("", true, 17)  + "*" + SEPARATOR);
 		}
@@ -228,39 +232,94 @@ public class ConsoleUtils {
 				max = len;
 			}
 		}
+		RpgConfig conf = RpgConfig.getInstance();
+		RpgStatus atk = (RpgStatus) conf.getStatusMap().get(RpgConst.ATK.toString());
+		RpgStatus def = (RpgStatus) conf.getStatusMap().get(RpgConst.DEF.toString());
+		int counter = 1;
 		for (RpgStatus data : statusList) {
+			if (data.getKigo().equals("ATK") || data.getKigo().equals("DEF")) {
+				continue;
+			}
 			String n = data.getName();
 			String v = String.valueOf(data.getValue());
+
 			boolean valueIsGusu = n.length() % 2 == 0 ? true : false;
-			build.append("* " + n + ": " + v + appendSpace(n, valueIsGusu, max) + "*");
-			if (isMultiByte) {
-				build.append(appendSpace("", true, max + 17) + "*" + SEPARATOR);
+			build.append("* " + n + ": " + v + appendSpace(n, valueIsGusu, max - 6) + "*");
+
+			if (counter == 1) {
+				//build.append(atk.getName());
+				build.append(printRightSideStatus(atk.getName(),atk.getValue().toString(), isMultiByte, sobisize, max));
+			}else if (counter == 2) {
+				//build.append(def.getName());
+				build.append(printRightSideStatus(def.getName(), def.getValue().toString(), isMultiByte, sobisize, max));
 			} else {
-				build.append(appendSpace("", true, max + 9) + "*" + SEPARATOR);
+				printRightSideStatus(build, "", isMultiByte, sobisize, max);
 			}
+			counter++;
 		}
 		// 外枠を作成
 		appendLastLine(build, isGusu, sotowaku - 14);
 		System.out.println(build.toString());
 	}
 
-	private int maxSobiSize(PlayerCharactor player) {
-		int maxSize = 0;
-		String wep = getSobiName((Items) player.getMainWepon());
-		String arm = getSobiName((Items) player.getArmor());
-		boolean isWepMulti = CheckerUtils.isMultiByteStr(wep);
-		if (isWepMulti) {
-			maxSize = wep.length() * 2;
+	/** ステータス表示の右側をStringBuilderに追加 */
+	private String printRightSideStatus(String name,String value, boolean isMultiByte, int sobisize, int max) {
+		String ret = null;
+		if ("".equals(name)) {
+			if (isMultiByte) {
+				ret = appendSpace("", true, sobisize + 11)  + "*" + SEPARATOR;
+			} else {
+				ret = appendSpace("", true, 17)  + "*" + SEPARATOR;
+			}
+			return ret;
 		}
+		if (isMultiByte) {
+			ret = " "  + name + ": " + value + appendSpace(" " + name, true, sobisize + 6) + "*" + SEPARATOR;
+		} else {
+			ret = " "  + name + ": " + value + appendSpace(" " + name, true, max - 2) + "*" + SEPARATOR;
+		}
+		return ret;
+	}
+
+
+	/** ステータス表示の右側をStringBuilderに追加 */
+	private void printRightSideStatus(StringBuilder build, String name, boolean isMultiByte, int sobisize, int max) {
+		if (name.length() == 0) {
+			if (isMultiByte) {
+				build.append(appendSpace("", true, sobisize + 11)  + "*" + SEPARATOR);
+			} else {
+				build.append(appendSpace("", true, 17)  + "*" + SEPARATOR);
+			}
+			return;
+		}
+		if (isMultiByte) {
+			build.append(appendSpace(name, true, sobisize + 10) + "*" + SEPARATOR);
+		} else {
+			build.append(appendSpace(name, true, max + 9) + "*" + SEPARATOR);
+		}
+	}
+
+	/** 装備品の文字列のサイズを算出する */
+	private int maxSobiSize(PlayerCharactor player) {
+		Items wepItem = (Items) player.getMainWepon();
+		Items armItem = (Items) player.getArmor();
+		String wep = getSobiName(wepItem);
+		String arm = getSobiName(armItem);
+
+		boolean isWepMulti = CheckerUtils.isMultiByteStr(wep);
+		int wepSize = getSobiNameLen(wepItem, isWepMulti);
+
 		boolean isArmMulti = CheckerUtils.isMultiByteStr(arm);
-		int armSize = 0;
+		int armSize = getSobiNameLen(armItem, isArmMulti);
+
+
 		if (isArmMulti) {
 			armSize = arm.length() * 2;
 		} else {
 			armSize = arm.length();
 		}
 		// 追加するスペースのサイズ
-		int appendSize = maxSize <  armSize ? armSize : maxSize;
+		int appendSize = wepSize <  armSize ? armSize : wepSize;
 		return appendSize;
 	}
 
@@ -271,10 +330,44 @@ public class ConsoleUtils {
 			res = "なし";
 		} else {
 			String n = item.getName();
-			res = n == null ? "なし" : n;
+			String v = "";
+			if (item instanceof MainWepon) {
+				v = "(" + String.valueOf(((MainWepon) item).getOffence()) + ")";
+			} else if (item instanceof Armor) {
+				v = "(" + String.valueOf(((Armor) item).getDiffence()) + ")";
+			}
+			res = n == null ? "なし" : n + v;
 		}
 		return res;
 	}
+
+	/** 装備品の名前を返却する、ただし何も装備していないときは「なし」を返す */
+	private int getSobiNameLen(Items item, boolean isMulti) {
+		int res = 0;
+		int v = 0;
+		int nameLen = 0;
+
+		if (item == null) {
+			res = 4;
+		} else {
+			nameLen = item.getName().length();
+			if (item instanceof MainWepon) {
+				String val = "(" + String.valueOf(((MainWepon) item).getOffence()) + ")";
+				v = val.length();
+			} else if (item instanceof Armor) {
+				String val = "(" + String.valueOf(((Armor) item).getDiffence()) + ")";
+				v = val.length();
+			}
+		}
+
+		if (isMulti) {
+			res = nameLen * 2 + v;
+		} else {
+			res = nameLen + v;
+		}
+		return res;
+	}
+
 	/**
 	 * プレーヤーの行動選択肢を一覧表示する。
 	 *

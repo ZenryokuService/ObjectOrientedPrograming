@@ -84,6 +84,10 @@ public enum RpgConst {
     public static final String BOG = "ぼうぐ";
     /** 防具を示す記号 */
     public static final String ARM = "ARM";
+    /** 攻撃力 */
+    public static final String ATK = "ATK";
+    /** 防御力 */
+    public static final String DEF = "DEF";
     /** アイテムを表示する */
     public static final String AITEM = "アイテム";
     /** 通常のアイテムを示す記号 */

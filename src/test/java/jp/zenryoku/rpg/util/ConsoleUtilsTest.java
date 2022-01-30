@@ -100,6 +100,18 @@ public class ConsoleUtilsTest {
 		ksm.setDiscription("カリスマの説明");
 		ksm.setValue(5);
 		statuses.add(ksm);
+		RpgStatus atk = new RpgStatus();
+		atk.setName("こうげきりょく");
+		atk.setKigo("ATK");
+		atk.setDiscription("攻撃力の説明");
+		atk.setValue(6);
+		statuses.add(atk);
+		RpgStatus def = new RpgStatus();
+		def.setName("防御力");
+		def.setKigo("DEF");
+		def.setDiscription("防御力の説明");
+		def.setValue(7);
+		statuses.add(def);
 
 		Map<String, RpgData> map = new HashMap<>();
 		statuses.forEach(data -> {
@@ -245,8 +257,8 @@ public class ConsoleUtilsTest {
 					+ "* LV: 1          * ぶき:なし        *" + SEP
 					+ "* HP: 3          * ぼうぐ:なし      *" + SEP
 					+ "* MP: 1          *                  *" + SEP
-					+ "* ちから: 1      *                  *" + SEP
-					+ "* すばやさ: 2    *                  *" + SEP
+					+ "* ちから: 1      * こうげきりょく: 6*" + SEP
+					+ "* すばやさ: 2    * 防御力: 7        *" + SEP
 					+ "* かしこさ: 3    *                  *" + SEP
 					+ "* きようさ: 4    *                  *" + SEP
 					+ "* カリスマ: 5    *                  *" + SEP
@@ -273,24 +285,26 @@ public class ConsoleUtilsTest {
 			player.setHP(999);
 			player.setMP(999);
 			player.setStatusList(createPlayerStatus());
-			MainWepon wep = new MainWepon("やまだのつるぎ");
+			MainWepon wep = new MainWepon("やまだのつる");
+			wep.setOffence(12);
 			player.setMainWepon(wep);
 			Armor arm = new Armor("みかわしのふく");
+			arm.setDiffence(10);
 			player.setArmor(arm);
 
 			target.printStatus(player);
 			LOG.info(() -> SEP + console.toString());
 
-			String expect = "***************** こたろう  *****************" + SEP
-					+ "* LV: 10         * ぶき:やまだのつるぎ      *" + SEP
-					+ "* HP: 999        * ぼうぐ:みかわしのふく    *" + SEP
-					+ "* MP: 999        *                          *" + SEP
-					+ "* ちから: 1      *                          *" + SEP
-					+ "* すばやさ: 2    *                          *" + SEP
-					+ "* かしこさ: 3    *                          *" + SEP
-					+ "* きようさ: 4    *                          *" + SEP
-					+ "* カリスマ: 5    *                          *" + SEP
-					+ "*********************************************" + SEP + SEP;
+			String expect = "********************* こたろう  *********************" + SEP
+					+ "* LV: 10         * ぶき:やまだのつる(12)            *" + SEP
+					+ "* HP: 999        * ぼうぐ:みかわしのふく(10)        *" + SEP
+					+ "* MP: 999        *                                  *" + SEP
+					+ "* ちから: 1      * こうげきりょく: 6                *" + SEP
+					+ "* すばやさ: 2    * 防御力: 7                        *" + SEP
+					+ "* かしこさ: 3    *                                  *" + SEP
+					+ "* きようさ: 4    *                                  *" + SEP
+					+ "* カリスマ: 5    *                                  *" + SEP
+					+ "*****************************************************" + SEP + SEP;
 			assertEquals(expect, console.toString());
 		} catch (RpgException e) {
 			e.printStackTrace();
