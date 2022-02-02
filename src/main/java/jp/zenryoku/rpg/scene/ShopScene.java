@@ -37,15 +37,13 @@ public class ShopScene extends StoryScene {
         Player player = RpgConfig.getInstance().getParty().getPlayer();
 
         while (true) {
-            list.forEach(item -> {
-                System.out.println("名前: " + item.getName()
-                        + " 記号: " + item.getKigo()
-                        + " タイプ: " + item.getType()
-                        + " アイテム記号: " + item.getItemType()
-                        + " アイテム効果記号" + item.getItemValueKigo()
+            int count = 0;
+            for (RpgItem item : list) {
+                System.out.println(count + ": " + item.getName()
                         + " 金額: " + item.getMoney() + SEP
                         + " 説明: " + item.getDiscription());
-            });
+                count++;
+            }
             String select = console.acceptInput(MessageConst.DO_SELECT.toString(), "[1-" + max + "]");
             RpgItem it = list.get(Integer.parseInt(select));
             String res = console.acceptInput(it.getName() + MessageConst.YOU_BUY_THIS.toString(), "[y|n]");

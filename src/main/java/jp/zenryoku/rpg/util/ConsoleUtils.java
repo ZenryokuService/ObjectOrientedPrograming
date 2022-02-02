@@ -233,8 +233,8 @@ public class ConsoleUtils {
 			}
 		}
 		RpgConfig conf = RpgConfig.getInstance();
-		RpgStatus atk = (RpgStatus) conf.getStatusMap().get(RpgConst.ATK.toString());
-		RpgStatus def = (RpgStatus) conf.getStatusMap().get(RpgConst.DEF.toString());
+		RpgData atk = conf.getParamMap().get(RpgConst.ATK.toString());
+		RpgData def = conf.getParamMap().get(RpgConst.DEF.toString());
 		int counter = 1;
 		for (RpgStatus data : statusList) {
 			if (data.getKigo().equals("ATK") || data.getKigo().equals("DEF")) {
@@ -273,6 +273,7 @@ public class ConsoleUtils {
 			}
 			return ret;
 		}
+		value = value == null ? "なし" : value;
 		if (isMultiByte) {
 			ret = " "  + name + ": " + value + appendSpace(" " + name, true, sobisize + 6) + "*" + SEPARATOR;
 		} else {

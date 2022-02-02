@@ -28,7 +28,9 @@ public class MainWepon extends Items {
 		if (RpgConst.WEV.toString().equals(kigo) == false) {
 			throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + ": " + kigo);
 		}
-		int val = Integer.parseInt(value);
+		String ope = value.substring(0,1);
+		String v = value.substring(1);
+		int val = Integer.parseInt(v);
 		this.setOffence(val);
 	}
 

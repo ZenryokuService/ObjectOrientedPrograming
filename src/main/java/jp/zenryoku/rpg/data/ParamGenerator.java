@@ -334,8 +334,9 @@ public class ParamGenerator {
         data.setName(sep[0]);
         data.setKigo(sep[1]);
         data.setDiscription(sep[2]);
+        data.setValue(0);
         // 親の設定
-        String parent = sep[3];
+        String parent = sep[3].trim();
         data.setParent(parent);
         if ("-".equals(parent) == false) {
             RpgData parentData = map.get(parent);
