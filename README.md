@@ -13,6 +13,31 @@
 1. Target sources is **src/main/java/jp.zenryoku.rpg**
 2. Main method is in GameMain
 
+## TextRpg in Console.
+1. Load text file created by users.
+2. create RpgConfig and load story like Game Book(日本のゲームブック)
+
+### User defined
+* PARAM_CONFIG: you can defined categories use in game book. like wepons(WEP), items(ITM), magic(MAG) .. 
+* STATUS: you can defind statuses in game book like power(POW), intelligence(INT) ...
+
+### User created story
+**this program load "*_story.txt". this text file written story.** And users are able to create original story in this story text file.
+<EX>
+1:A
+one day, you are on the bed. and you find ...
+1. chocorate 2
+2. ice 3
+END_SCENE
+
+2:A
+you find a chocorate.
+END_SCENE
+
+3:B
+you find a ice.
+END_SCENE
+
 ## Diagrams
 **/src/main/resources/TextRpgClasses.mdj (StarUML)**
 [PDF is here](./resources/TextRpgDiagram.pdf)
