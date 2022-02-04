@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +50,23 @@ public class ConsoleUtilsTest {
 	/** 改行コード */
 	private static final String SEP = System.lineSeparator();
 
+	/**
+	 * プライベートメソッドの取得、アクセスを許可して返却する。
+	 * @param methodName 取得するメソッド名
+	 * @return 対象のメソッド
+	 * @throws RpgException
+	 */
+	private Method getTargetMethod(String methodName, Class<?>... cls) throws RpgException {
+		Method mes = null;
+		try {
+			mes = target.getClass().getDeclaredMethod(methodName, cls);
+			mes.setAccessible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mes;
+	}
+
 	@BeforeAll
 	public static void initClass() {
 		target = ConsoleUtils.getInstance();
@@ -56,7 +74,7 @@ public class ConsoleUtilsTest {
 		System.setOut(new PrintStream(console));
 		// 設定クラスのインスタンス
 		conf = RpgConfig.getInstance();
-		createPlayerStatus();
+		createPlayerStatus(true);
 
 	}
 	/**
@@ -68,7 +86,7 @@ public class ConsoleUtilsTest {
 	}
 
 	/** プレーヤーのステータスを生成する */
-	private static List<RpgStatus> createPlayerStatus() {
+	private static List<RpgStatus> createPlayerStatus(boolean isValue) {
 		List<RpgStatus> statuses = new ArrayList<>();
 		RpgStatus pow = new RpgStatus();
 		pow.setName("ちから");
@@ -100,24 +118,33 @@ public class ConsoleUtilsTest {
 		ksm.setDiscription("カリスマの説明");
 		ksm.setValue(5);
 		statuses.add(ksm);
-		RpgStatus atk = new RpgStatus();
-		atk.setName("こうげきりょく");
-		atk.setKigo("ATK");
-		atk.setDiscription("攻撃力の説明");
-		atk.setValue(6);
-		statuses.add(atk);
-		RpgStatus def = new RpgStatus();
-		def.setName("防御力");
-		def.setKigo("DEF");
-		def.setDiscription("防御力の説明");
-		def.setValue(7);
-		statuses.add(def);
 
 		Map<String, RpgData> map = new HashMap<>();
 		statuses.forEach(data -> {
 			map.put(data.getKigo(), data);
 		});
+
+		// ステ－タスマップ
+		RpgStatus atk = new RpgStatus();
+		atk.setName("こうげきりょく");
+		atk.setKigo("ATK");
+		atk.setDiscription("攻撃力の説明");
+		if (isValue) atk.setValue(6);
+		RpgStatus def = new RpgStatus();
+		def.setName("防御力");
+		def.setKigo("DEF");
+		def.setDiscription("防御力の説明");
+		if (isValue) def.setValue(7);
+		map.put("ATK", atk);
+		map.put("DEF", def);
 		conf.setStatusMap(map);
+
+		// パラメータマップ
+		Map<String, RpgData> params = new HashMap<>();
+		params.put("ATK", atk);
+		params.put("DEF", def);
+
+		conf.setParamMap(params);
 		return statuses;
 	}
 	/**
@@ -234,6 +261,44 @@ public class ConsoleUtilsTest {
 		assertEquals(expect, console.toString());
 	}
 
+	@Test
+	public void testAppendSpace() {
+		try {
+			Method mes = this.getTargetMethod("appendSpace", String.class, boolean.class, int.class);
+			String sp = (String) mes.invoke(target, "ちから", true, 8);
+			assertEquals("      ", sp);
+			String sp1 = (String) mes.invoke(target, "すばやさ", true, 8);
+			assertEquals("    ", sp1);
+			String sp2 = (String) mes.invoke(target, " 防御力", true, 30);
+			assertEquals("                          ", sp2);
+			String sp3 = (String) mes.invoke(target, " ごうげきりょく", true, 30);
+			assertEquals("                  ", sp3);
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testSoviSize() {
+		try {
+			Method mes = this.getTargetMethod("getSobiNameLen", Items.class, boolean.class);
+			MainWepon main = new MainWepon("たけのこ");
+			main.setOffence(21);
+			Armor arm = new Armor("かわのよろい");
+			arm.setDiffence(12);
+
+			int sp = (Integer) mes.invoke(target, main, true);
+			assertEquals(12, sp);
+			int sp1 = (Integer) mes.invoke(target, arm, true);
+			assertEquals(16, sp1);
+			int sp2 = (Integer) mes.invoke(target, null, true);
+			assertEquals(4, sp2);
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
 	/**
 	 * プレーヤーセ生成時、総部確認時に表示するフルステータス。
 	 */
@@ -241,6 +306,7 @@ public class ConsoleUtilsTest {
 	public void testPrintStatus() {
 
 		try {
+
 			// プレーヤーは一人
 			PlayerCharactor player = new PlayerCharactor("tes");
 			player.setLevel(1);
@@ -248,7 +314,7 @@ public class ConsoleUtilsTest {
 			//player.setName();
 			player.setHP(3);
 			player.setMP(1);
-			player.setStatusList(createPlayerStatus());
+			player.setStatusList(createPlayerStatus(false));
 
 			target.printStatus(player);
 			LOG.info(() -> SEP + console.toString());
@@ -257,8 +323,8 @@ public class ConsoleUtilsTest {
 					+ "* LV: 1          * ぶき:なし        *" + SEP
 					+ "* HP: 3          * ぼうぐ:なし      *" + SEP
 					+ "* MP: 1          *                  *" + SEP
-					+ "* ちから: 1      * こうげきりょく: 6*" + SEP
-					+ "* すばやさ: 2    * 防御力: 7        *" + SEP
+					+ "* ちから: 1      * こうげきりょく: 0*" + SEP
+					+ "* すばやさ: 2    * 防御力: 0        *" + SEP
 					+ "* かしこさ: 3    *                  *" + SEP
 					+ "* きようさ: 4    *                  *" + SEP
 					+ "* カリスマ: 5    *                  *" + SEP
@@ -284,7 +350,7 @@ public class ConsoleUtilsTest {
 			//player.setName();
 			player.setHP(999);
 			player.setMP(999);
-			player.setStatusList(createPlayerStatus());
+			player.setStatusList(createPlayerStatus(true));
 			MainWepon wep = new MainWepon("やまだのつる");
 			wep.setOffence(12);
 			player.setMainWepon(wep);

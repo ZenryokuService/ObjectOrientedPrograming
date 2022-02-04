@@ -236,22 +236,24 @@ public class ConsoleUtils {
 		RpgData atk = conf.getParamMap().get(RpgConst.ATK.toString());
 		RpgData def = conf.getParamMap().get(RpgConst.DEF.toString());
 		int counter = 1;
+		if (isDebug) System.out.println("sobisize: " + sobisize);
 		for (RpgStatus data : statusList) {
 			if (data.getKigo().equals("ATK") || data.getKigo().equals("DEF")) {
 				continue;
 			}
 			String n = data.getName();
 			String v = String.valueOf(data.getValue());
+			boolean isMulti = CheckerUtils.isMultiByteStr(n);
 
 			boolean valueIsGusu = n.length() % 2 == 0 ? true : false;
-			build.append("* " + n + ": " + v + appendSpace(n, valueIsGusu, max - 6) + "*");
+			build.append("* " + n + ": " + v + appendSpace(n, valueIsGusu, max) + "*");
 
 			if (counter == 1) {
-				//build.append(atk.getName());
-				build.append(printRightSideStatus(atk.getName(),atk.getValue().toString(), isMultiByte, sobisize, max));
+				String val = atk.getValue() != null ? atk.getValue().toString() : null;
+				build.append(printRightSideStatus(atk.getName(), val, isMulti, sobisize, max));
 			}else if (counter == 2) {
-				//build.append(def.getName());
-				build.append(printRightSideStatus(def.getName(), def.getValue().toString(), isMultiByte, sobisize, max));
+				String val = def.getValue() != null ? def.getValue().toString() : null;
+				build.append(printRightSideStatus(def.getName(), val, isMulti, sobisize, max));
 			} else {
 				printRightSideStatus(build, "", isMultiByte, sobisize, max);
 			}
@@ -273,9 +275,12 @@ public class ConsoleUtils {
 			}
 			return ret;
 		}
-		value = value == null ? "なし" : value;
-		if (isMultiByte) {
-			ret = " "  + name + ": " + value + appendSpace(" " + name, true, sobisize + 6) + "*" + SEPARATOR;
+		value = value == null ? "0" : value;
+		if (isDebug) System.out.println("Name; " + name + "  Value: " + value + "Sobi: " + sobisize + " isMultiByte: " + isMultiByte);
+		if (isMultiByte && "0".equals(value) == false) {
+			ret = " " + name + ": " + value + appendSpace(" " + name, true, sobisize + 6) + "*" + SEPARATOR;
+		} else if (isMultiByte && "0".equals(value)) {
+			ret = " " + name + ": " + value + appendSpace(" " + name, true, sobisize + 8) + "*" + SEPARATOR;
 		} else {
 			ret = " "  + name + ": " + value + appendSpace(" " + name, true, max - 2) + "*" + SEPARATOR;
 		}
@@ -348,9 +353,12 @@ public class ConsoleUtils {
 		int v = 0;
 		int nameLen = 0;
 
+		boolean itemNotNull = false;
 		if (item == null) {
+			// なしの場合
 			res = 4;
 		} else {
+			itemNotNull = true;
 			nameLen = item.getName().length();
 			if (item instanceof MainWepon) {
 				String val = "(" + String.valueOf(((MainWepon) item).getOffence()) + ")";
@@ -361,9 +369,9 @@ public class ConsoleUtils {
 			}
 		}
 
-		if (isMulti) {
+		if (isMulti && itemNotNull) {
 			res = nameLen * 2 + v;
-		} else {
+		} else if (itemNotNull) {
 			res = nameLen + v;
 		}
 		return res;
@@ -606,7 +614,7 @@ public class ConsoleUtils {
 	/**
 	 * ステータス表示のために、引数の後ろにスペースを追加する。
 	 *
-	 * @param statusValue 最終的にスペースが追加された文字列
+	 * @param statusValue ステータスの文字列
 	 * @param isGusu 偶数かどうか
 	 * @param max 最大桁数
 	 */
