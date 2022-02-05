@@ -162,11 +162,11 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "***** test *****" + SEP
-				+ "* LV: 10        *" + SEP
-				+ "* HP: 20        *" + SEP
-				+ "* MP: 10        *" + SEP
-				+ "*****************" + SEP + SEP;
+		String expect = "**** test ****" + SEP
+				+ "* LV: 10     *" + SEP
+				+ "* HP: 20     *" + SEP
+				+ "* MP: 10     *" + SEP
+				+ "**************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 
@@ -208,11 +208,11 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "*** プレーヤ  ***" + SEP
-				+ "* LV: 1         *" + SEP
-				+ "* HP: 3         *" + SEP
-				+ "* MP: 1         *" + SEP
-				+ "*****************" + SEP + SEP;
+		String expect = "**** プレーヤ  ****" + SEP
+				+ "* LV: 1           *" + SEP
+				+ "* HP: 3           *" + SEP
+				+ "* MP: 1           *" + SEP
+				+ "*******************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 
@@ -230,11 +230,11 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "****** あ  ******" + SEP
-				+ "* LV: 1         *" + SEP
-				+ "* HP: 3         *" + SEP
-				+ "* MP: 1         *" + SEP
-				+ "*****************" + SEP + SEP;
+		String expect = "**** あ  ****" + SEP
+				+ "* LV: 1     *" + SEP
+				+ "* HP: 3     *" + SEP
+				+ "* MP: 1     *" + SEP
+				+ "*************" + SEP + SEP;
 		assertEquals(expect, console.toString());
 	}
 
@@ -253,26 +253,73 @@ public class ConsoleUtilsTest {
 		target.printBattleStatus(player);
 		LOG.info(() -> SEP + console.toString());
 
-		String expect = "***** test1  *****" + SEP
-				+ "* LV: 1          *" + SEP
-				+ "* HP: 3          *" + SEP
-				+ "* MP: 1          *" + SEP
-				+ "******************" + SEP + SEP;
+		String expect = "**** test1  ****" + SEP
+				+ "* LV: 1        *" + SEP
+				+ "* HP: 3        *" + SEP
+				+ "* MP: 1        *" + SEP
+				+ "****************" + SEP + SEP;
 		assertEquals(expect, console.toString());
+	}
+
+	@Test
+	public void testAppendLine() {
+		StringBuilder build = new StringBuilder();
+		try {
+			Method mes = this.getTargetMethod("appendLine", StringBuilder.class, String.class, boolean.class, int.class);
+			int res = (int) mes.invoke(target,build, "あああ", true, 50);
+			assertEquals(131, res);
+			assertEquals("************************************************************* あああ  *************************************************************", build.toString());
+
+			build = new StringBuilder();
+			int res2 = (int) mes.invoke(target,build, "ああああ", true, 50);
+			assertEquals(139, res2);
+			assertEquals("**************************************************************** ああああ  ****************************************************************", build.toString());
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 	}
 
 	@Test
 	public void testAppendSpace() {
 		try {
-			Method mes = this.getTargetMethod("appendSpace", String.class, boolean.class, int.class);
-			String sp = (String) mes.invoke(target, "ちから", true, 8);
-			assertEquals("      ", sp);
-			String sp1 = (String) mes.invoke(target, "すばやさ", true, 8);
-			assertEquals("    ", sp1);
-			String sp2 = (String) mes.invoke(target, " 防御力", true, 30);
-			assertEquals("                          ", sp2);
-			String sp3 = (String) mes.invoke(target, " ごうげきりょく", true, 30);
-			assertEquals("                  ", sp3);
+			Method mes = this.getTargetMethod("appendSpace", String.class, int.class);
+
+			String lv = "* LV: 20";
+			String sp = (String) mes.invoke(target, lv, 20);
+			assertEquals("            ", sp);
+
+			String hp = "* HP: 200";
+			String sp1 = (String) mes.invoke(target, hp, 20);
+			assertEquals("           ", sp1);
+
+			String mp = "* MP: 1000";
+			String sp2 = (String) mes.invoke(target, mp, 20);
+			assertEquals("          ", sp2);
+
+			String status1 = "* ちから: 1";
+			String sp3 = (String) mes.invoke(target, status1, 20);
+			assertEquals("         ", sp3);
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testAppendSpace2() {
+		try {
+			Method mes = this.getTargetMethod("appendSpace", String.class, int.class);
+			String sp = (String) mes.invoke(target, "ちから: 6", 20);
+			assertEquals("             ", sp);
+			String sp1 = (String) mes.invoke(target, "すばやさ: 1", 20);
+			assertEquals("           ", sp1);
+			String sp2 = (String) mes.invoke(target, " 防御力: 9", 20);
+			assertEquals("           ", sp2);
+			String sp3 = (String) mes.invoke(target, " ごうげきりょく: 2", 20);
+			assertEquals("   ", sp3);
+			String sp4 = (String) mes.invoke(target, "ごうげ: 4", 20);
+			assertEquals("             ", sp4);
 		} catch(Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
@@ -319,16 +366,53 @@ public class ConsoleUtilsTest {
 			target.printStatus(player);
 			LOG.info(() -> SEP + console.toString());
 
-			String expect = "***************  tes  ***************" + SEP
-					+ "* LV: 1          * ぶき:なし        *" + SEP
-					+ "* HP: 3          * ぼうぐ:なし      *" + SEP
-					+ "* MP: 1          *                  *" + SEP
-					+ "* ちから: 1      * こうげきりょく: 0*" + SEP
-					+ "* すばやさ: 2    * 防御力: 0        *" + SEP
-					+ "* かしこさ: 3    *                  *" + SEP
-					+ "* きようさ: 4    *                  *" + SEP
-					+ "* カリスマ: 5    *                  *" + SEP
-					+ "*************************************" + SEP + SEP;
+			String expect = "******************** tes  ********************" + SEP
+					+ "* LV: 1                * ぶき:なし           *" + SEP
+					+ "* HP: 3                * ぼうぐ:なし         *" + SEP
+					+ "* MP: 1                *                     *" + SEP
+					+ "* ちから: 1            * こうげきりょく: 0   *" + SEP
+					+ "* すばやさ: 2          * 防御力: 0           *" + SEP
+					+ "* かしこさ: 3          *                     *" + SEP
+					+ "* きようさ: 4          *                     *" + SEP
+					+ "* カリスマ: 5          *                     *" + SEP
+					+ "**********************************************" + SEP + SEP;
+			assertEquals(expect, console.toString());
+		} catch (RpgException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+
+	/**
+	 * プレーヤーセ生成時、総部確認時に表示するフルステータス。
+	 */
+	@Test
+	public void testPrintStatusA() {
+
+		try {
+
+			// プレーヤーは一人
+			PlayerCharactor player = new PlayerCharactor("テスト");
+			player.setLevel(1);
+			// 名前の文字数は、全角は４文字、半角８文字まで
+			//player.setName();
+			player.setHP(3);
+			player.setMP(1);
+			player.setStatusList(createPlayerStatus(false));
+
+			target.printStatus(player);
+			LOG.info(() -> SEP + console.toString());
+
+			String expect = "*************** テスト  ***************" + SEP
+					+ "* LV: 1            * ぶき:なし        *" + SEP
+					+ "* HP: 3            * ぼうぐ:なし      *" + SEP
+					+ "* MP: 1            *                  *" + SEP
+					+ "* ちから: 1        * こうげきりょく: 0*" + SEP
+					+ "* すばやさ: 2      * 防御力: 0        *" + SEP
+					+ "* かしこさ: 3      *                  *" + SEP
+					+ "* きようさ: 4      *                  *" + SEP
+					+ "* カリスマ: 5      *                  *" + SEP
+					+ "***************************************" + SEP + SEP;
 			assertEquals(expect, console.toString());
 		} catch (RpgException e) {
 			e.printStackTrace();
@@ -351,32 +435,75 @@ public class ConsoleUtilsTest {
 			player.setHP(999);
 			player.setMP(999);
 			player.setStatusList(createPlayerStatus(true));
-			MainWepon wep = new MainWepon("やまだのつる");
+			MainWepon wep = new MainWepon("やまだの");
 			wep.setOffence(12);
 			player.setMainWepon(wep);
-			Armor arm = new Armor("みかわしのふく");
+			Armor arm = new Armor("みかわし");
 			arm.setDiffence(10);
 			player.setArmor(arm);
 
 			target.printStatus(player);
 			LOG.info(() -> SEP + console.toString());
 
-			String expect = "********************* こたろう  *********************" + SEP
-					+ "* LV: 10         * ぶき:やまだのつる(12)            *" + SEP
-					+ "* HP: 999        * ぼうぐ:みかわしのふく(10)        *" + SEP
-					+ "* MP: 999        *                                  *" + SEP
-					+ "* ちから: 1      * こうげきりょく: 6                *" + SEP
-					+ "* すばやさ: 2    * 防御力: 7                        *" + SEP
-					+ "* かしこさ: 3    *                                  *" + SEP
-					+ "* きようさ: 4    *                                  *" + SEP
-					+ "* カリスマ: 5    *                                  *" + SEP
-					+ "*****************************************************" + SEP + SEP;
+			String expect = "************************** こたろう  **************************" + SEP
+					+ "* LV: 10                       * ぶき:やまだの(12)            *" + SEP
+					+ "* HP: 999                      * ぼうぐ:みかわし(10)          *" + SEP
+					+ "* MP: 999                      *                              *" + SEP
+					+ "* ちから: 1                    * こうげきりょく: 6            *" + SEP
+					+ "* すばやさ: 2                  * 防御力: 7                    *" + SEP
+					+ "* かしこさ: 3                  *                              *" + SEP
+					+ "* きようさ: 4                  *                              *" + SEP
+					+ "* カリスマ: 5                  *                              *" + SEP
+					+ "***************************************************************" + SEP + SEP;
 			assertEquals(expect, console.toString());
 		} catch (RpgException e) {
 			e.printStackTrace();
 			fail(e.getMessage());
 		}
 	}
+
+	/**
+	 * プレーヤーセ生成時、総部確認時に表示するフルステータス。
+	 */
+	@Test
+	public void testPrintStatus3() {
+
+		try {
+			// プレーヤーは一人
+			PlayerCharactor player = new PlayerCharactor("あああ");
+			player.setLevel(10);
+			// 名前の文字数は、全角は４文字、半角８文字まで
+			//player.setName();
+			player.setHP(999);
+			player.setMP(999);
+			player.setStatusList(createPlayerStatus(true));
+			MainWepon wep = new MainWepon("やまだ");
+			wep.setOffence(12);
+			player.setMainWepon(wep);
+			Armor arm = new Armor("みかわしの");
+			arm.setDiffence(10);
+			player.setArmor(arm);
+
+			target.printStatus(player);
+			LOG.info(() -> SEP + console.toString());
+
+			String expect = "************************* あああ  *************************" + SEP
+					+ "* LV: 10                     * ぶき:やまだ(12)            *" + SEP
+					+ "* HP: 999                    * ぼうぐ:みかわしの(10)      *" + SEP
+					+ "* MP: 999                    *                            *" + SEP
+					+ "* ちから: 1                  * こうげきりょく: 6          *" + SEP
+					+ "* すばやさ: 2                * 防御力: 7                  *" + SEP
+					+ "* かしこさ: 3                *                            *" + SEP
+					+ "* きようさ: 4                *                            *" + SEP
+					+ "* カリスマ: 5                *                            *" + SEP
+					+ "***********************************************************" + SEP + SEP;
+			assertEquals(expect, console.toString());
+		} catch (RpgException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+
 	/**
 	 * 行動選択肢リストの表示。
 	 */

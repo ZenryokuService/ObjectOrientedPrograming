@@ -33,7 +33,9 @@ public class ConsoleUtils {
 	/** 自分のクラスのインスタンス */
 	private static ConsoleUtils instance;
 	/** 枠線上部、下部(一人分の長さ(半角８文字、全角４文字)) */
-	private final int MAX_LEN = 14;
+	private final int MAX_LEN = 16;
+	/** 外枠の余裕部分 */
+	private final int APPEND_LEN = 4;
 	/** 改行文字 */
 	private final String SEPARATOR = System.lineSeparator();
 	/** OS名 */
@@ -148,22 +150,26 @@ public class ConsoleUtils {
 		// 必要は情報を取得する
 		boolean isMultiByte = CheckerUtils.isMultiByteStr(name);
 		// 外枠を作成
-		boolean isGusu = appendLine(build, name, isMultiByte);
+		int sotowaku = appendLine(build, name, isMultiByte);
+
 		// 改行追加
 		 build.append(SEPARATOR);
 		 // ステータスの表示部分(頭にスペース２つは固定)=6文字分
 
 		 // Lvを表示する[12 - (ステータス部分(6文字) + 値(最大３桁) + 1(アスタリスク)]
 		 String lv = String.valueOf(player.getLevel());
-		 build.append("* LV: " + lv + appendSpace(lv, isGusu) + "*" + SEPARATOR);
+		 String lvStr = "* LV: " + lv;
+		 build.append(lvStr + appendSpace(lvStr, sotowaku - 1) + "*" + SEPARATOR);
 		 // HPを表示する
 		 String hp = String.valueOf(player.getHP());
-		 build.append("* HP: " + hp + appendSpace(hp, isGusu) + "*" + SEPARATOR);
+		 String hpStr = "* HP: " + hp;
+		 build.append(hpStr + appendSpace(hpStr, sotowaku - 1) + "*" + SEPARATOR);
 		 // MPを表示する
 		 String mp = String.valueOf(player.getMP());
-		 build.append("* MP: " + mp + appendSpace(mp, isGusu) + "*" + SEPARATOR);
+		 String mpStr = "* MP: " + mp;
+		 build.append( mpStr + appendSpace(mpStr, sotowaku - 1) + "*" + SEPARATOR);
 		// 外枠を作成
-		appendLastLine(build, name.length(), isGusu);
+		appendLastLine(build, sotowaku);
 		System.out.println(build.toString());
 	}
 
@@ -176,11 +182,11 @@ public class ConsoleUtils {
 		String name = player.getName();
 		// 必要は情報を取得する
 		boolean isMultiByte = CheckerUtils.isMultiByteStr(name);
+		boolean isGusu = name.length() % 2 == 0;
 		// 装備のスペースを追加するためのスペースサイズ
 		int sobisize = maxSobiSize(player);
-		int sotowaku = MAX_LEN * 2 + sobisize;
 		// 外枠を作成
-		boolean isGusu = appendLine(build, name, isMultiByte, sotowaku);
+		int sotowaku = appendLine(build, name, isMultiByte, sobisize) / 2;
 		// 改行追加
 		build.append(SEPARATOR);
 		// 装備の類
@@ -190,34 +196,52 @@ public class ConsoleUtils {
 		String addAstah = isMultiByte ? " *" : "*";
 		// Lvを表示する[12 - (ステータス部分(6文字) + 値(最大３桁) + 1(アスタリスク)]
 		String lv = String.valueOf(player.getLevel());
-		build.append("* LV: " + lv + appendSpace(lv, isGusu) + addAstah);
+		String lvStr = "* LV: " + lv;
+		build.append( lvStr + appendSpace(lvStr, sotowaku) + "*");
 		// 武器
 		String wep = getSobiName((Items) player.getMainWepon());
+		boolean isValue = "なし".equals(wep);
 		boolean wepIsGusu = wep.length() % 2 == 0;
 		int sobiSpace = sotowaku - sobisize;
-		if (isMultiByte) {
-			build.append(" " + RpgConst.BUKI + ":" + wep + appendSpace(wep, wepIsGusu, sobiSpace) + "*" + SEPARATOR);
+		String wepStr = " " + RpgConst.BUKI + ":" + wep;
+
+		if (isMultiByte && isGusu) {
+			//System.out.println("*** AAA ***");
+			build.append(wepStr + appendSpace(wepStr, sobiSpace + 6) + "*" + SEPARATOR);
+		} else if (isMultiByte && sotowaku < 20) {
+			//System.out.println("*** Testing *** : " + sotowaku);
+			build.append(wepStr + appendSpace(wepStr, sobiSpace) + "*" + SEPARATOR);
+		} else if (isMultiByte) {
+			//System.out.println("*** BBB ***" + sotowaku);
+			build.append(wepStr + appendSpace(wepStr, sobiSpace + 9) + "*" + SEPARATOR);
 		} else {
-			build.append(" " + RpgConst.BUKI + ":" + wep + appendSpace(wep, wepIsGusu, 8) + "*" + SEPARATOR);
+			build.append(wepStr  + appendSpace(wepStr, sobiSpace - 1) + "*" + SEPARATOR);
 		}
 		// HPを表示する
 		String hp = String.valueOf(player.getHP());
-		build.append("* HP: " + hp + appendSpace(hp, isGusu) + addAstah);
+		String hpStr = "* HP: " + hp;
+		build.append(hpStr + appendSpace(hpStr, sotowaku) + "*");
 		// 防具
 		String arm = getSobiName((Items) player.getArmor());
 		boolean armIsGusu = arm.length() % 2 == 0;
-		if (isMultiByte) {
-			build.append(" " + RpgConst.BOG + ":" + arm + appendSpace(arm, armIsGusu, sobiSpace - 2) + "*" + SEPARATOR);
-		} else {
-			build.append(" " + RpgConst.BOG + ":" + arm + appendSpace(arm, armIsGusu, 6) + "*" + SEPARATOR);
+		String armStr = " " + RpgConst.BOG + ":" + arm;
+		if (isMultiByte && isGusu) {
+			build.append(armStr + appendSpace(armStr, sobiSpace + 6) + "*" + SEPARATOR);
+		} else if (isMultiByte && sotowaku < 20) {
+			build.append(armStr + appendSpace(armStr, sobiSpace) + "*" + SEPARATOR);
+		} else if (isMultiByte) {
+			build.append(armStr + appendSpace(armStr, sobiSpace + 7) + "*" + SEPARATOR);
+		}else {
+			build.append(armStr + appendSpace(armStr, sobiSpace - 1) + "*" + SEPARATOR);
 		}
 		// MPを表示する
 		String mp = String.valueOf(player.getMP());
-		build.append("* MP: " + mp + appendSpace(mp, isGusu) + addAstah);
+		String mpStr = "* MP: " + mp;
+		build.append(mpStr + appendSpace(mpStr, sotowaku) + "*");
 		if (isMultiByte) {
-			build.append(appendSpace("", true, sobisize + 11)  + "*" + SEPARATOR);
+			build.append(appendSpace("", sotowaku - 1)  + "*" + SEPARATOR);
 		} else {
-			build.append(appendSpace("", true, 17)  + "*" + SEPARATOR);
+			build.append(appendSpace("", sotowaku - 2)  + "*" + SEPARATOR);
 		}
 		List<RpgStatus> statusList = player.getStatusList();
 		int max = 0;
@@ -246,21 +270,36 @@ public class ConsoleUtils {
 			boolean isMulti = CheckerUtils.isMultiByteStr(n);
 
 			boolean valueIsGusu = n.length() % 2 == 0 ? true : false;
-			build.append("* " + n + ": " + v + appendSpace(n, valueIsGusu, max) + "*");
+			String nStr = "* " + n + ": " + v;
+			build.append(nStr + appendSpace(nStr, sotowaku) + "*");
 
 			if (counter == 1) {
 				String val = atk.getValue() != null ? atk.getValue().toString() : null;
-				build.append(printRightSideStatus(atk.getName(), val, isMulti, sobisize, max));
+				build.append(printRightSideStatus(atk.getName(), val, isMulti, sotowaku, sotowaku));
 			}else if (counter == 2) {
 				String val = def.getValue() != null ? def.getValue().toString() : null;
-				build.append(printRightSideStatus(def.getName(), val, isMulti, sobisize, max));
+				if (isMultiByte && isGusu) {
+					build.append(printRightSideStatus(def.getName(), val, isMulti, sobisize, sotowaku));
+				} else if (isMultiByte && sotowaku < 20) {
+					build.append(printRightSideStatus(def.getName(), val, isMulti, sobisize, sotowaku + 1));
+				} else if (isMultiByte) {
+					build.append(printRightSideStatus(def.getName(), val, isMulti, sobisize, sotowaku));
+				} else {
+					build.append(printRightSideStatus(def.getName(), val, isMulti, sobisize, sotowaku));
+				}
 			} else {
-				printRightSideStatus(build, "", isMultiByte, sobisize, max);
+				printRightSideStatus(build, "", isMultiByte, sobisize, sotowaku);
 			}
 			counter++;
 		}
 		// 外枠を作成
-		appendLastLine(build, isGusu, sotowaku - 14);
+		int lastSize = sotowaku * 2;
+		if(isMultiByte && isGusu) {
+			lastSize = lastSize + 1;
+		} else if(isMultiByte) {
+			lastSize = lastSize + 1;
+		}
+		appendLastLine(build, lastSize);
 		System.out.println(build.toString());
 	}
 
@@ -269,20 +308,22 @@ public class ConsoleUtils {
 		String ret = null;
 		if ("".equals(name)) {
 			if (isMultiByte) {
-				ret = appendSpace("", true, sobisize + 11)  + "*" + SEPARATOR;
+				ret = appendSpace("", max + 1)  + "*" + SEPARATOR;
 			} else {
-				ret = appendSpace("", true, 17)  + "*" + SEPARATOR;
+				ret = appendSpace("", max)  + "*" + SEPARATOR;
 			}
 			return ret;
 		}
+        boolean isGusu = name.length() % 2 == 0 ? true : false;
 		value = value == null ? "0" : value;
 		if (isDebug) System.out.println("Name; " + name + "  Value: " + value + "Sobi: " + sobisize + " isMultiByte: " + isMultiByte);
+		String valStr = " " + name + ": " + value;
 		if (isMultiByte && "0".equals(value) == false) {
-			ret = " " + name + ": " + value + appendSpace(" " + name, true, sobisize + 6) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, max - 2) + "*" + SEPARATOR;
 		} else if (isMultiByte && "0".equals(value)) {
-			ret = " " + name + ": " + value + appendSpace(" " + name, true, sobisize + 8) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, max - 3) + "*" + SEPARATOR;
 		} else {
-			ret = " "  + name + ": " + value + appendSpace(" " + name, true, max - 2) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, max - 3) + "*" + SEPARATOR;
 		}
 		return ret;
 	}
@@ -292,16 +333,16 @@ public class ConsoleUtils {
 	private void printRightSideStatus(StringBuilder build, String name, boolean isMultiByte, int sobisize, int max) {
 		if (name.length() == 0) {
 			if (isMultiByte) {
-				build.append(appendSpace("", true, sobisize + 11)  + "*" + SEPARATOR);
+				build.append(appendSpace("", max - 1)  + "*" + SEPARATOR);
 			} else {
-				build.append(appendSpace("", true, 17)  + "*" + SEPARATOR);
+				build.append(appendSpace("", max - 2)  + "*" + SEPARATOR);
 			}
 			return;
 		}
 		if (isMultiByte) {
-			build.append(appendSpace(name, true, sobisize + 10) + "*" + SEPARATOR);
+			build.append(appendSpace(name, max + sobisize) + "*" + SEPARATOR);
 		} else {
-			build.append(appendSpace(name, true, max + 9) + "*" + SEPARATOR);
+			build.append(appendSpace(name, max + sobisize) + "*" + SEPARATOR);
 		}
 	}
 
@@ -317,13 +358,6 @@ public class ConsoleUtils {
 
 		boolean isArmMulti = CheckerUtils.isMultiByteStr(arm);
 		int armSize = getSobiNameLen(armItem, isArmMulti);
-
-
-		if (isArmMulti) {
-			armSize = arm.length() * 2;
-		} else {
-			armSize = arm.length();
-		}
 		// 追加するスペースのサイズ
 		int appendSize = wepSize <  armSize ? armSize : wepSize;
 		return appendSize;
@@ -411,42 +445,53 @@ public class ConsoleUtils {
 	 *
 	 * @param build StringBuilder
 	 * @param name 名前
-	 * @return isGusu 出力するアスタの数が true: 偶数(全部で14文字) / false: 奇数(全部で15文字)
+	 * @return 全体の文字数を返却する(全角部分は２倍計算)
 	 */
-	private boolean appendLine(StringBuilder build, String name, boolean isMultiByte) {
+	private int appendLine(StringBuilder build, String name, boolean isMultiByte) {
 		// 12 - 名前の文字数
+		int nameLen = 0;
 		int astahAll = 0;
 		if (isMultiByte) {
 			// 全角の場合は２倍にする
-			astahAll = MAX_LEN - (name.length() * 2);
+			nameLen = name.length() * 2;
+			astahAll = name.length() * 2 + APPEND_LEN;
 		} else {
-			astahAll = MAX_LEN - name.length();
+			nameLen = name.length();
+			astahAll = name.length() + APPEND_LEN;
 		}
 		// 名前の両サイドに表示するアスタの数
 		int astah = 0;
 		// アスタの数が偶数の場合
-		boolean isGusu = CheckerUtils.isGusu(astahAll);
+		boolean isGusu = CheckerUtils.isGusu(name.length());
 		if (isGusu) {
-			astah = astahAll / 2;
+			astah = astahAll / 2 - 2;
 		} else {
-			astah = astahAll / 2 + 1;
+			astah = astahAll / 2 - 3;
+		}
+		if (astah < 5) {
+			astah = 4;
 		}
 		for (int i = 0; i < astah; i++) {
 			build.append("*");
 		}
+		String append = null;
 		String space = " ";
+		int spaceLen = 0;
 		if (isGusu == false || isMultiByte) {
-			build.append(space + name + space + " ");
+			spaceLen = 3;
+			append = space + name + space + space;
 		} else {
-			build.append(space + name + space);
+			spaceLen = 2;
+			append = space + name + space;
 		}
+		build.append(append);
 		for (int i = 0; i < astah; i++) {
 			build.append("*");
 		}
 		if (astah <= 2) {
 			build.append(" ");
 		}
-		return isGusu;
+		return astah * 2 + nameLen + spaceLen;
 	}
 
 	/**
@@ -456,46 +501,54 @@ public class ConsoleUtils {
 	 * @param build StringBuilder
 	 * @param name 名前
 	 * @param isMultiByte マルチバイト文字かどうか
-	 * @param max 最大幅
-	 * @return isGusu 出力するアスタの数が true: 偶数(全部で14文字) / false: 奇数(全部で15文字)
+	 * @param sobisize 右側に追加する武器・防具の最大サイズ
+	 * @return
 	 */
-	private boolean appendLine(StringBuilder build, String name, boolean isMultiByte, int max) {
+	private int appendLine(StringBuilder build, String name, boolean isMultiByte, int sobisize) {
 		// 12 - 名前の文字数
+		int nameLen = 0;
 		int astahAll = 0;
 		if (isMultiByte) {
 			// 全角の場合は２倍にする
-			astahAll = max - (name.length() * 2);
+			nameLen = name.length() * 2;
+			astahAll = name.length() * 2 + APPEND_LEN * 2 + sobisize;
 		} else {
-			astahAll = max - name.length();
+			nameLen = name.length();
+			astahAll = name.length() + + APPEND_LEN * 4 + sobisize;
 		}
 		// 名前の両サイドに表示するアスタの数
 		int astah = 0;
 		// アスタの数が偶数の場合
-		boolean isGusu = CheckerUtils.isGusu(astahAll);
+		boolean isGusu = CheckerUtils.isGusu(name.length());
 		if (isGusu) {
-			astah = astahAll / 2;
+			astah = astahAll - 2;
 		} else {
-			astah = astahAll / 2 + 1;
+			astah = astahAll - 3;
+		}
+		if (astah < 5) {
+			astah = 4;
 		}
 		for (int i = 0; i < astah; i++) {
 			build.append("*");
 		}
+		String append = null;
 		String space = " ";
-		if (isGusu == false) {
-			build.append(space + " " + name + space + " ");
-		} else if (isMultiByte) {
-			build.append(space + name + space + " ");
+		int spaceLen = 0;
+		if (isGusu == false || isMultiByte) {
+			spaceLen = 3;
+			append = space + name + space + space;
 		} else {
-			build.append(space + name + space);
+			spaceLen = 2;
+			append = space + name + space;
 		}
-
+		build.append(append);
 		for (int i = 0; i < astah; i++) {
 			build.append("*");
 		}
 		if (astah <= 2) {
 			build.append(" ");
 		}
-		return isGusu;
+		return astah * 2 + nameLen + spaceLen;
 	}
 
 	/**
@@ -533,16 +586,10 @@ public class ConsoleUtils {
 	}
 
 	/** this#printStatusで使用する */
-	private void appendLastLine(StringBuilder build, boolean isGusu, int addtional) {
+	private void appendLastLine(StringBuilder build, int sotowaku) {
 		//最大文字数にスペースと補助分を追加する
 		int astah = 0;
-		if (isGusu) {
-			astah = MAX_LEN + 2;
-		} else {
-			astah = MAX_LEN + 4;
-		}
-		int max = astah + addtional;
-		for (int i = 0; i <= max; i++) {
+		for (int i = 0; i < sotowaku; i++) {
 			build.append("*");
 		}
 		build.append(SEPARATOR);
@@ -565,72 +612,75 @@ public class ConsoleUtils {
 		build.append(SEPARATOR);
 	}
 
-	/**
-	 * ステータス表示のために、引数の後ろにスペースを追加する。
-	 *
-	 * @param statusValue 最終的にスペースが追加された文字列
-	 */
-	private String appendSpace(String statusValue, boolean isGusu, boolean isMulti) {
-		StringBuilder space = new StringBuilder();
-		int len = 0;
-		/** 表示するステータスの文字数 */
-		int STATUS_LEN = 27;
-		if (isGusu) {
-			// 偶数の場合、最大文字数 + 2(スペース2個分) - 1(後ろにつけるアスタ分)
-			len = (STATUS_LEN + 4) - statusValue.length();
-		} else {
-			// 奇数の場合、最大文字数 + 3(スペース2個分)
-			len = (STATUS_LEN + 5) - statusValue.length();
-		}
-		for (int i = 0; i < len; i++) {
-			space.append(" ");
-		}
-		return space.toString();
-	}
+//	/**
+//	 * ステータス表示のために、引数の後ろにスペースを追加する。
+//	 *
+//	 * @param statusValue 最終的にスペースが追加された文字列
+//	 */
+//	private String appendSpace(String statusValue, boolean isGusu, boolean isMulti) {
+//		StringBuilder space = new StringBuilder();
+//		int len = 0;
+//		/** 表示するステータスの文字数 */
+//		int STATUS_LEN = 27;
+//		if (isGusu) {
+//			// 偶数の場合、最大文字数 + 2(スペース2個分) - 1(後ろにつけるアスタ分)
+//			len = (STATUS_LEN + 4) - statusValue.length();
+//		} else {
+//			// 奇数の場合、最大文字数 + 3(スペース2個分)
+//			len = (STATUS_LEN + 5) - statusValue.length();
+//		}
+//		for (int i = 0; i < len; i++) {
+//			space.append(" ");
+//		}
+//		return space.toString();
+//	}
+//
+//	/**
+//	 * ステータス表示のために、引数の後ろにスペースを追加する。
+//	 *
+//	 * @param statusValue 最終的にスペースが追加された文字列
+//	 */
+//	private String appendSpace(String statusValue, boolean isGusu) {
+//		StringBuilder space = new StringBuilder();
+//		int len = 0;
+//		/** 表示するステータスの文字数 */
+//		int STATUS_LEN = 6;
+//		if (isGusu) {
+//			// 偶数の場合、最大文字数 + 2(スペース2個分) - 1(後ろにつけるアスタ分)
+//			len = (STATUS_LEN + 4) - statusValue.length();
+//		} else {
+//			// 奇数の場合、最大文字数 + 3(スペース2個分)
+//			len = (STATUS_LEN + 5) - statusValue.length();
+//		}
+//		for (int i = 0; i < len; i++) {
+//			space.append(" ");
+//		}
+//		return space.toString();
+//	}
 
 	/**
 	 * ステータス表示のために、引数の後ろにスペースを追加する。
-	 *
-	 * @param statusValue 最終的にスペースが追加された文字列
-	 */
-	private String appendSpace(String statusValue, boolean isGusu) {
-		StringBuilder space = new StringBuilder();
-		int len = 0;
-		/** 表示するステータスの文字数 */
-		int STATUS_LEN = 6;
-		if (isGusu) {
-			// 偶数の場合、最大文字数 + 2(スペース2個分) - 1(後ろにつけるアスタ分)
-			len = (STATUS_LEN + 4) - statusValue.length();
-		} else {
-			// 奇数の場合、最大文字数 + 3(スペース2個分)
-			len = (STATUS_LEN + 5) - statusValue.length();
-		}
-		for (int i = 0; i < len; i++) {
-			space.append(" ");
-		}
-		return space.toString();
-	}
-
-	/**
-	 * ステータス表示のために、引数の後ろにスペースを追加する。
+	 * このメソッドは、左側のステータス表示で使用する。
 	 *
 	 * @param statusValue ステータスの文字列
-	 * @param isGusu 偶数かどうか
 	 * @param max 最大桁数
 	 */
-	private String appendSpace(String statusValue, boolean isGusu, int max) {
+	private String appendSpace(String statusValue, int max) {
 		StringBuilder space = new StringBuilder();
-		boolean isMulti = CheckerUtils.isMultiByteStr(statusValue);
 		int len = 0;
-
-		int strLen = isMulti ? statusValue.length() * 2 - 3: statusValue.length();
-		if (isGusu) {
-			// 偶数の場合、最大文字数 + 2(スペース2個分) - 1(後ろにつけるアスタ分)
-			len = (max + 1) - strLen;
+		int colonIdx = statusValue.indexOf(":");
+		String st = null;
+		if ("".equals(statusValue)) {
+			st = "";
 		} else {
-			// 奇数の場合、最大文字数 + 3(スペース2個分)
-			len = (max + 1) - strLen;
+			st = statusValue.substring(2, colonIdx);
 		}
+		//System.out.println("substr: " + st);
+		boolean isMulti = CheckerUtils.isMultiByteStr(st);
+
+		int strLen = isMulti ? (st.length() * 2) + (statusValue.length() - st.length()) : statusValue.length();
+
+		len = max - strLen;
 		for (int i = 0; i < len; i++) {
 			space.append(" ");
 		}
