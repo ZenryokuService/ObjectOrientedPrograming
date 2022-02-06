@@ -24,6 +24,9 @@ public class CheckerUtils {
 	 * @return true: 全角文字列 / false: 半角文字列
 	 */
 	public static boolean isMultiByteStr(String value) {
+		if (value == null) {
+			return false;
+		}
 		int strLen = value.length();
 		int byteLen = value.getBytes().length;
 		if (strLen != byteLen) {
