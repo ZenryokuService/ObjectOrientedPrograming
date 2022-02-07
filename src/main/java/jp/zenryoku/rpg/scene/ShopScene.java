@@ -4,6 +4,7 @@ import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.constants.MessageConst;
+import jp.zenryoku.rpg.constants.SelectConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgItem;
 import jp.zenryoku.rpg.data.RpgShop;
@@ -40,19 +41,20 @@ public class ShopScene extends StoryScene {
             int count = 0;
             for (RpgItem item : list) {
                 System.out.println(count + ": " + item.getName()
-                        + " 金額: " + item.getMoney() + SEP
+                        + " 金額: " + item.getMoney()
                         + " 説明: " + item.getDiscription());
                 count++;
             }
+            System.out.println("[1-" + max + "]");
             String select = console.acceptInput(MessageConst.DO_SELECT.toString(), "[1-" + max + "]");
             RpgItem it = list.get(Integer.parseInt(select));
-            String res = console.acceptInput(it.getName() + MessageConst.YOU_BUY_THIS.toString(), "[y|n]");
-            if ("y".equals(res)) {
+            String res = console.acceptInput(it.getName() + MessageConst.YOU_BUY_THIS.toString(), SelectConst.YES_NO_REGREX);
+            if (SelectConst.SELECT_YES.getValue().equals(res)) {
                 System.out.println(MessageConst.THANKS);
                 player.addItem(it);
             }
-            String res1 = console.acceptInput(MessageConst.DO_YOU_WANT_MORE.toString(), "[y|n]");
-            if ("n".equals(res1)) {
+            String res1 = console.acceptInput(MessageConst.DO_YOU_WANT_MORE.toString(), SelectConst.YES_NO_REGREX);
+            if (SelectConst.SELECT_NO.getValue().equals(res1)) {
                 System.out.println(MessageConst.THANKS_BYE.toString());
                 break;
             }

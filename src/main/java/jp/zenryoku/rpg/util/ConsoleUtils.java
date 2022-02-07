@@ -15,6 +15,7 @@ import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.constants.SelectConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.RpgItem;
@@ -122,8 +123,8 @@ public class ConsoleUtils {
 		String input = null;
 		while (isOK == false) {
 			input = scan.nextLine();
-			isOK = input == null || "".equals(input) ? false : true;
-			if (isOK == false) {
+//			isOK = input == null || "".equals(input) ? false : true;
+			if (input == null || "".equals(input)) {
 				System.out.println(MessageConst.ERR_NO_INPUT.toString());
 				continue;
 			}
@@ -194,7 +195,7 @@ public class ConsoleUtils {
 		if (isDebug) System.out.println("underLine: " + underLine);
 		int sotowaku = underLine % 2 == 0 ? underLine / 2 : underLine / 2 + 1;
 		if (isDebug) System.out.println("sotowaku: " + sotowaku);
-		boolean isUnder42 = underLine < 42;
+		boolean isUnder42 = underLine < 54;
 		// 改行追加
 		build.append(SEPARATOR);
 
@@ -858,20 +859,25 @@ public class ConsoleUtils {
 		PlayerCharactor player = party.getPlayer();
 		ConsoleUtils console = ConsoleUtils.getInstance();
 		List<RpgItem> itemList = player.getItemBag();
-		System.out.println(MessageConst.MENU);
 
 		boolean isMenu = true;
 
 
 		while (isMenu) {
+			// メニューの表示
+			System.out.println(MessageConst.MENU);
 			if (isDebug) System.out.println("アイテムサイズ: " + itemList.size());
-			String input = console.acceptInput(MessageConst.MENU_DO_SELECT.toString(), "[1-3]");
+			String input = console.acceptInput(MessageConst.MENU_DO_SELECT.toString(), SelectConst.MENU_SELECT_REGREX);
 			if ("1".equals(input)) {
 				System.out.println("＜アイテム＞");
 				// 所持アイテムの表示
 				for (int i = 0; i < itemList.size(); i++) {
 					RpgItem item = itemList.get(i);
 					System.out.println((i + 1) + ". " + item.getName());
+				}
+				if (itemList.size() <= 0) {
+					System.out.println(MessageConst.THERES_NO_ITEM.toString());
+					continue;
 				}
 				// 装備の変更をおこなう
 				String selectSobi = console.acceptInput(MessageConst.EQUIP_SELECT.toString());
@@ -885,11 +891,19 @@ public class ConsoleUtils {
 					});
 				}
 				RpgItem type = (RpgItem) conf.getItemMap().get(sobi.getName());
-				if (RpgConst.WEP.equals(type.getItemType()) == false) {
+				if (RpgConst.WEP.equals(type.getItemType()) == false
+						|| RpgConst.ARM.equals(type.getItemType()) == false) {
 					throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + " : " + type.getName());
 				}
-				player.setMainWepon(new MainWepon(type));
-				printStatus(player);
+				if (RpgConst.WEP.equals(type.getItemType())){
+					player.setMainWepon(new MainWepon(type));
+					printStatus(player);
+				}
+				if (RpgConst.ARM.equals(type.getItemType())) {
+					player.setArmor(new Armor(type));
+					printStatus(player);
+				}
+
 			} else if ("2".equals(input)) {
 				// アイテムの使用をおこなう
 			} else if ("3".equals(input)) {

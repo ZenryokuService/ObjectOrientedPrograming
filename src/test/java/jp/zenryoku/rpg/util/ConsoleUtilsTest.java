@@ -523,6 +523,43 @@ public class ConsoleUtilsTest {
 	 * プレーヤーセ生成時、総部確認時に表示するフルステータス。
 	 */
 	@Test
+	public void testPrintStatusB() {
+
+		try {
+
+			// プレーヤーは一人
+			PlayerCharactor player = new PlayerCharactor("ああれｇれ");
+			player.setLevel(1);
+			// 名前の文字数は、全角は４文字、半角８文字まで
+			//player.setName();
+			player.setHP(3);
+			player.setMP(1);
+			player.setStatusList(createPlayerStatus(false));
+
+			target.printStatus(player);
+			LOG.info(() -> SEP + console.toString());
+
+			String expect = "******************** ああれｇれ  ********************" + SEP
+					+ "* LV: 1                    * ぶき: なし             *" + SEP
+					+ "* HP: 3                    * ぼうぐ: なし           *" + SEP
+					+ "* MP: 1                    *                        *" + SEP
+					+ "* ちから: 1                * こうげきりょく: 0      *" + SEP
+					+ "* すばやさ: 2              * 防御力: 0              *" + SEP
+					+ "* かしこさ: 3              *                        *" + SEP
+					+ "* きようさ: 4              *                        *" + SEP
+					+ "* カリスマ: 5              *                        *" + SEP
+					+ "*****************************************************" + SEP + SEP;
+			assertEquals(expect, console.toString());
+		} catch (RpgException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+
+	/**
+	 * プレーヤーセ生成時、総部確認時に表示するフルステータス。
+	 */
+	@Test
 	public void testPrintStatus2() {
 
 		try {
@@ -725,6 +762,8 @@ public class ConsoleUtilsTest {
 			String res = (String) mes.invoke(target, nameStr, valStr, true, true, 8, 30);// 32 - 2
 			assertEquals(" ぶき: やまだの(12)          *" + SEP, res);
 
+			String res1 = (String) mes.invoke(target, "こうげきりょく", "0", true, false, 4, 27);//
+			assertEquals(" こうげきりょく: 0      *" + SEP, res1);
 
 		} catch (Exception e) {
 			e.printStackTrace();
