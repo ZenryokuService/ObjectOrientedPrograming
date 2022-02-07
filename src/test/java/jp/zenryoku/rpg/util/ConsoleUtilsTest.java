@@ -466,8 +466,8 @@ public class ConsoleUtilsTest {
 			LOG.info(() -> SEP + console.toString());
 
 			String expect = "********************** tes  **********************" + SEP
-					+ "* LV: 1                  * ぶき:なし             *" + SEP
-					+ "* HP: 3                  * ぼうぐ:なし           *" + SEP
+					+ "* LV: 1                  * ぶき: なし            *" + SEP
+					+ "* HP: 3                  * ぼうぐ: なし          *" + SEP
 					+ "* MP: 1                  *                       *" + SEP
 					+ "* ちから: 1              * こうげきりょく: 0     *" + SEP
 					+ "* すばやさ: 2            * 防御力: 0             *" + SEP
@@ -503,14 +503,14 @@ public class ConsoleUtilsTest {
 			LOG.info(() -> SEP + console.toString());
 
 			String expect = "**************** テスト  ****************" + SEP
-					+ "* LV: 1             * ぶき:なし         *" + SEP
-					+ "* HP: 3             * ぼうぐ:なし       *" + SEP
-					+ "* MP: 1             *                   *" + SEP
-					+ "* ちから: 1         * こうげきりょく: 0 *" + SEP
-					+ "* すばやさ: 2       * 防御力: 0         *" + SEP
-					+ "* かしこさ: 3       *                   *" + SEP
-					+ "* きようさ: 4       *                   *" + SEP
-					+ "* カリスマ: 5       *                   *" + SEP
+					+ "* LV: 1              * ぶき: なし       *" + SEP
+					+ "* HP: 3              * ぼうぐ: なし     *" + SEP
+					+ "* MP: 1              *                  *" + SEP
+					+ "* ちから: 1          * こうげきりょく: 0*" + SEP
+					+ "* すばやさ: 2        * 防御力: 0        *" + SEP
+					+ "* かしこさ: 3        *                  *" + SEP
+					+ "* きようさ: 4        *                  *" + SEP
+					+ "* カリスマ: 5        *                  *" + SEP
 					+ "*****************************************" + SEP + SEP;
 			assertEquals(expect, console.toString());
 		} catch (RpgException e) {
@@ -545,14 +545,14 @@ public class ConsoleUtilsTest {
 			LOG.info(() -> SEP + console.toString());
 
 			String expect = "************************** こたろう  **************************" + SEP
-					+ "* LV: 10                       * ぶき:やまだの(12)            *" + SEP
-					+ "* HP: 999                      * ぼうぐ:みかわし(10)          *" + SEP
-					+ "* MP: 999                      *                              *" + SEP
-					+ "* ちから: 1                    * こうげきりょく: 6            *" + SEP
-					+ "* すばやさ: 2                  * 防御力: 7                    *" + SEP
-					+ "* かしこさ: 3                  *                              *" + SEP
-					+ "* きようさ: 4                  *                              *" + SEP
-					+ "* カリスマ: 5                  *                              *" + SEP
+					+ "* LV: 10                        * ぶき: やまだの(12)          *" + SEP
+					+ "* HP: 999                       * ぼうぐ: みかわし(10)        *" + SEP
+					+ "* MP: 999                       *                             *" + SEP
+					+ "* ちから: 1                     * こうげきりょく: 6           *" + SEP
+					+ "* すばやさ: 2                   * 防御力: 7                   *" + SEP
+					+ "* かしこさ: 3                   *                             *" + SEP
+					+ "* きようさ: 4                   *                             *" + SEP
+					+ "* カリスマ: 5                   *                             *" + SEP
 					+ "***************************************************************" + SEP + SEP;
 			assertEquals(expect, console.toString());
 		} catch (RpgException e) {
@@ -587,14 +587,14 @@ public class ConsoleUtilsTest {
 			LOG.info(() -> SEP + console.toString());
 
 			String expect = "************************** あああ  **************************" + SEP
-					+ "* LV: 10                      * ぶき:やまだ(12)             *" + SEP
-					+ "* HP: 999                     * ぼうぐ:みかわしの(10)       *" + SEP
-					+ "* MP: 999                     *                             *" + SEP
-					+ "* ちから: 1                   * こうげきりょく: 6           *" + SEP
-					+ "* すばやさ: 2                 * 防御力: 7                   *" + SEP
-					+ "* かしこさ: 3                 *                             *" + SEP
-					+ "* きようさ: 4                 *                             *" + SEP
-					+ "* カリスマ: 5                 *                             *" + SEP
+					+ "* LV: 10                       * ぶき: やまだ(12)           *" + SEP
+					+ "* HP: 999                      * ぼうぐ: みかわしの(10)     *" + SEP
+					+ "* MP: 999                      *                            *" + SEP
+					+ "* ちから: 1                    * こうげきりょく: 6          *" + SEP
+					+ "* すばやさ: 2                  * 防御力: 7                  *" + SEP
+					+ "* かしこさ: 3                  *                            *" + SEP
+					+ "* きようさ: 4                  *                            *" + SEP
+					+ "* カリスマ: 5                  *                            *" + SEP
 					+ "*************************************************************" + SEP + SEP;
 			assertEquals(expect, console.toString());
 		} catch (RpgException e) {
@@ -627,8 +627,8 @@ public class ConsoleUtilsTest {
 			LOG.info(() -> SEP + console.toString());
 
 			String expect = "**************************** aea  ****************************" + SEP
-					+ "* LV: 10                       * ぶき:やまだ(12)             *" + SEP
-					+ "* HP: 999                      * ぼうぐ:なし                 *" + SEP
+					+ "* LV: 10                       * ぶき: やまだ(12)            *" + SEP
+					+ "* HP: 999                      * ぼうぐ: なし                *" + SEP
 					+ "* MP: 999                      *                             *" + SEP
 					+ "* ちから: 1                    * こうげきりょく: 6           *" + SEP
 					+ "* すばやさ: 2                  * 防御力: 7                   *" + SEP
@@ -666,16 +666,16 @@ public class ConsoleUtilsTest {
 			target.printStatus(player);
 			LOG.info(() -> SEP + console.toString());
 
-			String expect = "**************************** aea  ****************************" + SEP
-					+ "* LV: 10                       * ぶき:やまだ(12)             *" + SEP
-					+ "* HP: 999                      * ぼうぐ:なし                 *" + SEP
-					+ "* MP: 999                      *                             *" + SEP
-					+ "* ちから: 1                    * こうげきりょく: 6           *" + SEP
-					+ "* すばやさ: 2                  * 防御力: 7                   *" + SEP
-					+ "* かしこさ: 3                  *                             *" + SEP
-					+ "* きようさ: 4                  *                             *" + SEP
-					+ "* カリスマ: 5                  *                             *" + SEP
-					+ "**************************************************************" + SEP + SEP;
+			String expect = "****************************** aea  ******************************" + SEP
+					+ "* LV: 10                         * ぶき: たんけん(12)            *" + SEP
+					+ "* HP: 999                        * ぼうぐ: なし                  *" + SEP
+					+ "* MP: 999                        *                               *" + SEP
+					+ "* ちから: 1                      * こうげきりょく: 6             *" + SEP
+					+ "* すばやさ: 2                    * 防御力: 7                     *" + SEP
+					+ "* かしこさ: 3                    *                               *" + SEP
+					+ "* きようさ: 4                    *                               *" + SEP
+					+ "* カリスマ: 5                    *                               *" + SEP
+					+ "******************************************************************" + SEP + SEP;
 			assertEquals(expect, console.toString());
 		} catch (RpgException e) {
 			e.printStackTrace();
@@ -695,13 +695,13 @@ public class ConsoleUtilsTest {
 	}
 
 	@Test
-	public void testPrintRightSideStatus() {
+	public void testPrintRightSideStatus_A() {
 		try {
 			Method mes = getTargetMethod("printRightSideStatus", StringBuilder.class, String.class, boolean.class, int.class, int.class);
 			StringBuilder build = new StringBuilder();
 			String vStr = "";
 			mes.invoke(target, build, vStr, true, 30, 30);
-			assertEquals(31, build.toString().length());
+			assertEquals(30, build.toString().length());
 
 			build = new StringBuilder();
 			mes.invoke(target, build, vStr, false, 10, 10);
@@ -714,6 +714,23 @@ public class ConsoleUtilsTest {
 		}
 	}
 
+	@Test
+	public void testPrintRightSideStatus_B() {
+		try {
+			Method mes = getTargetMethod("printRightSideStatus", String.class, String.class, boolean.class, boolean.class, int.class, int.class);
+			StringBuilder build = new StringBuilder();
+			String nameStr = "ぶき";
+			String valStr = "やまだの(12)";
+			// 偶数のマルチバイト underLine=63のケース(sotowaku = underLine % 2 == 0 ? underLine / 2 : underLine / 2 + 1;)
+			String res = (String) mes.invoke(target, nameStr, valStr, true, true, 8, 30);// 32 - 2
+			assertEquals(" ぶき: やまだの(12)          *" + SEP, res);
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
 	/**
 	 * コンソールクリアのテスト
 	 */

@@ -191,14 +191,10 @@ public class ConsoleUtils {
 		int sobisize = maxSobiSize(player);
 		// 外枠を作成
 		int underLine = appendLine(build, name, isMultiByte, sobisize);
-		System.out.println("userLine: " + underLine);
+		if (isDebug) System.out.println("underLine: " + underLine);
 		int sotowaku = underLine % 2 == 0 ? underLine / 2 : underLine / 2 + 1;
-		System.out.println("sotowaku: " + sotowaku);
-		int rightMax = sotowaku - 2;
-//		int underLineLen = appendLine(build, name, isMultiByte, sobisize);
-//		int sotowaku = underLineLen % 2 == 0 ? underLineLen / 2 - 1 : underLineLen / 2;
-		// 外枠が２０以下
-		boolean isUnder30 = sotowaku < 27;
+		if (isDebug) System.out.println("sotowaku: " + sotowaku);
+		boolean isUnder42 = underLine < 42;
 		// 改行追加
 		build.append(SEPARATOR);
 
@@ -215,21 +211,21 @@ public class ConsoleUtils {
 
 		if (isDebug) System.out.println("sotowaku: " + sotowaku + " : sobisize: " + sobisize);
 		if (isMultiByte && isGusu) {
-			if (isDebug) System.out.println("*** AAA *** : " + (rightMax));
+			if (isDebug) System.out.println("*** AAA *** : " + (sotowaku));
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(wepStr + appendSpace(wepStr, rightMax) + "*" + SEPARATOR);
+			build.append(wepStr + appendSpace(wepStr, sotowaku - DEL3) + "*" + SEPARATOR);
 		} else if (isMultiByte && isGusu == false) {
-			if (isDebug) System.out.println("*** BBB ***" + rightMax);
+			if (isDebug) System.out.println("*** BBB ***" + sotowaku);
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(wepStr + appendSpace(wepStr, rightMax) + "*" + SEPARATOR);
+			build.append(wepStr + appendSpace(wepStr, sotowaku - DEL3) + "*" + SEPARATOR);
 		} else if (isMultiByte == false && isGusu == false) {
-			if (isDebug) System.out.println("*** Testing *** : " + (rightMax));
+			if (isDebug) System.out.println("*** Testing *** : " + (sotowaku));
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(wepStr + appendSpace(wepStr, rightMax) + "*" + SEPARATOR);
+			build.append(wepStr + appendSpace(wepStr, sotowaku - DEL2) + "*" + SEPARATOR);
 		} else {
-			System.out.println("*** Other ***" + rightMax);
+			System.out.println("*** Other ***" + sotowaku);
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(wepStr  + appendSpace(wepStr, rightMax) + "*" + SEPARATOR);
+			build.append(wepStr  + appendSpace(wepStr, sotowaku) + "*" + SEPARATOR);
 		}
 		// HPを表示する
 		String hp = String.valueOf(player.getHP());
@@ -241,21 +237,21 @@ public class ConsoleUtils {
 		String armStr = " " + RpgConst.BOG + ": " + arm;
 
 		if (isMultiByte && isGusu) {
-			if (isDebug) System.out.println("*** ぼうぐ:A *** : " + rightMax);
+			if (isDebug) System.out.println("*** ぼうぐ:A *** : " + (sotowaku - DEL3));
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(armStr + appendSpace(armStr, rightMax) + "*" + SEPARATOR);
+			build.append(armStr + appendSpace(armStr, sotowaku - DEL3) + "*" + SEPARATOR);
 		} else if (isMultiByte && isGusu == false) {
-			//System.out.println("*** ぼうぐ:B ***" + rightMax);
+			if (isDebug) System.out.println("*** ぼうぐ:B ***" + (sotowaku - DEL3));
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(armStr + appendSpace(armStr, rightMax) + "*" + SEPARATOR);
+			build.append(armStr + appendSpace(armStr, sotowaku - DEL3) + "*" + SEPARATOR);
 		} else if (isMultiByte == false && isGusu == false) {
-			if (isDebug) System.out.println("*** ぼうぐ:Testing *** : " + rightMax);
+			if (isDebug) System.out.println("*** ぼうぐ:Testing *** : " + (sotowaku - DEL2));
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(armStr + appendSpace(armStr, rightMax) + "*" + SEPARATOR);
+			build.append(armStr + appendSpace(armStr, sotowaku - DEL2) + "*" + SEPARATOR);
 		} else {
 			if (isDebug) System.out.println("*** ぼうぐ:Other ***" + sotowaku);
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(armStr  + appendSpace(armStr, rightMax) + "*" + SEPARATOR);
+			build.append(armStr  + appendSpace(armStr, sotowaku) + "*" + SEPARATOR);
 		}
 //		if (isMultiByte && isGusu) {
 //			build.append(armStr + appendSpace(armStr, rightMax) + "*" + SEPARATOR);
@@ -318,32 +314,51 @@ public class ConsoleUtils {
 			String nStr = "* " + n + ": " + v;
 			build.append(nStr + appendSpace(nStr, sotowaku) + "*");
 
+			// 攻撃力を表示する部分
 			if (counter == 1) {
 				String val = atk.getValue() != null ? atk.getValue().toString() : null;
-				if (isMultiByte && isUnder30) {
+				if (isMultiByte && isGusu) {
 					if (isDebug) System.out.println("*** 武器:AA ***");
-					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize,sotowaku));
-				} else if (isMultiByte == false && isUnder30) {
+					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize,sotowaku - DEL2));
+				} else if (isMultiByte && isGusu == false) {
 					if (isDebug) System.out.println("*** 武器:BB ***");
-					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
-				} else {
+					if (isUnder42) {
+						build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
+					} else {
+						build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, sotowaku - DEL2));
+					}
+				} else if (isMultiByte == false && isGusu) {
 					if (isDebug) System.out.println("*** 武器:CC ***");
 					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
+				} else if (isMultiByte == false && isGusu == false) {
+					if (isDebug) System.out.println("*** 武器:DD ***");
+					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
+				} else {
+					if (isDebug) System.out.println("*** 武器:EE ***");
+					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
 				}
+			// 防御力を表示する部分
 			}else if (counter == 2) {
 				String val = def.getValue() != null ? def.getValue().toString() : null;
 
 				if (isMultiByte && isGusu) {
-					//System.out.println("*** AA ***");
-					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
-				} else if (isMultiByte && isUnder30) {
-					//System.out.println("*** BB ***");
+					if (isDebug) System.out.println("*** AA ***");
+					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, sotowaku - DEL2));
+				} else if (isMultiByte && isGusu == false) {
+					if (isDebug)  System.out.println("*** BB ***");
+					if (isUnder42) {
+						build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
+					} else {
+						build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, sotowaku - DEL2));
+					}
+				} else if (isMultiByte == false && isGusu) {
+					 if (isDebug) System.out.println("*** CC ***");
 					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize,sotowaku));
-				} else if (isMultiByte) {
-					//System.out.println("*** CC ***");
+				} else if (isMultiByte == false && isGusu == false) {
+					if (isDebug) System.out.println("*** DD ***");
 					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
 				} else {
-					//System.out.println("*** DD ***");
+					if (isDebug)  System.out.println("*** EE ***");
 					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
 				}
 			} else {
@@ -356,36 +371,45 @@ public class ConsoleUtils {
 		System.out.println(build.toString());
 	}
 
-	/** ステータス表示の右側をStringBuilderに追加 */
-	private String printRightSideStatus(String name,String value, boolean isMultiByte, boolean isGusu, int sobisize, int max) {
+    /**
+     * 右側のステータス表示を行う。
+     * @param name 項目名
+     * @param value 値
+     * @param isMultiByte プレーや名が全角かどうか
+     * @param isGusu プレーヤー名が偶数かどうか
+     * @param sobisize 装備している名前の最長バイト数
+     * @param underLine 表示する一番下の「＊」の数 / 2 (奇数のときは+1)
+     * @return
+     */
+	private String printRightSideStatus(String name,String value, boolean isMultiByte, boolean isGusu, int sobisize, int underLine) {
 		String ret = null;
 		if ("".equals(name)) {
 			if (isMultiByte) {
-				ret = appendSpace("", max + 1)  + "*" + SEPARATOR;
+				ret = appendSpace("", underLine + 1)  + "*" + SEPARATOR;
 			} else {
-				ret = appendSpace("", max)  + "*" + SEPARATOR;
+				ret = appendSpace("", underLine)  + "*" + SEPARATOR;
 			}
 			return ret;
 		}
 
 		value = value == null ? "0" : value;
-		if (isDebug) System.out.println("Name; " + name + "  Value: " + value + " 偶数: " + isGusu + " isMultiByte: " + isMultiByte + " sobiSize: " + sobisize + " Max: " + max);
+		if (isDebug) System.out.println("Name; " + name + "  Value: " + value + " 偶数: " + isGusu + " isMultiByte: " + isMultiByte + " sobiSize: " + sobisize + " Max: " + underLine);
 		String valStr = " " + name + ": " + value;
-		if (isMultiByte && isGusu == false  && sobisize == 4) {
+		if (isMultiByte && isGusu == false && sobisize == 4) {
 			// 装備なしの場合
 			if (isDebug) System.out.println("*** 全角：偶数：装備なし ***");
-			ret = valStr + appendSpace(valStr, max - DEL3) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, underLine - DEL3) + "*" + SEPARATOR;
 		} else if (isMultiByte && isGusu == false) {
 			if (isDebug) System.out.println("*** 全角：奇数：装備あり ***");
-			ret = valStr + appendSpace(valStr, max - DEL1) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, underLine - DEL1) + "*" + SEPARATOR;
 		} else if (isMultiByte == false && isGusu == false) {
 			if (isDebug) System.out.println("*** マルチ：v==0 ***");
-			ret = valStr + appendSpace(valStr, max - DEL2) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, underLine - DEL2) + "*" + SEPARATOR;
 		} else if (isMultiByte && isGusu) {
-			ret = valStr + appendSpace(valStr, max - DEL1) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, underLine - DEL1) + "*" + SEPARATOR;
  		} else {
 			if (isDebug) System.out.println("*** Other ***");
-			ret = valStr + appendSpace(valStr, max - DEL3) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, underLine - DEL3) + "*" + SEPARATOR;
 		}
 		return ret;
 	}
@@ -568,7 +592,7 @@ public class ConsoleUtils {
 	 * @return
 	 */
 	private int appendLine(StringBuilder build, String name, boolean isMultiByte, int sobisize) {
-		System.out.println("name; " + name + " sobisize; " + sobisize + "Multi: " + isMultiByte);
+		if (isDebug) System.out.println("name; " + name + " sobisize; " + sobisize + "Multi: " + isMultiByte);
 		// 12 - 名前の文字数
 		int nameLen = 0;
 		int astahAll = 0;
