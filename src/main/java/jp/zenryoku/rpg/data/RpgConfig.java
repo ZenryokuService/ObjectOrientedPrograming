@@ -27,9 +27,9 @@ public class RpgConfig {
     /** パラメータリスト */
     private Map<String, RpgData> paramMap;
     /** ステータスリスト */
-    private Map<String, RpgData> statusMap;
+    private Map<String, RpgStatus> statusMap;
     /** 計算式リスト */
-    private Map<String, RpgData> formulaMap;
+    private Map<String, RpgFormula> formulaMap;
     /** 職業リスト */
     private Map<String, RpgData> jobMap;
     /** アイテムリスト */

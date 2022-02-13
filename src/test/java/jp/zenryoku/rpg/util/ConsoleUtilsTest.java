@@ -86,7 +86,7 @@ public class ConsoleUtilsTest {
 	}
 
 	/** プレーヤーのステータスを生成する */
-	private static List<RpgStatus> createPlayerStatus(boolean isValue) {
+	private static void createPlayerStatus(boolean isValue) {
 		List<RpgStatus> statuses = new ArrayList<>();
 		RpgStatus pow = new RpgStatus();
 		pow.setName("ちから");
@@ -119,7 +119,7 @@ public class ConsoleUtilsTest {
 		ksm.setValue(5);
 		statuses.add(ksm);
 
-		Map<String, RpgData> map = new HashMap<>();
+		Map<String, RpgStatus> map = new HashMap<>();
 		statuses.forEach(data -> {
 			map.put(data.getKigo(), data);
 		});
@@ -145,7 +145,6 @@ public class ConsoleUtilsTest {
 		params.put("DEF", def);
 
 		conf.setParamMap(params);
-		return statuses;
 	}
 	/**
 	 * ステータス表示のテスト:2桁
@@ -297,6 +296,12 @@ public class ConsoleUtilsTest {
 			build = new StringBuilder();
 			int res2 = (int) mes.invoke(target,build, "ああああ", true, 30);
 			assertEquals(99, res2);
+
+			build = new StringBuilder();
+			int res3 = (int) mes.invoke(target,build, "ああああ123", true, 4);
+			//assertEquals("", build.toString());
+			assertEquals(56, res3);
+
 		} catch(Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
@@ -313,9 +318,20 @@ public class ConsoleUtilsTest {
 				assertEquals("***************************************** あああ  *****************************************", build.toString());
 
 			build = new StringBuilder();
-			int res2 = (int) mes.invoke(target,build, "aaa", true, 29);
-			assertEquals(91, res2);
-			assertEquals("***************************************** aaa  *****************************************", build.toString());
+			int res2 = (int) mes.invoke(target,build, "aaa", false, 10);
+			assertEquals(62, res2);
+			assertEquals("**************************** aaa  ****************************", build.toString());
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testToByteLength() {
+		try {
+			Method mes = this.getTargetMethod("appendSpace", String.class, int.class);
+
 		} catch(Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
@@ -325,46 +341,20 @@ public class ConsoleUtilsTest {
 	@Test
 	public void testAppendSpace() {
 		try {
-			Method mes = this.getTargetMethod("appendSpace", String.class, int.class);
+			Method mes = this.getTargetMethod("toByteLength", String.class);
 
-			String lv = "* LV: 20";
-			String sp = (String) mes.invoke(target, lv, 20);
-			//assertEquals("", sp);
-			assertEquals(12, sp.length());
+			String test1 = "nameA";
+			int len = (int) mes.invoke(target, test1);
+			assertEquals(5, len);
 
-			String hp = "* HP: 200";
-			String sp1 = (String) mes.invoke(target, hp, 20);
-			assertEquals(11, sp1.length());
+			String test2 = "あああ";
+			int len1 = (int) mes.invoke(target, test2);
+			assertEquals(6, len1);
 
-			String mp = "* MP: 1000";
-			String sp2 = (String) mes.invoke(target, mp, 20);
-			assertEquals(10, sp2.length());
+			String test3 = "あああ123";
+			int len2 = (int) mes.invoke(target, test3);
+			assertEquals(9, len2);
 
-			String status1 = "* ちから: 1";
-			String sp3 = (String) mes.invoke(target, status1, 20);
-			assertEquals(9, sp3.length());
-
-			String status2 = "* こうげきりょく: 6";
-			String sp4 = (String) mes.invoke(target, status2, 30);
-			assertEquals(11, sp4.length());
-
-			String status3 = "* 防御力: 7";
-			String sp5 = (String) mes.invoke(target, status3, 30);
-			assertEquals(19, sp5.length());
-			String sp6 = (String) mes.invoke(target, status3, 10);
-			assertEquals(0, sp6.length());
-
-			String status4 = " ぶき: やまだの(12)";
-			String sp7 = (String) mes.invoke(target, status4, 29);
-			assertEquals(10, sp7.length());
-
-			String status5 = " ぶき: やまだ(12)";
-			String sp8 = (String) mes.invoke(target, status5, 28);
-			assertEquals(11, sp8.length());
-
-			String status6 = "";
-			String sp9 = (String) mes.invoke(target, status6, 10);
-			assertEquals(10, sp9.length());
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -428,7 +418,7 @@ public class ConsoleUtilsTest {
 			//player.setName();
 			player.setHP(999);
 			player.setMP(999);
-			player.setStatusList(createPlayerStatus(true));
+			player.setStatusMap(conf.getStatusMap());
 			MainWepon wep = new MainWepon("やまだの");
 			wep.setOffence(12);
 			player.setMainWepon(wep);
@@ -460,7 +450,7 @@ public class ConsoleUtilsTest {
 			//player.setName();
 			player.setHP(3);
 			player.setMP(1);
-			player.setStatusList(createPlayerStatus(false));
+			player.setStatusMap(conf.getStatusMap());
 
 			target.printStatus(player);
 			LOG.info(() -> SEP + console.toString());
@@ -497,7 +487,7 @@ public class ConsoleUtilsTest {
 			//player.setName();
 			player.setHP(3);
 			player.setMP(1);
-			player.setStatusList(createPlayerStatus(false));
+			player.setStatusMap(conf.getStatusMap());
 
 			target.printStatus(player);
 			LOG.info(() -> SEP + console.toString());
@@ -534,7 +524,7 @@ public class ConsoleUtilsTest {
 			//player.setName();
 			player.setHP(3);
 			player.setMP(1);
-			player.setStatusList(createPlayerStatus(false));
+			player.setStatusMap(conf.getStatusMap());
 
 			target.printStatus(player);
 			LOG.info(() -> SEP + console.toString());
@@ -556,6 +546,39 @@ public class ConsoleUtilsTest {
 		}
 	}
 
+	@Test
+	public void testPrintStatusC() {
+
+		try {
+
+			// プレーヤーは一人
+			PlayerCharactor player = new PlayerCharactor("ああああ123");
+			player.setLevel(1);
+			// 名前の文字数は、全角は４文字、半角８文字まで
+			//player.setName();
+			player.setHP(3);
+			player.setMP(1);
+			player.setStatusMap(conf.getStatusMap());
+
+			target.printStatus(player);
+			LOG.info(() -> SEP + console.toString());
+
+			String expect = "********************* ああああ123  *********************" + SEP
+					+ "* LV: 1                     * ぶき: なし              *" + SEP
+					+ "* HP: 3                     * ぼうぐ: なし            *" + SEP
+					+ "* MP: 1                     *                         *" + SEP
+					+ "* ちから: 1                 * こうげきりょく: 0       *" + SEP
+					+ "* すばやさ: 2               * 防御力: 0               *" + SEP
+					+ "* かしこさ: 3               *                         *" + SEP
+					+ "* きようさ: 4               *                         *" + SEP
+					+ "* カリスマ: 5               *                         *" + SEP
+					+ "********************************************************" + SEP + SEP;
+			assertEquals(expect, console.toString());
+		} catch (RpgException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
 	/**
 	 * プレーヤーセ生成時、総部確認時に表示するフルステータス。
 	 */
@@ -570,7 +593,7 @@ public class ConsoleUtilsTest {
 			//player.setName();
 			player.setHP(999);
 			player.setMP(999);
-			player.setStatusList(createPlayerStatus(true));
+			player.setStatusMap(conf.getStatusMap());
 			MainWepon wep = new MainWepon("やまだの");
 			wep.setOffence(12);
 			player.setMainWepon(wep);
@@ -612,7 +635,7 @@ public class ConsoleUtilsTest {
 			//player.setName();
 			player.setHP(999);
 			player.setMP(999);
-			player.setStatusList(createPlayerStatus(true));
+			player.setStatusMap(conf.getStatusMap());
 			MainWepon wep = new MainWepon("やまだ");
 			wep.setOffence(12);
 			player.setMainWepon(wep);
@@ -654,7 +677,7 @@ public class ConsoleUtilsTest {
 			//player.setName();
 			player.setHP(999);
 			player.setMP(999);
-			player.setStatusList(createPlayerStatus(true));
+			player.setStatusMap(conf.getStatusMap());
 			MainWepon wep = new MainWepon("やまだ");
 			wep.setOffence(12);
 			player.setMainWepon(wep);
@@ -694,7 +717,7 @@ public class ConsoleUtilsTest {
 			//player.setName();
 			player.setHP(999);
 			player.setMP(999);
-			player.setStatusList(createPlayerStatus(true));
+			player.setStatusMap(conf.getStatusMap());
 			MainWepon wep = new MainWepon("たんけん");
 			wep.setOffence(12);
 			player.setMainWepon(wep);
@@ -760,10 +783,13 @@ public class ConsoleUtilsTest {
 			String valStr = "やまだの(12)";
 			// 偶数のマルチバイト underLine=63のケース(sotowaku = underLine % 2 == 0 ? underLine / 2 : underLine / 2 + 1;)
 			String res = (String) mes.invoke(target, nameStr, valStr, true, true, 8, 30);// 32 - 2
-			assertEquals(" ぶき: やまだの(12)          *" + SEP, res);
+			assertEquals(" ぶき: やまだの(12)           *" + SEP, res);
 
 			String res1 = (String) mes.invoke(target, "こうげきりょく", "0", true, false, 4, 27);//
-			assertEquals(" こうげきりょく: 0      *" + SEP, res1);
+			assertEquals(" こうげきりょく: 0         *" + SEP, res1);
+
+			String res2 = (String) mes.invoke(target, "こうげきりょく", "0", true, false, 4, 	31);//
+			assertEquals(" こうげきりょく: 0             *" + SEP, res2);
 
 		} catch (Exception e) {
 			e.printStackTrace();

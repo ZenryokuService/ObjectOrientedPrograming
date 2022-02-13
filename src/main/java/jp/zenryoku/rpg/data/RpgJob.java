@@ -9,4 +9,9 @@ public class RpgJob extends RpgData {
     public RpgJob() {
         super.setType(RpgConst.DATA_TYPE_JOB);
     }
+
+    @Override
+    public RpgJob clone() {
+        return clone();
+    }
 }

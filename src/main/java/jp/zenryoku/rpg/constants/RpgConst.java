@@ -5,6 +5,9 @@ package jp.zenryoku.rpg.constants;
  * ステータス-シーンタイプで一意にする。
  * (EX) 0-C = 「クリアしてゲームを終了する。」
  *
+ * 同様に、項目インデクスと項目値を保持するクラス。
+ * status = index, sceneType = value
+ *
  * ＜ステータス＞
  * 0: ゲーム開始・終了時に使用するステータス
  * 1: シーン選択時に使用するステータス
@@ -22,6 +25,18 @@ package jp.zenryoku.rpg.constants;
  * 1-I 保存して終了する。
  */
 public enum RpgConst {
+    ////////////////////////////////
+    // ゲーム終了ステータス用の定数(0) //
+    ////////////////////////////////
+    /** ゲームクリアして終了する */
+    CLEAR(0, "C"),
+    /** 保存して終了する */
+    SAVE(0, "S"),
+    /** 初期表示画面のstartを選択 */
+    INIT_START(0, "Z"),
+    /** 初期表示画面のcontinueを選択 */
+    INIT_CONTINUE(0, "Z"),
+
     /////////////////////////////////
     // シーン・コントロール用の定数(1) //
     /////////////////////////////////
@@ -40,17 +55,7 @@ public enum RpgConst {
     SENE_TYPE_BATTLE(1, "F"),
     /** プレーヤー生成 */
     SCENE_TYPE_CREATE(1,"G"),
-    ////////////////////////////////
-    // ゲーム終了ステータス用の定数(0) //
-    ////////////////////////////////
-    /** ゲームクリアして終了する */
-    CLEAR(0, "C"),
-    /** 保存して終了する */
-    SAVE(0, "S"),
-    /** 初期表示画面のstartを選択 */
-    INIT_START(0, "Z"),
-    /** 初期表示画面のcontinueを選択 */
-    INIT_CONTINUE(0, "Z"),
+
     ////////////////////////////////
     // RPGで使用するデータのタイプ(2) //
     ////////////////////////////////
@@ -68,6 +73,18 @@ public enum RpgConst {
     DATA_TYPE_JOB(2,"job"),
     /** 装備品の設定 */
     DATA_TYPE_EQUIP(2,"equip"),
+
+    ////////////////////////////////
+    // RPGで使用するデータのタイプ(3以上) //
+    ////////////////////////////////
+    /** 武器を示す */
+    WEPONS(3, "wepon"),
+    /** 防具を示す */
+    ARMORS(4, "armor"),
+    /** 通常アイテムを示す */
+    ITEMS(5, "item"),
+    /** 魔法アイテムを示す */
+    MAG_ITEMS(6, "magItem"),
     ;
 
     /** 改行コード */
@@ -84,6 +101,8 @@ public enum RpgConst {
     public static final String BOG = "ぼうぐ";
     /** 防具を示す記号 */
     public static final String ARM = "ARM";
+    /** 防具防御力を示す */
+    public static final String ARV = "ARV";
     /** 攻撃力 */
     public static final String ATK = "ATK";
     /** 防御力 */
@@ -94,10 +113,21 @@ public enum RpgConst {
     public static final String ITM = "ITM";
     /** データクラスのぱっけ０時名 */
     public static final String DATA_PACKAGE = "jp.zenryoku.rpg.data";
+    /** パラメータを取得するためのCharBufferのサイズ */
+    public static final int BUF_SIZE = 10;
+    /** 各パラメータの記号は半角大文字の３文字(リミット4) */
+    public static final int KIGO_BUFFER = 4;
+    /** 計算式で使用できる文字の数 */
+    public static final int FORMULA_STR_LEN = 120;
+    /** 計算式のかっこの最大数 */
+    public static final int FORUMULA_MAX_KAKO = 7;
 
-    /** ゲームステータス(1:終了時に保存、2:クリア、3:次のシーン...) */
+    /** 計算オブジェクトの保持できる項の数 */
+    public static final int CALC_KO_COUNT = 2;
+
+    /** ゲームステータス(1:終了時に保存、2:クリア、3:次のシーン...)<br/>項目インデックス */
     private int status;
-    /** シーンタイプ */
+    /** シーンタイプ<br/>項目値 */
     private String sceneType;
 
     /**
@@ -109,13 +139,13 @@ public enum RpgConst {
     }
 
     /**
-     * シーンイベントとシーンタイプを指定する場合
-     * @param status　
-     * @param sceneType
+     * 項目のインデックス値と対象の文字列を保持する。
+     * @param index　項目インデックス
+     * @param value 項目値
      */
-    private RpgConst(int status, String sceneType) {
-        this.status = status;
-        this.sceneType = sceneType;
+    private RpgConst(int index, String value) {
+        this.status = index;
+        this.sceneType = value;
     }
 
     public int getStatus() {

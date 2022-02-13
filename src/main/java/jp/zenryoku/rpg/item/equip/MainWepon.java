@@ -15,6 +15,11 @@ public class MainWepon extends Items {
 	}
 	/**
 	 * コンストラクタ。
+	 * itemType:種類の記号
+	 * itemValueKigo:効果記号と値
+	 * money: 金額
+	 * sideEffectValue: 副作用
+	 *
 	 * @param item RpgItem
 	 */
 	public MainWepon(RpgItem item) throws RpgException {
@@ -25,7 +30,7 @@ public class MainWepon extends Items {
 
 		if (isDebug) System.out.println("kigo: " + kigo + " : value: " + value);
 
-		if (RpgConst.WEV.toString().equals(kigo) == false) {
+		if (RpgConst.WEV.equals(kigo) == false) {
 			throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + ": " + kigo);
 		}
 		String ope = value.substring(0,1);

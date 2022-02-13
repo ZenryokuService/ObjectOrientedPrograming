@@ -18,6 +18,16 @@ public class Armor extends Items {
 		super(name);
 	}
 
+	/**
+	 * コンストラクタ。
+	 * itemType:種類の記号
+	 * itemValueKigo:効果記号と値
+	 * money: 金額
+	 * sideEffectValue: 副作用
+	 *
+	 * @param item
+	 * @throws RpgException
+	 */
 	public Armor(RpgItem item) throws RpgException {
 		super(item.getName());
 		String valueKigo = item.getItemValueKigo();
@@ -26,7 +36,7 @@ public class Armor extends Items {
 
 		if (isDebug) System.out.println("kigo: " + kigo + " : value: " + value);
 
-		if (RpgConst.WEV.toString().equals(kigo) == false) {
+		if (RpgConst.ARV.equals(kigo) == false) {
 			throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + ": " + kigo);
 		}
 		String ope = value.substring(0,1);

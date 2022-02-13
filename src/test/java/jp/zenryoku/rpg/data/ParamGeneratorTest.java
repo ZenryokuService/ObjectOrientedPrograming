@@ -105,19 +105,12 @@ public class ParamGeneratorTest {
         }
     }
 
-    //@Test
+    @Test
     public void testCreateFormula() {
         BufferedReader buf = null;
         try {
-            // 職業マップ
-            BufferedReader job = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorJob.txt"));
-            job.readLine(); // 1行飛ばす
-            target.createJobMap(job);
             // アイテムマップ
             BufferedReader item = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorItem.txt"));
-            item.readLine(); // 1行飛ばす
-            target.createItemTypeMap(item);
-            item.readLine();
             item.readLine();
             target.createItemMap(item);
             // ステータスマップ
@@ -129,14 +122,16 @@ public class ParamGeneratorTest {
             param.readLine();
             target.createParam(param);
 
+            // 計算テキスト読み込み
             buf = Files.newBufferedReader(Paths.get("src/test/resources", "testParamGeneratorFormula.txt"));
             assertEquals("CONFIG_FORMULA", buf.readLine());
             target.createFormulaMap(buf);
-            Map<String, RpgData> list = target.getConfig().getFormulaMap();
-            if (true) list.forEach((key, val) -> { System.out.println(key + " : "+ val);});
+            Map<String, RpgFormula> map = target.getConfig().getFormulaMap();
+            if (true) map.forEach((key, val) -> { System.out.println(key + " : "+ val);});
 
             // 計算式の生成を行う。
-//            target.createFormula(list.get(0).getFormulaStr());
+            RpgFormula f = map.get("ATK");
+            target.createFormula("ATK", f.getFormulaStr(), f);
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -162,6 +157,18 @@ public class ParamGeneratorTest {
         }
     }
 
+    public void testCreateFormulaObject() {
+        RpgFormula f = new RpgFormula();
+        f.setKigo("ATK");
+        f.setFormulaStr("(POW + WEV) * (1 + (0.1 * JLV))");
+        try {
+            target.createFormula(f.getKigo(), f.getFormulaStr(), f);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
     @Test
     public void testSepNameKigo() {
         try {
@@ -206,6 +213,7 @@ public class ParamGeneratorTest {
             Method mes = this.getTargetMethod("createConfigParams", BufferedReader.class);
             buf.readLine();
             buf.readLine();
+
             mes.invoke(target, buf);
         } catch (Exception e) {
             e.printStackTrace();

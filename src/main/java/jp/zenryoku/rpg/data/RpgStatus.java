@@ -6,4 +6,9 @@ public class RpgStatus extends RpgData {
     public RpgStatus() {
         super.setType(RpgConst.DATA_TYPE_STATUS);
     }
+
+    @Override
+    public RpgStatus clone() {
+        return clone();
+    }
 }

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.io.BufferedReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -102,6 +103,17 @@ public class CalcUtilsTest {
             String res = target.sepTankoSiki("(ちから + 武器攻撃力) * (1 + (0.1 * じゅくれんど))");
             assertEquals("( POW + WEV) * (1 + (0.1 *  JKR))", res);
         } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testTankoshiki() {
+        try {
+            List<String> list =  target.tankoShiki("( POW + WEV) * (1 + (0.1 *  JKR))");
+            list.forEach(System.out::println);
+        } catch (Exception e) {
+            e.printStackTrace();
             fail(e.getMessage());
         }
     }

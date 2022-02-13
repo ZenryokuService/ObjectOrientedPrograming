@@ -14,4 +14,9 @@ public class RpgFormula extends RpgData {
     public RpgFormula() {
         super.setType(RpgConst.DATA_TYPE_FORMULA);
     }
+
+    @Override
+    public RpgFormula clone() {
+        return clone();
+    }
 }

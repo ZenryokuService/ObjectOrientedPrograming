@@ -15,4 +15,8 @@ public class RpgItemType extends RpgData {
         super(RpgConst.DATA_TYPE_ITEM_TYPE);
     }
 
+    @Override
+    public RpgItemType clone() {
+        return clone();
+    }
 }

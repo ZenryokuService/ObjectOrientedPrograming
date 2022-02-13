@@ -8,7 +8,10 @@ import lombok.Data;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.CharBuffer;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * ステータスなどの設定情報を管理する。シングルトン実装。
@@ -21,13 +24,13 @@ public class ParamGenerator {
     /** パラメータ設定情報 */
     private Map<String, RpgData> paramMap;
     /** ステータス設定情報(順番を保持する) */
-    private Map<String, RpgData> statusMap;
+    private Map<String, RpgStatus> statusMap;
     /** 職業マップ */
     private Map<String, RpgData> jobMap;
     /** 設定クラス */
     private RpgConfig config;
     /** 各種計算式管理クラス */
-    private Map<String, RpgData> formulaMap;
+    private Map<String, RpgFormula> formulaMap;
     /** アイテム(武器なども含む)設定 */
     private Map<String, RpgData> itemMap;
     /** アイテムタイプ、アイテムの設定 */
@@ -200,7 +203,7 @@ public class ParamGenerator {
                 int start = discription.indexOf('=') + 1;
                 data.setFormulaStr(util.sepTankoSiki(discription.substring(start).trim()));
                 // 計算式リストに追加
-                formulaMap.put(data.getName().trim(), data);
+                formulaMap.put(data.getKigo().trim(), data);
             }
             config.setFormulaMap(formulaMap);
         } catch (IOException | RpgException e) {
@@ -313,6 +316,9 @@ public class ParamGenerator {
     public void createConfigParams(BufferedReader buf) throws IOException, RpgException {
         String line = null;
         while((line = buf.readLine()).equals("END_PARAM") == false) {
+            if (line.startsWith("# ")) {
+                continue;
+            }
             RpgData data = createRpgDataFromConfig(line, paramMap);
             paramMap.put(data.getKigo(), data);
         }
@@ -367,15 +373,28 @@ public class ParamGenerator {
 
     /**
      * 文字列の計算式から、計算するためのロジックを生成する。
-     * 実行前に、createItemTypeMap()を実行し、アイテム設定を生成しておく必要がある。
-     * @param formula 文字列の計算式
+     * 実行前に、createParamMap()を実行し、設定オブジェクトを生成しておく必要がある。
+     * @param key 計算の結果算出される値のキー　例: ATK, DEF
+     * @param formula 文字列の計算式　
+     *                例: 物理攻撃力 => (ちから + 武器攻撃力) * (1 + (0.1 * じゅくれんど))
+     *                         ATK = (POW + WEV) + (1 + (0.1 + JLV)
      */
-    public void createFormula(String formula) throws RpgException {
-        if (config.getItemTypeMap().size() == 0) {
-            throw new RpgException(MessageConst.ERR_ITEMTYPEMAP_SIZE0.toString() + ": " + formula);
-        }
+    public void createFormula(String key, String formula, RpgFormula f) throws RpgException {
+        List<String> formulas = new ArrayList<>();
+        int first = formula.indexOf("(");
+        int second = formula.indexOf(")");
+        if (first < 0  | second < 0) {
 
+        }
+        String kou = formula.substring(first + 1, second);
+        //formulas.add();
+
+        char[] ch = formula.toCharArray();
+        for (int i = 0; i < ch.length; i++) {
+
+        }
     }
+
     /**
      *
      * @param buf
@@ -413,7 +432,7 @@ public class ParamGenerator {
         Map<String, RpgData> itemType = config.getItemTypeMap();
         Map<String, RpgData> item = config.getItemMap();
         Map<String, RpgData> param = config.getParamMap();
-        Map<String, RpgData> status = config.getStatusMap();
+        Map<String, RpgStatus> status = config.getStatusMap();
         Map<String, RpgData> job = config.getJobMap();
         res.putAll(itemType);
         res.putAll(item);

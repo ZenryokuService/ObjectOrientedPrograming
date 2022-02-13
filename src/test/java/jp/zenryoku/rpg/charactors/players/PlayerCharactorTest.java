@@ -17,17 +17,17 @@ public class PlayerCharactorTest {
     private static PlayerCharactor target;
 
     /** テストに使用するプレーヤーデータ作成 */
-    private static List<RpgStatus> createStatus() {
-        List<RpgStatus> statusList = new ArrayList<>();
-        statusList.add(createData("ちから", "攻撃力、武器・防具の持てる合計重量を示す。", "POW"));
-        statusList.add(createData("すばやさ", "行動の速さ、相手と５以上の差があるとき２回攻撃。", "AGI"));
-        statusList.add(createData("かしこさ", "魔法・術などの効果量を示す。", "INT"));
-        statusList.add(createData("きようさ", "使える武器、防具、魔法・術などの種類が増える。", "DEX"));
-        statusList.add(createData("カリスマ", "人やモンスターに好かれる度合、統率力を示す。", "KSM"));
+    private static Map<String, RpgStatus> createStatus() {
+        Map<String, RpgStatus> statusList = new HashMap<>();
+        statusList.put("POW", createData("ちから", "攻撃力、武器・防具の持てる合計重量を示す。", "POW"));
+        statusList.put("AGI", createData("すばやさ", "行動の速さ、相手と５以上の差があるとき２回攻撃。", "AGI"));
+        statusList.put("INT", createData("かしこさ", "魔法・術などの効果量を示す。", "INT"));
+        statusList.put("DEX", createData("きようさ", "使える武器、防具、魔法・術などの種類が増える。", "DEX"));
+        statusList.put("KSM", createData("カリスマ", "人やモンスターに好かれる度合、統率力を示す。", "KSM"));
 
         final RpgConfig conf = RpgConfig.getInstance();
-        Map<String, RpgData> map = new HashMap<>();
-        statusList.forEach(data -> {
+        Map<String, RpgStatus> map = new HashMap<>();
+        statusList.forEach((key, data) -> {
             map.put(data.getKigo(), data);
         });
         conf.setStatusMap(map);
@@ -47,9 +47,9 @@ public class PlayerCharactorTest {
     public static void init() {
         try {
             // createStatus()を先に実行する必要あり
-            List<RpgStatus> list = createStatus();
+            Map<String, RpgStatus> list = createStatus();
             target = new PlayerCharactor("test");
-            target.setStatusList(list);
+            target.setStatusMap(list);
 
         } catch (RpgException e) {
             e.printStackTrace();
@@ -60,7 +60,7 @@ public class PlayerCharactorTest {
     @Test
     public void testNew() {
         assertEquals("test", target.getName());
-        List<RpgStatus> statuses = target.getStatusList();
+        Map<String, RpgStatus> statuses = target.getStatusMap();
 
         assertEquals("ちから", statuses.get(0).getName());
         assertEquals("POW", statuses.get(0).getKigo());

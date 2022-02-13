@@ -27,4 +27,9 @@ public class RpgData {
         this.type = type;
     }
 
+    @Override
+    public RpgData clone() {
+        return clone();
+    }
+
 }

@@ -27,27 +27,27 @@ import java.util.List;
 @Data
 public class Player {
 	/** 名前 */
-	private String name;
+	protected String name;
 	/** レベル */
-	private int level;
+	protected int level;
 	/** 生命力 */
-	private int HP;
+	protected int HP;
 	/** 特殊能力(技能)の使用時に消費 */
-	private int MP;
+	protected int MP;
 	/** メイン武器 */
-	private MainWepon mainWepon;
+	protected MainWepon mainWepon;
 	/** 防具 */
-	private Armor armor;
+	protected Armor armor;
 	/** 行動時の攻撃力 */
-	private int attack;
+	protected int attack;
 	/** 防御力 */
-	private int diffence;
+	protected int diffence;
 	/** 戦闘可能フラグ */
-	private boolean canBattle;
+	protected boolean canBattle;
 	/** ステータスオブジェクト */
-	private PlayerStatus status;
+	protected PlayerStatus status;
 	/** アイテム袋 */
-	private List<RpgItem> itemBag;
+	protected List<RpgItem> itemBag;
 
 	public Player() {
 		// リストのサイズを5で初期化
@@ -124,4 +124,5 @@ public class Player {
 	public boolean isUnableToFigit() {
 		return getHP() <= 0;
 	}
+
 }

@@ -66,12 +66,14 @@ public class CreatePlayerScene extends StoryScene {
 
         CalcUtils calc = CalcUtils.getInstance();
         // ステータスマップ取得
-        List<RpgStatus> status = player.getStatusList();
-        if (isDebug) System.out.println("map.size: " + status.size());
+        Map<String, RpgStatus> statusMap = player.getStatusMap();
+        if (isDebug) System.out.println("map.size: " + statusMap.size());
 
         printDiceInfo();
+        Set<String> keySet = statusMap.keySet();
         while (true) {
-            for (RpgStatus val : status) {
+            for (String st : keySet) {
+                RpgStatus val = statusMap.get(st);
                 int res = calc.throwDice(config.getDiceTimes(), config.getDiceFaces()
                         , val.getName() + MessageConst.CREATE_STATUS, val.getName());
                 val.setValue(res);

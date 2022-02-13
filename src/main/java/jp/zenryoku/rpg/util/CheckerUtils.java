@@ -1,7 +1,12 @@
 package jp.zenryoku.rpg.util;
 
 import jp.zenryoku.rpg.constants.MessageConst;
+import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.RpgItem;
 import jp.zenryoku.rpg.exception.RpgException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CheckerUtils {
 
@@ -80,5 +85,103 @@ public class CheckerUtils {
 		String dig = createCheckDigit(no).toString();
 
 		return digit.equals(dig);
+	}
+
+	/**
+	 * 引数に和されたアイテムが武器、防具か判定する
+	 *
+	 * @param item　アイテムオブジェクト
+ 	* @return　true: 武器(3)か防具(4) false: それ以外のカテゴリ
+	 */
+	public static boolean isWepOrArm(RpgItem item) {
+		boolean result = false;
+		if (RpgConst.WEPONS.getSceneType().equals(item.getItemType())) {
+			result = true;
+		}
+		if (RpgConst.ARMORS.getSceneType().equals(item.getItemType())) {
+			result = true;
+		}
+		return result;
+	}
+
+	/**
+	 * 引数に和されたアイテムが武器か判定する
+	 *
+	 * @param item　アイテムオブジェクト
+	 * @return　true: 武器(3)か防具(4) false: それ以外のカテゴリ
+	 */
+	public static boolean isWep(RpgItem item) {
+		boolean result = false;
+		if (RpgConst.WEPONS.getSceneType().equals(item.getItemType())) {
+			result = true;
+		}
+		return result;
+	}
+
+	/**
+	 * 引数に和されたアイテムが武器か判定する
+	 *
+	 * @param item　アイテムオブジェクト
+	 * @return　true: 武器(3)か防具(4) false: それ以外のカテゴリ
+	 */
+	public static boolean isArm(RpgItem item) {
+		boolean result = false;
+		if (RpgConst.ITEMS.getSceneType().equals(item.getItemType())) {
+			result = true;
+		}
+		return result;
+	}
+
+	/**
+	 * 開始かっこかどうか判定する
+	 * @param kako ahr型の文字
+	 * @return true: '('である　false: '('でない
+	 */
+	public static boolean isStartKako(char kako) {
+		boolean isStartKako = false;
+		if (kako == '(') {
+			isStartKako = true;
+		}
+		return isStartKako;
+	}
+
+	/**
+	 * 終了かっこかどうか判定する
+	 * @param kako ahr型の文字
+	 * @return true: ')'である　false: ')'でない
+	 */
+	public static boolean isEntKako(char kako) {
+		boolean isEnsKako = false;
+		if (kako == '(') {
+			isEnsKako = true;
+		}
+		return isEnsKako;
+	}
+
+	/**
+	 * 四則演算子または、剰余算の演算子か判定する。
+	 * @param ope char型の文字
+	 * @return true: 四則演算子または、剰余算の演算子 false: 四則演算子または、剰余算の演算子ではない。
+	 */
+	public static boolean isShisokuOperator(char ope) {
+		Pattern pat = Pattern.compile("[+\\-*/%]");
+		Matcher mat = pat.matcher(String.valueOf(ope));
+		return mat.matches();
+	}
+
+	/**
+	 * 数字かどうか判定する。ただし小数点「.」も数字と認識する。
+	 * @param num 数字(char)
+	 * @return ture: 数字である  false: 数字出ない
+	 */
+	public static boolean isNumber(char num) {
+		Pattern pat = Pattern.compile("[0-9|\\.]");
+		Matcher mat = pat.matcher(String.valueOf(num));
+		return mat.matches();
+	}
+
+	/** スペースかどうか判定する */
+	public static boolean isSpace(char st) {
+		return st == ' ';
 	}
 }

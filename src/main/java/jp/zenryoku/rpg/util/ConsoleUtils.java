@@ -4,10 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 import jp.zenryoku.rpg.charactors.Command;
 import jp.zenryoku.rpg.charactors.Player;
@@ -194,39 +191,55 @@ public class ConsoleUtils {
 		int underLine = appendLine(build, name, isMultiByte, sobisize);
 		if (isDebug) System.out.println("underLine: " + underLine);
 		int sotowaku = underLine % 2 == 0 ? underLine / 2 : underLine / 2 + 1;
+
 		if (isDebug) System.out.println("sotowaku: " + sotowaku);
 		boolean isUnder42 = underLine < 54;
 		// 改行追加
 		build.append(SEPARATOR);
 
+		// 外枠サイズ調節
+		int resizeSotowaku = 0;
+		if (isMultiByte && isGusu) {
+			// 全角　名前が偶数
+			resizeSotowaku = sotowaku - DEL3;
+		} else if (isMultiByte && isGusu == false) {
+			// 全角　名前が奇数
+			resizeSotowaku = sotowaku - DEL3;
+		} else if (isMultiByte == false && isGusu) {
+			// 半角　名前が偶数
+			resizeSotowaku = sotowaku - DEL2;
+		} else if (isMultiByte == false && isGusu == false) {
+			// 半角　名前が偶数
+			resizeSotowaku = sotowaku - DEL2;
+		} else {
+			// それ以外
+			resizeSotowaku = sotowaku - DEL1;
+		}
 		// Lvを表示する[12 - (ステータス部分(6文字) + 値(最大３桁) + 1(アスタリスク)]
 		String lv = String.valueOf(player.getLevel());
 		String lvStr = "* LV: " + lv;
 		build.append( lvStr + appendSpace(lvStr, sotowaku) + "*");
 		// 武器
 		String wep = getSobiName((Items) player.getMainWepon());
-		boolean isValue = "なし".equals(wep);
-		boolean wepIsGusu = wep.length() % 2 == 0;
-		int sobiSpace = sotowaku - sobisize;
 		String wepStr = " " + RpgConst.BUKI + ": " + wep;
 
 		if (isDebug) System.out.println("sotowaku: " + sotowaku + " : sobisize: " + sobisize);
 		if (isMultiByte && isGusu) {
-			if (isDebug) System.out.println("*** AAA *** : " + (sotowaku));
+			if (isDebug) System.out.println("*** AAA *** : " + (resizeSotowaku));
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(wepStr + appendSpace(wepStr, sotowaku - DEL3) + "*" + SEPARATOR);
+			build.append(wepStr + appendSpace(wepStr, resizeSotowaku) + "*" + SEPARATOR);
 		} else if (isMultiByte && isGusu == false) {
 			if (isDebug) System.out.println("*** BBB ***" + sotowaku);
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(wepStr + appendSpace(wepStr, sotowaku - DEL3) + "*" + SEPARATOR);
+			build.append(wepStr + appendSpace(wepStr, resizeSotowaku) + "*" + SEPARATOR);
 		} else if (isMultiByte == false && isGusu == false) {
 			if (isDebug) System.out.println("*** Testing *** : " + (sotowaku));
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(wepStr + appendSpace(wepStr, sotowaku - DEL2) + "*" + SEPARATOR);
+			build.append(wepStr + appendSpace(wepStr, resizeSotowaku) + "*" + SEPARATOR);
 		} else {
 			System.out.println("*** Other ***" + sotowaku);
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(wepStr  + appendSpace(wepStr, sotowaku) + "*" + SEPARATOR);
+			build.append(wepStr  + appendSpace(wepStr, resizeSotowaku) + "*" + SEPARATOR);
 		}
 		// HPを表示する
 		String hp = String.valueOf(player.getHP());
@@ -238,21 +251,21 @@ public class ConsoleUtils {
 		String armStr = " " + RpgConst.BOG + ": " + arm;
 
 		if (isMultiByte && isGusu) {
-			if (isDebug) System.out.println("*** ぼうぐ:A *** : " + (sotowaku - DEL3));
+			if (isDebug) System.out.println("*** ぼうぐ:A *** : " + (resizeSotowaku));
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(armStr + appendSpace(armStr, sotowaku - DEL3) + "*" + SEPARATOR);
+			build.append(armStr + appendSpace(armStr, resizeSotowaku) + "*" + SEPARATOR);
 		} else if (isMultiByte && isGusu == false) {
-			if (isDebug) System.out.println("*** ぼうぐ:B ***" + (sotowaku - DEL3));
+			if (isDebug) System.out.println("*** ぼうぐ:B ***" + (sotowaku - DEL2));
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(armStr + appendSpace(armStr, sotowaku - DEL3) + "*" + SEPARATOR);
+			build.append(armStr + appendSpace(armStr, resizeSotowaku) + "*" + SEPARATOR);
 		} else if (isMultiByte == false && isGusu == false) {
-			if (isDebug) System.out.println("*** ぼうぐ:Testing *** : " + (sotowaku - DEL2));
+			if (isDebug) System.out.println("*** ぼうぐ:Testing *** : " + (resizeSotowaku));
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(armStr + appendSpace(armStr, sotowaku - DEL2) + "*" + SEPARATOR);
+			build.append(armStr + appendSpace(armStr, resizeSotowaku) + "*" + SEPARATOR);
 		} else {
-			if (isDebug) System.out.println("*** ぼうぐ:Other ***" + sotowaku);
+			if (isDebug) System.out.println("*** ぼうぐ:Other ***" + resizeSotowaku);
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
-			build.append(armStr  + appendSpace(armStr, sotowaku) + "*" + SEPARATOR);
+			build.append(armStr  + appendSpace(armStr, resizeSotowaku) + "*" + SEPARATOR);
 		}
 //		if (isMultiByte && isGusu) {
 //			build.append(armStr + appendSpace(armStr, rightMax) + "*" + SEPARATOR);
@@ -273,20 +286,28 @@ public class ConsoleUtils {
 		String mp = String.valueOf(player.getMP());
 		String mpStr = "* MP: " + mp;
 		build.append(mpStr + appendSpace(mpStr, sotowaku) + "*");
+
 		if (isMultiByte && isGusu) {
-			build.append(appendSpace("", sotowaku - DEL3)  + "*" + SEPARATOR);
+			resizeSotowaku = sotowaku - DEL3;
+			build.append(appendSpace("", resizeSotowaku)  + "*" + SEPARATOR);
 		} else if (isMultiByte && isGusu == false) {
-			build.append(appendSpace("", sotowaku - DEL3)  + "*" + SEPARATOR);
+			resizeSotowaku = sotowaku - DEL3;
+			build.append(appendSpace("", resizeSotowaku)  + "*" + SEPARATOR);
 		} else if (isMultiByte == false && isGusu) {
-			build.append(appendSpace("", sotowaku - DEL2)  + "*" + SEPARATOR);
+			resizeSotowaku = sotowaku - DEL2;
+			build.append(appendSpace("", resizeSotowaku)  + "*" + SEPARATOR);
 		} else if (isMultiByte == false && isGusu == false) {
-			build.append(appendSpace("", sotowaku - DEL2)  + "*" + SEPARATOR);
+			resizeSotowaku = sotowaku - DEL2;
+			build.append(appendSpace("", resizeSotowaku)  + "*" + SEPARATOR);
 		} else {
-			build.append(appendSpace("", sotowaku - DEL1)  + "*" + SEPARATOR);
+			resizeSotowaku = sotowaku - DEL1;
+			build.append(appendSpace("", resizeSotowaku)  + "*" + SEPARATOR);
 		}
-		List<RpgStatus> statusList = player.getStatusList();
+		Map<String, RpgStatus> statusMap = player.getStatusMap();
 		int max = 0;
-		for (RpgStatus s : statusList) {
+		Set<String> set = statusMap.keySet();
+		for (String st : set) {
+			RpgStatus s = statusMap.get(st);
 			String n = s.getName();
 			boolean isMulti = CheckerUtils.isMultiByteStr(n);
 			int len = n.length();
@@ -303,7 +324,9 @@ public class ConsoleUtils {
 		int counter = 1;
 		if (isDebug) System.out.println("sobisize: " + sobisize);
 		String preStr = " ";
-		for (RpgStatus data : statusList) {
+		Set<String> keySet = statusMap.keySet();
+		for (String st : keySet) {
+			RpgStatus data = statusMap.get(st);
 			if (data.getKigo().equals("ATK") || data.getKigo().equals("DEF")) {
 				continue;
 			}
@@ -320,23 +343,23 @@ public class ConsoleUtils {
 				String val = atk.getValue() != null ? atk.getValue().toString() : null;
 				if (isMultiByte && isGusu) {
 					if (isDebug) System.out.println("*** 武器:AA ***");
-					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize,sotowaku - DEL2));
+					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize,resizeSotowaku));
 				} else if (isMultiByte && isGusu == false) {
 					if (isDebug) System.out.println("*** 武器:BB ***");
 					if (isUnder42) {
-						build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
+						build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, resizeSotowaku));
 					} else {
-						build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, sotowaku - DEL2));
+						build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, resizeSotowaku));
 					}
 				} else if (isMultiByte == false && isGusu) {
 					if (isDebug) System.out.println("*** 武器:CC ***");
-					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
+					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, resizeSotowaku));
 				} else if (isMultiByte == false && isGusu == false) {
 					if (isDebug) System.out.println("*** 武器:DD ***");
-					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
+					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, resizeSotowaku));
 				} else {
 					if (isDebug) System.out.println("*** 武器:EE ***");
-					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
+					build.append(printRightSideStatus(atk.getName(), val, isMultiByte, isGusu, sobisize, resizeSotowaku));
 				}
 			// 防御力を表示する部分
 			}else if (counter == 2) {
@@ -344,23 +367,23 @@ public class ConsoleUtils {
 
 				if (isMultiByte && isGusu) {
 					if (isDebug) System.out.println("*** AA ***");
-					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, sotowaku - DEL2));
+					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, resizeSotowaku));
 				} else if (isMultiByte && isGusu == false) {
 					if (isDebug)  System.out.println("*** BB ***");
 					if (isUnder42) {
-						build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
+						build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, resizeSotowaku));
 					} else {
-						build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, sotowaku - DEL2));
+						build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, resizeSotowaku));
 					}
 				} else if (isMultiByte == false && isGusu) {
 					 if (isDebug) System.out.println("*** CC ***");
-					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize,sotowaku));
+					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize,resizeSotowaku));
 				} else if (isMultiByte == false && isGusu == false) {
 					if (isDebug) System.out.println("*** DD ***");
-					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
+					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, resizeSotowaku));
 				} else {
 					if (isDebug)  System.out.println("*** EE ***");
-					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, sotowaku));
+					build.append(printRightSideStatus(def.getName(), val, isMultiByte, isGusu, sobisize, resizeSotowaku));
 				}
 			} else {
 				printRightSideStatus(build, "", isMultiByte, sobisize, sotowaku);
@@ -399,18 +422,18 @@ public class ConsoleUtils {
 		if (isMultiByte && isGusu == false && sobisize == 4) {
 			// 装備なしの場合
 			if (isDebug) System.out.println("*** 全角：偶数：装備なし ***");
-			ret = valStr + appendSpace(valStr, underLine - DEL3) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, underLine) + "*" + SEPARATOR;
 		} else if (isMultiByte && isGusu == false) {
 			if (isDebug) System.out.println("*** 全角：奇数：装備あり ***");
-			ret = valStr + appendSpace(valStr, underLine - DEL1) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, underLine) + "*" + SEPARATOR;
 		} else if (isMultiByte == false && isGusu == false) {
 			if (isDebug) System.out.println("*** マルチ：v==0 ***");
-			ret = valStr + appendSpace(valStr, underLine - DEL2) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, underLine) + "*" + SEPARATOR;
 		} else if (isMultiByte && isGusu) {
-			ret = valStr + appendSpace(valStr, underLine - DEL1) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, underLine) + "*" + SEPARATOR;
  		} else {
 			if (isDebug) System.out.println("*** Other ***");
-			ret = valStr + appendSpace(valStr, underLine - DEL3) + "*" + SEPARATOR;
+			ret = valStr + appendSpace(valStr, underLine) + "*" + SEPARATOR;
 		}
 		return ret;
 	}
@@ -595,15 +618,12 @@ public class ConsoleUtils {
 	private int appendLine(StringBuilder build, String name, boolean isMultiByte, int sobisize) {
 		if (isDebug) System.out.println("name; " + name + " sobisize; " + sobisize + "Multi: " + isMultiByte);
 		// 12 - 名前の文字数
-		int nameLen = 0;
+		int nameLen = toByteLength(name);
 		int astahAll = 0;
 		if (isMultiByte) {
-			// 全角の場合は２倍にする
-			nameLen = name.length() * 2;
-			astahAll = name.length() * 2 + APPEND_LEN * 2 + sobisize;
+			astahAll = nameLen + APPEND_LEN * 2 + sobisize;
 		} else {
-			nameLen = name.length();
-			astahAll = name.length() + + APPEND_LEN * 4 + sobisize;
+			astahAll = nameLen + + APPEND_LEN * 4 + sobisize;
 		}
 		// 名前の両サイドに表示するアスタの数
 		int astah = 0;
@@ -611,14 +631,14 @@ public class ConsoleUtils {
 		boolean isGusu = CheckerUtils.isGusu(astahAll);
 		if (isGusu || isMultiByte) {
 			astah = astahAll - DEL2;
-		} else if (isGusu == false && isMultiByte) {
+		} else if (isGusu == false & isMultiByte) {
 			astah = astahAll - DEL1;
-		} else if (isGusu == false && isMultiByte == false) {
+		} else if (isGusu == false & isMultiByte == false) {
 			astah = astahAll - DEL1;
 		} else {
 			astah = astahAll - DEL2;
 		}
-		//System.out.println("astah: " + astah);
+		if (isDebug) System.out.println("isGusu: " + isGusu + "isMulti: " + isMultiByte + "astahAll: " + astahAll + "astah: " + astah);
 		if (astah < 5) {
 			astah = 4;
 		}
@@ -644,40 +664,6 @@ public class ConsoleUtils {
 			build.append(" ");
 		}
 		return astah * 2 + nameLen + spaceLen;
-	}
-
-	/**
-	 * 名前の(バイトは配列の)長さ分「*」をStringBuilderに追加する。
-	 *
-	 * @param build StringBuilder
-	 * @param nameLen 名前の長さ
-	 */
-	private void appendLastLine(StringBuilder build, int nameLen, boolean isGusu) {
-		//最大文字数にスペースと補助分を追加する
-		int astah = 0;
-		if (isGusu) {
-			astah = MAX_LEN + 3;
-		} else {
-			astah = MAX_LEN + 4;
-		}
-		for (int i = 0; i < astah; i++) {
-			build.append("*");
-		}
-		build.append(SEPARATOR);
-	}
-
-	private void appendLastLine(StringBuilder build, boolean isGusu) {
-		//最大文字数にスペースと補助分を追加する
-		int astah = 0;
-		if (isGusu) {
-			astah = MAX_LEN + 2;
-		} else {
-			astah = MAX_LEN + 3;
-		}
-		for (int i = 0; i < astah; i++) {
-			build.append("*");
-		}
-		build.append(SEPARATOR);
 	}
 
 	/** this#printStatusで使用する */
@@ -764,18 +750,32 @@ public class ConsoleUtils {
 	}
 
 	/**
-	 * 補助メソッド：ステータス表示のために、引数の後ろにスペースを追加する。
-	 * 引数の文字列が偶数柿数かにより、スペースの文字数を決定する。
-	 * @param str 入力文字列
-	 * @param isGusu 偶数柿数か
-	 * @param  max 最大スペースのサイズ
-	 * @return スペースの数
+	 * 文字列のバイト単位での長さを算出する。
+	 * 半角文字=1, 全角文字=2でカウントする
+	 *
+	 * @param str 長さを算出する対象の文字列
+	 * @return 算出結果: str == nullの場合は0を返却する
 	 */
-	private int isGusuSpaceLen(String str, boolean isGusu, int max) {
-		int len = 0;
+	private int toByteLength(String str) {
+		if (str == null) {
+			return 0;
+		}
+		int result = 0;
+		int strLen = str.length();
+		// 文字数分の配列を用意
+		char[] ch = str.toCharArray();
 
-		return len;
+		for (int i = 0; i < ch.length; i++) {
+			String st = String.valueOf(ch[i]);
+			if (st.getBytes().length <= 1) {
+				result += 1;
+			} else {
+				result += 2;
+			}
+		}
+		return result;
 	}
+
 	/**
 	 * コンソールをクリアする。
 	 */
@@ -853,59 +853,36 @@ public class ConsoleUtils {
 		}
 	}
 
+	/**
+	 * メニュー表示、操作(処理)を行う。
+	 * @throws RpgException
+	 */
 	public void printMenu() throws RpgException {
 		RpgConfig conf = RpgConfig.getInstance();
 		PlayerParty party = conf.getParty();
 		PlayerCharactor player = party.getPlayer();
-		ConsoleUtils console = ConsoleUtils.getInstance();
+		ConsoleUtils consUtil = ConsoleUtils.getInstance();
 		List<RpgItem> itemList = player.getItemBag();
 
+		// メニュー画面の表示フラグ、起動中はtrueになる
 		boolean isMenu = true;
-
-
 		while (isMenu) {
 			// メニューの表示
 			System.out.println(MessageConst.MENU);
 			if (isDebug) System.out.println("アイテムサイズ: " + itemList.size());
-			String input = console.acceptInput(MessageConst.MENU_DO_SELECT.toString(), SelectConst.MENU_SELECT_REGREX);
+			String input = consUtil.acceptInput(MessageConst.MENU_DO_SELECT.toString(), SelectConst.MENU_SELECT_REGREX);
 			if ("1".equals(input)) {
-				System.out.println("＜アイテム＞");
-				// 所持アイテムの表示
-				for (int i = 0; i < itemList.size(); i++) {
-					RpgItem item = itemList.get(i);
-					System.out.println((i + 1) + ". " + item.getName());
-				}
-				if (itemList.size() <= 0) {
-					System.out.println(MessageConst.THERES_NO_ITEM.toString());
+				// アイテムのリストの表示
+				printItemList(itemList);
+				// 所持アイテムなしのときはメッセージを表示して戻る
+				if (isZeroSizeItemList(itemList)) {
 					continue;
 				}
-				// 装備の変更をおこなう
-				String selectSobi = console.acceptInput(MessageConst.EQUIP_SELECT.toString());
-				RpgItem sobi = itemList.get(Integer.parseInt(selectSobi) - 1);
-				System.out.println(sobi.getName() + " : " + sobi.getItemType() + " : " + sobi.getItemValueKigo());
-				if (isDebug) {
-					Map<String, RpgData> testMap = conf.getItemMap();
-					testMap.forEach((key, val) -> {
-						RpgItem item = (RpgItem) val;
-						System.out.println("Key: " + key + " : " + "Val: " + item.getItemType());
-					});
-				}
-				RpgItem type = (RpgItem) conf.getItemMap().get(sobi.getName());
-				if (RpgConst.WEP.equals(type.getItemType()) == false
-						|| RpgConst.ARM.equals(type.getItemType()) == false) {
-					throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + " : " + type.getName());
-				}
-				if (RpgConst.WEP.equals(type.getItemType())){
-					player.setMainWepon(new MainWepon(type));
-					printStatus(player);
-				}
-				if (RpgConst.ARM.equals(type.getItemType())) {
-					player.setArmor(new Armor(type));
-					printStatus(player);
-				}
-
+				// 装備のセット
+				selectEquipMent(player, itemList);
 			} else if ("2".equals(input)) {
 				// アイテムの使用をおこなう
+				useItems(player, itemList);
 			} else if ("3".equals(input)) {
 				// まほうの使用をおこなう
 
@@ -916,17 +893,69 @@ public class ConsoleUtils {
 	}
 
 	/**
+	 * 所持アイテムを表示する。
+	 *
+	 * @param itemList 所持アイテムのリスト
+	 */
+	private void printItemList(List<RpgItem> itemList) {
+		System.out.println("＜アイテム＞");
+		// 所持アイテムの表示
+		for (int i = 0; i < itemList.size(); i++) {
+			RpgItem item = itemList.get(i);
+			System.out.println((i + 1) + ". " + item.getName());
+		}
+	}
+	/**
 	 * そうびの変更を行う。
 	 */
-	private void selectEquipMent(Player player, RpgConfig conf) {
-
+	private void selectEquipMent(PlayerCharactor player, List<RpgItem> itemList) throws RpgException {
+		RpgConfig conf = RpgConfig.getInstance();
+		ConsoleUtils consUtil = ConsoleUtils.getInstance();
+		// 装備の変更をおこなう
+		String selectSobi = consUtil.acceptInput(MessageConst.EQUIP_SELECT.toString());
+		RpgItem sobi = itemList.get(Integer.parseInt(selectSobi) - 1);
+		System.out.println(sobi.getName() + " : " + sobi.getItemType() + " : " + sobi.getItemValueKigo());
+		if (isDebug) {
+			Map<String, RpgData> testMap = conf.getItemMap();
+			testMap.forEach((key, val) -> {
+				RpgItem item = (RpgItem) val;
+				System.out.println("Key: " + key + " : " + "Val: " + item.getItemType());
+			});
+		}
+		RpgItem type = (RpgItem) conf.getItemMap().get(sobi.getName());
+		if (CheckerUtils.isWepOrArm(type)) {
+			throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + " : " + type.getName());
+		}
+		// 武器の場合
+		if (CheckerUtils.isWep(type)){
+			player.setMainWepon(new MainWepon(type));
+			printStatus(player);
+		}
+		// 防具の場合
+		if (CheckerUtils.isArm(type)) {
+			player.setArmor(new Armor(type));
+			printStatus(player);
+		}
 
 	}
 
 	/**
+	 * 引数のリストのサイズが0であるときにtrue;
+	 *
+	 * @param itemList チェックするリスト
+	 * @return true: 空のリスト false: 空ではないリスト
+	 */
+	private boolean isZeroSizeItemList(List<?> itemList) {
+		if (itemList.size() <= 0) {
+			System.out.println(MessageConst.THERES_NO_ITEM.toString());
+			return true;
+		}
+		return false;
+	}
+	/**
 	 * アイテムの使用
 	 */
-	private void useItems() {
+	private void useItems(PlayerCharactor player, List<RpgItem> itemList) {
 
 	}
 
@@ -941,7 +970,7 @@ public class ConsoleUtils {
 	 * 引数のマップ内容をすべて表示する。
 	 * @param map
 	 */
-	private void printMap(Map<String, RpgData> map) {
+	private void printMap(Map<String, ? extends RpgData> map) {
 		map.forEach((key, val) -> {
 			String disc = val.getDiscription();
 			String res = disc != null ? disc : val.getName();
