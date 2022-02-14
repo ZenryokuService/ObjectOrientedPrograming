@@ -12,6 +12,7 @@
 # About Text RPG
 1. Target sources is **src/main/java/jp.zenryoku.rpg**
 2. Main method is in GameMain
+3. use ["exp4j"](https://lallafa.objecthunter.net/exp4j/) for FORMULAS defined in *_story.txt
 
 ## TextRpg in Console.
 1. Load text file created by users.
