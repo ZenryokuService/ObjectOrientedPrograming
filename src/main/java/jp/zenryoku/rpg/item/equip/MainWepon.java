@@ -9,6 +9,8 @@ import jp.zenryoku.rpg.item.Items;
 public class MainWepon extends Items {
 	/** 攻撃力 */
 	private int offence;
+	/** 熟練度 */
+	private int jlv;
 
 	public MainWepon(String name) {
 		super(name);
@@ -51,5 +53,19 @@ public class MainWepon extends Items {
 	 */
 	public void setOffence(int offence) {
 		this.offence = offence;
+	}
+
+	/**
+	 * @return jvl
+	 */
+	public int getJlv() {
+		return jlv;
+	}
+
+	/**
+	 * @param jlv セットする jvl
+	 */
+	public void setJlv(int jlv) {
+		this.jlv =  jlv;
 	}
 }

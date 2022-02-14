@@ -5,6 +5,7 @@ import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
+import jp.zenryoku.rpg.data.RpgFormula;
 import jp.zenryoku.rpg.data.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.MainWepon;
@@ -49,7 +50,11 @@ public class PlayerCharactor extends Player {
         mainWepon = wepon;
         RpgStatus atk = statusMap.get(RpgConst.ATK);
         // TODO-[Formulaで値を設定する]
-        atk.setValue(10);
+        Map<String, RpgFormula> map = RpgConfig.getInstance().getFormulaMap();
+        RpgFormula formula = map.get(atk.getKigo());
+        //formula.
+        System.out.println("formula: " + formula.getFormulaStr());
+        atk.setValue(formula.formula(this));
     }
 
 }

@@ -30,8 +30,8 @@ public class CalcObjTest {
      */
     @BeforeEach
     public void init() {
-        Map<String, RpgData> map = new HashMap<>();
         target = new CalcObj();
+        Map<String, RpgData> map = new HashMap<>();
         list = new ArrayList<>();
         // ちから
         RpgData pow = new RpgData();
