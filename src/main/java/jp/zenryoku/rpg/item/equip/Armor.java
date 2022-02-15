@@ -34,9 +34,9 @@ public class Armor extends Items {
 		String kigo = valueKigo.substring(0,3);
 		String value = valueKigo.substring(3);
 
-		if (isDebug) System.out.println("kigo: " + kigo + " : value: " + value);
+		 System.out.println("kigo: " + kigo + " : value: " + value);
 
-		if (RpgConst.ARV.equals(kigo) == false) {
+		if (RpgConst.DEV.equals(kigo) == false) {
 			throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + ": " + kigo);
 		}
 		String ope = value.substring(0,1);

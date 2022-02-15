@@ -1,5 +1,6 @@
 package jp.zenryoku.rpg.charactors.players;
 
+import jp.zenryoku.rpg.TestUtils;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.RpgStatus;
@@ -9,8 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerCharactorTest {
     /** テスト対象 */
@@ -45,23 +45,20 @@ public class PlayerCharactorTest {
     }
     @BeforeAll
     public static void init() {
-        try {
-            // createStatus()を先に実行する必要あり
-            Map<String, RpgStatus> list = createStatus();
-            target = new PlayerCharactor("test");
-            target.setStatusMap(list);
-
-        } catch (RpgException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
+        TestUtils.initRpgConfig();
+        System.out.println("*** Testing ***");
+        // createStatus()を先に実行する必要あり
+        Map<String, RpgStatus> list = RpgConfig.getInstance().getStatusMap();
+        target = TestUtils.initRpgConfig();
+        System.out.println("*** Finish ***");
+        target.setStatusMap(list);
     }
 
-    @Test
-    public void testNew() {
+    //@Test
+    public void testNewStatus() {
         assertEquals("test", target.getName());
-        Map<String, RpgStatus> statuses = target.getStatusMap();
-
+        Map<String, RpgStatus> statuses = createStatus();
+        assertNotEquals(0, statuses.size());
         assertEquals("ちから", statuses.get(0).getName());
         assertEquals("POW", statuses.get(0).getKigo());
         assertEquals("すばやさ", statuses.get(1).getName());
@@ -72,5 +69,20 @@ public class PlayerCharactorTest {
         assertEquals("DEX", statuses.get(3).getKigo());
         assertEquals("カリスマ", statuses.get(4).getName());
         assertEquals("KSM", statuses.get(4).getKigo());
+    }
+
+    @Test
+    public void testSetWepon() {
+        PlayerCharactor player = TestUtils.initRpgConfig();
+
+        player.setMainWepon(TestUtils.createWepon("ほうちょう", "WEV+5"));
+        player.setArmor(TestUtils.createArmor("かわのよろい", "DEV+4"));
+        try {
+            assertEquals(7, player.getAtk());
+            assertEquals(8, player.getDef());
+        } catch (RpgException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
     }
 }

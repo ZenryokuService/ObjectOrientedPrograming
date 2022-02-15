@@ -4,6 +4,7 @@ import jp.zenryoku.rpg.charactors.params.PlayerStatus;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgItem;
+import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 import jp.zenryoku.rpg.util.StatusUtils;

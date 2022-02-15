@@ -8,6 +8,7 @@ import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.RpgFormula;
 import jp.zenryoku.rpg.data.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 import lombok.Data;
 
@@ -36,9 +37,26 @@ public class PlayerCharactor extends Player {
             if ((data instanceof RpgStatus) == false) {
                 throw new RpgException(MessageConst.NO_MUCH_STATUS.toString() + ": " + data.getType());
             }
+            //RpgStatus new1 = data.clone();
             // ダウンキャストしてリストに設定
-            statusMap.put(data.getKigo(), data.clone());
+            statusMap.put(data.getKigo(), data);
         }
+    }
+
+    public int getAtk() throws RpgException {
+        RpgStatus atk = statusMap.get(RpgConst.ATK);
+        if (atk == null) {
+            throw new RpgException("ステータスマップにオブジェクトがありません。AKT" + atk);
+        }
+        return atk.getValue();
+    }
+
+    public int getDef() throws RpgException {
+        RpgStatus def = statusMap.get(RpgConst.DEF);
+        if (def == null) {
+            throw new RpgException("ステータスマップにオブジェクトがありません。AKT" + def);
+        }
+        return def.getValue();
     }
 
     /**
@@ -49,7 +67,7 @@ public class PlayerCharactor extends Player {
     public void setMainWepon(MainWepon wepon) {
         mainWepon = wepon;
         RpgStatus atk = statusMap.get(RpgConst.ATK);
-        // TODO-[Formulaで値を設定する]
+
         Map<String, RpgFormula> map = RpgConfig.getInstance().getFormulaMap();
         RpgFormula formula = map.get(atk.getKigo());
         //formula.
@@ -57,4 +75,19 @@ public class PlayerCharactor extends Player {
         atk.setValue(formula.formula(this));
     }
 
+    /**
+     * 武器を装備する。
+     * @param arm 防具オブジェクト
+     */
+    @Override
+    public void setArmor(Armor arm) {
+        armor = arm;
+        RpgStatus def = statusMap.get(RpgConst.DEF);
+
+        Map<String, RpgFormula> map = RpgConfig.getInstance().getFormulaMap();
+        RpgFormula formula = map.get(def.getKigo());
+        //formula.
+        System.out.println("formula: " + formula.getFormulaStr());
+        def.setValue(formula.formula(this));
+    }
 }

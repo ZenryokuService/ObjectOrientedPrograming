@@ -102,7 +102,7 @@ public enum RpgConst {
     /** 防具を示す記号 */
     public static final String ARM = "ARM";
     /** 防具防御力を示す */
-    public static final String ARV = "ARV";
+    public static final String DEV = "DEV";
     /** 攻撃力 */
     public static final String ATK = "ATK";
     /** 防御力 */
