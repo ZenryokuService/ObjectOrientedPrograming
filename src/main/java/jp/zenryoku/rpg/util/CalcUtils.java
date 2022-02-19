@@ -122,13 +122,16 @@ public class CalcUtils {
     public List<RpgStatus> relatedSymbols(String siki, Map<String, RpgStatus> statusMap, Map<String, RpgStatus> optMap) throws RpgException {
         List<RpgStatus> result = new ArrayList<>();
 
-//        System.out.println("*** Testing ***");
-//        statusMap.forEach((key ,val) -> {
-//            System.out.println("statusKey: " + key + " : " + val);
-//        });
-//        optMap.forEach((key ,val) -> {
-//            System.out.println("optKey: " + key + " : " + val);
-//        });
+        if (isDebug) {
+            System.out.println("*** Testing ***");
+            statusMap.forEach((key ,val) -> {
+                System.out.println("statusKey: " + key + " : " + val);
+            });
+            optMap.forEach((key ,val) -> {
+                System.out.println("optKey: " + key + " : " + val);
+            });
+        }
+
         Pattern pat = Pattern.compile(RpgConst.REG_KIGO);
         char[] ch = siki.toCharArray();
         StringBuilder build = new StringBuilder();

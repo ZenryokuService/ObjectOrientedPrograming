@@ -864,14 +864,25 @@ public class ConsoleUtils {
 	/**
 	 * 所持アイテムを表示する。
 	 *
-	 * @param itemList 所持アイテムのリスト
+	 * @param player 対象のプレーヤー
 	 */
-	public void printItemList(List<RpgItem> itemList) {
+	public void printItemList(PlayerCharactor player) {
+		List<RpgItem> itemList = player.getItemBag();
+		MainWepon wepon = player.getMainWepon();
+		String wepStr = wepon == null ? "なし" : wepon.getName();
+
+		Armor arm = player.getArmor();
+		String armStr = arm == null ? "なし" : arm.getName();
+
 		System.out.println("＜アイテム＞");
 		// 所持アイテムの表示
 		for (int i = 0; i < itemList.size(); i++) {
 			RpgItem item = itemList.get(i);
-			System.out.println((i + 1) + ". " + item.getName());
+			String itemStr = item.getName();
+			if (wepStr.equals(itemStr) || armStr.equals(itemStr)) {
+				itemStr = "E-" + itemStr;
+			}
+			System.out.println((i + 1) + ". " + itemStr);
 		}
 	}
 

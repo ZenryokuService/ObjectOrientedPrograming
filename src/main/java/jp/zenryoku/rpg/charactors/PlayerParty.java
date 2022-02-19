@@ -12,6 +12,8 @@ public class PlayerParty {
     private static PlayerParty instance;
     /** プレーヤー */
     private PlayerCharactor player;
+    /** 所持金 */
+    private static int money;
 
     /** プライベートコンストラクタ */
     private PlayerParty() {
@@ -26,5 +28,13 @@ public class PlayerParty {
             instance = new PlayerParty();
         }
         return instance;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 }

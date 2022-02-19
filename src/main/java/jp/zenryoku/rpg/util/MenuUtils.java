@@ -41,7 +41,6 @@ public class MenuUtils {
         PlayerCharactor player = party.getPlayer();
         ConsoleUtils consUtil = ConsoleUtils.getInstance();
         List<RpgItem> itemList = player.getItemBag();
-
         // メニュー画面の表示フラグ、起動中はtrueになる
         boolean isMenu = true;
         while (isMenu) {
@@ -51,7 +50,7 @@ public class MenuUtils {
             String input = consUtil.acceptInput(MessageConst.MENU_DO_SELECT.toString(), SelectConst.MENU_SELECT_REGREX);
             if (SelectConst.SELECT_SOBI.getValue().equals(input)) {
                 // アイテムのリストの表示
-                console.printItemList(itemList);
+                console.printItemList(player);
                 // 所持アイテムなしのときはメッセージを表示して戻る
                 if (console.isZeroSizeItemList(itemList)) {
                     continue;
@@ -76,12 +75,16 @@ public class MenuUtils {
      * そうびの変更を行う。
      */
     private void selectEquipMent(PlayerCharactor player, List<RpgItem> itemList) throws RpgException {
+
         RpgConfig conf = RpgConfig.getInstance();
         ConsoleUtils consUtil = ConsoleUtils.getInstance();
         String max = String.valueOf(itemList.size());
         // 装備の変更をおこなう
         String selectSobi = consUtil.acceptInput(MessageConst.EQUIP_SELECT.toString(), "[1-" + max + "]");
         RpgItem sobi = itemList.get(Integer.parseInt(selectSobi) - 1);
+        if (CheckerUtils.alreadySobied(sobi, player)) {
+            return;
+        }
         System.out.println(sobi.getName() + " : " + sobi.getItemType() + " : " + sobi.getItemValueKigo());
         if (true) {
             Map<String, RpgData> testMap = conf.getItemMap();

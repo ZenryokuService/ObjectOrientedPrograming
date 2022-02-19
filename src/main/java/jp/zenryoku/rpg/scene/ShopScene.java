@@ -3,6 +3,8 @@ package jp.zenryoku.rpg.scene;
 import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.charactors.PlayerParty;
+import jp.zenryoku.rpg.charactors.params.PlayerStatus;
+import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.SelectConst;
 import jp.zenryoku.rpg.data.RpgConfig;
@@ -35,7 +37,8 @@ public class ShopScene extends StoryScene {
         int size = list.size();
         String max = String.valueOf(size);
 
-        Player player = RpgConfig.getInstance().getParty().getPlayer();
+        PlayerParty party = RpgConfig.getInstance().getParty();
+        PlayerCharactor player = party.getPlayer();
 
         while (true) {
             int count = 0;
@@ -51,6 +54,7 @@ public class ShopScene extends StoryScene {
             String res = console.acceptInput(it.getName() + MessageConst.YOU_BUY_THIS.toString(), SelectConst.YES_NO_REGREX);
             if (SelectConst.SELECT_YES.getValue().equals(res)) {
                 System.out.println(MessageConst.THANKS);
+                cash(party, it);
                 player.addItem(it);
             }
             String res1 = console.acceptInput(MessageConst.DO_YOU_WANT_MORE.toString(), SelectConst.YES_NO_REGREX);
@@ -59,8 +63,15 @@ public class ShopScene extends StoryScene {
                 break;
             }
         }
-
-
         return false;
+    }
+
+    /** 金感情を行う */
+    private void cash(PlayerParty party, RpgItem item) {
+        int shojikin = party.getMoney();
+        int ryokin = item.getMoney();
+        int zan = shojikin - ryokin;
+        System.out.println("料金は" + ryokin + "になります。 残金：" + zan);
+        party.setMoney(zan);
     }
 }

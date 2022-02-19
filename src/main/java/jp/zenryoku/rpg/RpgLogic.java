@@ -123,7 +123,7 @@ public abstract class RpgLogic implements Games {
 
             while ((line = storyTxt.readLine()) != null) {
                 // コメントの取得
-                if (line.startsWith("# ") && isComment) {
+                if (CheckerUtils.isCommentLine(line) && isComment) {
                     loadCommentLine(storyTxt, commentList);
                     continue;
                 }
@@ -131,7 +131,7 @@ public abstract class RpgLogic implements Games {
                 isComment = false;
 
                 // 改行コードのみの場合
-                if (line.equals("") || line.equals(SEP)) {
+                if (CheckerUtils.isEmpptyOrSep(line)) {
                     continue;
                 }
                 // カテゴリマスターの生成
@@ -167,7 +167,7 @@ public abstract class RpgLogic implements Games {
 
                 //// ファイル読み込み処理は、参照渡しを使用せず、値渡しで実装する ////
                 // シーン開始行の判定
-                if (line.matches("[0-9]{0,1000}:[A-Z]")) {
+                if (CheckerUtils.isStartSceneLine(line)) {
                     sceneObj = loadScene(line, rpgSceneList);
                     isSelectLine = false;
                     continue;
@@ -175,17 +175,21 @@ public abstract class RpgLogic implements Games {
                 // これ以降は、シーンオブジェクトの生成済みの必要がある
                 throwNullPoiinter(sceneObj, "シーンオブジェクトの生成ができていません。" + line);
                 // 選択肢ありの場合
-                if (line.matches("\\<[1-9]\\:[1-9]\\>")) {
+                if (CheckerUtils.isStartSelectNextScene(line)) {
                     setSelections(line, sceneObj);
                     isSelectLine = true;
                     continue;
                 }
                 // アイテムショップの設定
-                if (line.matches("\\<item\\:[a-zA-Z]{3,10}\\>")) {
+                if (CheckerUtils.isStartShopScene(line)) {
                     setItemShop(line, storyTxt, sceneObj);
                     continue;
                 }
 
+                // エフェクトシーンの設定
+                if (CheckerUtils.isStartEffectScene(line)) {
+
+                }
                 // ストーリーテキストのシーン終了部分
                 if (line.startsWith("END_SCENE ")) {
                     sceneObj = finishSceneSetting(line, sceneObj);
@@ -367,21 +371,48 @@ public abstract class RpgLogic implements Games {
             if (isDebug) System.out.println(items);
             // 設定オブジェクトよりデータ取得
             String[] data = items.split(",");
-            if (data.length != 2) {
+            if (data.length != RpgConst.ITEM_SIZE) {
                 throw new RpgException(MessageConst.ERR_ITEM_CSV.toString());
             }
             // アイテム名(アイテムリストのキーになっている)
-            RpgData i = itemMap.get(data[0]);
+            RpgData i = itemMap.get(data[0].trim());
             if ((i instanceof RpgItem) == false) {
                 throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString()
                         + ": " + i.getClass().getName());
             }
             RpgItem itemData = (RpgItem) i;
+            itemData.setMoney(Integer.parseInt(data[1].trim()));
+            itemData.setDiscription(data[2].trim());
             shop.addItemList(itemData);
         }
         // 改めてsceneObjにセットする
         sceneObj = scene;
     }
+
+    private void setEffectScene(String line, BufferedReader txt, RpgScene sceneObj) throws IOException, RpgException {
+        if ((sceneObj instanceof EffectScene) == false) {
+            throw new RpgException(MessageConst.SCENE_TYPE_ERR.toString());
+        }
+        // 記号 + (プラス) or -(マイナス) なまえ 個数の指定
+        String effect = line.split(":")[1];
+        EffectScene scene = (EffectScene) sceneObj;
+        // 記号
+        String kigo = effect.substring(0,3);
+        scene.setKigo(kigo);
+        // 演算子(+ or -)
+        String ope = effect.substring(3, 4);
+        scene.setOpe(ope);
+        // 名前
+        String name = effect.substring(4, effect.length() - 1);
+        int res = CheckerUtils.indexOfNum(name);
+        // 個数の部分を削除してセット
+        scene.setName(name.substring(0, res));
+        // 個数の部分をセット
+        scene.setKosu(Integer.parseInt(name.substring(res)));
+        // 改めてsceneObjにセットする
+        sceneObj = scene;
+    }
+
     /**
      * 入力受付処理。
      * ※JavaAPIを呼び出すだけなので、テスト不要。

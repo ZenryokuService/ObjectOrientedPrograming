@@ -62,4 +62,40 @@ public class CheckerUtilsTest {
 
 	}
 
+	@Test
+	public void testIsStartEffectScene() {
+		assertTrue(CheckerUtils.isStartEffectScene("<effect:MNY+100>"));
+		assertTrue(CheckerUtils.isStartEffectScene("<effect:POI+1>"));
+		assertTrue(CheckerUtils.isStartEffectScene("<effect:ITM-たんけん3>"));
+		assertTrue(CheckerUtils.isStartEffectScene("<effect:ITM+やくそう1>"));
+		assertTrue(CheckerUtils.isStartEffectScene("<effect:MNY-200>"));
+
+		checker("<effect:ITM+やくそう1>", "ITM", "+", "やくそう1");
+		checker("<effect:MNY-200>", "MNY", "-", "200");
+		checker("<effect:ITM-たんけん3>", "ITM", "-", "たんけん3");
+	}
+
+	private void checker(String line, String k, String o, String n) {
+		// 記号 + (プラス) or -(マイナス) なまえ 個数の指定
+		String effect = line.split(":")[1];
+		// 記号
+		String kigo = effect.substring(0,3);
+		assertEquals(k, kigo);
+		// 演算子(+ or -)
+		String ope = effect.substring(3, 4);
+		assertEquals(o, ope);
+		// 名前
+		String name = effect.substring(4, effect.length() - 1);
+		assertEquals(n, name);
+		int res = CheckerUtils.indexOfNum(n);
+		System.out.println(n.substring(0, res));
+	}
+
+	@Test
+	public void testIndexOfNum() {
+		int res = CheckerUtils.indexOfNum("たかだのっば1");
+		assertEquals(6, res);
+		int res2 = CheckerUtils.indexOfNum("たかだ1234");
+		assertEquals(3, res2);
+	}
 }

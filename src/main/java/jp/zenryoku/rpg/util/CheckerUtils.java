@@ -1,15 +1,19 @@
 package jp.zenryoku.rpg.util;
 
+import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgItem;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.item.equip.Armor;
+import jp.zenryoku.rpg.item.equip.MainWepon;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CheckerUtils {
-
+	private static final String SEP = System.lineSeparator();
 	/**
 	 * 引数がコメント行か判定する。
 	 * @param line 読み込んだ、ストーリーテキスト
@@ -83,6 +87,115 @@ public class CheckerUtils {
 		}
 		int amari = gokei % 10;
 		return amari;
+	}
+
+	/**
+	 * すでに装備済みかどうかの判定を行う。
+	 * @param select 選択している装備品
+	 * @param player プレーヤーオブジェクト
+	 * @return true: 装備あり false: 装備なし
+	 */
+	public static boolean alreadySobied(RpgItem select, PlayerCharactor player) {
+		String sobiStr = select == null ? "なし" : select.getName();
+		String wepStr = player.getMainWepon() == null ? "なし" : player.getMainWepon().getName();
+		String armStr = player.getArmor() == null ? "なし" : player.getArmor().getName();
+		if (sobiStr.equals(wepStr)) {
+			System.out.println(MessageConst.ALREADY_SOBIED.toString() + " : " + wepStr);
+			return true;
+		}
+		if (sobiStr.equals(armStr)) {
+			System.out.println(MessageConst.ALREADY_SOBIED.toString() + " : " + armStr);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * ストーリーテキストの１行が「シーンインデックス:シーンタイプ」の形になっているか判定する。
+	 * 例：「数字:大文字のアルファベット」　1:A -> シーンインデックス１ 内部の文字を表示して次のシーンへ飛ぶ
+	 * @param line ストーリーテキストの１行
+	 * @return true: シーン定義開始行 false: シーン開始行ではない
+	 */
+	public static boolean isStartSceneLine(String line) {
+		if (line.matches("[0-9]{0,1000}:[A-Z]")) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * ストーリーテキストの１行が次のシーンを選択する部分の定義か判定する。<br/>
+	 * 最後は「END_SCENE 次のシーンインデックス」になっていること
+	 * 例：<br/>
+	 * <pre>
+	 * <1:9>
+	 * 1. 店舗に移動します。 4
+	 * 2. パーティーステータスが変化します。 5
+	 * 3. アイテムの取得などします。 6
+	 * 4. ゲーム終了します。 3
+	 * 5. バトルシーンに移動します。 2
+	 * 6. プレーヤー生成。 9
+	 * 7. ゲームオーバー 7
+	 * 8. 終了(保存) 8
+	 * </pre>
+	 * @param line
+	 * @return true: シーンを選択定義開始行 false: シーンを選択定義開始行ではない
+	 */
+	public static boolean isStartSelectNextScene(String line) {
+		if (line.matches("\\<[1-9]\\:[1-9]\\>")) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * ストーリーテキストの１行がアイテムショップのシーンを定義しているか判定する。<br/>
+	 * 最後は「</item>」となっていること。
+	 *
+	 * @param line ストーリーテキストの１行
+	 * @return true: アイテムショップ定義開始行 false: アイテムショップ開始行ではない
+	 */
+	public static boolean isStartShopScene(String line) {
+		if (line.matches("\\<item\\:[a-zA-Z]{3,10}\\>")) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isStartEffectScene(String line) {
+		if (line.matches("\\<effect\\:[A-Z]{3}[+\\-*/%][0-9]{1,1000}\\>")) {
+			return true;
+		}
+		//if (line.matches("\\<effect:ITM[+\\-*/%][0-9]{1,1000}:\\.*,\\.*\\>")) {
+		if (line.matches("\\<effect:ITM[+\\-*/%].*[0-9]{1,1000}\\>")) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 空文字もしくは、改行コードのみかどうか判定する。
+	 *
+	 * @param line　ストーリーテキストの１行
+	 * @return true: 空文字もしくは、改行コード false: 空文字もしくは、改行コードではない
+	 */
+	public static boolean isEmpptyOrSep(String line) {
+		if (line.equals("") || line.equals(SEP)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * コメント行かどうか判定する。「# 」「##」で始まる行。
+	 * @param line ストーリーテキストの１行
+	 * @return true: コメント行 false: コメント行でない
+	 */
+	public static boolean isCommentLine(String line) {
+		if (line.startsWith("# ")) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -195,5 +308,25 @@ public class CheckerUtils {
 	/** スペースかどうか判定する */
 	public static boolean isSpace(char st) {
 		return st == ' ';
+	}
+
+	/**
+	 * 数字の始まる位置を返却する。
+	 * @param str 検査対象文字列
+	 * @return 数字の出現する位置(0からはじまる)
+	 */
+	public static int indexOfNum(String str) {
+		int pos = 0;
+		char[] ch = str.toCharArray();
+		Pattern pat = Pattern.compile("[0-9]");
+		for (int i = 0; i < ch.length; i++) {
+			String val = String.valueOf(ch[i]);
+			Matcher mat = pat.matcher(val);
+			if (mat.matches()) {
+				pos = i;
+				break;
+			}
+		}
+		return pos;
 	}
 }

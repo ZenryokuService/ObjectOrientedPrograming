@@ -111,6 +111,8 @@ public enum RpgConst {
     public static final String DEF = "DEF";
     /** アイテムを表示する */
     public static final String ITEM = "アイテム";
+    /** アイテム定義のカンマ区切り数 */
+    public static final int ITEM_SIZE = 3;
     /** 通常のアイテムを示す記号 */
     public static final String ITM = "ITM";
     /** データクラスのパッケージ名 */

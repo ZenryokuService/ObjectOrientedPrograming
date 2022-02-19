@@ -86,7 +86,7 @@ public class PlayerCharactor extends Player {
     }
 
     /**
-     * 武器を装備する。
+     * 防具を装備する。
      * @param arm 防具オブジェクト
      */
     @Override
