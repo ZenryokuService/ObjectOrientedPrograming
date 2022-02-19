@@ -8,7 +8,7 @@ import jp.zenryoku.rpg.item.Items;
 
 public class Armor extends Items {
 	/** 防御力 */
-	private int diffence;
+	private int deffence;
 
 	/**
 	 * コンストラクタ。
@@ -36,7 +36,7 @@ public class Armor extends Items {
 
 		 System.out.println("kigo: " + kigo + " : value: " + value);
 
-		if (RpgConst.DEV.equals(kigo) == false) {
+		if (RpgConst.ARV.equals(kigo) == false) {
 			throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + ": " + kigo);
 		}
 		String ope = value.substring(0,1);
@@ -48,15 +48,15 @@ public class Armor extends Items {
 	/**
 	 * @return diffence
 	 */
-	public int getDiffence() {
-		return diffence;
+	public int getDeffence() {
+		return deffence;
 	}
 
 	/**
 	 * @param diffence セットする diffence
 	 */
 	public void setDiffence(int diffence) {
-		this.diffence = diffence;
+		this.deffence = diffence;
 	}
 
 }

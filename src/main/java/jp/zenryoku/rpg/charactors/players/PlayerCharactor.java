@@ -10,16 +10,20 @@ import jp.zenryoku.rpg.data.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
+import jp.zenryoku.rpg.util.CalcUtils;
 import lombok.Data;
 
 import java.util.*;
 
 @Data
 public class PlayerCharactor extends Player {
+    private static final boolean isDebug = false;
     /** 生年月日 */
     private String birthDay;
-    /** パラメータリスト */
+    /** ステータスリスト */
     protected Map<String, RpgStatus> statusMap;
+    /** オプショナルステータスリスト */
+    protected Map<String, RpgStatus> optionalMap;
 
     /**
      * ストーリーテキストの設定情報を取得して、ステータスを生成する。
@@ -28,7 +32,8 @@ public class PlayerCharactor extends Player {
      */
     public PlayerCharactor(String name) throws RpgException {
         super(name);
-        statusMap = new HashMap<String, RpgStatus>();
+        statusMap = new LinkedHashMap<String, RpgStatus>();
+        optionalMap = new LinkedHashMap<String, RpgStatus>();
         // ステータス設定を取得する。
         Map<String, RpgStatus> map = RpgConfig.getInstance().getStatusMap();
         Set<String> keys = map.keySet();
@@ -39,12 +44,13 @@ public class PlayerCharactor extends Player {
             }
             //RpgStatus new1 = data.clone();
             // ダウンキャストしてリストに設定
+            // TODO-[オブジェクトが一つになっているので注意が必要]
             statusMap.put(data.getKigo(), data);
         }
     }
 
     public int getAtk() throws RpgException {
-        RpgStatus atk = statusMap.get(RpgConst.ATK);
+        RpgStatus atk = optionalMap.get(RpgConst.ATK);
         if (atk == null) {
             throw new RpgException("ステータスマップにオブジェクトがありません。AKT" + atk);
         }
@@ -52,7 +58,7 @@ public class PlayerCharactor extends Player {
     }
 
     public int getDef() throws RpgException {
-        RpgStatus def = statusMap.get(RpgConst.DEF);
+        RpgStatus def = optionalMap.get(RpgConst.DEF);
         if (def == null) {
             throw new RpgException("ステータスマップにオブジェクトがありません。AKT" + def);
         }
@@ -64,14 +70,18 @@ public class PlayerCharactor extends Player {
      * @param wepon 武器オブジェクト
      */
     @Override
-    public void setMainWepon(MainWepon wepon) {
+    public void setMainWepon(MainWepon wepon) throws RpgException {
         mainWepon = wepon;
-        RpgStatus atk = statusMap.get(RpgConst.ATK);
+        RpgStatus atk = optionalMap.get(RpgConst.ATK);
+        //RpgStatus atk = statusMap.get(RpgConst.ATK);
 
         Map<String, RpgFormula> map = RpgConfig.getInstance().getFormulaMap();
         RpgFormula formula = map.get(atk.getKigo());
-        //formula.
-        System.out.println("formula: " + formula.getFormulaStr());
+        String formulaStr = formula.getFormulaStr();
+        CalcUtils utils = CalcUtils.getInstance();
+        if (isDebug) System.out.println("formula: " + formulaStr);
+        RpgStatus opt = optionalMap.get(RpgConst.WEV);
+        opt.setValue(wepon.getOffence());
         atk.setValue(formula.formula(this));
     }
 
@@ -82,12 +92,15 @@ public class PlayerCharactor extends Player {
     @Override
     public void setArmor(Armor arm) {
         armor = arm;
-        RpgStatus def = statusMap.get(RpgConst.DEF);
+        RpgStatus def = optionalMap.get(RpgConst.DEF);
 
         Map<String, RpgFormula> map = RpgConfig.getInstance().getFormulaMap();
+        if (isDebug) System.out.println("Map key: " + def.getKigo() + " Name: " + def.getName());
         RpgFormula formula = map.get(def.getKigo());
         //formula.
-        System.out.println("formula: " + formula.getFormulaStr());
+        if (isDebug) System.out.println("formula: " + formula.getFormulaStr());
+        RpgStatus opt = optionalMap.get(RpgConst.ARV);
+        opt.setValue(arm.getDeffence());
         def.setValue(formula.formula(this));
     }
 }

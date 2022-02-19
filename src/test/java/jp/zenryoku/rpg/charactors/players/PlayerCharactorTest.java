@@ -75,9 +75,9 @@ public class PlayerCharactorTest {
     public void testSetWepon() {
         PlayerCharactor player = TestUtils.initRpgConfig();
 
-        player.setMainWepon(TestUtils.createWepon("ほうちょう", "WEV+5"));
-        player.setArmor(TestUtils.createArmor("かわのよろい", "DEV+4"));
         try {
+            player.setMainWepon(TestUtils.createWepon("ほうちょう", "WEV+5"));
+            player.setArmor(TestUtils.createArmor("かわのよろい", "DEV+4"));
             assertEquals(7, player.getAtk());
             assertEquals(8, player.getDef());
         } catch (RpgException e) {

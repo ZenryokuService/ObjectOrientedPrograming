@@ -11,6 +11,18 @@ import java.util.regex.Pattern;
 public class CheckerUtils {
 
 	/**
+	 * 引数がコメント行か判定する。
+	 * @param line 読み込んだ、ストーリーテキスト
+	 * @return true コメント行 false: 非コメント行
+	 */
+	public static boolean isComment(String line) {
+		if (line.startsWith("# ") || line.startsWith("##")) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * 引数が偶数か判定する。
 	 *
 	 * @param value 判定する値
@@ -95,10 +107,10 @@ public class CheckerUtils {
 	 */
 	public static boolean isWepOrArm(RpgItem item) {
 		boolean result = false;
-		if (RpgConst.WEPONS.getSceneType().equals(item.getItemType())) {
+		if (RpgConst.WEP.equals(item.getItemType())) {
 			result = true;
 		}
-		if (RpgConst.ARMORS.getSceneType().equals(item.getItemType())) {
+		if (RpgConst.ARM.equals(item.getItemType())) {
 			result = true;
 		}
 		return result;
@@ -112,7 +124,7 @@ public class CheckerUtils {
 	 */
 	public static boolean isWep(RpgItem item) {
 		boolean result = false;
-		if (RpgConst.WEPONS.getSceneType().equals(item.getItemType())) {
+		if (RpgConst.WEP.equals(item.getItemType())) {
 			result = true;
 		}
 		return result;
@@ -126,7 +138,7 @@ public class CheckerUtils {
 	 */
 	public static boolean isArm(RpgItem item) {
 		boolean result = false;
-		if (RpgConst.ITEMS.getSceneType().equals(item.getItemType())) {
+		if (RpgConst.ARM.equals(item.getItemType())) {
 			result = true;
 		}
 		return result;

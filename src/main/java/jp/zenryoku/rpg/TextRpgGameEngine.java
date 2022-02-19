@@ -4,6 +4,7 @@ import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.ConsoleUtils;
+import jp.zenryoku.rpg.util.MenuUtils;
 
 /**
  * テキストRPG(戦闘シーンのみ)を実装する。
@@ -64,7 +65,7 @@ public class TextRpgGameEngine extends Thread {
 			try {
 				// メニューの表示
 				if (input != null && input.startsWith("menu")) {
-					ConsoleUtils.getInstance().printMenu();
+					MenuUtils.getInstance().printMenu();
 				}
 				// 6. シーンの実行
 				if (textRpgLogic.executeScene()) {

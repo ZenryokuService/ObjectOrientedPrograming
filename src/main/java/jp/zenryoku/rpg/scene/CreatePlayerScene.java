@@ -6,9 +6,7 @@ import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.constants.SelectConst;
-import jp.zenryoku.rpg.data.RpgConfig;
-import jp.zenryoku.rpg.data.RpgData;
-import jp.zenryoku.rpg.data.RpgStatus;
+import jp.zenryoku.rpg.data.*;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
@@ -78,15 +76,63 @@ public class CreatePlayerScene extends StoryScene {
                         , val.getName() + MessageConst.CREATE_STATUS, val.getName());
                 val.setValue(res);
             }
+            // ステータス表示
             console.printStatus(player);
+            // オプショナルステータス
+            Map<String, RpgStatus> optMap = player.getOptionalMap();
+            Map<String, RpgData> data = config.getParamMap();
+            Set<String> keys = data.keySet();
+            for (String key : keys) {
+                RpgData d = data.get(key);
+                if (RpgConst.PLY.equals(d.getMaster())) {
+                    optMap.put(key, createRpgStatus(d));
+                }
+            }
+            // 計算式の設定
+            CalcUtils calUtils = CalcUtils.getInstance();
+            Map<String, RpgFormula> fMap = config.getFormulaMap();
+            RpgFormula atkForm = fMap.get(RpgConst.ATK);
+            RpgFormula defForm = fMap.get(RpgConst.DEF);
+            //calUtils.relatedSymbols(atkForm.getFormulaStr(), statusMap, optMap);
+            // ステータス確定確認
             String select = console.acceptInput(MessageConst.CHECK_STATUS.toString()
                     + SelectConst.SELECT_YES.getSelectMessage() + " " + SelectConst.SELECT_NO.getSelectMessage()
-                    ,true);
+                    ,SelectConst.YES_NO_REGREX);
             if (SelectConst.SELECT_YES.getValue().equals(select)) {
                 break;
             }
         }
         config.setParty(party);
         return false;
+    }
+
+    /**
+     * オプショナルステータスに追加するRpgStatusを生成する。
+     * @param d
+     * @return RpgStatus
+     */
+    private RpgStatus createRpgStatus(RpgData d) {
+        RpgStatus data = new RpgStatus();
+        data.setName(d.getName());
+        data.setKigo(d.getKigo());
+        data.setDiscription(d.getDiscription());
+        // issue#23 アイテム装備時のValueがNullになる問題
+        data.setValue(d.getValue());
+
+        return data;
+    }
+
+    private RpgStatus createRpgStatus(RpgMaster master) {
+        RpgStatus data = new RpgStatus();
+        data.setName(master.getName());
+        data.setKigo(master.getKigo());
+        data.setDiscription(master.getDiscription());
+
+        return data;
+    }
+
+    private RpgStatus createOptionalRpgStatus() {
+        RpgStatus st = new RpgStatus();
+        return st;
     }
 }

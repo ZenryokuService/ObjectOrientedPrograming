@@ -2,6 +2,7 @@ package jp.zenryoku.rpg.scene;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ public class BattleSceneTest {
 	 * データを更新するテスト。
 	 */
 	@Test
-	public void testUpateData() {
+	public void testUpateData() throws RpgException {
 		// マップを作成する必要があるため、初期表示を行う
 		target.initScene();
 		assertTrue(target.updateData("1"));
@@ -49,7 +50,7 @@ public class BattleSceneTest {
 	 * 画面更新のテスト。
 	 */
 	@Test
-	public void testRender() {
+	public void testRender() throws RpgException {
 		target.initScene();
 		assertTrue(target.updateData("1"));
 		target.render();

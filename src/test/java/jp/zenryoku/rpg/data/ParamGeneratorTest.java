@@ -72,6 +72,28 @@ public class ParamGeneratorTest {
     }
 
     @Test
+    public void testCreateMaster() {
+        BufferedReader buf = null;
+        try {
+            buf = Files.newBufferedReader(Paths.get("src/test/resources", "tesParamGeneratorMaster.txt"));
+            buf.readLine();
+            assertEquals("CONFIG_MASTER", buf.readLine());
+            // ２行目を飛ばす。
+            //buf.readLine();
+            target.createMasterCategory(buf);
+            Map<String, RpgMaster> res = target.getConfig().getMasterMap();
+            //assertEquals(6, res.size());
+            if (isDebug) res.forEach((key, val) -> {
+                System.out.println("Key: " + key + " CategoryId: " + val.getCategoryId() + " 読み方: " + val.getHowToRead() + " " + val.getDiscription());
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void testCreateParam() {
         BufferedReader buf = null;
         try {
@@ -246,20 +268,28 @@ public class ParamGeneratorTest {
         parentData.setKigo("STS");
         map.put("STS", parentData);
         try {
+            //
             Method mes = this.getTargetMethod("createRpgDataFromConfig", String.class, Map.class);
-            RpgData res = (RpgData) mes.invoke(target, "アイテム:ITM:薬草など使用することでその効果を発揮するもの:-", map);
+            RpgData res = (RpgData) mes.invoke(target, "アイテム:ITM:-:薬草など使用することでその効果を発揮するもの:-:-", map);
             assertEquals("アイテム", res.getName());
             assertEquals("ITM", res.getKigo());
             assertEquals("薬草など使用することでその効果を発揮するもの", res.getDiscription());
             assertEquals("-", res.getParent());
+            assertEquals(0, res.getValue());
 
-            RpgData res1 = (RpgData) mes.invoke(target, "どく:POI:ステータス異常を示す、1ターンごとに体力の10%程のダメージを受ける、戦闘後元に戻る:STS", map);
+            RpgData res1 = (RpgData) mes.invoke(target, "どく:POI:STO:ステータス異常を示す、1ターンごとに体力の10%程のダメージを受ける、戦闘後元に戻る:STS:-", map);
             assertEquals("どく", res1.getName());
             assertEquals("POI", res1.getKigo());
             assertEquals("ステータス異常を示す、1ターンごとに体力の10%程のダメージを受ける、戦闘後元に戻る", res1.getDiscription());
             assertEquals("STS", res1.getParent());
             assertEquals("STS", res1.getParentCls().getKigo());
 
+            RpgData res2 = (RpgData) mes.invoke(target, "武器攻撃力:WEV:PLY:武器を装備したときの増幅するATKを示す:-:0", map);
+            assertEquals("武器攻撃力", res2.getName());
+            assertEquals("WEV", res2.getKigo());
+            assertEquals("武器を装備したときの増幅するATKを示す", res2.getDiscription());
+            assertEquals("-", res2.getParent());
+            assertEquals(0, res2.getValue());
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());

@@ -16,6 +16,7 @@ public class TestUtils {
     public static PlayerCharactor initRpgConfig() {
         Map<String, RpgData> map = new HashMap<>();
         List<RpgData> list = new ArrayList<>();
+        List<RpgData> optList = new ArrayList<>();
         // ちから
         RpgData pow = new RpgData();
         pow.setKigo("POW");
@@ -27,38 +28,41 @@ public class TestUtils {
         RpgData wev = new RpgData();
         wev.setKigo("WEV");
         wev.setValue(2);
-        list.add(wev);
+        optList.add(wev);
         map.put(wev.getKigo(), wev);
 
         // 防具防御撃力
         RpgData arv = new RpgData();
         arv.setKigo("ARV");
         arv.setValue(3);
-        list.add(arv);
+        optList.add(arv);
         map.put(arv.getKigo(), arv);
 
+        // すばやさ
         RpgData agi = new RpgData();
         agi.setKigo("AGI");
         agi.setValue(4);
         list.add(agi);
         map.put(agi.getKigo(), agi);
 
+        // 攻撃力
         RpgData atk = new RpgData();
         atk.setKigo("ATK");
         atk.setValue(5);
-        list.add(atk);
+        optList.add(atk);
         map.put(atk.getKigo(), atk);
 
+        // 防御力
         RpgData def = new RpgData();
         def.setKigo("DEF");
         def.setValue(6);
-        list.add(def);
+        optList.add(def);
         map.put(def.getKigo(), def);
 
         RpgData itm = new RpgData();
         itm.setKigo("ITM");
         itm.setValue(7);
-        list.add(itm);
+        optList.add(itm);
         map.put(itm.getKigo(), itm);
 
         RpgData ksm = new RpgData();
@@ -76,7 +80,7 @@ public class TestUtils {
         RpgData bpk = new RpgData();
         bpk.setKigo("BPK");
         bpk.setValue(10);
-        list.add(bpk);
+        optList.add(bpk);
         map.put(bpk.getKigo(), bpk);
 
         RpgData inta = new RpgData();
@@ -88,7 +92,7 @@ public class TestUtils {
         RpgData jvl = new RpgData();
         jvl.setKigo("JLV");
         jvl.setValue(12);
-        list.add(jvl);
+        optList.add(jvl);
         map.put(jvl.getKigo(), jvl);
 
         RpgData itv = new RpgData();
@@ -100,16 +104,18 @@ public class TestUtils {
         RpgData mpw = new RpgData();
         mpw.setKigo("MPW");
         mpw.setValue(14);
-        list.add(mpw);
+        optList.add(mpw);
         map.put(mpw.getKigo(), mpw);
 
         RpgData tsm = new RpgData();
         tsm.setKigo("TSM");
         tsm.setValue(15);
-        list.add(tsm);
+        optList.add(tsm);
         map.put(tsm.getKigo(), tsm);
 
+        RpgConfig conf = RpgConfig.getInstance();
         Map<String, RpgStatus> statusMap = new HashMap<>();
+        Map<String, RpgStatus> optMap = new HashMap<>();
         Set<String> set = map.keySet();
         for (RpgData data  : list) {
             RpgStatus status = new RpgStatus();
@@ -117,7 +123,12 @@ public class TestUtils {
             status.setValue(data.getValue());
             statusMap.put(data.getKigo(), status);
         }
-        RpgConfig conf = RpgConfig.getInstance();
+        for (RpgData data  : optList) {
+            RpgStatus status = new RpgStatus();
+            status.setKigo(data.getKigo());
+            status.setValue(data.getValue());
+            optMap.put(data.getKigo(), status);
+        }
         conf.setParamMap(map);
         conf.setStatusMap(statusMap);
 
@@ -127,6 +138,7 @@ public class TestUtils {
         try {
             player = new PlayerCharactor("test");
             player.setStatusMap(statusMap);
+            player.setOptionalMap(optMap);
         } catch (RpgException e) {
             e.printStackTrace();
             System.exit(-1);

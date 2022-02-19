@@ -100,7 +100,7 @@ public class Player {
 	 */
 	@Command(index=2, commandName="ぼうぎょ")
 	public int diffence() {
-		return (int) ((double) armor.getDiffence() * 1.5);
+		return (int) ((double) armor.getDeffence() * 1.5);
 	}
 
 	@Command(index=3, commandName="にげる")
@@ -126,4 +126,11 @@ public class Player {
 		return getHP() <= 0;
 	}
 
+	/** 武器を装備する */
+	public void setMainWepon(MainWepon wepon) throws RpgException {
+	}
+
+	/** 防具を装備する */
+	public void setArmor(Armor arm) {
+	}
 }

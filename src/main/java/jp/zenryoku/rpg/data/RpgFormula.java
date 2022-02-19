@@ -7,6 +7,8 @@ import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,9 +19,12 @@ import java.util.Set;
 public class RpgFormula extends RpgData {
     /**　計算式(文字列) */
     private String formulaStr;
+    /** 関連項目 */
+    private List<RpgStatus> relatedList;
 
     public RpgFormula() {
         super.setType(RpgConst.DATA_TYPE_FORMULA);
+        relatedList = new ArrayList<>();
     }
 
     /**
@@ -38,14 +43,29 @@ public class RpgFormula extends RpgData {
      */
     public int formula(PlayerCharactor player) {
         int result = 0;
-        Map<String, RpgData> params = RpgConfig.getInstance().getParamMap();
         Map<String, RpgStatus> statusMap = player.getStatusMap();
-        Set<String> set = params.keySet();
+        Map<String, RpgStatus> optionalMap = player.getOptionalMap();
+        Set<String> set = statusMap.keySet();
         String convStr = formulaStr;
+
+        System.out.print("Key: ");
         for (String key : set) {
-            RpgData data = params.get(key);
+            RpgData data = statusMap.get(key);
+            System.out.print(data.getKigo() + ", ");
             convStr = convStr.replaceAll(data.getKigo(), String.valueOf(data.getValue()));
         }
+        Set<String> setOpt = optionalMap.keySet();
+        for (String key : setOpt) {
+            RpgData data = optionalMap.get(key);
+            if (data == null) {
+                System.out.println("Ket is null: " + key);
+            } else if (data.getValue() == null) {
+                System.out.println("Value is null: " + key);
+            }
+            System.out.print(data.getKigo() + " : " + data.getValue() + ", ");
+            convStr = convStr.replaceAll(data.getKigo(), String.valueOf(data.getValue()));
+        }
+        System.out.println();
         System.out.print("conv: " + convStr);
         double res = new ExpressionBuilder(convStr).build().evaluate();
         System.out.println(" = " + res);

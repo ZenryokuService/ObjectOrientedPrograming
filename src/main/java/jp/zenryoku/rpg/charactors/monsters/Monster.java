@@ -54,7 +54,7 @@ public class Monster extends NonPlayer {
 		Armor armor = getArmor();
 		int diffenceValue = getDiffence();
 		if (armor != null) {
-			diffenceValue = armor.getDiffence() + getDiffence();
+			diffenceValue = armor.getDeffence() + getDiffence();
 		}
 		return diffenceValue;
 	}

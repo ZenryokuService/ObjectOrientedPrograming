@@ -19,6 +19,8 @@ public class RpgData {
     protected String parent;
     /** 親カテゴリクラス */
     protected RpgData parentCls;
+    /** マスタカテゴリ */
+    protected String master;
 
     public RpgData() {
     }

@@ -1,8 +1,10 @@
 package jp.zenryoku.rpg.util;
 
+import jp.zenryoku.rpg.TestUtils;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.data.ParamGenerator;
 import jp.zenryoku.rpg.data.RpgItemType;
+import jp.zenryoku.rpg.data.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -86,4 +88,17 @@ public class CalcUtilsTest {
         }
     }
 
+    @Test
+    public void testRelatedSymbol() {
+        try {
+            PlayerCharactor player = TestUtils.initRpgConfig();
+            List<RpgStatus> list = target.relatedSymbols("(POW + WEV) * (1 + (0.1 * JLV))"
+                    , player.getStatusMap(), player.getOptionalMap());
+            assertEquals(3, list.size());
+            list.forEach(System.out::println);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
 }

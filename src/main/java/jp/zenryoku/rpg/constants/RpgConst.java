@@ -89,6 +89,8 @@ public enum RpgConst {
 
     /** 改行コード */
     public static final String SEP = System.lineSeparator();
+    /** マスタカテゴリのプレーヤーステータスオプション */
+    public static final String PLY = "PLY";
     /** アイテム保持可能数(デフォルト) */
     public static final int ITEM_HOLD_NUM = 5;
     /** 武器を表示する */
@@ -102,16 +104,16 @@ public enum RpgConst {
     /** 防具を示す記号 */
     public static final String ARM = "ARM";
     /** 防具防御力を示す */
-    public static final String DEV = "DEV";
+    public static final String ARV = "ARV";
     /** 攻撃力 */
     public static final String ATK = "ATK";
     /** 防御力 */
     public static final String DEF = "DEF";
     /** アイテムを表示する */
-    public static final String AITEM = "アイテム";
+    public static final String ITEM = "アイテム";
     /** 通常のアイテムを示す記号 */
     public static final String ITM = "ITM";
-    /** データクラスのぱっけ０時名 */
+    /** データクラスのパッケージ名 */
     public static final String DATA_PACKAGE = "jp.zenryoku.rpg.data";
     /** パラメータを取得するためのCharBufferのサイズ */
     public static final int BUF_SIZE = 10;
@@ -121,6 +123,20 @@ public enum RpgConst {
     public static final int FORMULA_STR_LEN = 120;
     /** 計算式のかっこの最大数 */
     public static final int FORUMULA_MAX_KAKO = 7;
+    /** ヘルプコマンド */
+    public static final String HELP_COMMAND = "help";
+    /** メニューコマンド */
+    public static final String MENU_COMMAND = "menu";
+    /** 終了コマンド */
+    public static final String EXIR_COMMAND = "exit";
+    /** ストーリーテキストで定義する記号判別用の正規表現 */
+    public static final String REG_KIGO = "[A-Z]";
+    /** 記号の文字数(配列の添え字番号) */
+    public static final int KIGO_SIZE = 2;
+    /** PARAM_CONFIGの分割サイズ */
+    public static final int PARAM_SIZE = 6;
+    /** PARAM_CONFIGの分割サイズ */
+    public static final int MASTER_SIZE = 4;
 
     /** 計算オブジェクトの保持できる項の数 */
     public static final int CALC_KO_COUNT = 2;

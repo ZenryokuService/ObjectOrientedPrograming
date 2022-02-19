@@ -318,9 +318,17 @@ public class ConsoleUtils {
 				max = len;
 			}
 		}
-		RpgConfig conf = RpgConfig.getInstance();
-		RpgData atk = conf.getParamMap().get(RpgConst.ATK.toString());
-		RpgData def = conf.getParamMap().get(RpgConst.DEF.toString());
+		Map<String, RpgStatus> optMap = player.getOptionalMap();
+		RpgData atk = null;
+		RpgData def = null;
+		atk = optMap.get(RpgConst.ATK);
+		def = optMap.get(RpgConst.DEF);
+		if (atk == null || def == null) {
+			RpgConfig conf = RpgConfig.getInstance();
+			atk = conf.getParamMap().get(RpgConst.ATK);
+			def = conf.getParamMap().get(RpgConst.DEF);
+		}
+
 		int counter = 1;
 		if (isDebug) System.out.println("sobisize: " + sobisize);
 		String preStr = " ";
@@ -485,7 +493,7 @@ public class ConsoleUtils {
 			if (item instanceof MainWepon) {
 				v = "(" + String.valueOf(((MainWepon) item).getOffence()) + ")";
 			} else if (item instanceof Armor) {
-				v = "(" + String.valueOf(((Armor) item).getDiffence()) + ")";
+				v = "(" + String.valueOf(((Armor) item).getDeffence()) + ")";
 			}
 			res = n == null ? "なし" : n + v;
 		}
@@ -509,7 +517,7 @@ public class ConsoleUtils {
 				String val = "(" + String.valueOf(((MainWepon) item).getOffence()) + ")";
 				v = val.length();
 			} else if (item instanceof Armor) {
-				String val = "(" + String.valueOf(((Armor) item).getDiffence()) + ")";
+				String val = "(" + String.valueOf(((Armor) item).getDeffence()) + ")";
 				v = val.length();
 			}
 		}
@@ -854,89 +862,17 @@ public class ConsoleUtils {
 	}
 
 	/**
-	 * メニュー表示、操作(処理)を行う。
-	 * @throws RpgException
-	 */
-	public void printMenu() throws RpgException {
-		RpgConfig conf = RpgConfig.getInstance();
-		PlayerParty party = conf.getParty();
-		PlayerCharactor player = party.getPlayer();
-		ConsoleUtils consUtil = ConsoleUtils.getInstance();
-		List<RpgItem> itemList = player.getItemBag();
-
-		// メニュー画面の表示フラグ、起動中はtrueになる
-		boolean isMenu = true;
-		while (isMenu) {
-			// メニューの表示
-			System.out.println(MessageConst.MENU);
-			if (isDebug) System.out.println("アイテムサイズ: " + itemList.size());
-			String input = consUtil.acceptInput(MessageConst.MENU_DO_SELECT.toString(), SelectConst.MENU_SELECT_REGREX);
-			if ("1".equals(input)) {
-				// アイテムのリストの表示
-				printItemList(itemList);
-				// 所持アイテムなしのときはメッセージを表示して戻る
-				if (isZeroSizeItemList(itemList)) {
-					continue;
-				}
-				// 装備のセット
-				selectEquipMent(player, itemList);
-			} else if ("2".equals(input)) {
-				// アイテムの使用をおこなう
-				useItems(player, itemList);
-			} else if ("3".equals(input)) {
-				// まほうの使用をおこなう
-
-			} else if ("exit".equals(input)) {
-				break;
-			}
-		}
-	}
-
-	/**
 	 * 所持アイテムを表示する。
 	 *
 	 * @param itemList 所持アイテムのリスト
 	 */
-	private void printItemList(List<RpgItem> itemList) {
+	public void printItemList(List<RpgItem> itemList) {
 		System.out.println("＜アイテム＞");
 		// 所持アイテムの表示
 		for (int i = 0; i < itemList.size(); i++) {
 			RpgItem item = itemList.get(i);
 			System.out.println((i + 1) + ". " + item.getName());
 		}
-	}
-	/**
-	 * そうびの変更を行う。
-	 */
-	private void selectEquipMent(PlayerCharactor player, List<RpgItem> itemList) throws RpgException {
-		RpgConfig conf = RpgConfig.getInstance();
-		ConsoleUtils consUtil = ConsoleUtils.getInstance();
-		// 装備の変更をおこなう
-		String selectSobi = consUtil.acceptInput(MessageConst.EQUIP_SELECT.toString());
-		RpgItem sobi = itemList.get(Integer.parseInt(selectSobi) - 1);
-		System.out.println(sobi.getName() + " : " + sobi.getItemType() + " : " + sobi.getItemValueKigo());
-		if (isDebug) {
-			Map<String, RpgData> testMap = conf.getItemMap();
-			testMap.forEach((key, val) -> {
-				RpgItem item = (RpgItem) val;
-				System.out.println("Key: " + key + " : " + "Val: " + item.getItemType());
-			});
-		}
-		RpgItem type = (RpgItem) conf.getItemMap().get(sobi.getName());
-		if (CheckerUtils.isWepOrArm(type)) {
-			throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + " : " + type.getName());
-		}
-		// 武器の場合
-		if (CheckerUtils.isWep(type)){
-			player.setMainWepon(new MainWepon(type));
-			printStatus(player);
-		}
-		// 防具の場合
-		if (CheckerUtils.isArm(type)) {
-			player.setArmor(new Armor(type));
-			printStatus(player);
-		}
-
 	}
 
 	/**
@@ -945,19 +881,14 @@ public class ConsoleUtils {
 	 * @param itemList チェックするリスト
 	 * @return true: 空のリスト false: 空ではないリスト
 	 */
-	private boolean isZeroSizeItemList(List<?> itemList) {
+	public boolean isZeroSizeItemList(List<?> itemList) {
 		if (itemList.size() <= 0) {
 			System.out.println(MessageConst.THERES_NO_ITEM.toString());
 			return true;
 		}
 		return false;
 	}
-	/**
-	 * アイテムの使用
-	 */
-	private void useItems(PlayerCharactor player, List<RpgItem> itemList) {
 
-	}
 
 	/**
 	 * まほうの使用

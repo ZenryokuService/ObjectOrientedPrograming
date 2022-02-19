@@ -134,6 +134,11 @@ public abstract class RpgLogic implements Games {
                 if (line.equals("") || line.equals(SEP)) {
                     continue;
                 }
+                // カテゴリマスターの生成
+                if (line.equals("CONFIG_MASTER")) {
+                    ParamGenerator.getInstance().createMasterCategory(storyTxt);
+                    continue;
+                }
                 // 設定オブジェクトの生成
                 if (line.equals("CONFIG_PARAM")) {
                     ParamGenerator.getInstance().createParam(storyTxt);

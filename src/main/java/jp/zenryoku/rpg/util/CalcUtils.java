@@ -93,6 +93,12 @@ public class CalcUtils {
         return result;
     }
 
+    /**
+     * 日本語の計算式を記号の計算式に変換する。
+     * @param siki
+     * @return
+     * @throws Exception
+     */
     public String sepTankoSiki(String siki) throws Exception {
         Map<String, RpgData> dataMap = ParamGenerator.getInstance().getAllMap();
         Set<String> set = dataMap.keySet();
@@ -104,7 +110,50 @@ public class CalcUtils {
             }
             siki = siki.replaceAll(data.getName(), data.getKigo());
         }
-        //System.out.println(siki);
+        if (isDebug) System.out.println(siki);
         return siki;
+    }
+
+    /**
+     * 記号のある計算式内の、記号部分をRpgStatusで取得、リストにして返却。
+     * @param siki ATK = (POW + WEV) * (1 + (0.1 * JLV))
+     * @return POW, WEV, JLVのRpgStatusリスト
+     */
+    public List<RpgStatus> relatedSymbols(String siki, Map<String, RpgStatus> statusMap, Map<String, RpgStatus> optMap) throws RpgException {
+        List<RpgStatus> result = new ArrayList<>();
+
+//        System.out.println("*** Testing ***");
+//        statusMap.forEach((key ,val) -> {
+//            System.out.println("statusKey: " + key + " : " + val);
+//        });
+//        optMap.forEach((key ,val) -> {
+//            System.out.println("optKey: " + key + " : " + val);
+//        });
+        Pattern pat = Pattern.compile(RpgConst.REG_KIGO);
+        char[] ch = siki.toCharArray();
+        StringBuilder build = new StringBuilder();
+        for  (int i = 0; i < ch.length; i++) {
+            String moji = String.valueOf(ch[i]);
+            Matcher mat = pat.matcher(moji);
+            if (mat.matches()) {
+                build.append(moji);
+                if (build.length() > RpgConst.KIGO_SIZE) {
+                    String key = build.toString();
+                    RpgStatus st = statusMap.get(key);
+                    if (st == null) {
+                        st = optMap.get(key);
+                    }
+                    if (st == null) {
+                        throw new RpgException(MessageConst.ERR_PARAM_KIGO.toString() + ": " + key);
+                    }
+                    result.add(st);
+                    build = new StringBuilder();
+                }
+            }
+        }
+        if (result.size() == 0) {
+            throw new RpgException(MessageConst.ERR_NO_KEY_GENFORMLA.toString() + " : " + siki);
+        }
+        return result;
     }
 }

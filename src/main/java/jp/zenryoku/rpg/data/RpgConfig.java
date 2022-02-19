@@ -24,10 +24,14 @@ public class RpgConfig {
     private int printLine;
     /** 全ての設定を格納する */
     private Map<String, RpgData> dataMap;
+    /** マスタカテゴリ */
+    private Map<String, RpgMaster> masterMap;
     /** パラメータリスト */
     private Map<String, RpgData> paramMap;
     /** ステータスリスト */
     private Map<String, RpgStatus> statusMap;
+    /** オプショナルステータスList */
+    private Map<String, RpgStatus> optionStatusMap;
     /** 計算式リスト */
     private Map<String, RpgFormula> formulaMap;
     /** 職業リスト */

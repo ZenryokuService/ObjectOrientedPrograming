@@ -61,7 +61,8 @@ public class BattleScene extends RpgScene {
 	 * 4. コマンドの一覧を表示する
 	 *
 	 */
-	public void initScene() {
+	@Override
+	public void initScene() throws RpgException {
 		// プレーヤーの作成
 		player = new Player("プレーヤ");
 		// 装備
@@ -69,7 +70,7 @@ public class BattleScene extends RpgScene {
 		player.setArmor(createArmor());
 		// 攻撃力と防御力を設定
 		player.setAttack(player.getMainWepon().getOffence());
-		player.setDiffence(player.getArmor().getDiffence());
+		player.setDiffence(player.getArmor().getDeffence());
 		// モンスターの作成
 		monster = new Monster("まおう");
 		// 初期表示: 「XXXXが現れた」

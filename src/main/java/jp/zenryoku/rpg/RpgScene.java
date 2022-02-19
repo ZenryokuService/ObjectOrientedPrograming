@@ -104,7 +104,7 @@ public abstract class RpgScene {
     /** 「次へ」のメッセージを表示しない */
     public boolean getSkipNextMessage() { return skipNextMessage; }
     /** シーンの初期化処理 */
-    public abstract void initScene();
+    public abstract void initScene() throws RpgException;
     /** シーンの実装 */
     public abstract boolean playScene() throws Exception;
 }
