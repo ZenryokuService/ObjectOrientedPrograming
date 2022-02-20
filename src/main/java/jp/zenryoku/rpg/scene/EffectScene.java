@@ -1,9 +1,17 @@
 package jp.zenryoku.rpg.scene;
 
 import jp.zenryoku.rpg.charactors.PlayerParty;
+import jp.zenryoku.rpg.constants.MessageConst;
+import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgConfig;
+import jp.zenryoku.rpg.data.RpgData;
+import jp.zenryoku.rpg.data.RpgMaster;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.util.CheckerUtils;
+import jp.zenryoku.rpg.util.StringUtils;
 import lombok.Data;
+
+import java.util.Map;
 
 /**
  * アイテムの取得、ステータス変化などの何かしらの変化があるシーン。
@@ -36,14 +44,31 @@ public class EffectScene extends StoryScene {
      *
      * <effect:ITM-たんけん3>
      * -> たんけんを3つなくす
-     * @return
+     * @return false　固定値
      * @throws Exception
      */
     @Override
     public boolean playScene() throws Exception {
         super.playScene();
         PlayerParty party = RpgConfig.getInstance().getParty();
-        // TODO-[エフェクトシーンの実装内容を設計する#]
+        // TODO-[エフェクトシーンの実装内容を設計する#27]
+        System.out.println("kigo: " + kigo + " ope: " + ope + " kosu: " + kosu);
+
+        Map<String, RpgData> dataMap = RpgConfig.getInstance().getParamMap();
+        Map<String, RpgMaster> mstMap = RpgConfig.getInstance().getMasterMap();
+
+        // CONFIG_PARAMにないときはマスタカテゴリを検索
+        RpgData data = dataMap.get(kigo);
+        RpgMaster mst = mstMap.get(kigo);
+        if (mst == null && CheckerUtils.isDefaultStatusKigo(kigo)) {
+            mst = mstMap.get(RpgConst.DEFAULT_STATUS_PREFIX + kigo);
+        }
+        if (data == null && mst == null) {
+            throw new RpgException((MessageConst.ERR_NO_CONFIGS.toString() + ": " + kigo));
+        }
+        String name = data == null ? mst.getName() : data.getName();
+        System.out.println(name + ope + kosu);
+
 
         return false;
     }

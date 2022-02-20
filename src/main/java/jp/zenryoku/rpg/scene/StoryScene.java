@@ -32,11 +32,12 @@ public class StoryScene extends RpgScene {
     @Override
     public void initScene() {
         isSelectNextScene = false;
+        skipNextMessage = false;
     }
 
     @Override
     public boolean playScene() throws Exception {
-        skipNextMessage = false;
+
         if (isDebug) System.out.println("SceneIdx: " + super.sceneIndex + "  SceneType: " + super.sceneType);
 
         // シーンタイプごとに処理を分ける
@@ -49,7 +50,8 @@ public class StoryScene extends RpgScene {
                 // 選択により次のシーンを設定する
                 boolean isOK = false;
                 String selected = null;
-                selected = ConsoleUtils.getInstance().acceptInput("選択肢を選んでください。");
+                // 入力チェックを行う
+                selected = ConsoleUtils.getInstance().acceptInput("選択肢を選んでください。", "[1-" + selectCount + "]");
                 nextIndex = nextIndexes[Integer.parseInt(selected)];
                 skipNextMessage = true;
             }

@@ -10,6 +10,7 @@ import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.exception.StoryTextException;
 import jp.zenryoku.rpg.scene.*;
 import jp.zenryoku.rpg.util.CheckerUtils;
+import jp.zenryoku.rpg.util.StringUtils;
 import lombok.Data;
 import org.nd4j.shade.jackson.databind.deser.impl.CreatorCandidate;
 
@@ -165,7 +166,7 @@ public abstract class RpgLogic implements Games {
                     continue;
                 }
 
-                //// ファイル読み込み処理は、参照渡しを使用せず、値渡しで実装する ////
+                //// 参照渡しを使用せず、値渡しで実装する ////
                 // シーン開始行の判定
                 if (CheckerUtils.isStartSceneLine(line)) {
                     sceneObj = loadScene(line, rpgSceneList);
@@ -188,7 +189,8 @@ public abstract class RpgLogic implements Games {
 
                 // エフェクトシーンの設定
                 if (CheckerUtils.isStartEffectScene(line)) {
-
+                    setEffectScene(line, storyTxt, sceneObj);
+                    continue;
                 }
                 // ストーリーテキストのシーン終了部分
                 if (line.startsWith("END_SCENE ")) {
@@ -393,22 +395,29 @@ public abstract class RpgLogic implements Games {
         if ((sceneObj instanceof EffectScene) == false) {
             throw new RpgException(MessageConst.SCENE_TYPE_ERR.toString());
         }
+        // 1行目の読み込み<effect:XXX[+\\-]NUM>
         // 記号 + (プラス) or -(マイナス) なまえ 個数の指定
         String effect = line.split(":")[1];
+        effect = effect.substring(0, effect.length() - 2);
+        System.out.println("** " + effect + " ** ");
         EffectScene scene = (EffectScene) sceneObj;
         // 記号
-        String kigo = effect.substring(0,3);
+        String kigo = StringUtils.findDefaultStatus(effect);
+        if (kigo == null) {
+            throw new RpgException(MessageConst.ERR_EFFECT_SCENE_CONF.toString() + ": " + effect);
+        }
         scene.setKigo(kigo);
         // 演算子(+ or -)
-        String ope = effect.substring(3, 4);
+        String ope = StringUtils.findDefaultStatusOperator(effect);
         scene.setOpe(ope);
-        // 名前
-        String name = effect.substring(4, effect.length() - 1);
-        int res = CheckerUtils.indexOfNum(name);
-        // 個数の部分を削除してセット
-        scene.setName(name.substring(0, res));
+        int res = CheckerUtils.indexOfNum(effect);
         // 個数の部分をセット
-        scene.setKosu(Integer.parseInt(name.substring(res)));
+        scene.setKosu(Integer.parseInt(effect.substring(res)));
+
+        String gyo = null;
+        while ((gyo = txt.readLine()).equals("</effect>") == false) {
+            // TODO-[エフェクトシーンの仕様を考える]
+        }
         // 改めてsceneObjにセットする
         sceneObj = scene;
     }

@@ -91,6 +91,8 @@ public enum RpgConst {
     public static final String SEP = System.lineSeparator();
     /** マスタカテゴリのプレーヤーステータスオプション */
     public static final String PLY = "PLY";
+    /** デフォルトステータスに関しては、プレフィックスに「Z」がつく */
+    public static final String DEFAULT_STATUS_PREFIX = "Z";
     /** アイテム保持可能数(デフォルト) */
     public static final int ITEM_HOLD_NUM = 5;
     /** 武器を表示する */
@@ -133,6 +135,8 @@ public enum RpgConst {
     public static final String EXIR_COMMAND = "exit";
     /** ストーリーテキストで定義する記号判別用の正規表現 */
     public static final String REG_KIGO = "[A-Z]";
+    /** ストーリーテキストで定義するデフォルトステータス記号判別用の正規表現 */
+    public static final String REG_DEFAULT_KIGO = "[A-Z]{2}";
     /** 記号の文字数(配列の添え字番号) */
     public static final int KIGO_SIZE = 2;
     /** PARAM_CONFIGの分割サイズ */

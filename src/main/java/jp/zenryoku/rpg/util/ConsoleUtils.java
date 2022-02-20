@@ -126,7 +126,7 @@ public class ConsoleUtils {
 				continue;
 			}
 			if (input.matches(regrex) == false) {
-				System.out.println(MessageConst.ERR_OUT_OF_INPUT);
+				System.out.println(MessageConst.ERR_OUT_OF_INPUT + ": " + regrex + "(正規表現といいます)");
 				continue;
 			}
 			isOK = true;
@@ -552,10 +552,6 @@ public class ConsoleUtils {
 			System.out.println(index + ": " + value);
 		});
 		return commandMap;
-	}
-
-	private void appendIsGusuIsMultiThen(StringBuilder build, boolean isGusu, boolean isMulti) {
-
 	}
 
 	/**

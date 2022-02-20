@@ -163,7 +163,7 @@ public class CheckerUtils {
 	}
 
 	public static boolean isStartEffectScene(String line) {
-		if (line.matches("\\<effect\\:[A-Z]{3}[+\\-*/%][0-9]{1,1000}\\>")) {
+		if (line.matches("\\<effect\\:[A-Z]{2,3}[+\\-*/%][0-9]{1,1000}\\>")) {
 			return true;
 		}
 		//if (line.matches("\\<effect:ITM[+\\-*/%][0-9]{1,1000}:\\.*,\\.*\\>")) {
@@ -180,7 +180,7 @@ public class CheckerUtils {
 	 * @return true: 空文字もしくは、改行コード false: 空文字もしくは、改行コードではない
 	 */
 	public static boolean isEmpptyOrSep(String line) {
-		if (line.equals("") || line.equals(SEP)) {
+		if (line.equals("") || line.equals(SEP) || line.equals("#" + SEP)) {
 			return true;
 		}
 		return false;
@@ -198,6 +198,17 @@ public class CheckerUtils {
 		return false;
 	}
 
+	/**
+	 * 引数の記号がデフォルトステータス(HP, MP, LVなど)かどうか判定する。
+	 * @param kigo 記号
+	 * @return true: デフォルトステータス false: デフォルトステータスでない
+	 */
+	public static boolean isDefaultStatusKigo(String kigo) {
+		if (kigo != null && kigo.matches(RpgConst.REG_DEFAULT_KIGO.toString())) {
+			return true;
+		}
+		return false;
+	}
 	/**
 	 * チェックディジット付きの番号の検査をする。
 	 *
@@ -328,5 +339,28 @@ public class CheckerUtils {
 			}
 		}
 		return pos;
+	}
+
+	/**
+	 * 四則演算しの始まる位置を返却する。
+	 * @param str 検査対象文字列
+	 * @return 数字の出現する位置(0からはじまる)
+	 */
+	public static int indexOfOpe(String str) {
+		boolean isFind = false;
+		int pos = 0;
+		char[] ch = str.toCharArray();
+		Pattern pat = Pattern.compile("[+\\-*/]");
+		for (int i = 0; i < ch.length; i++) {
+			String val = String.valueOf(ch[i]);
+			Matcher mat = pat.matcher(val);
+			if (mat.matches()) {
+				pos = i;
+				isFind = true;
+				break;
+			}
+		}
+		// 見つからない場合は-1を返却
+		return isFind ? pos : -1;
 	}
 }

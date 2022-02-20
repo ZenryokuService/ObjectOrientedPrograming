@@ -66,8 +66,6 @@ public enum MessageConst {
     END_SCENE_ERR("END_SCENEの後にオプションを指定してください。"),
     /** リフレクションでのインスタンス生成エラー */
     REFRECT_INSTANCE_ERR("リフレクションでのインスタンス生成エラーです。"),
-    /** プレーヤーステータス設定エラー */
-    PLAYER_STATUS_SETTING_ERR("プレーヤーステータス設定の書式が不適切です。"),
     /** プレーヤーステータス設定エラー：コロン区切り */
     PLAYER_STATUS_SEPARATE3("プレーヤーステータスは「名前:説明:記号」のように設定してください。"),
     /** マスタカテゴリ設定エラー：コロン区切り */
@@ -84,12 +82,24 @@ public enum MessageConst {
     ERR_OUT_OF_INPUT("指定の範囲で入力してください。。"),
     /** 入力指定エラーメッセージ */
     ERR_INPUT("次の範囲で入力してください。: "),
+    /** プレーヤーステータス設定エラー */
+    PLAYER_STATUS_SETTING_ERR("プレーヤーステータス設定の書式が不適切です。"),
+    /** デフォルトステータス指定が不適切です。 */
+    ERR_DEFAULT_STATUS_KIGO("デフォルトステータス指定が不適切です。"),
     /** ダイスコード生成時のエラーメッセージ */
     ERR_DICE_CODE("ダイスコードが不適切です"),
     /** ダイスコード生成時のエラーメッセージ */
     ERR_PRINT_LINE("表示する行数の指定が不適切です"),
+    /** <effect:XXX></effect>の設定が不適切です。 */
+    ERR_EFFECT_SCENE_CONF("<effect:XXX></effect>の設定が不適切です"),
+    /** CONFIG_PARAM, CONFIG_MASTERの設定にない項目です。 */
+    ERR_NO_CONFIGS("CONFIG_PARAM, CONFIG_MASTERの設定にない項目です。"),
     /** CONFIG_PARAMの設定が不適切です。 */
     ERR_CONFIG_PARAM("CONFIG_PARAMの設定が不適切です。"),
+    /** かっこの数が不適切です。 */
+    ERR_KAKO_NOT_SAME("かっこの数が不適切です。"),
+    /** 計算式のかっこの数が不適切です。 */
+    ERR_FORMLA_KAKKO("計算式のかっこの数が不適切です。"),
     /** データマップを未生成によるエラー */
     ERR_ITEMTYPEMAP_SIZE0("アイテム設定を生成(ParamGenerator#createItemTypeMap())してから実行してください。"),
     /** ファイルの読み込みに失敗 */
@@ -108,10 +118,6 @@ public enum MessageConst {
     ERR_CALCOBJ("計算オブジェクトのパラメータ設定エラー"),
     /** 計算オブジェクトの演算子がありません。 */
     ERR_OPE4_EMPTY("計算オブジェクトの演算子がありません。"),
-    /** かっこの数が不適切です。 */
-    ERR_KAKO_NOT_SAME("かっこの数が不適切です。"),
-    /** 計算式のかっこの数が不適切です。 */
-    ERR_FORMLA_KAKKO("計算式のかっこの数が不適切です。"),
     ;
 
     /** メッセージ */
