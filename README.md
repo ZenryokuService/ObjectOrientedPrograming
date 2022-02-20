@@ -1,13 +1,13 @@
 ## Folder list
 
-| Category | pakage name |
-| -------- | ----------- |
-| Root Directory | jp.zenryoku |
-| for Main classes | jp.zenryoku.main |
-| for Practice sources | jp.zenryoku.practice |
-| for Procon server | jp.zenryoku.procon |
-| for Text RPG | jp.zenryoku.rpg |
-| for Janken game | jp.zenryoku.tutorial |
+|　on The work | Category | pakage name |
+| ------------ | -------- | ----------- |
+| - | Root Directory | jp.zenryoku |
+| - | for Main classes | jp.zenryoku.main |
+| - | for Practice sources | jp.zenryoku.practice |
+| - | for Procon server | jp.zenryoku.procon |
+| ☆ | <b>for Text RPG</b> | jp.zenryoku.rpg |
+| - | for Janken game | jp.zenryoku.tutorial |
 
 # About Text RPG
 1. Target sources is **src/main/java/jp.zenryoku.rpg**
@@ -39,9 +39,9 @@ END_SCENE
 you find a ice.
 END_SCENE
 
-## Diagrams
+## UML Diagrams
 **/src/main/resources/TextRpgClasses.mdj (StarUML)**
-[PDF is here](./resources/TextRpgDiagram.pdf)
+[HTML is here](https://zenryokuservice.github.io/ObjectOrientedPrograming/html-docs/index.html)
 
 ## 学習スタイル(学習ステップ・フロー)
 1. 実際に使用するケースを見る -> サンプルアプリより一部抜粋　```ハローワールドの実用例を見る ```
