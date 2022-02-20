@@ -33,16 +33,16 @@ public class EffectScene extends StoryScene {
 
     /**
      * ストーリーテキスト内の次のような定義を読み込み、フィールドに対象になる「項目」「増減」「名前」「個数」を指定する。
-     * <effect:MNY+100>
+     * \<effect:MNY+100\>
      * -> 金額を１００追加する
      *
-     * <effect:POI+1>
+     * \<effect:POI+1\>
      * -> 毒を1人が受ける
      *
-     * <effect:ITM+やくそう1>
+     * \<effect:ITM+やくそう1\>
      * -> 薬草を一つ取得
      *
-     * <effect:ITM-たんけん3>
+     * \<effect:ITM-たんけん3\>
      * -> たんけんを3つなくす
      * @return false　固定値
      * @throws Exception

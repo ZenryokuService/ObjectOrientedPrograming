@@ -12,7 +12,7 @@ public class Armor extends Items {
 
 	/**
 	 * コンストラクタ。
-	 * @param name
+	 * @param name 防具名
 	 */
 	public Armor(String name) {
 		super(name);
@@ -25,8 +25,8 @@ public class Armor extends Items {
 	 * money: 金額
 	 * sideEffectValue: 副作用
 	 *
-	 * @param item
-	 * @throws RpgException
+	 * @param item 装備アイテムオブジェクト
+	 * @throws RpgException 想定外のエラー
 	 */
 	public Armor(RpgItem item) throws RpgException {
 		super(item.getName());

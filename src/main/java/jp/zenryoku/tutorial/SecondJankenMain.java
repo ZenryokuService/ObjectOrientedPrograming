@@ -22,7 +22,7 @@ public class SecondJankenMain extends JankenUtils {
 	/**
 	 * メインメソッドの実装をオブジェクト指向プログラミングっぽく
 	 * クラスの継承を使用して実装しなおしてみる。
-	 * @param args
+	 * @param args プログラム引数
 	 */
 	public static void main(String[] args) {
 		// 0.じゃんけんゲーム起動
@@ -80,6 +80,7 @@ public class SecondJankenMain extends JankenUtils {
 
 	/**
 	 * 「じゃんけん」、「あいこを表示する」
+	 * @param isJanken true:「じゃんけん」false:  「あいこ」
 	 */
 	private void printJankenAiko(boolean isJanken) {
 		// 追加実装: で修正した部分だが、設計時には判定フラグを引数に持っていた。
@@ -105,6 +106,7 @@ public class SecondJankenMain extends JankenUtils {
 
 	/**
 	 * 4.「ポン！」or「しょ！」を表示
+	 * @param isJanken true:「ポン！」 false:「しょ！」
 	 */
 	private void printPonOrSho(boolean isJanken) {
 		if (isJanken) {

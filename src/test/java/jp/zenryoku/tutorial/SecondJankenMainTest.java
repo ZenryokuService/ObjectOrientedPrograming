@@ -54,7 +54,8 @@ public class SecondJankenMainTest {
 	 *
 	 * @param clazz テスト対象クラス
 	 * @param methodName テストするメソッド名
-	 * @args 起動するメソッドの引数
+	 * @param paramType 起動するメソッドの引数
+	 * @return メソッド
 	 */
 	private Method getPrivateMethod(Class clazz, String methodName, Class<?> ... paramType) {
 		// テスト対象クラスを返却する

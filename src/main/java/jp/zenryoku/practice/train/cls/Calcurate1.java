@@ -20,8 +20,10 @@ public class Calcurate1 {
 	 * 足し算を行うメソッド
 	 * @param left 左側の値
 	 * @param right 右側の値
+	 * @param isNumber 数字かどうかのフラグ
 	 * @return 足し算の結果
 	 */
+	@Deprecated
 	public int addNumber(int left, int right, boolean isNumber) {
 		int answer = 0;
 		if (isNumber) {

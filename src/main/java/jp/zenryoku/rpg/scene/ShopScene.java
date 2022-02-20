@@ -22,7 +22,11 @@ public class ShopScene extends StoryScene {
     private ItemShop shop;
 
 
-    /** コンストラクタ */
+    /**
+     * コンストラクタ
+     * @param sceneIdx　シーンインデックス
+     * @param sceneType シーンタイプ
+     */
     public ShopScene(String sceneIdx, String sceneType) {
         super(sceneIdx, sceneType);
     }
@@ -66,7 +70,11 @@ public class ShopScene extends StoryScene {
         return false;
     }
 
-    /** 金感情を行う */
+    /**
+     * 金感情を行う。
+     * @param party プr－やーのパーティクラス
+     * @param item アイテムオブジェクト
+     */
     private void cash(PlayerParty party, RpgItem item) {
         int shojikin = party.getMoney();
         int ryokin = item.getMoney();

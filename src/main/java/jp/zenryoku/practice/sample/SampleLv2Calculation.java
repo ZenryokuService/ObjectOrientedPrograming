@@ -7,7 +7,10 @@ package jp.zenryoku.practice.sample;
  * 2020/11/14
  */
 public class SampleLv2Calculation {
-	/** メインメソッド */
+	/**
+	 * メインメソッド
+	 * @param args プログラム引数
+	 */
 	public static void main(String[] args) {
 		// メインメソッドの中では、newする必要がある
 		SampleLv2Calculation main = new SampleLv2Calculation();
@@ -63,6 +66,7 @@ public class SampleLv2Calculation {
 	 * 
 	 * @param left 左の数
 	 * @param right 右の数
+	 * @param str 表示する文言
 	 */
 	public void printTashizan(int left, int right, String str) {
 		// 足し算の結果を代入
@@ -90,6 +94,7 @@ public class SampleLv2Calculation {
 	 * 
 	 * @param left 左の数
 	 * @param right 右の数
+	 * @param str 表示する文言
 	 */
 	public void printHikizan(int left, int right, String str) {
 		// 足し算の結果を代入
@@ -117,6 +122,7 @@ public class SampleLv2Calculation {
 	 * 
 	 * @param left 左の数
 	 * @param right 右の数
+	 * @param str 表示する文言
 	 */
 	public void printKakezan(int left, int right, String str) {
 		// 足し算の結果を代入
@@ -144,6 +150,7 @@ public class SampleLv2Calculation {
 	 * 
 	 * @param left 左の数
 	 * @param right 右の数
+	 * @pram str 表示する文言
 	 */
 	public void printWarizan(int left, int right, String str) {
 		// 足し算の結果を代入
@@ -171,6 +178,7 @@ public class SampleLv2Calculation {
 	 * 
 	 * @param left 左の数
 	 * @param right 右の数
+	 * @param str 表示する文言
 	 */
 	public void printJoyozan(int left, int right, String str) {
 		// 足し算の結果を代入

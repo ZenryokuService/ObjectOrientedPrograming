@@ -37,7 +37,7 @@ public class MarubatsuConsole {
 
     /**
      * 〇×あてゲームを続けるかを表示、Yes or Noを取得する
-     * @param scan
+     * @param scan 標準入力
      * @return true: 続ける  false: やめる
      */
     public static boolean printNextPlayOrNot(Scanner scan) {

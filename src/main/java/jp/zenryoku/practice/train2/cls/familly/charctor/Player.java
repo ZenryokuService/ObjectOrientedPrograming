@@ -27,7 +27,6 @@ public class Player {
 
 	/**
 	 * コンストラクタ。
-	 * @param name
 	 */
 	public Player() {
 		this.name = "桃太郎";

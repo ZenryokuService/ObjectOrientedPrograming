@@ -90,7 +90,7 @@ public enum MessageConst {
     ERR_DICE_CODE("ダイスコードが不適切です"),
     /** ダイスコード生成時のエラーメッセージ */
     ERR_PRINT_LINE("表示する行数の指定が不適切です"),
-    /** <effect:XXX></effect>の設定が不適切です。 */
+    /** effect:XXXの設定が不適切です。 */
     ERR_EFFECT_SCENE_CONF("<effect:XXX></effect>の設定が不適切です"),
     /** CONFIG_PARAM, CONFIG_MASTERの設定にない項目です。 */
     ERR_NO_CONFIGS("CONFIG_PARAM, CONFIG_MASTERの設定にない項目です。"),

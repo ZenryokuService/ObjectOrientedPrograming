@@ -39,7 +39,7 @@ public class RpgLogicTest {
      * 1. シーンタイプが"A"になっているか
      * 2. シーンインデックスが数字になっているか
      * 3. 追加したテキストが想定内か(目視確認)
-     * @param scene
+     * @param scene　シーンオブジェクト
      */
     private void assertScene(RpgScene scene) {
         assertEquals("A", scene.sceneType);

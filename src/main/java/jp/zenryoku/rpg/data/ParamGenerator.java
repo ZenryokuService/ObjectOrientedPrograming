@@ -498,7 +498,7 @@ public class ParamGenerator {
 
     /**
      * ストーリーテキストから表示する行数を指定する
-     * <printLine: 数字>のように指定する。CONFIG_PARAMから2行目に書く必要がある。
+     * \<printLine: 数字\>のように指定する。CONFIG_PARAMから2行目に書く必要がある。
      */
     private void setPrintLine(String line) throws Exception {
         if ("".equals(line)) {

@@ -40,7 +40,7 @@ public class CreatePlayerScene extends StoryScene {
     /**
      *  プレーヤー作成用のシーン。
      *
-     * @return 処理継続のフラグ = false
+     * @return 処理継続のフラグ: false
      * @throws Exception
      */
     @Override
@@ -108,7 +108,7 @@ public class CreatePlayerScene extends StoryScene {
 
     /**
      * オプショナルステータスに追加するRpgStatusを生成する。
-     * @param d
+     * @param d 取得したPARAM_CONFIGの１行
      * @return RpgStatus
      */
     private RpgStatus createRpgStatus(RpgData d) {

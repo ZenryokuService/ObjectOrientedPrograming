@@ -27,8 +27,8 @@ public class PlayerCharactor extends Player {
 
     /**
      * ストーリーテキストの設定情報を取得して、ステータスを生成する。
-     * @param name
-     * @throws RpgException
+     * @param name 名前
+     * @throws RpgException 想定外のエラー
      */
     public PlayerCharactor(String name) throws RpgException {
         super(name);

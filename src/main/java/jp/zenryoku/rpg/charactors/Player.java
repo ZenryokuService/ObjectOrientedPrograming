@@ -15,8 +15,8 @@ import java.util.List;
 
 /**
  * プレーヤーを表現するクラス。
- * 名前の最大文字数は６文字<br/>
- * <table>
+ * 名前の最大文字数は６文字<br>
+ * <table summary="各ステータスの説明(今後の実装になる)">
  * <tr><td>共通項目</td><td>意味</td></tr>
  * <tr><td>攻撃力</td><td>現在装備している武器力 + 対象の射程攻撃力(ステータス)</td></tr>
  * <tr><td>防御力</td><td>現在装備している防具力 + 防御力(ステータス)</td></tr>
@@ -58,7 +58,7 @@ public class Player {
 	 * コンストラクタ。
 	 * デフォルト値を指定してPlayerを生成する。
 	 *
-	 * @param name
+	 * @param name プレーヤーの名前
 	 */
 	public Player(String name) {
 		this();
@@ -74,6 +74,7 @@ public class Player {
 	 *
 	 * @param name Playerの名前
 	 * @param birthDate 生年月日
+	 * @throws Exception 想定外のエラー
 	 */
 	public Player(String name, String birthDate) throws Exception {
 		this();
@@ -126,11 +127,18 @@ public class Player {
 		return getHP() <= 0;
 	}
 
-	/** 武器を装備する */
+	/**
+	 * 武器を装備する
+	 * @param wepon　武器クラス。
+	 * @throws RpgException 想定外のエラー
+	 */
 	public void setMainWepon(MainWepon wepon) throws RpgException {
 	}
 
-	/** 防具を装備する */
+	/**
+	 * 防具を装備する
+	 * @param arm 防具クラス。
+	 */
 	public void setArmor(Armor arm) {
 	}
 }

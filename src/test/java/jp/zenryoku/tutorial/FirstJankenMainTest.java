@@ -71,7 +71,8 @@ public class FirstJankenMainTest {
 	 *
 	 * @param clazz テスト対象クラス
 	 * @param methodName テストするメソッド名
-	 * @args 起動するメソッドの引数
+	 * @param paramType パラメータになるクラスオブジェクトの配列(可変長引数)
+	 * @param 取り出したメソッド
 	 */
 	private Method getPrivateMethod(Class clazz, String methodName, Class<?> ... paramType) {
 		// テスト対象クラスを返却する

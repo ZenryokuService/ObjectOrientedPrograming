@@ -21,7 +21,7 @@ public class PlayerParty {
 
     /**
      * インスタンスを取得する。
-     * @return
+     * @return 自インスタンス
      */
     public static PlayerParty getInstance() {
         if (instance == null) {

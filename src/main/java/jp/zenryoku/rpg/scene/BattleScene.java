@@ -39,9 +39,10 @@ public class BattleScene extends RpgScene {
 	private boolean isBattleFinish;
 
 
-
 	/**
 	 * コンストラクタ。
+	 * @param sceneIdex 対象のシーンインデックス
+	 * @param sceneType シーンタイプ
 	 */
 	public BattleScene(String sceneIdex, String sceneType) {
 		super(sceneIdex, sceneType);
@@ -90,6 +91,7 @@ public class BattleScene extends RpgScene {
 	/**
 	 * 入力受付処理。
 	 * ※JavaAPIを呼び出すだけなので、テスト不要。
+	 * @return 標準入力
 	 */
 	public String acceptInput() {
 		// 入力受付を返却する(一行分)
@@ -98,6 +100,7 @@ public class BattleScene extends RpgScene {
 
 	/**
 	 * データの更新処理。
+	 * @param input 入力した文字列
 	 * @return true: 次の処理 false: やり直し
 	 */
 	public boolean updateData(String input) {
@@ -132,6 +135,7 @@ public class BattleScene extends RpgScene {
 	/**
 	 * 更新したデータを表示する。
 	 * 戦闘終了時にはTRUEを返却する。
+	 * @return 戦闘が終了してればTURE, そうでなければFLASE
 	 */
 	public boolean render() {
 		// コンソールのクリア

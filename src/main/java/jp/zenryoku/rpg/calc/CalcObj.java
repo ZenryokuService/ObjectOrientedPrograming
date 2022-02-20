@@ -69,9 +69,13 @@ public class CalcObj {
     }
 
     /**
+     * 未使用
      * A + B, A - B, A * B, A / B, A % Bのように
      * 2つの数をセットされたオブジェクトの計算を行う。
+     * @return 計算結果
+     * @throws RpgException 想定外のエラー
      */
+    @Deprecated
     public int calcurate() throws RpgException {
 //        if (koList.get(0) == null || koList.get(1) == null
 //                || ope4 == null || "".equals(ope4)) {
@@ -417,6 +421,7 @@ public class CalcObj {
      * 3桁までの計算。
      * @param formula 文字列の数式:
      * @return 計算の結果
+     * @throws RpgException 想定外のエラー
      */
     public int calcurate(String formula) throws RpgException {
         int result = 0;

@@ -32,17 +32,29 @@ public class ClientSuperCls {
 		isStop = false;
 	}
 
-	/** SocketからBufferedReaderを取得する */
+	/**
+	 * SocketからBufferedReaderを取得する
+	 * @return 受け取ったデータ
+	 * @throws IOException 想定外のエラー
+	 */
 	private BufferedReader getBufferdReader() throws IOException {
 		return new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	}
 
-	/** SocketからPrintWriterを取得する */
+	/**
+	 * SocketからPrintWriterを取得する
+	 * @return　書き込みオブジェクト
+	 * @throws IOException 想定外のエラー
+	 */
 	private PrintWriter getPrintWriter() throws IOException {
 		return new PrintWriter(socket.getOutputStream());
 	}
 
-	/** SocketからObjectOutputStreamを取得する */
+	/**
+	 * SocketからObjectOutputStreamを取得する
+	 * @return　書き込みオブジェクト
+	 * @throws IOException 想定外のエラー
+	 */
 	public ObjectOutputStream getObjectOutputStream() throws IOException {
 		return new ObjectOutputStream(socket.getOutputStream());
 	}
@@ -50,7 +62,7 @@ public class ClientSuperCls {
 	/**
 	 * プロコンサーバーへ初回リクエストを送信する。
 	 *
-	 * @param サーバーを止めるフラグ ture: サーバー停止リクエスト false: サーバーにコマンドを送信
+	 * @param callStop サーバーを止めるフラグ ture: サーバー停止リクエスト false: サーバーにコマンドを送信
 	 * @throws IOException
 	 */
 	public void firstRequest(boolean callStop) throws IOException {

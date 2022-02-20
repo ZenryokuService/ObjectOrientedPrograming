@@ -24,6 +24,7 @@ public class CheckerUtilsTest {
 
 	/**
 	 * CheckerUtils#isMultiByteStrのテスト
+	 * @param value 検証する値
 	 */
 	public void testIsMultiByteStr(String value) {
 		assertTrue(CheckerUtils.isMultiByteStr("あああ"));

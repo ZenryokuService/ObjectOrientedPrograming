@@ -411,7 +411,7 @@ public class ConsoleUtils {
      * @param isGusu プレーヤー名が偶数かどうか
      * @param sobisize 装備している名前の最長バイト数
      * @param underLine 表示する一番下の「＊」の数 / 2 (奇数のときは+1)
-     * @return
+     * @return 埋め込む文字列
      */
 	private String printRightSideStatus(String name,String value, boolean isMultiByte, boolean isGusu, int sobisize, int underLine) {
 		String ret = null;
@@ -447,7 +447,14 @@ public class ConsoleUtils {
 	}
 
 
-	/** ステータス表示の右側をStringBuilderに追加 */
+	/**
+	 * ステータス表示の右側をStringBuilderに追加
+	 * @param build StringBuilder
+	 * @param name 名前
+	 * @param isMultiByte　true: 全角 false: 半角
+	 * @param sobisize　装備アイテムの最大長文字列数
+	 * @param max 外枠のサイズ
+	 */
 	private void printRightSideStatus(StringBuilder build, String name, boolean isMultiByte, int sobisize, int max) {
 		if ("".equals(name)) {
 			if (isMultiByte) {
@@ -465,7 +472,11 @@ public class ConsoleUtils {
 		}
 	}
 
-	/** 装備品の文字列のサイズを算出する */
+	/**
+	 * 装備品の文字列のサイズを算出する
+	 * @param player プレーヤークラス
+	 * @return 装備品の文字列のサイズ
+	 */
 	private int maxSobiSize(PlayerCharactor player) {
 		Items wepItem = (Items) player.getMainWepon();
 		Items armItem = (Items) player.getArmor();
@@ -482,7 +493,11 @@ public class ConsoleUtils {
 		return appendSize;
 	}
 
-	/** 装備品の名前を返却する、ただし何も装備していないときは「なし」を返す */
+	/**
+	 * 装備品の名前を返却する、ただし何も装備していないときは「なし」を返す
+	 * @param item アイテムオブジェクト
+	 * @return アイテム名もしくは「なし」
+	 */
 	private String getSobiName(Items item) {
 		String res = null;
 		if (item == null) {
@@ -500,7 +515,12 @@ public class ConsoleUtils {
 		return res;
 	}
 
-	/** 装備品の名前を返却する、ただし何も装備していないときは「なし」を返す */
+	/**
+	 * 装備品の名前を返却する、ただし何も装備していないときは「なし」を返す
+	 * @param item アイテム名
+	 * @param isMulti 全角かどうか
+	 * @return アイテム名の文字列サイズ
+	 */
 	private int getSobiNameLen(Items item, boolean isMulti) {
 		int res = 0;
 		int v = 0;
@@ -533,7 +553,7 @@ public class ConsoleUtils {
 	/**
 	 * プレーヤーの行動選択肢を一覧表示する。
 	 *
-	 * @param player
+	 * @param player プレーヤークラス
 	 * @return コマンドマップ(indexでソート済み)
 	 */
 	public Map<Integer, String> printCommandList(Player player) {
@@ -617,7 +637,7 @@ public class ConsoleUtils {
 	 * @param name 名前
 	 * @param isMultiByte マルチバイト文字かどうか
 	 * @param sobisize 右側に追加する武器・防具の最大サイズ
-	 * @return
+	 * @return 外枠の文字列長
 	 */
 	private int appendLine(StringBuilder build, String name, boolean isMultiByte, int sobisize) {
 		if (isDebug) System.out.println("name; " + name + " sobisize; " + sobisize + "Multi: " + isMultiByte);
@@ -804,9 +824,11 @@ public class ConsoleUtils {
 	/**
 	 * 設定情報を読み込んだ後の情報を表示する。
 	 * 例:
-	 * help -> 全体を表示する
-	 * help param -> パラメータのみを表示する
-	 * help status -> ステータスのみを表示する
+	 * help -\> 全体を表示する
+	 * help param -\> パラメータのみを表示する
+	 * help status -\> ステータスのみを表示する
+	 *
+	 * @param command コマンド
 	 *
 	 */
 	public void printConfig(String command) {
@@ -906,7 +928,7 @@ public class ConsoleUtils {
 
 	/**
 	 * 引数のマップ内容をすべて表示する。
-	 * @param map
+	 * @param map　パラメータマップ
 	 */
 	private void printMap(Map<String, ? extends RpgData> map) {
 		map.forEach((key, val) -> {

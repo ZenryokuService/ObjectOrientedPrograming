@@ -37,6 +37,8 @@ public class ProConServer implements Runnable {
 	/**
 	 * コンストラクタ。
 	 * サーバーをポート番号
+	 * @param socket ソケット
+	 * @throws Exception 想定外のエラー
 	 */
 	public ProConServer(Socket socket) throws Exception {
 		isStop = false;
@@ -47,6 +49,10 @@ public class ProConServer implements Runnable {
 	/**
 	 * コンストラクタ。
 	 * サーバーをポート番号
+	 *
+	 * @param socket ソケット
+	 * @param logic ロジッククラス
+	 * @throws Exception 想定外のエラー
 	 */
 	public ProConServer(Socket socket, ProConRPGLogic logic) throws Exception {
 		isStop = false;
@@ -54,23 +60,39 @@ public class ProConServer implements Runnable {
 		this.logic = logic;
 	}
 
-	/** SocketからBufferedReaderを取得する */
+	/**
+	 * SocketからBufferedReaderを取得する
+	 * @return 読み込んだファイル
+		 * @throws IOException　想定外のエラー
+	 */
 	protected BufferedReader getBufferdReader() throws IOException {
 		return new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	}
 
-	/** SocketからPrintWriterを取得する */
+	/**
+	 * SocketからPrintWriterを取得する
+	 * @return 書き込みオブジェクト
+	 * @throws IOException　想定外のエラー
+	 */
 	protected PrintWriter getPrintWriter() throws IOException {
 		return new PrintWriter(socket.getOutputStream());
 	}
 
-	/** SocketからObjectOutputStreamを取得する */
+	/**
+	 * SocketからObjectOutputStreamを取得する
+	 * @return 書き込みオブジェクト
+	 * @throws IOException　想定外のエラー
+	 */
 	protected ObjectOutputStream getObjectOutputStream() throws IOException {
 		return new ObjectOutputStream(socket.getOutputStream());
 	}
 
 	/**
 	 * 初回リクエスト送受信、クラスオブジェクトを受ける。
+	 *
+	 * @throws IOException　ファイル入出力エラー
+	 * @throws ClassNotFoundException　クラスが見つからないエラー
+	 * @throws Exception 想定外のエラー
 	 */
 	private void firstRequest() throws IOException, ClassNotFoundException, Exception {
 		// クライアントからのデータを送信

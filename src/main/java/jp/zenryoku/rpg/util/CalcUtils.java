@@ -41,6 +41,7 @@ public class CalcUtils {
      * 「1D6」と書いてある場合は、６面ダイスを１回降る。
      * @param diceCode 3D6, 1D10のようなコード
      * @return 各ダイスの合計値
+     * @throws RpgException 想定外のエラー
      */
     public int throwDice(String diceCode) throws RpgException {
         if (CheckerUtils.isCommandInput(diceCode, "[0-9]D[0-9]{1,2}") == false) {
@@ -71,7 +72,7 @@ public class CalcUtils {
      * @param dice 何面ダイスかを示す
      * @param message 表示メッセージ
      * @return 取得した値
-     * @throws RpgException
+     * @throws RpgException 想定外のエラー
      */
     public int throwDice(int diceTime, int dice, String message, String komoku) throws RpgException {
         int result = 0;
@@ -95,9 +96,9 @@ public class CalcUtils {
 
     /**
      * 日本語の計算式を記号の計算式に変換する。
-     * @param siki
-     * @return
-     * @throws Exception
+     * @param siki 記号のある計算式の文字列
+     * @return 変換した数字のみの数式文字列
+     * @throws Exception 想定外のエラー
      */
     public String sepTankoSiki(String siki) throws Exception {
         Map<String, RpgData> dataMap = ParamGenerator.getInstance().getAllMap();
@@ -118,6 +119,7 @@ public class CalcUtils {
      * 記号のある計算式内の、記号部分をRpgStatusで取得、リストにして返却。
      * @param siki ATK = (POW + WEV) * (1 + (0.1 * JLV))
      * @return POW, WEV, JLVのRpgStatusリスト
+     * @throws Exception  想定外のエラー
      */
     public List<RpgStatus> relatedSymbols(String siki, Map<String, RpgStatus> statusMap, Map<String, RpgStatus> optMap) throws RpgException {
         List<RpgStatus> result = new ArrayList<>();

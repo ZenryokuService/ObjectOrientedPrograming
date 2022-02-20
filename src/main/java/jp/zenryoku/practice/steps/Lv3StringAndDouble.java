@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Lv3StringAndDouble {
 	/**
-	 * 10信数を2信数に変換する処理。
-	 * @param args
+	 * 10信数を2進数に変換する処理。
+	 * @param args プログラム引数
 	 */
 	public static void main(String[] args) {
 		Lv3StringAndDouble cls = new Lv3StringAndDouble();

@@ -19,7 +19,7 @@ public class Items {
 
 	/**
 	 * コンストラクタ、名前を設定する。
-	 * @param name
+	 * @param name アイテム名
 	 */
 	public Items(String name) {
 		this.name = name;

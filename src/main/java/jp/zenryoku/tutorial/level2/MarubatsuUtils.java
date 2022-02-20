@@ -26,7 +26,7 @@ public class MarubatsuUtils {
      * すでにインスタンス化しているときは、既存のインスタンスを使用します。
      * ※シングルトン実装
      *
-     * @param bound
+     * @param bound 範囲
      * @return 生成した乱数
      * @see <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/Random.html">Random</a>
      */

@@ -35,6 +35,7 @@ public class BattleSceneTest {
 
 	/**
 	 * データを更新するテスト。
+	 * @throws RpgException 想定外のエラー
 	 */
 	@Test
 	public void testUpateData() throws RpgException {
@@ -48,6 +49,7 @@ public class BattleSceneTest {
 
 	/**
 	 * 画面更新のテスト。
+	 * @throws RpgException 想定外のエラー
 	 */
 	@Test
 	public void testRender() throws RpgException {

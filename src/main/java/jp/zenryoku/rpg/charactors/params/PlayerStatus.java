@@ -46,7 +46,11 @@ public class PlayerStatus extends Status {
 	private int def;
 
 
-	/** コンストラクタ */
+	/**
+	 * コンストラクタ。
+	 * @param status ステータスの値配列
+	 * @throws Exception 想定外のエラー
+	 */
 	public PlayerStatus(int[] status) throws Exception {
 		if (status.length != 10) {
 			throw new Exception("ステータス配列長が不適切です。" + status.length);

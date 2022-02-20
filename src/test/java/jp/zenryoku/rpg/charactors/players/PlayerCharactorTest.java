@@ -16,7 +16,10 @@ public class PlayerCharactorTest {
     /** テスト対象 */
     private static PlayerCharactor target;
 
-    /** テストに使用するプレーヤーデータ作成 */
+    /**
+     * テストに使用するプレーヤーデータ作成
+     * @return ステータスマップ
+     */
     private static Map<String, RpgStatus> createStatus() {
         Map<String, RpgStatus> statusList = new HashMap<>();
         statusList.put("POW", createData("ちから", "攻撃力、武器・防具の持てる合計重量を示す。", "POW"));

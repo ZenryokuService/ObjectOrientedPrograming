@@ -33,7 +33,7 @@ public class MenuUtils {
 
     /**
      * メニュー表示、操作(処理)を行う。
-     * @throws RpgException
+     * @throws RpgException 想定外のエラー
      */
     public void printMenu() throws RpgException {
         RpgConfig conf = RpgConfig.getInstance();
@@ -73,6 +73,7 @@ public class MenuUtils {
 
     /**
      * そうびの変更を行う。
+     * @throws RpgException 想定外のエラー
      */
     private void selectEquipMent(PlayerCharactor player, List<RpgItem> itemList) throws RpgException {
 
@@ -111,7 +112,9 @@ public class MenuUtils {
     }
 
     /**
-     * アイテムの使用
+     * 未実装
+     * @param player　プレーヤー
+     * @param itemList アイテムリスト
      */
     private void useItems(PlayerCharactor player, List<RpgItem> itemList) {
 

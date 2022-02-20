@@ -147,9 +147,9 @@ public enum RpgConst {
     /** 計算オブジェクトの保持できる項の数 */
     public static final int CALC_KO_COUNT = 2;
 
-    /** ゲームステータス(1:終了時に保存、2:クリア、3:次のシーン...)<br/>項目インデックス */
+    /** ゲームステータス(1:終了時に保存、2:クリア、3:次のシーン...)<br>項目インデックス */
     private int status;
-    /** シーンタイプ<br/>項目値 */
+    /** シーンタイプ<br>項目値 */
     private String sceneType;
 
     /**

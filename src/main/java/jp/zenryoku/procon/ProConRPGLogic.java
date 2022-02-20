@@ -122,7 +122,7 @@ public class ProConRPGLogic extends Application implements Games {
 	}
 
 	/**
-	 * @FXMLでコンポーネントが取得できなかったので、プログラムを書く
+	 * \\@FXMLでコンポーネントが取得できなかったので、プログラムを書く
 	 *
 	 * @param loader FXMLLoader
 	 */

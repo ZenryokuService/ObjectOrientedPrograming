@@ -6,6 +6,9 @@ import jp.zenryoku.rpg.data.RpgItem;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.Items;
 
+/**
+ * のちに拡張できるようにメインウエポンとしている
+ */
 public class MainWepon extends Items {
 	/** 攻撃力 */
 	private int offence;
@@ -23,6 +26,7 @@ public class MainWepon extends Items {
 	 * sideEffectValue: 副作用
 	 *
 	 * @param item RpgItem
+	 * @throws RpgException 想定外のエラー
 	 */
 	public MainWepon(RpgItem item) throws RpgException {
 		super(item.getName());

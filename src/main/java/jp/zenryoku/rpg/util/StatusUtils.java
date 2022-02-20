@@ -61,17 +61,17 @@ public class StatusUtils {
 	 * ヨガ数秘の表を作るための要素となる数を算出し配列に格納。
 	 *
 	 * ＜1999年12月4日生まれの場合＞
-	 * <table border="1">
+	 * <table border="1" summary="計算方法サンプル">
 	 * <tr><td>算出する順番</td><td>計算方法</td><td>例</td></tr>
-	 * <tr><td>No1</td><td>誕生月</td><td>12 => 1 + 2 = 3</td></tr>
-	 * <tr><td>No2</td><td>誕生日</td><td>04 => 4</td></tr>
+	 * <tr><td>No1</td><td>誕生月</td><td>12 =\> 1 + 2 = 3</td></tr>
+	 * <tr><td>No2</td><td>誕生日</td><td>04 =\> 4</td></tr>
 	 * <tr><td>No3</td><td>No1 + No2</td><td>3 + 4 = 7</td></tr>
-	 * <tr><td>No4</td><td>西暦の下2桁</td><td>99 => 9 + 9 = 18 => 1 + 8 = 9</td></tr>
-	 * <tr><td>No5</td><td>西暦の4桁</td><td>1 + 9 + 9 + 9 = 28 => 2 + 8 = 10</td></tr>
+	 * <tr><td>No4</td><td>西暦の下2桁</td><td>99 =\> 9 + 9 = 18 =\> 1 + 8 = 9</td></tr>
+	 * <tr><td>No5</td><td>西暦の4桁</td><td>1 + 9 + 9 + 9 = 28 =\> 2 + 8 = 10</td></tr>
 	 * <tr><td>No6</td><td>No4 + No5</td><td>9 + 10 = 19 = 1 + 9 = 10</td></tr>
-	 * <tr><td>No7</td><td>No2 + No4</td><td>4 + 9 = 13 => 1 + 3 = 4</td></tr>
-	 * <tr><td>No8</td><td>No1 + No5</td><td>3 + 10 => 13 => 1 + 3 = 4</td></tr>
-	 * <tr><td>No9</td><td>生年月日</td><td>1 + 9 + 9 + 9 + 9 + 1 + 2 + 4 = 44 => 8</td></tr>
+	 * <tr><td>No7</td><td>No2 + No4</td><td>4 + 9 = 13 =\> 1 + 3 = 4</td></tr>
+	 * <tr><td>No8</td><td>No1 + No5</td><td>3 + 10 =\> 13 =\> 1 + 3 = 4</td></tr>
+	 * <tr><td>No9</td><td>生年月日</td><td>1 + 9 + 9 + 9 + 9 + 1 + 2 + 4 = 44 =\> 8</td></tr>
 	 * </table>
 	 *
 	 * @param birthDate 生年月日(yyyyMMdd)
@@ -144,6 +144,7 @@ public class StatusUtils {
 	/**
 	 * 数秘術演算、２桁の数字を１桁にする
 	 * @param val 2桁の数字
+	 * @param val2 2桁の数字
 	 * @return 1桁の数、エラーは0を返す
 	 */
 	public static String convertStringToInt(String val, String val2) {
@@ -159,9 +160,9 @@ public class StatusUtils {
 
 	/**
 	 * 二桁の数字文字列を、分割し合計する。
-	 * 例；12 => 1 + 2 = 3
+	 * 例；12 =\> 1 + 2 = 3
 	 *
-	 * @param val
+	 * @param val 数字
 	 * @return 数秘的な合計値
 	 */
 	public static int checkReturnNum(String val) {
@@ -181,7 +182,7 @@ public class StatusUtils {
 	/**
 	 * PlayerStatusクラスを生成して返却する。
 	 * ※近(0マス)・中(1マス)・長(2マス)分の距離
-	 * <table border="1">
+	 * <table border="1" summary="ステータスの定義">
 	 * <tr><td>ステータス名</td><td>説明</td><td>効力範囲</td></tr>
 	 * <tr><td>No1</td><td>力</td><td>近・中・長距離の物理攻撃</td></tr>
 	 * <tr><td>No2</td><td>敏</td><td>攻撃と回避に影響する</td></tr>
@@ -197,7 +198,7 @@ public class StatusUtils {
 	 *
 	 * @param suhi ヨガ数秘の配列
 	 * @return PlayerStatus
-	 * @throws Exception
+	 * @throws Exception 想定外のエラー
 	 */
 	public static PlayerStatus createStatus(String[] suhi) throws Exception {
 		if (suhi == null || suhi.length != 9) {
@@ -211,6 +212,7 @@ public class StatusUtils {
 	 *
 	 * @param suhi チェック済みの数秘算出値を渡す
 	 * @return ステータス値
+	 * @throws Exception 想定外のエラー
 	 */
 	private static PlayerStatus createStatusValue(String[] suhi) throws Exception {
 		int[] stat = new int[10];
@@ -276,7 +278,7 @@ public class StatusUtils {
 	/**
 	 * 大アルカナに対応するステータスを生成する。
 	 * @param tarotKey セフィロトのパスを表すキー
-	 * @throws Exception
+	 * @throws Exception 想定外のエラー
 	 */
 	public static PlayerStatus selectTarot(String tarotKey) throws Exception {
 		PlayerStatus status = null;
@@ -356,6 +358,7 @@ public class StatusUtils {
 	/**
 	 * 大アルカナに対応するステータスを生成する。
 	 * @param sephirothNo セフィロトの番号(1-10)
+	 * @return プレーヤークラス
 	 * @throws Exception
 	 */
 	public static PlayerStatus selectSephira(String sephirothNo) throws Exception {

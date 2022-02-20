@@ -13,8 +13,15 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Command {
-	/** 表示順 */
+	/**
+	 * 表示順
+	 * @return 表示する番号
+	 */
 	public int index();
-	/** 実行選択肢 */
+
+	/**
+	 * 実行選択肢
+	 * @return コマンド名
+	 */
 	public String commandName();
 }

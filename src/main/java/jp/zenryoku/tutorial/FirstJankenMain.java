@@ -135,6 +135,7 @@ public class FirstJankenMain {
 
 	/**
 	 * 4.「ポン！」or「しょ！」を表示
+	 * @param isJanken TRUEは「ポン」でFALSEは「しょ」
 	 */
 	private void printPonOrSho(boolean isJanken) {
 		if (isJanken) {

@@ -63,7 +63,7 @@ public abstract class RpgScene {
 
     /**
      * 選択肢の数だけ要素数を持つ、次のシーンへのインデックス用配列を作成する。
-     * @param max
+     * @param max 選択肢の最大数
      */
     public void createSelectSceneArray(int max) {
         nextIndexes = new String[max];
@@ -82,7 +82,7 @@ public abstract class RpgScene {
     /**
      * このゲーム固有の例外を投げる。
      * @param message 表示するメッセージ
-     * @throws RpgException
+     * @throws RpgException 想定外のエラー
      */
     public void throwRpgException(String message) throws RpgException {
         throw new RpgException(message + "(info) SceneIdx: " + sceneIndex + "  SceneType: " + sceneType);
@@ -101,10 +101,13 @@ public abstract class RpgScene {
         }
     }
 
-    /** 「次へ」のメッセージを表示しない */
+    /**
+     * 「次へ」のメッセージを表示しない
+     * @return 自動で次のメッセージへ移動するときはTRUE
+     */
     public boolean getSkipNextMessage() { return skipNextMessage; }
-    /** シーンの初期化処理 */
+    /** シーンの初期化処理 @throws RpgException 想定外のエラー */
     public abstract void initScene() throws RpgException;
-    /** シーンの実装 */
+    /** シーンの実装 @throws Exception 想定外のエラー  */
     public abstract boolean playScene() throws Exception;
 }

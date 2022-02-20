@@ -58,8 +58,8 @@ public class CheckerUtils {
 
 	/**
 	 * コマンドの入力として適当か判定する。
-	 * @input 入力した文字
-	 * @regrex 正規表現 ※入力判定用
+	 * @param input 入力した文字
+	 * @param regrex 正規表現 ※入力判定用
 	 * @return true: 入力として適当 / false: 入力として不適当
 	 */
 	public static boolean isCommandInput(String input, String regrex) {
@@ -112,7 +112,7 @@ public class CheckerUtils {
 
 	/**
 	 * ストーリーテキストの１行が「シーンインデックス:シーンタイプ」の形になっているか判定する。
-	 * 例：「数字:大文字のアルファベット」　1:A -> シーンインデックス１ 内部の文字を表示して次のシーンへ飛ぶ
+	 * 例：「数字:大文字のアルファベット」　1:A -\> シーンインデックス１ 内部の文字を表示して次のシーンへ飛ぶ
 	 * @param line ストーリーテキストの１行
 	 * @return true: シーン定義開始行 false: シーン開始行ではない
 	 */
@@ -124,11 +124,11 @@ public class CheckerUtils {
 	}
 
 	/**
-	 * ストーリーテキストの１行が次のシーンを選択する部分の定義か判定する。<br/>
+	 * ストーリーテキストの１行が次のシーンを選択する部分の定義か判定する。<br>
 	 * 最後は「END_SCENE 次のシーンインデックス」になっていること
-	 * 例：<br/>
+	 * 例：<br>
 	 * <pre>
-	 * <1:9>
+	 * \<1:9\>
 	 * 1. 店舗に移動します。 4
 	 * 2. パーティーステータスが変化します。 5
 	 * 3. アイテムの取得などします。 6
@@ -138,7 +138,7 @@ public class CheckerUtils {
 	 * 7. ゲームオーバー 7
 	 * 8. 終了(保存) 8
 	 * </pre>
-	 * @param line
+	 * @param line ストーリーテキストの1行
 	 * @return true: シーンを選択定義開始行 false: シーンを選択定義開始行ではない
 	 */
 	public static boolean isStartSelectNextScene(String line) {
@@ -149,8 +149,8 @@ public class CheckerUtils {
 	}
 
 	/**
-	 * ストーリーテキストの１行がアイテムショップのシーンを定義しているか判定する。<br/>
-	 * 最後は「</item>」となっていること。
+	 * ストーリーテキストの１行がアイテムショップのシーンを定義しているか判定する。<br>
+	 * 最後は「\</item\>」となっていること。
 	 *
 	 * @param line ストーリーテキストの１行
 	 * @return true: アイテムショップ定義開始行 false: アイテムショップ開始行ではない
@@ -316,7 +316,11 @@ public class CheckerUtils {
 		return mat.matches();
 	}
 
-	/** スペースかどうか判定する */
+	/**
+	 * 【未使用】スペースかどうか判定する
+	 * @param st　文字列
+	 * @return true: スペースである　false: スペースでない
+	 */
 	public static boolean isSpace(char st) {
 		return st == ' ';
 	}

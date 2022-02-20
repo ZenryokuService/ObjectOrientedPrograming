@@ -10,19 +10,21 @@ public class NonPlayer extends Player {
 
 	/**
 	 * コンストラクタ。
-	 * @param name
+	 * @param name 名前
 	 */
 	public NonPlayer(String name) {
 		super(name);
 	}
 
 	/**
-	 * @return message
+	 * メッセージを取得する。
+	 * @return message メッセージ
 	 */
 	public String getMessage() {
 		return message;
 	}
 	/**
+	 * メッセージをセット
 	 * @param message セットする message
 	 */
 	public void setMessage(String message) {

@@ -1,4 +1,4 @@
-package steps.java.step1;
+package jp.zenryoku.step1;
 
 /**
  * 初めのプログラム「Hello World」の実装。
@@ -6,7 +6,10 @@ package steps.java.step1;
  *
  */
 public class FirstProgram {
-	/** メインメソッド */
+	/**
+	 * メインメソッド
+	 * @param args プログラム引数
+	 */
 	public static void main(String[] args) {
 		System.out.println("Hello World!");
 	}

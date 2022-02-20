@@ -89,18 +89,18 @@ public abstract class RpgLogic implements Games {
 
     /**
      * ストーリーテキストを読み込み、シーンオブジェクトを生成する、ファクトリーメソッド。
-     * <b>キーメソッド</b><br/>
+     * <b>キーメソッド</b><br>
      * <ul>
-     *     <ol>ストーリーテキストの上部にのみコメントを記述できる。またコメントはthis.commentListにセットされる。</ol>
-     *     <ol>改行コードのみの行はスキップする</ol>
-     *     <ol>「\<シーン番号:シーンタイプ\>」と記述した行からストーリー内容として認識する。</ol>
-     *     <ol>「END_SCENE」と記述した行でシーンの終わりを示す。「END_SCENE 1」のように次のシーンをしてすることができる。<br/>また、「END_SCENE」のみの場合はストーリーの終了を示す。</ol>
-     *     <ol>同様に、「END_SCENE オプション」O=ゲームオーバー, C=クリア、ゲームの進行状況は自動保存されます。</ol>
+     *     <li>ストーリーテキストの上部にのみコメントを記述できる。またコメントはthis.commentListにセットされる。</li>
+     *     <li>改行コードのみの行はスキップする</li>
+     *     <li>「\<シーン番号:シーンタイプ\>」と記述した行からストーリー内容として認識する。</li>
+     *     <li>「END_SCENE」と記述した行でシーンの終わりを示す。「END_SCENE 1」のように次のシーンをしてすることができる。<br>また、「END_SCENE」のみの場合はストーリーの終了を示す。</li>
+     *     <li>同様に、「END_SCENE オプション」O=ゲームオーバー, C=クリア、ゲームの進行状況は自動保存されます。</li>
      * </ul>
      * ※ resources/story/SampleRpg_story.txtにテキストの書き方を記載。
      *
      * @param storyTxt　ストーリーテキスト
-     * @return 生成したシーンオブジェクト
+     * @throws Exception 想定外のエラー
      */
     private void setStoryData(BufferedReader storyTxt) throws Exception {
         // シーンオブジェクトのリスト
@@ -220,7 +220,12 @@ public abstract class RpgLogic implements Games {
         }
     }
 
-    /** コメント行の追加 */
+    /**
+     * コメント行の追加
+     * @param storyTxt ストーリーテキスト
+     * @param commentList コメントリスト
+     * @throws IOException 想定外のエラー
+     */
     private void loadCommentLine(BufferedReader storyTxt, List<String> commentList) throws IOException {
         String line = null;
         while((line = storyTxt.readLine()).startsWith("# ")) {
@@ -236,7 +241,7 @@ public abstract class RpgLogic implements Games {
      * @param line ストーリーテキストの「シーンIndex:シーンタイプ」の行
      * @param rpgSceneList シーンリスト
      * @return シーンオジェクト
-     * @throws RpgException
+     * @throws RpgException 想定外のエラー
      */
     private RpgScene loadScene(String line, List<RpgScene> rpgSceneList) throws RpgException {
         // プレフィックス「シーンIndex:シーンタイプ」
@@ -275,6 +280,7 @@ public abstract class RpgLogic implements Games {
      * @param sceneIndex シーンインデックス
      * @param sceneType シーンタイプ
      * @return シーンオブジェクト
+     * @throws RpgException 想定外のエラー
      */
     private RpgScene createRpgScene(String sceneIndex, String sceneType) throws RpgException {
 
@@ -314,7 +320,7 @@ public abstract class RpgLogic implements Games {
      * @param line　ストーリーテキストの1行
      * @param sceneObj シーンオブジェクト
      * @return シーンオブジェクト
-     * @throws RpgException
+     * @throws RpgException 想定外のエラー
      */
     private RpgScene finishSceneSetting(String line, RpgScene sceneObj) throws RpgException {
         if (line.contains(" ") == false) {
@@ -435,7 +441,7 @@ public abstract class RpgLogic implements Games {
     /**
      * オブジェクトがNullの場合は例外を投げる。
      * @param obj 検査対象のオブジェクト
-     * @paran message エラーメッセージ
+     * @param message エラーメッセージ
      * @throws StoryTextException
      */
     private void throwNullPoiinter(Object obj, String message) throws StoryTextException {
@@ -448,7 +454,7 @@ public abstract class RpgLogic implements Games {
      * 次のシーンインデックスをシーンリストから取得
      * 取得したシーンオブジェクトに次のシーンインデックスを設定する。
      * @param next 次のシーンインデックス
-     * @throws RpgException
+     * @throws RpgException 想定外のエラー
      */
     protected void setNextScene(String next) throws RpgException {
         RpgScene nextScene = getSceneList().get(Integer.parseInt(next));
@@ -459,7 +465,11 @@ public abstract class RpgLogic implements Games {
         // シーンを次のものに切り替える
         scene = nextScene;
     }
-    /** 「次へ」のメッセージを表示しない */
+
+    /**
+     * 「次へ」のメッセージを表示しない
+     * @return true: 非表示 false: 表示する
+     */
     public boolean getSkipNextMessage() { return skipNextMessage; }
 
     /**
@@ -474,20 +484,23 @@ public abstract class RpgLogic implements Games {
     /**
      * Gameインターフェースのメソッドだが使用しないので
      * このクラスでオーバーライドする
-     * @return
+     * @return 用途なし
+     *
      */
     @Override
     @Deprecated
     public boolean updateData(String input) { return false; }
 
     /**
-     *  各シーンを実行する<br/>。
-     *  各シーンの実行後、実行中にRpgConstのステータスを設定する必要がある。<br/>
-     *  <b>例:</b><br/>
+     *  各シーンを実行する<br>。
+     *  各シーンの実行後、実行中にRpgConstのステータスを設定する必要がある。<br>
+     *  <b>例:</b><br>
      *  this.status = RpgConst.SAVE; // 保存して終了する
      *      *  this.status = RpgConst.CLEAR; // ゲームクリアして終了する
      *  this.status = RpgConst.NEXT; // 自動的に次のシーンへ移動する
+     * @return true: ゲームを終了する false: ゲームを続ける
+     * @throws Exception 想定外のエラー
      */
-        public abstract boolean executeScene() throws Exception;
+    public abstract boolean executeScene() throws Exception;
 
 }

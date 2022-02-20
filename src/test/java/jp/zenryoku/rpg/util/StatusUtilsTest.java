@@ -10,7 +10,7 @@ public class StatusUtilsTest {
 
 	/**
 	 * 誕生日の月を数秘の計算で番号を算出する処理。
-	 * <Ex></br>
+	 * \<Ex\>\<br\>
 	 * 10/28であれば、「1 + 0 = 1」と「2 + 8 = 10」
 	 */
 	@Test
@@ -45,7 +45,7 @@ public class StatusUtilsTest {
 	/**
 	 * 生年月日から数秘文字列Arrayを取得して、PlayerStatusを生成する。
 	 *
-	 * @throws Exception
+	 * @throws Exception 想定外のエラー
 	 */
 	@Test
 	public void testCreatePlayerStatus() throws Exception {

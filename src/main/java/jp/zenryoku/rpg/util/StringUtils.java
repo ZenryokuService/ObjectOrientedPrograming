@@ -18,6 +18,7 @@ public class StringUtils {
      *
      * @param kigo ストーリーテキストで定義する記号(HP, MP, LVなど)のプレフィックス
      * @return 四則演算子を返却、見つからないときはNULLを返却
+     * @throws RpgException 想定外のエラー
      */
     public static String findDefaultStatus(String kigo) throws RpgException {
         String res = null;

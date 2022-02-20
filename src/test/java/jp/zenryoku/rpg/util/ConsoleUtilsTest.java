@@ -53,8 +53,9 @@ public class ConsoleUtilsTest {
 	/**
 	 * プライベートメソッドの取得、アクセスを許可して返却する。
 	 * @param methodName 取得するメソッド名
+	 * @param cls 引数のクラスオブジェクト(可変長)
 	 * @return 対象のメソッド
-	 * @throws RpgException
+	 * @throws RpgException 想定外のエラー
 	 */
 	private Method getTargetMethod(String methodName, Class<?>... cls) throws RpgException {
 		Method mes = null;
@@ -85,7 +86,10 @@ public class ConsoleUtilsTest {
 		console.reset();
 	}
 
-	/** プレーヤーのステータスを生成する */
+	/**
+	 * プレーヤーのステータスを生成する
+	 * @param isValue　値をセットするときにTURE
+	 */
 	private static void createPlayerStatus(boolean isValue) {
 		List<RpgStatus> statuses = new ArrayList<>();
 		RpgStatus pow = new RpgStatus();

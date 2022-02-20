@@ -12,7 +12,7 @@ public class Monster extends NonPlayer {
 	/**
 	 * コンストラクタ。
 	 * 今回は、まおうのみなので、コンストラクタプロパティ設定を行う。
-	 * @param name
+	 * @param name モンスターの名前
 	 */
 	public Monster(String name) {
 		// 名前
