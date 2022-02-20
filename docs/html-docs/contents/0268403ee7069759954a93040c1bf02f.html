@@ -37,10 +37,10 @@
         
         
           
-          <span class="label label-info"><a href='cf9c8b720f3815adeccaf3ef6e48c6c4.html'><span class='node-icon staruml-icon icon-Project'></span>Untitled</a></span>
+          <span class="label label-info"><a href='cf9c8b720f3815adeccaf3ef6e48c6c4.html'><span class='node-icon staruml-icon icon-Project'></span>TextRpgDiagram</a></span>
         
           <span>::</span>
-          <span class="label label-info"><a href='594af663de577680f35b13183109d675.html'><span class='node-icon staruml-icon icon-UMLModel'></span>Model</a></span>
+          <span class="label label-info"><a href='594af663de577680f35b13183109d675.html'><span class='node-icon staruml-icon icon-UMLModel'></span>TextRpgModel</a></span>
         
           <span>::</span>
           <span class="label label-info"><a href='0268403ee7069759954a93040c1bf02f.html'><span class='node-icon staruml-icon icon-UMLClass'></span>ShopScene</a></span>
@@ -58,7 +58,10 @@
         <h3>Description</h3>
         <div>
           
-            <span class="label label-info">none</span>
+            <p>ストーリーテキストを表示の上、以下の処理を行う。
+1. RpgLogic#setItemShopでインスタンスを生成する。
+2. &lt;item:XXXXX&gt;(3文字以上、10文字以内)で定義を開始、&lt;/item&gt;で定義を終了する。
+3. アイテムリストよりアイテム(RpgData)を取得ショップの販売リストに追加する。</p>
           
         </div>
       </section>
@@ -140,9 +143,47 @@
       <!-- Attributes -->
 
       
+      <section>
+        <h3>Attributes</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="89c949a6c7be0ed8d043042e622cd448.html">shop</a></td>
+            <td>ItemShop</td>
+            <td><p>アイテムショップを表現する。</p></td>
+          </tr>
+          
+        </table>
+      </section>
+      
 
       <!-- Operations -->
 
+      
+      <section>
+        <h3>Operations</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="c1dd6aab4aa9585fd909bed567d8b891.html">playScene()</a></td>
+            <td><p>シーンの実行をお粉う。StoryScene#playSceneの実行を行い、ストーリーテキストの表示も行う。</p></td>
+          </tr>
+          
+        </table>
+      </section>
       
 
       <!-- Receptions -->
@@ -350,6 +391,10 @@
         
         <li><a href='74a6c149203f6ba599e0bffff2a80b33.html'><span class='node-icon staruml-icon icon-UMLGeneralization'></span>(ShopScene→StoryScene)</a></li>
         
+        <li><a href='2c01695b7f787d3709eec1b3b5a2bd10.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>call ans set value (ShopScene—PlayerCharactor)</a></li>
+        
+        <li><a href='837dce2bda62f7233881cef338216cc5.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>pass data (ShopScene—RpgFormula)</a></li>
+        
     </ul>
 </section>
 
@@ -364,6 +409,10 @@
     <ul class="nav nav-list">
         
         <li><a href='74a6c149203f6ba599e0bffff2a80b33.html'><span class='node-icon staruml-icon icon-UMLGeneralization'></span>(ShopScene→StoryScene)</a></li>
+        
+        <li><a href='2c01695b7f787d3709eec1b3b5a2bd10.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>call ans set value (ShopScene—PlayerCharactor)</a></li>
+        
+        <li><a href='837dce2bda62f7233881cef338216cc5.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>pass data (ShopScene—RpgFormula)</a></li>
         
     </ul>
 </section>
