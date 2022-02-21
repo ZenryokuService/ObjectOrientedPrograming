@@ -114,6 +114,8 @@ public abstract class RpgLogic implements Games {
 
         // コメントの行リスト
         List<String> commentList = new ArrayList<>();
+        // パラメータ設定クラス
+        ParamGenerator generator = ParamGenerator.getInstance();
         // 取得した1行分のデータ
         String line = null;
         try {
@@ -137,32 +139,32 @@ public abstract class RpgLogic implements Games {
                 }
                 // カテゴリマスターの生成
                 if (line.equals("CONFIG_MASTER")) {
-                    ParamGenerator.getInstance().createMasterCategory(storyTxt);
+                    generator.createMasterCategory(storyTxt);
                     continue;
                 }
                 // 設定オブジェクトの生成
                 if (line.equals("CONFIG_PARAM")) {
-                    ParamGenerator.getInstance().createParam(storyTxt);
+                    generator.createParam(storyTxt);
                     continue;
                 }
                 if (line.equals("CONFIG_STATUS")) {
-                    ParamGenerator.getInstance().createStatus(storyTxt);
+                    generator.createStatus(storyTxt);
                     continue;
                 }
                 if (line.equals("CONFIG_ITEM")) {
-                    ParamGenerator.getInstance().createItemTypeMap(storyTxt);
+                    generator.createItemTypeMap(storyTxt);
                     continue;
                 }
                 if (line.equals("CONFIG_FORMULA")) {
-                    ParamGenerator.getInstance().createFormulaMap(storyTxt);
+                    generator.createFormulaMap(storyTxt);
                     continue;
                 }
                 if (line.equals("CONFIG_JOB")) {
-                    ParamGenerator.getInstance().createJobMap(storyTxt);
+                    generator.createJobMap(storyTxt);
                     continue;
                 }
                 if (line.equals("ITEM_LIST")) {
-                    ParamGenerator.getInstance().createItemMap(storyTxt);
+                    generator.createItemMap(storyTxt);
                     continue;
                 }
 
@@ -332,7 +334,7 @@ public abstract class RpgLogic implements Games {
     }
 
     /**
-     * 選択肢と次のシーンインデックスをシーンオブジェクトに設定する。
+     * 選択肢とその選択による、次のシーンインデックスをシーンオブジェクトに設定する。
      * @param line 選択肢行
      * @param sceneObj シーンオブジェクト
      * @return シーンオブジェクト

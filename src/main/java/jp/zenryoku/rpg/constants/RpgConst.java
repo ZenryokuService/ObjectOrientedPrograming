@@ -36,6 +36,8 @@ public enum RpgConst {
     INIT_START(0, "Z"),
     /** 初期表示画面のcontinueを選択 */
     INIT_CONTINUE(0, "Z"),
+    /** ゲームオーバー */
+    GAME_OVER(0, "E"),
 
     /////////////////////////////////
     // シーン・コントロール用の定数(1) //
@@ -50,7 +52,6 @@ public enum RpgConst {
     SENE_TYPE_GET(1, "D"),
     /** シーンタイプ(ゲーム終了) */
     SENE_TYPE_END_GAME(1, "E"),
-    GAME_OVER(1, "E"),
     /** シーンタイプ(バトルシーン) */
     SENE_TYPE_BATTLE(1, "F"),
     /** プレーヤー生成 */
