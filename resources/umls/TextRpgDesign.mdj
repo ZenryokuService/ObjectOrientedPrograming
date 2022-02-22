@@ -16899,7 +16899,7 @@
 									"font": "Arial;13;0",
 									"left": 106,
 									"top": 34,
-									"width": 262.92626953125,
+									"width": 265.408203125,
 									"height": 13,
 									"text": "RpgLogicよりストーリーテキストを読み込む",
 									"wordWrap": true
@@ -16908,7 +16908,7 @@
 							"font": "Arial;13;0",
 							"left": 96,
 							"top": 24,
-							"width": 282.92626953125,
+							"width": 285.408203125,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/Gxvp7PEJxW4="
@@ -16965,9 +16965,9 @@
 										"$ref": "AAAAAAF/GzIvD/Ef4OY="
 									},
 									"font": "Arial;13;0",
-									"left": 185.83544921875,
+									"left": 185.9052734375,
 									"top": 231.5,
-									"width": 99.6708984375,
+									"width": 99.810546875,
 									"height": 15,
 									"text": "シーンタイプがA",
 									"wordWrap": true
@@ -16976,7 +16976,7 @@
 							"font": "Arial;13;0",
 							"left": 136,
 							"top": 224,
-							"width": 199.341796875,
+							"width": 199.62109375,
 							"height": 30,
 							"nameLabel": {
 								"$ref": "AAAAAAF/GzIvEPEgPzs="
@@ -17035,7 +17035,7 @@
 									"font": "Arial;13;0",
 									"left": 466,
 									"top": 234,
-									"width": 106.20263671875,
+									"width": 110.6904296875,
 									"height": 13,
 									"text": "StorySceneを生成",
 									"wordWrap": true
@@ -17044,7 +17044,7 @@
 							"font": "Arial;13;0",
 							"left": 456,
 							"top": 224,
-							"width": 126.20263671875,
+							"width": 130.6904296875,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/GzSTGPE3zsM="
@@ -17067,9 +17067,9 @@
 										"$ref": "AAAAAAF/GzWrdvFAYqs="
 									},
 									"font": "Arial;13;0",
-									"left": 185.83544921875,
+									"left": 185.87353515625,
 									"top": 311.5,
-									"width": 99.6708984375,
+									"width": 99.7470703125,
 									"height": 15,
 									"text": "シーンタイプがB",
 									"wordWrap": true
@@ -17078,7 +17078,7 @@
 							"font": "Arial;13;0",
 							"left": 136,
 							"top": 304,
-							"width": 199.341796875,
+							"width": 199.494140625,
 							"height": 30,
 							"nameLabel": {
 								"$ref": "AAAAAAF/GzWrd/FB+FQ="
@@ -17103,7 +17103,7 @@
 									"font": "Arial;13;0",
 									"left": 466,
 									"top": 306,
-									"width": 106.2216796875,
+									"width": 108.798828125,
 									"height": 13,
 									"text": "ShopSceneを生成",
 									"wordWrap": true
@@ -17112,7 +17112,7 @@
 							"font": "Arial;13;0",
 							"left": 456,
 							"top": 296,
-							"width": 126.2216796875,
+							"width": 128.798828125,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/GzavS/FNtxc="
@@ -17171,7 +17171,7 @@
 									"font": "Arial;13;0",
 									"left": 466,
 									"top": 378,
-									"width": 108.8623046875,
+									"width": 112.65185546875,
 									"height": 13,
 									"text": "EffectSceneを生成",
 									"wordWrap": true
@@ -17180,7 +17180,7 @@
 							"font": "Arial;13;0",
 							"left": 456,
 							"top": 368,
-							"width": 128.8623046875,
+							"width": 132.65185546875,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/GzeCv/FgmaY="
@@ -17203,9 +17203,9 @@
 										"$ref": "AAAAAAF/Gze9qPFoUo8="
 									},
 									"font": "Arial;13;0",
-									"left": 194.194091796875,
+									"left": 194.365478515625,
 									"top": 455.5,
-									"width": 100.38818359375,
+									"width": 100.73095703125,
 									"height": 15,
 									"text": "シーンタイプがD",
 									"wordWrap": true
@@ -17214,7 +17214,7 @@
 							"font": "Arial;13;0",
 							"left": 144,
 							"top": 448,
-							"width": 200.7763671875,
+							"width": 201.4619140625,
 							"height": 30,
 							"nameLabel": {
 								"$ref": "AAAAAAF/Gze9qPFp2JM="
@@ -17344,7 +17344,7 @@
 									"font": "Arial;13;0",
 									"left": 385,
 									"top": 219,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -17363,7 +17363,7 @@
 								"$ref": "AAAAAAF/GzIvD/Ef4OY="
 							},
 							"lineStyle": 2,
-							"points": "334:240;456:240",
+							"points": "335:240;456:240",
 							"nameLabel": {
 								"$ref": "AAAAAAF/GznJS/GNAdw="
 							}
@@ -17390,7 +17390,7 @@
 									"font": "Arial;13;0",
 									"left": 242,
 									"top": 271,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -17436,7 +17436,7 @@
 									"font": "Arial;13;0",
 									"left": 385,
 									"top": 295,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -17482,7 +17482,7 @@
 									"font": "Arial;13;0",
 									"left": 242,
 									"top": 347,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -17528,7 +17528,7 @@
 									"font": "Arial;13;0",
 									"left": 386,
 									"top": 367,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -17574,7 +17574,7 @@
 									"font": "Arial;13;0",
 									"left": 244,
 									"top": 419,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -17620,7 +17620,7 @@
 									"font": "Arial;13;0",
 									"left": 250,
 									"top": 483,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -17666,7 +17666,7 @@
 									"font": "Arial;13;0",
 									"left": 382,
 									"top": 448,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": -4.856314294094808,
 									"distance": 69.72087205421343,
@@ -17712,7 +17712,7 @@
 									"font": "Arial;13;0",
 									"left": 249,
 									"top": 543,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -17758,7 +17758,7 @@
 									"font": "Arial;13;0",
 									"left": 327,
 									"top": 496,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": -3.3904247094354654,
 									"distance": 125.87692401707312,
@@ -17804,7 +17804,7 @@
 									"font": "Arial;13;0",
 									"left": 246,
 									"top": 611,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -17850,7 +17850,7 @@
 									"font": "Arial;13;0",
 									"left": 335,
 									"top": 559,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": -3.4748370141466545,
 									"distance": 55.02726596879042,
@@ -17983,7 +17983,7 @@
 									"font": "Arial;13;0",
 									"left": 458,
 									"top": 642,
-									"width": 138.72802734375,
+									"width": 144.091796875,
 									"height": 13,
 									"text": "CreatePlayerScene生成",
 									"wordWrap": true
@@ -17992,7 +17992,7 @@
 							"font": "Arial;13;0",
 							"left": 448,
 							"top": 632,
-							"width": 158.72802734375,
+							"width": 164.091796875,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/Gz+4AfIkYKQ="
@@ -18017,7 +18017,7 @@
 									"font": "Arial;13;0",
 									"left": 458,
 									"top": 578,
-									"width": 96.103515625,
+									"width": 100.826171875,
 									"height": 13,
 									"text": "BattleScene生成",
 									"wordWrap": true
@@ -18026,7 +18026,7 @@
 							"font": "Arial;13;0",
 							"left": 448,
 							"top": 568,
-							"width": 116.103515625,
+							"width": 120.826171875,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G0C4d/IvMqg="
@@ -18054,7 +18054,7 @@
 									"font": "Arial;13;0",
 									"left": 382,
 									"top": 631,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -18134,7 +18134,7 @@
 									"font": "Arial;13;0",
 									"left": 247,
 									"top": 679,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -23841,7 +23841,7 @@
 									"font": "Arial;13;0",
 									"left": 290,
 									"top": 66,
-									"width": 182.76806640625,
+									"width": 187.93505859375,
 									"height": 13,
 									"text": "TextRpgLogicのインスタンス化",
 									"wordWrap": true
@@ -23850,7 +23850,7 @@
 							"font": "Arial;13;0",
 							"left": 280,
 							"top": 56,
-							"width": 202.76806640625,
+							"width": 207.93505859375,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G3i9jvK0eTQ="
@@ -23875,7 +23875,7 @@
 									"font": "Arial;13;0",
 									"left": 258,
 									"top": 138,
-									"width": 247.64111328125,
+									"width": 257.53076171875,
 									"height": 13,
 									"text": "RpgLogicとして変数\"lgameLogic\"にセット",
 									"wordWrap": true
@@ -23884,7 +23884,7 @@
 							"font": "Arial;13;0",
 							"left": 248,
 							"top": 128,
-							"width": 267.64111328125,
+							"width": 277.53076171875,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G3kSaPK9FLA="
@@ -23909,7 +23909,7 @@
 									"font": "Arial;13;0",
 									"left": 218,
 									"top": 210,
-									"width": 343.1669921875,
+									"width": 355.11962890625,
 									"height": 13,
 									"text": "TextRpgGameEngineにgameLogicを渡してインスタンス化",
 									"wordWrap": true
@@ -23918,7 +23918,7 @@
 							"font": "Arial;13;0",
 							"left": 208,
 							"top": 200,
-							"width": 363.1669921875,
+							"width": 375.11962890625,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G3mXX/LG7a0="
@@ -23943,7 +23943,7 @@
 									"font": "Arial;13;0",
 									"left": 266,
 									"top": 282,
-									"width": 253.56982421875,
+									"width": 260.9775390625,
 									"height": 13,
 									"text": "TextRpgGameEngineのスレッドを開始する",
 									"wordWrap": true
@@ -23952,7 +23952,7 @@
 							"font": "Arial;13;0",
 							"left": 256,
 							"top": 272,
-							"width": 273.56982421875,
+							"width": 280.9775390625,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G3uOT/LWcwo="
@@ -24199,7 +24199,7 @@
 									"font": "Arial;13;0",
 									"left": 130,
 									"top": 58,
-									"width": 121.36083984375,
+									"width": 134.91943359375,
 									"height": 13,
 									"text": "Thread#start()の実行",
 									"wordWrap": true
@@ -24208,7 +24208,7 @@
 							"font": "Arial;13;0",
 							"left": 120,
 							"top": 48,
-							"width": 141.36083984375,
+							"width": 154.91943359375,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G4TnPvMxKts="
@@ -24223,7 +24223,7 @@
 							"font": "Arial;13;0",
 							"left": 336,
 							"top": 40,
-							"width": 256.2470703125,
+							"width": 272.2939453125,
 							"height": 40,
 							"text": "TextRpgGameEngine#run()が実行される"
 						},
@@ -24241,7 +24241,7 @@
 								"$ref": "AAAAAAF/G4V3a/M3xKY="
 							},
 							"lineStyle": 1,
-							"points": "335:61;261:63"
+							"points": "335:61;275:63"
 						},
 						{
 							"_type": "FCProcessView",
@@ -24455,9 +24455,9 @@
 										"$ref": "AAAAAAF/G7cjPfN8XQc="
 									},
 									"font": "Arial;13;0",
-									"left": 186,
+									"left": 184,
 									"top": 239,
-									"width": 25.28271484375,
+									"width": 29.42138671875,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -24535,9 +24535,9 @@
 										"$ref": "AAAAAAF/G7fOY/ORwGY="
 									},
 									"font": "Arial;13;0",
-									"left": 256,
+									"left": 253,
 									"top": 175,
-									"width": 49.14990234375,
+									"width": 54.1455078125,
 									"height": 13,
 									"alpha": -4.106844576779767,
 									"distance": 31.622776601683793,
@@ -24609,7 +24609,7 @@
 									"font": "Arial;13;0",
 									"left": 154,
 									"top": 378,
-									"width": 216.048828125,
+									"width": 231.8291015625,
 									"height": 13,
 									"text": "TextRpgLogic#executeScene()の実行",
 									"wordWrap": true
@@ -24618,7 +24618,7 @@
 							"font": "Arial;13;0",
 							"left": 144,
 							"top": 368,
-							"width": 236.048828125,
+							"width": 251.8291015625,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G8L68vOxR5o="
@@ -24878,9 +24878,9 @@
 										"$ref": "AAAAAAF/G8qQxvP3H4s="
 									},
 									"font": "Arial;13;0",
-									"left": 154.808837890625,
+									"left": 155.710205078125,
 									"top": 575.5,
-									"width": 213.61767578125,
+									"width": 215.42041015625,
 									"height": 15,
 									"text": "次のシーンインデックスが\"C\"の場合",
 									"wordWrap": true
@@ -24889,7 +24889,7 @@
 							"font": "Arial;13;0",
 							"left": 48,
 							"top": 568,
-							"width": 427.2353515625,
+							"width": 430.8408203125,
 							"height": 30,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G8qQx/P4WeQ="
@@ -24912,9 +24912,9 @@
 										"$ref": "AAAAAAF/G8sar/QBvgw="
 									},
 									"font": "Arial;13;0",
-									"left": 146.808837890625,
+									"left": 147.354736328125,
 									"top": 647.5,
-									"width": 213.61767578125,
+									"width": 214.70947265625,
 									"height": 15,
 									"text": "次のシーンインデックスが\"E\"の場合",
 									"wordWrap": true
@@ -24923,7 +24923,7 @@
 							"font": "Arial;13;0",
 							"left": 40,
 							"top": 640,
-							"width": 427.2353515625,
+							"width": 429.4189453125,
 							"height": 30,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G8sar/QC0mg="
@@ -24946,9 +24946,9 @@
 										"$ref": "AAAAAAF/G8uoB/QMt+s="
 									},
 									"font": "Arial;13;0",
-									"left": 154.808837890625,
+									"left": 155.4658203125,
 									"top": 719.5,
-									"width": 213.61767578125,
+									"width": 214.931640625,
 									"height": 15,
 									"text": "次のシーンインデックスが\"S\"の場合",
 									"wordWrap": true
@@ -24957,7 +24957,7 @@
 							"font": "Arial;13;0",
 							"left": 48,
 							"top": 712,
-							"width": 427.2353515625,
+							"width": 429.86328125,
 							"height": 30,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G8uoB/QNRGY="
@@ -25130,9 +25130,9 @@
 										"$ref": "AAAAAAF/G88n1fQ9XeI="
 									},
 									"font": "Arial;13;0",
-									"left": 511,
+									"left": 513,
 									"top": 563,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -25151,7 +25151,7 @@
 								"$ref": "AAAAAAF/G8qQxvP3H4s="
 							},
 							"lineStyle": 2,
-							"points": "474:584;568:584",
+							"points": "478:584;568:584",
 							"nameLabel": {
 								"$ref": "AAAAAAF/G88n1vRAixE="
 							}
@@ -25178,7 +25178,7 @@
 									"font": "Arial;13;0",
 									"left": 266,
 									"top": 611,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -25222,9 +25222,9 @@
 										"$ref": "AAAAAAF/G9DE4vRYn0k="
 									},
 									"font": "Arial;13;0",
-									"left": 507,
+									"left": 508,
 									"top": 635,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -25243,7 +25243,7 @@
 								"$ref": "AAAAAAF/G8sar/QBvgw="
 							},
 							"lineStyle": 2,
-							"points": "466:656;568:656",
+							"points": "468:656;568:656",
 							"nameLabel": {
 								"$ref": "AAAAAAF/G9DE4/RbJEA="
 							}
@@ -25270,7 +25270,7 @@
 									"font": "Arial;13;0",
 									"left": 262,
 									"top": 683,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -25314,9 +25314,9 @@
 										"$ref": "AAAAAAF/G9EdzvRsp6U="
 									},
 									"font": "Arial;13;0",
-									"left": 519,
+									"left": 520,
 									"top": 707,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -25335,7 +25335,7 @@
 								"$ref": "AAAAAAF/G8uoB/QMt+s="
 							},
 							"lineStyle": 2,
-							"points": "474:728;584:728",
+							"points": "477:728;584:728",
 							"nameLabel": {
 								"$ref": "AAAAAAF/G9Ed0PRvK+w="
 							}
@@ -25362,7 +25362,7 @@
 									"font": "Arial;13;0",
 									"left": 269,
 									"top": 755,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -25441,7 +25441,7 @@
 							"font": "Arial;13;0",
 							"left": 40,
 							"top": 496,
-							"width": 84.32080078125,
+							"width": 87.564453125,
 							"height": 25,
 							"text": "GameLoop"
 						},
@@ -25459,7 +25459,7 @@
 								"$ref": "AAAAAAF/G9K4LvSNWfI="
 							},
 							"lineStyle": 1,
-							"points": "73:521;8:628"
+							"points": "75:521;8:628"
 						}
 					]
 				},
@@ -25827,7 +25827,7 @@
 							"font": "Arial;13;0",
 							"left": 40,
 							"top": 8,
-							"width": 258.44970703125,
+							"width": 275.810546875,
 							"height": 40,
 							"text": "TextRpgGameLogic#executeScene()内で\nplayScene()が実行されたときに起動する"
 						},
@@ -25850,7 +25850,7 @@
 									"font": "Arial;13;0",
 									"left": 106,
 									"top": 98,
-									"width": 150.96630859375,
+									"width": 157.7646484375,
 									"height": 13,
 									"text": "playSceme()が実行される",
 									"wordWrap": true
@@ -25859,7 +25859,7 @@
 							"font": "Arial;13;0",
 							"left": 96,
 							"top": 88,
-							"width": 170.96630859375,
+							"width": 177.7646484375,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G9itJ/TVhQA="
@@ -25879,7 +25879,7 @@
 								"$ref": "AAAAAAF/G9itJvTU8eM="
 							},
 							"lineStyle": 1,
-							"points": "177:87;171:48"
+							"points": "182:87;179:48"
 						},
 						{
 							"_type": "FCProcessView",
@@ -26039,7 +26039,7 @@
 									"font": "Arial;13;0",
 									"left": 343,
 									"top": 223,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": -5.320190995135181,
 									"distance": 28.0178514522438,
@@ -26058,7 +26058,7 @@
 								"$ref": "AAAAAAF/G98p3vUwK68="
 							},
 							"lineStyle": 2,
-							"points": "345:246;376:246;376:192",
+							"points": "350:246;376:246;376:192",
 							"nameLabel": {
 								"$ref": "AAAAAAF/G932CfUUwLM="
 							}
@@ -26085,7 +26085,7 @@
 									"font": "Arial;13;0",
 									"left": 516,
 									"top": 291,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -26171,9 +26171,9 @@
 										"$ref": "AAAAAAF/G98p3vUwK68="
 									},
 									"font": "Arial;13;0",
-									"left": 104.4501953125,
+									"left": 105.7451171875,
 									"top": 239.5,
-									"width": 160.900390625,
+									"width": 163.490234375,
 									"height": 15,
 									"text": "ストーリタイプが\"A\"の場合",
 									"wordWrap": true
@@ -26182,7 +26182,7 @@
 							"font": "Arial;13;0",
 							"left": 24,
 							"top": 232,
-							"width": 321.80078125,
+							"width": 326.98046875,
 							"height": 30,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G98p3/UxbLQ="
@@ -26242,9 +26242,9 @@
 										"$ref": "AAAAAAF/G+Gs8fVJPsE="
 									},
 									"font": "Arial;13;0",
-									"left": 32,
+									"left": 31,
 									"top": 281,
-									"width": 137.94091796875,
+									"width": 139.48974609375,
 									"height": 13,
 									"alpha": -1.5948883864546457,
 									"distance": 83.02409288875127,
@@ -26377,7 +26377,7 @@
 									"font": "Arial;13;0",
 									"left": 178,
 									"top": 426,
-									"width": 92.4599609375,
+									"width": 94.18017578125,
 									"height": 13,
 									"text": "falseを返却する",
 									"wordWrap": true
@@ -26386,7 +26386,7 @@
 							"font": "Arial;13;0",
 							"left": 168,
 							"top": 416,
-							"width": 112.4599609375,
+							"width": 114.18017578125,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G+TR3/V07eE="
@@ -26413,7 +26413,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 342,
+									"left": 343,
 									"top": 441,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -26432,7 +26432,7 @@
 								"$ref": "AAAAAAF/G90JfPUBpxI="
 							},
 							"lineStyle": 2,
-							"points": "408:432;279:432",
+							"points": "408:432;281:432",
 							"nameLabel": {
 								"$ref": "AAAAAAF/G+Uxe/V+n3w="
 							}
@@ -26636,7 +26636,7 @@
 									"font": "Arial;13;0",
 									"left": 178,
 									"top": 82,
-									"width": 150.96630859375,
+									"width": 157.7646484375,
 									"height": 13,
 									"text": "playSceme()が実行される",
 									"wordWrap": true
@@ -26645,7 +26645,7 @@
 							"font": "Arial;13;0",
 							"left": 168,
 							"top": 72,
-							"width": 170.96630859375,
+							"width": 177.7646484375,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G/kB8/dLjdA="
@@ -26660,7 +26660,7 @@
 							"font": "Arial;13;0",
 							"left": 96,
 							"top": 8,
-							"width": 258.44970703125,
+							"width": 275.810546875,
 							"height": 40,
 							"text": "TextRpgGameLogic#executeScene()内で\nplayScene()が実行されたときに起動する"
 						},
@@ -26678,7 +26678,7 @@
 								"$ref": "AAAAAAF/G/kB8vdKI6g="
 							},
 							"lineStyle": 1,
-							"points": "244:71;234:48"
+							"points": "250:71;241:48"
 						},
 						{
 							"_type": "FCProcessView",
@@ -26699,7 +26699,7 @@
 									"font": "Arial;13;0",
 									"left": 170,
 									"top": 154,
-									"width": 173.3671875,
+									"width": 179.32763671875,
 									"height": 13,
 									"text": "親クラスのplayScene()を実行",
 									"wordWrap": true
@@ -26708,7 +26708,7 @@
 							"font": "Arial;13;0",
 							"left": 160,
 							"top": 144,
-							"width": 193.3671875,
+							"width": 199.32763671875,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/G/of1fdcJno="
@@ -27195,7 +27195,7 @@
 									"font": "Arial;13;0",
 									"left": 263,
 									"top": 375,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -27331,7 +27331,7 @@
 									"font": "Arial;13;0",
 									"left": 103,
 									"top": 423,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": -1.4884585820746339,
 									"distance": 206.70026608594387,
@@ -27374,7 +27374,7 @@
 									"font": "Arial;13;0",
 									"left": 162,
 									"top": 618,
-									"width": 179.91162109375,
+									"width": 184.869140625,
 									"height": 13,
 									"text": "SghopScene終了、falseを返却",
 									"wordWrap": true
@@ -27383,7 +27383,7 @@
 							"font": "Arial;13;0",
 							"left": 152,
 							"top": 608,
-							"width": 199.91162109375,
+							"width": 204.869140625,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/HAWTaPgbFV0="
@@ -27411,7 +27411,7 @@
 									"font": "Arial;13;0",
 									"left": 256,
 									"top": 579,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -27658,6 +27658,1694 @@
 						"$ref": "AAAAAAF/GfBXGIAOnw0="
 					},
 					"name": "SghopScene終了、falseを返却"
+				},
+				{
+					"_type": "FCFlowchartDiagram",
+					"_id": "AAAAAAF/ICtwxvG7RZo=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "CreatePlayerScene",
+					"documentation": "プレーヤー生成のシーン",
+					"ownedViews": [
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IC/4U/IkY4g=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IC/4UvIiWB4="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IC/4VfIlOmY=",
+									"_parent": {
+										"$ref": "AAAAAAF/IC/4U/IkY4g="
+									},
+									"font": "Arial;13;0",
+									"left": 226,
+									"top": 58,
+									"width": 143,
+									"height": 13,
+									"text": "ダイスコードの取得",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 216,
+							"top": 48,
+							"width": 163,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IC/4VfIlOmY="
+							}
+						},
+						{
+							"_type": "FCDecisionView",
+							"_id": "AAAAAAF/IDaQXvIuLD8=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IDaQW/IstGg="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IDaQXvIvfSE=",
+									"_parent": {
+										"$ref": "AAAAAAF/IDaQXvIuLD8="
+									},
+									"font": "Arial;13;0",
+									"left": 181,
+									"top": 143.5,
+									"width": 234,
+									"height": 15,
+									"text": "ダイスコードがセットされているフラグ",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 64,
+							"top": 136,
+							"width": 468,
+							"height": 30,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IDaQXvIvfSE="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IDdcSfI6uiI=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IDdcSfI4fws="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IDdcSvI73wg=",
+									"_parent": {
+										"$ref": "AAAAAAF/IDdcSfI6uiI="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IDdcSfI4fws="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 311,
+									"top": 101,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IDdcSfI6uiI="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IDaQXvIuLD8="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IC/4U/IkY4g="
+							},
+							"lineStyle": 2,
+							"points": "297:80;297:136",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IDdcSvI73wg="
+							}
+						},
+						{
+							"_type": "FCPredefinedProcessView",
+							"_id": "AAAAAAF/IDe5ZPJD77E=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IDe5ZPJBX5A="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IDe5ZPJEYFI=",
+									"_parent": {
+										"$ref": "AAAAAAF/IDe5ZPJD77E="
+									},
+									"font": "Arial;13;0",
+									"left": 639,
+									"top": 146,
+									"width": 229,
+									"height": 13,
+									"text": "ダイスコードがセットされていない例外",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 624,
+							"top": 136,
+							"width": 254,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IDe5ZPJEYFI="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IDgY4PJNntc=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IDgY4PJL7JY="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IDgY4PJOa5k=",
+									"_parent": {
+										"$ref": "AAAAAAF/IDgY4PJNntc="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IDgY4PJL7JY="
+									},
+									"font": "Arial;13;0",
+									"left": 564,
+									"top": 130,
+									"width": 27.4599609375,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IDgY4PJNntc="
+									},
+									"edgePosition": 1,
+									"text": "false"
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IDe5ZPJD77E="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IDaQXvIuLD8="
+							},
+							"lineStyle": 2,
+							"points": "531:151;624:151",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IDgY4PJOa5k="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IDhrvvJXDRM=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IDhrvvJV7D8="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IDhrv/JYVfQ=",
+									"_parent": {
+										"$ref": "AAAAAAF/IDhrvvJXDRM="
+									},
+									"font": "Arial;13;0",
+									"left": 226,
+									"top": 234,
+									"width": 134.3671875,
+									"height": 13,
+									"text": "親クラスのplayScene()",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 216,
+							"top": 224,
+							"width": 154.3671875,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IDhrv/JYVfQ="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IDjuqPJwvWo=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IDjup/JuWhA="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IDjuqPJx09w=",
+									"_parent": {
+										"$ref": "AAAAAAF/IDjuqPJwvWo="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IDjup/JuWhA="
+									},
+									"font": "Arial;13;0",
+									"left": 299,
+									"top": 187,
+									"width": 22.40087890625,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IDjuqPJwvWo="
+									},
+									"edgePosition": 1,
+									"text": "true"
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IDhrvvJXDRM="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IDaQXvIuLD8="
+							},
+							"lineStyle": 2,
+							"points": "296:165;296:224",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IDjuqPJx09w="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IDmxNfJ6VIw=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IDmxNfJ4H5k="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IDmxNfJ7B60=",
+									"_parent": {
+										"$ref": "AAAAAAF/IDmxNfJ6VIw="
+									},
+									"font": "Arial;13;0",
+									"left": 202,
+									"top": 314,
+									"width": 182,
+									"height": 13,
+									"text": "ユーザー名を入力受付てセット",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 192,
+							"top": 304,
+							"width": 202,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IDmxNfJ7B60="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IDoBfPKDGLI=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IDoBe/KBqH0="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IDoBfPKEugY=",
+									"_parent": {
+										"$ref": "AAAAAAF/IDoBfPKDGLI="
+									},
+									"font": "Arial;13;0",
+									"left": 202,
+									"top": 394,
+									"width": 182,
+									"height": 13,
+									"text": "誕生日を入力受け付けてセット",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 192,
+							"top": 384,
+							"width": 202,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IDoBfPKEugY="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IESd+/KQiOI=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IESd+/KOUgk="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IESd+/KRtAM=",
+									"_parent": {
+										"$ref": "AAAAAAF/IESd+/KQiOI="
+									},
+									"font": "Arial;13;0",
+									"left": 202,
+									"top": 466,
+									"width": 182,
+									"height": 13,
+									"text": "プレーヤークラスを院スタン化",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 192,
+							"top": 456,
+							"width": 202,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IESd+/KRtAM="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IEicuvKbkG0=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IEicuvKZyqQ="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IEicuvKc+do=",
+									"_parent": {
+										"$ref": "AAAAAAF/IEicuvKbkG0="
+									},
+									"font": "Arial;13;0",
+									"left": 210,
+									"top": 538,
+									"width": 158.18994140625,
+									"height": 13,
+									"text": "PlayerPartyクラスにセット",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 200,
+							"top": 528,
+							"width": 178.18994140625,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IEicuvKc+do="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IEqIZvKkOP4=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IEqIZfKigso="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IEqIZvKlMpA=",
+									"_parent": {
+										"$ref": "AAAAAAF/IEqIZvKkOP4="
+									},
+									"font": "Arial;13;0",
+									"left": 130,
+									"top": 610,
+									"width": 325,
+									"height": 13,
+									"text": "設定オブジェクトから取得したステータスマップを取得",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 120,
+							"top": 600,
+							"width": 345,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IEqIZvKlMpA="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IE5RafKupXc=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IE5RaPKs868="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IE5RafKvWO4=",
+									"_parent": {
+										"$ref": "AAAAAAF/IE5RafKupXc="
+									},
+									"font": "Arial;13;0",
+									"left": 186,
+									"top": 682,
+									"width": 234,
+									"height": 13,
+									"text": "ステータスマップの要素数分だけループ",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 176,
+							"top": 672,
+							"width": 254,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IE5RafKvWO4="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IE/ru/K4we4=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IE/ru/K2nK8="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IE/ru/K5Cf0=",
+									"_parent": {
+										"$ref": "AAAAAAF/IE/ru/K4we4="
+									},
+									"font": "Arial;13;0",
+									"left": 178,
+									"top": 746,
+									"width": 234,
+									"height": 13,
+									"text": "生成した乱数を書くステータスにセット",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 168,
+							"top": 736,
+							"width": 254,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IE/ru/K5Cf0="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFBSV/LCuqU=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFBSVfLA89M="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFBSWvLD7jo=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFBSV/LCuqU="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFBSVfLA89M="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 308,
+									"top": 645,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFBSV/LCuqU="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IE5RafKupXc="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IEqIZvKkOP4="
+							},
+							"lineStyle": 2,
+							"points": "294:632;294:672",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFBSWvLD7jo="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFBjTfLLNz0=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFBjTfLJ5iw="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFBjTfLM0A0=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFBjTfLLNz0="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFBjTfLJ5iw="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 314,
+									"top": 713,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFBjTfLLNz0="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IE/ru/K4we4="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IE5RafKupXc="
+							},
+							"lineStyle": 2,
+							"points": "300:704;300:736",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFBjTfLM0A0="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFB8ffLU3+4=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFB8ffLS6s0="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFB8ffLVY5I=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFB8ffLU3+4="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFB8ffLS6s0="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 129,
+									"top": 729,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFB8ffLU3+4="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IEqIZvKkOP4="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IE/ru/K4we4="
+							},
+							"lineStyle": 2,
+							"points": "168:736;144:736;144:632",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFB8ffLVY5I="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IFCvVvLeMgs=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFCvVfLcIK0="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IFCvVvLf8LE=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFCvVvLeMgs="
+									},
+									"font": "Arial;13;0",
+									"left": 202,
+									"top": 826,
+									"width": 182,
+									"height": 13,
+									"text": "オプショナルステータスの設定",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 192,
+							"top": 816,
+							"width": 202,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFCvVvLf8LE="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFDivvLn2Bk=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFDivfLl0x8="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFDivvLoWtc=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFDivvLn2Bk="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFDivfLl0x8="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 111,
+									"top": 725,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFDivvLn2Bk="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IFCvVvLeMgs="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IEqIZvKkOP4="
+							},
+							"lineStyle": 2,
+							"points": "120:632;96:632;96:832;192:832",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFDivvLoWtc="
+							}
+						},
+						{
+							"_type": "UMLNoteView",
+							"_id": "AAAAAAF/IFFUHfLwdbM=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"font": "Arial;13;0",
+							"left": 472,
+							"top": 744,
+							"width": 341.65478515625,
+							"height": 40,
+							"text": "CONFIG_PARAMのマスタカテゴリが「PLY」のデータ"
+						},
+						{
+							"_type": "UMLNoteLinkView",
+							"_id": "AAAAAAF/IFIpBfL2N/Q=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IFCvVvLeMgs="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IFFUHfLwdbM="
+							},
+							"lineStyle": 1,
+							"points": "535:784;378:815"
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IFLBd/L83j8=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFLBd/L6Gf0="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IFLBd/L9wXo=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFLBd/L83j8="
+									},
+									"font": "Arial;13;0",
+									"left": 258,
+									"top": 890,
+									"width": 78,
+									"height": 13,
+									"text": "計算式の設定",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 248,
+							"top": 880,
+							"width": 98,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFLBd/L9wXo="
+							}
+						},
+						{
+							"_type": "FCDecisionView",
+							"_id": "AAAAAAF/IFOHWfMWezU=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFOHWPMU040="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IFOHWfMXfx4=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFOHWfMWezU="
+									},
+									"font": "Arial;13;0",
+									"left": 181,
+									"top": 967.5,
+									"width": 234,
+									"height": 15,
+									"text": "ステータスをこれで決定してよいか確認",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 64,
+							"top": 960,
+							"width": 468,
+							"height": 30,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFOHWfMXfx4="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFO3r/Mg148=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFO3rvMefGc="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFO3r/Mh3go=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFO3r/Mg148="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFO3rvMefGc="
+									},
+									"font": "Arial;13;0",
+									"left": 10,
+									"top": 789,
+									"width": 14.4599609375,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFO3r/Mg148="
+									},
+									"edgePosition": 1,
+									"text": "no"
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IEqIZvKkOP4="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IFOHWfMWezU="
+							},
+							"lineStyle": 2,
+							"points": "64:976;32:976;32:616;120:616",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFO3r/Mh3go="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFQkh/Mtg7U=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFQkh/MrUXk="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFQkh/MuGLg=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFQkh/Mtg7U="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFQkh/MrUXk="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 307,
+									"top": 857,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFQkh/Mtg7U="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IFLBd/L83j8="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IFCvVvLeMgs="
+							},
+							"lineStyle": 2,
+							"points": "293:848;293:880",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFQkh/MuGLg="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFQyS/M2dNo=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFQyS/M0feY="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFQyS/M3nBc=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFQyS/M2dNo="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFQyS/M0feY="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 310,
+									"top": 929,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFQyS/M2dNo="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IFOHWfMWezU="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IFLBd/L83j8="
+							},
+							"lineStyle": 2,
+							"points": "296:912;296:960",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFQyS/M3nBc="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/IFRpbvM/oaQ=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFRpa/M9w5s="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/IFRpbvNAoK8=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFRpbvM/oaQ="
+									},
+									"font": "Arial;13;0",
+									"left": 258,
+									"top": 1042,
+									"width": 92.4599609375,
+									"height": 13,
+									"text": "falseを返却する",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 248,
+							"top": 1032,
+							"width": 112.4599609375,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFRpbvNAoK8="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFTY8/NIlHM=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFTY8/NG050="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFTY8/NJ1Ls=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFTY8/NIlHM="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFTY8/NG050="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 306,
+									"top": 273,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFTY8/NIlHM="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IDmxNfJ6VIw="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IDhrvvJXDRM="
+							},
+							"lineStyle": 2,
+							"points": "292:256;292:304",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFTY8/NJ1Ls="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFTmMvNRsV4=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFTmMvNPW5c="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFTmM/NSJ0s=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFTmMvNRsV4="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFTmMvNPW5c="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 306,
+									"top": 353,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFTmMvNRsV4="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IDoBfPKDGLI="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IDmxNfJ6VIw="
+							},
+							"lineStyle": 2,
+							"points": "292:336;292:384",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFTmM/NSJ0s="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFTyEvNa69I=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFTyEvNYtrg="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFTyEvNbTq8=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFTyEvNa69I="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFTyEvNYtrg="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 306,
+									"top": 429,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFTyEvNa69I="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IESd+/KQiOI="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IDoBfPKDGLI="
+							},
+							"lineStyle": 2,
+							"points": "292:416;292:456",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFTyEvNbTq8="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFT/uPNjZnc=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFT/uPNhk84="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFT/uPNksuM=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFT/uPNjZnc="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFT/uPNhk84="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 305,
+									"top": 501,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFT/uPNjZnc="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IEicuvKbkG0="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IESd+/KQiOI="
+							},
+							"lineStyle": 2,
+							"points": "291:488;291:528",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFT/uPNksuM="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFUL2fNsSQ8=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFUL2fNqEOQ="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFUL2fNt/ns=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFUL2fNsSQ8="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFUL2fNqEOQ="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 303,
+									"top": 573,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFUL2fNsSQ8="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IEqIZvKkOP4="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IEicuvKbkG0="
+							},
+							"lineStyle": 2,
+							"points": "289:560;289:600",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFUL2fNt/ns="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFUoufN1dVU=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFUoufNzQjo="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFUoufN2Ow0=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFUoufN1dVU="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFUoufNzQjo="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 308,
+									"top": 785,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFUoufN1dVU="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IFCvVvLeMgs="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IE/ru/K4we4="
+							},
+							"lineStyle": 2,
+							"points": "294:768;294:816",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFUoufN2Ow0="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/IFVF+PN+z6I=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/IFVF+PN8n7I="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/IFVF+PN/sEU=",
+									"_parent": {
+										"$ref": "AAAAAAF/IFVF+PN+z6I="
+									},
+									"model": {
+										"$ref": "AAAAAAF/IFVF+PN8n7I="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 312,
+									"top": 1003,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/IFVF+PN+z6I="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/IFRpbvM/oaQ="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IFOHWfMWezU="
+							},
+							"lineStyle": 2,
+							"points": "298:989;298:1032",
+							"nameLabel": {
+								"$ref": "AAAAAAF/IFVF+PN/sEU="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IC/4UvIiWB4=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "ダイスコードの取得",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IDdcSfI4fws=",
+							"_parent": {
+								"$ref": "AAAAAAF/IC/4UvIiWB4="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IC/4UvIiWB4="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IDaQW/IstGg="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCDecision",
+					"_id": "AAAAAAF/IDaQW/IstGg=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "ダイスコードがセットされているフラグ",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IDgY4PJL7JY=",
+							"_parent": {
+								"$ref": "AAAAAAF/IDaQW/IstGg="
+							},
+							"name": "false",
+							"source": {
+								"$ref": "AAAAAAF/IDaQW/IstGg="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IDe5ZPJBX5A="
+							}
+						},
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IDjup/JuWhA=",
+							"_parent": {
+								"$ref": "AAAAAAF/IDaQW/IstGg="
+							},
+							"name": "true",
+							"source": {
+								"$ref": "AAAAAAF/IDaQW/IstGg="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IDhrvvJV7D8="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCPredefinedProcess",
+					"_id": "AAAAAAF/IDe5ZPJBX5A=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "ダイスコードがセットされていない例外"
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IDhrvvJV7D8=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "親クラスのplayScene()",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFTY8/NG050=",
+							"_parent": {
+								"$ref": "AAAAAAF/IDhrvvJV7D8="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IDhrvvJV7D8="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IDmxNfJ4H5k="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IDmxNfJ4H5k=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "ユーザー名を入力受付てセット",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFTmMvNPW5c=",
+							"_parent": {
+								"$ref": "AAAAAAF/IDmxNfJ4H5k="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IDmxNfJ4H5k="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IDoBe/KBqH0="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IDoBe/KBqH0=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "誕生日を入力受け付けてセット",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFTyEvNYtrg=",
+							"_parent": {
+								"$ref": "AAAAAAF/IDoBe/KBqH0="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IDoBe/KBqH0="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IESd+/KOUgk="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IESd+/KOUgk=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "プレーヤークラスを院スタン化",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFT/uPNhk84=",
+							"_parent": {
+								"$ref": "AAAAAAF/IESd+/KOUgk="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IESd+/KOUgk="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IEicuvKZyqQ="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IEicuvKZyqQ=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "PlayerPartyクラスにセット",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFUL2fNqEOQ=",
+							"_parent": {
+								"$ref": "AAAAAAF/IEicuvKZyqQ="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IEicuvKZyqQ="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IEqIZfKigso="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IEqIZfKigso=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "設定オブジェクトから取得したステータスマップを取得",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFBSVfLA89M=",
+							"_parent": {
+								"$ref": "AAAAAAF/IEqIZfKigso="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IEqIZfKigso="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IE5RaPKs868="
+							}
+						},
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFDivfLl0x8=",
+							"_parent": {
+								"$ref": "AAAAAAF/IEqIZfKigso="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IEqIZfKigso="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IFCvVfLcIK0="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IE5RaPKs868=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "ステータスマップの要素数分だけループ",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFBjTfLJ5iw=",
+							"_parent": {
+								"$ref": "AAAAAAF/IE5RaPKs868="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IE5RaPKs868="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IE/ru/K2nK8="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IE/ru/K2nK8=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "生成した乱数を書くステータスにセット",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFB8ffLS6s0=",
+							"_parent": {
+								"$ref": "AAAAAAF/IE/ru/K2nK8="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IE/ru/K2nK8="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IEqIZfKigso="
+							}
+						},
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFUoufNzQjo=",
+							"_parent": {
+								"$ref": "AAAAAAF/IE/ru/K2nK8="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IE/ru/K2nK8="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IFCvVfLcIK0="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IFCvVfLcIK0=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "オプショナルステータスの設定",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFQkh/MrUXk=",
+							"_parent": {
+								"$ref": "AAAAAAF/IFCvVfLcIK0="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IFCvVfLcIK0="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IFLBd/L6Gf0="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IFLBd/L6Gf0=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "計算式の設定",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFQyS/M0feY=",
+							"_parent": {
+								"$ref": "AAAAAAF/IFLBd/L6Gf0="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IFLBd/L6Gf0="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IFOHWPMU040="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCDecision",
+					"_id": "AAAAAAF/IFOHWPMU040=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "ステータスをこれで決定してよいか確認",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFO3rvMefGc=",
+							"_parent": {
+								"$ref": "AAAAAAF/IFOHWPMU040="
+							},
+							"name": "no",
+							"source": {
+								"$ref": "AAAAAAF/IFOHWPMU040="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IEqIZfKigso="
+							}
+						},
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/IFVF+PN8n7I=",
+							"_parent": {
+								"$ref": "AAAAAAF/IFOHWPMU040="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IFOHWPMU040="
+							},
+							"target": {
+								"$ref": "AAAAAAF/IFRpa/M9w5s="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/IFRpa/M9w5s=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "falseを返却する"
 				}
 			]
 		}
