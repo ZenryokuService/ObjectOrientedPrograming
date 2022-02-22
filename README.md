@@ -40,8 +40,8 @@ you find a ice.
 END_SCENE
 
 ## UML Diagrams
-**/src/main/resources/TextRpgClasses.mdj (StarUML)**
-[HTML is here](https://zenryokuservice.github.io/ObjectOrientedPrograming/html-docs/index.html)
+**/src/main/resources/TextRpgClasses.mdj (using [StarUML](https://staruml.io/))**
+[Diagram HTML is here](https://zenryokuservice.github.io/ObjectOrientedPrograming/html-docs/index.html)
 
 ## 学習スタイル(学習ステップ・フロー)
 1. 実際に使用するケースを見る -> サンプルアプリより一部抜粋　```ハローワールドの実用例を見る ```
