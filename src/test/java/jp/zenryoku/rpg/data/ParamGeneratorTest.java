@@ -1,7 +1,8 @@
 package jp.zenryoku.rpg.data;
 
+import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.exception.RpgException;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,11 +10,9 @@ import org.junit.jupiter.api.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.nio.Buffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

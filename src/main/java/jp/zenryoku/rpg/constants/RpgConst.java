@@ -142,8 +142,16 @@ public enum RpgConst {
     public static final int KIGO_SIZE = 2;
     /** PARAM_CONFIGの分割サイズ */
     public static final int PARAM_SIZE = 6;
-    /** PARAM_CONFIGの分割サイズ */
+    /** CONFIG_MASTERの分割サイズ */
     public static final int MASTER_SIZE = 4;
+    /** PARAM_STATUSの分割サイズ */
+    public static final int STATUS_SIZE = 3;
+    /** PARAM_JOBの分割サイズ */
+    public static final int JOB_SIZE = 3;
+    /** ITEM_LISTの分割サイズ */
+    public static final int ITE_LIST_SIZE = 5;
+    /** PARAM_FORMULAの分割サイズ */
+    public static final int FORMULA_SIZE = 3;
 
     /** 計算オブジェクトの保持できる項の数 */
     public static final int CALC_KO_COUNT = 2;

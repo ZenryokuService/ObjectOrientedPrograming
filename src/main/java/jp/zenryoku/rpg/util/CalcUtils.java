@@ -4,6 +4,7 @@ import jp.zenryoku.rpg.calc.CalcObj;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.*;
+import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 
 import java.nio.CharBuffer;

@@ -7,7 +7,8 @@ import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.constants.SelectConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
-import jp.zenryoku.rpg.data.RpgItem;
+
+import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;

@@ -1,6 +1,7 @@
-package jp.zenryoku.rpg.data;
+package jp.zenryoku.rpg.data.items;
 
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.RpgData;
 import lombok.Data;
 
 @Data

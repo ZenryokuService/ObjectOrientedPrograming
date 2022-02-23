@@ -2,7 +2,7 @@ package jp.zenryoku.rpg.item.equip;
 
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
-import jp.zenryoku.rpg.data.RpgItem;
+import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.Items;
 

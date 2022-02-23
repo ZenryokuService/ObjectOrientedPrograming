@@ -1,12 +1,7 @@
 package jp.zenryoku.rpg.util;
 
-import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
-import jp.zenryoku.rpg.data.RpgConfig;
-import jp.zenryoku.rpg.data.RpgMaster;
 import jp.zenryoku.rpg.exception.RpgException;
-
-import java.util.Map;
 
 /**
  * 文字列操作のユーティリティ
@@ -30,6 +25,12 @@ public class StringUtils {
         return kigo.substring(0, idx);
     }
 
+    /**
+     * デフォルトステータスを取得する。
+     * @param kigo
+     * @return デフォルトステータス それ以外はNullを返却する。
+     * @throws RpgException 想定外のエラー
+     */
     public static String findDefaultStatusOperator(String kigo) throws RpgException {
         String res = null;
         // 四則演算しの位置を取得
@@ -40,4 +41,14 @@ public class StringUtils {
         return kigo.substring(idx, idx + 1);
     }
 
+    /**
+     * ストーリーテキストの分割を行う。「:」で区切る
+     * @param line ストーリーテキストの1行
+     * @param con 対象になる項目(PARAM_CONFIG, PARAM_STATUSなど)
+     * @return 分割した後の文字列は配列
+     */
+    public static String[] separateParam(String line, RpgConst con) {
+        String[] res = null;
+        return res;
+    }
 }

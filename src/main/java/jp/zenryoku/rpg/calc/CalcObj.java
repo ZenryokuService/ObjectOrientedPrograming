@@ -4,7 +4,7 @@ import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
-import jp.zenryoku.rpg.data.RpgStatus;
+import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.CheckerUtils;
 

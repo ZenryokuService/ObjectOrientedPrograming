@@ -38,6 +38,7 @@ import lombok.Data;
  * @author 実装者の名前
  */
 @Data
+@Deprecated
 public abstract class Status {
 	/** 1:力 */
 	public static final String POW = "1";

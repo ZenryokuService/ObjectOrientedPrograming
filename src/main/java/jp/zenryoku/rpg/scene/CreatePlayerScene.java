@@ -1,17 +1,18 @@
 package jp.zenryoku.rpg.scene;
 
-import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.constants.SelectConst;
 import jp.zenryoku.rpg.data.*;
+import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.status.RpgFormula;
+import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 

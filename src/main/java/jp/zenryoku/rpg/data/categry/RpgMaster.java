@@ -1,5 +1,6 @@
-package jp.zenryoku.rpg.data;
+package jp.zenryoku.rpg.data.categry;
 
+import jp.zenryoku.rpg.data.RpgData;
 import lombok.Data;
 
 /**

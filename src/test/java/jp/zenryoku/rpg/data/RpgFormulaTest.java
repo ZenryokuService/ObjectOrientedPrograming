@@ -1,6 +1,8 @@
 package jp.zenryoku.rpg.data;
 
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
+import jp.zenryoku.rpg.data.status.RpgFormula;
+import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

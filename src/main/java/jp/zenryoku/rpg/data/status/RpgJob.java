@@ -1,9 +1,11 @@
-package jp.zenryoku.rpg.data;
+package jp.zenryoku.rpg.data.status;
 
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.RpgData;
 
 /**
- * 職業を表す
+ * 職業を表す。
+ * ストーリーテキストから生成される
  */
 public class RpgJob extends RpgData {
     public RpgJob() {

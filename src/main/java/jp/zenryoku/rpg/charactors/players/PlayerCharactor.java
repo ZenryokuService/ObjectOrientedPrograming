@@ -5,8 +5,9 @@ import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
-import jp.zenryoku.rpg.data.RpgFormula;
-import jp.zenryoku.rpg.data.RpgStatus;
+import jp.zenryoku.rpg.data.status.RpgFormula;
+import jp.zenryoku.rpg.data.status.RpgStatus;
+import jp.zenryoku.rpg.data.status.StEffect;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
@@ -24,6 +25,8 @@ public class PlayerCharactor extends Player {
     protected Map<String, RpgStatus> statusMap;
     /** オプショナルステータスリスト */
     protected Map<String, RpgStatus> optionalMap;
+    /** ステータス異常(変化)リスト */
+    protected Map<String, StEffect> effecrMap;
 
     /**
      * ストーリーテキストの設定情報を取得して、ステータスを生成する。

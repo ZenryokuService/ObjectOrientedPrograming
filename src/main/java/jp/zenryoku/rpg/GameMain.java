@@ -9,10 +9,10 @@ public class GameMain {
 	 * @param args プログラム引数
 	 */
 	public static void main(String[] args) {
-		RpgLogic gameLogic = new TextRpgLogic();
-		TextRpgGameEngine engine  = new TextRpgGameEngine(gameLogic);
-
 		try {
+			RpgLogic gameLogic = new TextRpgLogic();
+			TextRpgGameEngine engine  = new TextRpgGameEngine(gameLogic);
+
 			engine.start();
 		} catch (Exception e) {
 			e.printStackTrace();

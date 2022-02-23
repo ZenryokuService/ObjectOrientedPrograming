@@ -2,17 +2,20 @@ package jp.zenryoku.rpg.data;
 
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.items.RpgItem;
+import jp.zenryoku.rpg.data.items.RpgItemType;
+import jp.zenryoku.rpg.data.status.RpgFormula;
+import jp.zenryoku.rpg.data.status.RpgJob;
+import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.factory.RpgDataFactory;
 import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.CheckerUtils;
-import lombok.Data;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.CharBuffer;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * ステータスなどの設定情報を管理する。シングルトン実装。
@@ -81,7 +84,7 @@ public class ParamGenerator {
     /**
      * java.util.MapにKey=名前, Value=RpgDataとして設定情報を登録する。
      * ストーリーテキストからそのほかのデータオブジェクトを生成する。
-     * @throws RpgException
+     * @throws RpgException 設定のエラー
      */
     @Deprecated
     public void createDataMap() throws RpgException {
@@ -107,7 +110,7 @@ public class ParamGenerator {
      * CONFIG_MASTERから始まる設定を読み込む。
      *
      * @param buf ストーリーテキスト
-     * @throws RpgException
+     * @throws RpgException 設定のエラー
      */
     public void createMasterCategory(BufferedReader buf) throws RpgException {
         String line = null;
@@ -116,20 +119,8 @@ public class ParamGenerator {
                 if (CheckerUtils.isComment(line)) {
                     continue;
                 }
-                RpgMaster data = new RpgMaster();
-                String[] setting = line.split(":");
-                if (setting.length != RpgConst.MASTER_SIZE) {
-                    throw new RpgException(MessageConst.MASTER_CATEGORY_SEPARATE4.toString() + SEP + line);
-                }
-                // 0:カテゴリID
-                data.setCategoryId(setting[0].trim());
-                // 1:カテゴリ名
-                data.setName(setting[1].trim());
-                // 2:用途説明
-                data.setDiscription(setting[2].trim());
-                // 3:読み方
-                data.setHowToRead(setting[3].trim());
-                data.setValue(0);
+                // RpgMasterの生成
+                RpgMaster data = RpgDataFactory.createMasterData(line);
                 // データマップに登録
                 masterMap.put(data.getCategoryId(), data);
             }
@@ -146,7 +137,7 @@ public class ParamGenerator {
     /**
      * ステータスの生成を行う。CONFIG_STATUS以下の設定を、RpgConfigに設定する。
      * @param buf ストーリーテキスト
-     * @throws RpgException
+     * @throws RpgException 設定のエラー
      */
     public void createStatus(BufferedReader buf) throws RpgException {
         String line = null;
@@ -155,17 +146,8 @@ public class ParamGenerator {
                 if (CheckerUtils.isComment(line)) {
                     continue;
                 }
-                RpgStatus data = new RpgStatus();
-                String[] setting = line.split(":");
-                if (setting.length != 3) {
-                    throw new RpgException(MessageConst.PLAYER_STATUS_SEPARATE3.toString() + SEP + line);
-                }
-                // 0:ステータス名
-                data.setName(setting[0].trim());
-                // 1:説明
-                data.setDiscription(setting[1].trim());
-                // 2:記号(ATKなど)
-                data.setKigo(setting[2].trim());
+                // ステータスデータを生成する。
+                RpgStatus data = RpgDataFactory.createRpgStatus(line);
                 // データマップに登録
                 statusMap.put(data.getKigo().trim(), data);
             }
@@ -181,7 +163,7 @@ public class ParamGenerator {
     /**
      * パラメータの生成を行う。CONFIG_PARAM以下の設定を、RpgConfigに設定する。
      * @param buf ストーリーテキスト
-     * @throws RpgException
+     * @throws RpgException 設定のエラー
      */
     public void createParam(BufferedReader buf) throws RpgException {
         String line = null;
@@ -201,7 +183,7 @@ public class ParamGenerator {
     /**
      * ジョブ(職業)リストの生成を行う。CONFIG_JOB以下の設定を、RpgConfigに設定する。
      * @param buf ストーリーテキスト
-     * @throws RpgException
+     * @throws RpgException 設定のエラー
      */
     public void createJobMap(BufferedReader buf) throws RpgException {
         String line = null;
@@ -211,19 +193,10 @@ public class ParamGenerator {
                 if (CheckerUtils.isComment(line)) {
                     continue;
                 }
-                RpgJob data = new RpgJob();
-                String[] setting = line.split(":");
-                if (setting.length != 3) {
-                    throw new RpgException(MessageConst.JOB_SEPARATE3.toString() + SEP + line);
-                }
-                // 0:ステータス名
-                data.setName(setting[0].trim());
-                // 1:説明
-                data.setDiscription(setting[1].trim());
-                // 2:記号(ATKなど)
-                data.setKigo(setting[2].trim());
+                // 職業データの生成
+                RpgJob data = RpgDataFactory.createJobData(line);
                 // 職業リストに追加
-                jobMap.put(setting[0].trim(), data);
+                jobMap.put(data.getName(), data);
             }
             config.setJobMap(jobMap);
         } catch (IOException | RpgException e) {
@@ -236,7 +209,7 @@ public class ParamGenerator {
     /**
      * 計算式リストの生成を行う。CONFIG_FORMULA以下の設定を、RpgConfigに設定する。
      * @param buf ストーリーテキスト
-     * @throws RpgException
+     * @throws RpgException 設定のエラー
      */
     public void createFormulaMap(BufferedReader buf) throws RpgException {
         String line = null;
@@ -246,24 +219,9 @@ public class ParamGenerator {
                 if (CheckerUtils.isComment(line)) {
                     continue;
                 }
-                RpgFormula data = new RpgFormula();
-                String[] setting = line.split(":");
-                if (setting.length != 3) {
-                    throw new RpgException(MessageConst.FORMULA_SEPARATE3.toString() + SEP + line + " length: " + setting.length);
-                }
-                String discription = setting[1];
-                // 0:ステータス名
-                data.setName(setting[0].trim());
-                // 1:説明
-                data.setDiscription(discription.trim());
-                // 2:記号(ATKなど)
-                data.setKigo(setting[2].trim());
-                // 3. 説明の中から式を取り出す
-                int start = discription.indexOf('=') + 1;
-                String siki = util.sepTankoSiki(discription.substring(start).trim());
-                data.setFormulaStr(siki);
+                RpgFormula data = RpgDataFactory.createRpgFormula(line);
                 // MEMO-[関連ステータスオブジェクト]
-                util.relatedSymbols(siki, statusMap, optionStatusMap);
+                util.relatedSymbols(data.getFormulaStr(), statusMap, optionStatusMap);
                 // 計算式リストに追加
                 formulaMap.put(data.getKigo().trim(), data);
             }
@@ -279,7 +237,7 @@ public class ParamGenerator {
     /**
      * アイテムの設定リストを作成する。ITEM_LIST以降の行の設定を、RpgConfigに設定する。
      * @param buf ストーリーテキスト
-     * @throws RpgException
+     * @throws RpgException 設定のエラー
      */
     public void createItemMap(BufferedReader buf) throws RpgException  {
         String line = null;
@@ -289,23 +247,10 @@ public class ParamGenerator {
                 if (CheckerUtils.isComment(line)) {
                     continue;
                 }
-                RpgItem data = new RpgItem();
-                String[] setting = line.split(":");
-                if (setting.length != 5) {
-                    throw new RpgException(MessageConst.ITEM_SEPARATE5.toString() + SEP + line + " length: " + setting.length);
-                }
-                // 0:名前
-                data.setName(setting[0].trim());
-                // 1:種類の記号
-                data.setItemType(setting[1].trim());
-                // 2:効果記号と値
-                data.setItemValueKigo(setting[2].trim());
-                // 3. 金額
-                data.setMoney(Integer.parseInt(setting[3].trim()));
-                // 4. 副作用の数値
-                data.setSideEffectValue(setting[4].trim());
+                // RpgItemを生成する。
+                RpgItem data = RpgDataFactory.createRpgItem(line);
                 // アイテムリストに追加
-                itemMap.put(setting[0].trim(), data);
+                itemMap.put(data.getName(), data);
             }
             config.setItemMap(itemMap);
         } catch (NumberFormatException e) {
@@ -320,8 +265,9 @@ public class ParamGenerator {
 
     /**
      * ストーリーテキストの「CONFIG_ITEM」の部分を読み込み、RpgConfigに設定する。
+     * 「CONFIG_ITEM」はストーリーテキストで定義していないので注意。
      * @param buf CONFIG_ITEM内の各行
-     * @throws RpgException
+     * @throws RpgException 設定のエラー
      */
     public void createItemTypeMap(BufferedReader buf) throws RpgException{
         String line = null;
@@ -387,51 +333,21 @@ public class ParamGenerator {
             if (CheckerUtils.isComment(line)) {
                 continue;
             }
-            RpgData data = createRpgDataFromConfig(line, paramMap);
+            // RpgDataを生成する。ここから子クラスを生成するものとそうでないものがある。。
+            RpgData data = RpgDataFactory.createRpgDataFromConfig(line, paramMap);
+            // オプショナルステータスの設定
+            if (RpgConst.PLY.equals(data.getMaster())) {
+                optionStatusMap.put(data.getKigo(), RpgDataFactory.createOptionalRpgStatus(data));
+            }
             paramMap.put(data.getKigo(), data);
         }
     }
 
     /**
-     * CONFIG_PARAMの1行からRGPデータを作成する。
-     * @param line ストーリーテキストの１行
-     * @return RpgData
-     */
-    private RpgData createRpgDataFromConfig(String line, Map<String, RpgData> map) throws RpgException {
-        String[] sep = line.split(":");
-
-        if (sep.length != RpgConst.PARAM_SIZE) {
-            throw new RpgException(MessageConst.ERR_CONFIG_PARAM.toString() + line);
-        }
-        // データの設定
-        RpgData data = new RpgData();
-        data.setName(sep[0].trim());
-        data.setKigo(sep[1].trim());
-        data.setMaster(sep[2].trim());
-        data.setDiscription(sep[3].trim());
-        int val = sep[5].trim().equals("-") || sep[5].trim().equals("") ? 0 : Integer.parseInt(sep[5].trim());
-        data.setValue(val);
-        // 親の設定
-        String parent = sep[4].trim();
-        data.setParent(parent);
-        if ("-".equals(parent) == false) {
-            RpgData parentData = map.get(parent);
-            if (parentData == null) {
-                throw new RpgException(MessageConst.ERR_PARAM_KIGO.toString());
-            }
-            data.setParentCls(parentData);
-        }
-        // オプショナルステータスの設定
-        if (RpgConst.PLY.equals(data.getMaster())) {
-            optionStatusMap.put(data.getKigo(), createRpgStatus(data));
-        }
-        return data;
-    }
-    /**
      * ダイスコードから、以下を取得する
      * 1. 何面ダイスか？
      * 2. 何回ふるか？
-     * @param diceCode
+     * @param diceCode ダイスコード、振るダイス(さいころ)の形を定義する。
      */
     public void setDiceCode(String diceCode) throws Exception {
         if (diceCode.matches("\\<[1-9]D[0-9]{1,2}\\>") == false) {
@@ -446,22 +362,6 @@ public class ParamGenerator {
     }
 
     /**
-     * オプショナルステータスに追加するRpgStatusを生成する。
-     * @param d
-     * @return RpgStatus
-     */
-    private RpgStatus createRpgStatus(RpgData d) {
-        RpgStatus data = new RpgStatus();
-        data.setName(d.getName());
-        data.setKigo(d.getKigo());
-        data.setDiscription(d.getDiscription());
-        // issue#23 アイテム装備時のValueがNullになる問題
-        data.setValue(d.getValue());
-
-        return data;
-    }
-
-    /**
      * 文字列の計算式から、計算するためのロジックを生成する。
      * 実行前に、createParamMap()を実行し、設定オブジェクトを生成しておく必要がある。
      * @param key 計算の結果算出される値のキー　例: ATK, DEF
@@ -469,6 +369,7 @@ public class ParamGenerator {
      *                例: 物理攻撃力 => (ちから + 武器攻撃力) * (1 + (0.1 * じゅくれんど))
      *                         ATK = (POW + WEV) + (1 + (0.1 + JLV)
      */
+    @Deprecated
     public void createFormula(String key, String formula, RpgFormula f) throws RpgException {
         List<String> formulas = new ArrayList<>();
         int first = formula.indexOf("(");
@@ -483,17 +384,6 @@ public class ParamGenerator {
         for (int i = 0; i < ch.length; i++) {
 
         }
-    }
-
-    /**
-     *
-     * @param buf
-     * @return
-     */
-    public RpgData createPlayerData(BufferedReader buf) {
-        RpgData data = null;
-
-        return data;
     }
 
     /**
@@ -516,6 +406,7 @@ public class ParamGenerator {
 
     /**
      * 各種マップのを合成して返却する
+     * @return RPGデータのマップ
      */
     public Map<String, RpgData> getAllMap() {
         Map<String, RpgData> res = new HashMap<>();
@@ -531,10 +422,20 @@ public class ParamGenerator {
         res.putAll(job);
         return res;
     }
+
+    /**
+     * RpgConfigを取得する。
+     * @return
+     */
     public RpgConfig getConfig() {
         return config;
     }
 
+    /**
+     * 未使用
+     * @param config　設定オブジェクト
+     */
+    @Deprecated
     public void setConfig(RpgConfig config) {
         this.config = config;
     }

@@ -1,7 +1,6 @@
 package jp.zenryoku.rpg.data.shop;
 
-import jp.zenryoku.rpg.data.RpgItem;
-import jp.zenryoku.rpg.data.RpgShop;
+import jp.zenryoku.rpg.data.items.RpgItem;
 import lombok.Data;
 
 import java.util.ArrayList;

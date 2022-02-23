@@ -1,6 +1,9 @@
 package jp.zenryoku.rpg.data;
 
 import jp.zenryoku.rpg.charactors.PlayerParty;
+import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.status.RpgFormula;
+import jp.zenryoku.rpg.data.status.RpgStatus;
 import lombok.Data;
 
 import java.util.Map;

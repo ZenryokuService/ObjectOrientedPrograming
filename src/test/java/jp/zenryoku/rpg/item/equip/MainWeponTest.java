@@ -1,6 +1,6 @@
 package jp.zenryoku.rpg.item.equip;
 
-import jp.zenryoku.rpg.data.RpgItem;
+import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.Test;
 

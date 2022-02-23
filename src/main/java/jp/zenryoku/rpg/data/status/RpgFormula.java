@@ -1,7 +1,9 @@
-package jp.zenryoku.rpg.data;
+package jp.zenryoku.rpg.data.status;
 
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.RpgConfig;
+import jp.zenryoku.rpg.data.RpgData;
 import lombok.Data;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;

@@ -1,6 +1,6 @@
 package jp.zenryoku.rpg.item;
 
-import jp.zenryoku.rpg.data.RpgItemType;
+import jp.zenryoku.rpg.data.items.RpgItemType;
 
 /**
  * アイテムを表現するクラス。

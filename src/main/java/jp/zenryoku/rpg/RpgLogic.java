@@ -1,10 +1,9 @@
 package jp.zenryoku.rpg;
 
-import jp.zenryoku.rpg.Games;
-import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.*;
+import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.shop.ItemShop;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.exception.StoryTextException;
@@ -12,7 +11,6 @@ import jp.zenryoku.rpg.scene.*;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.StringUtils;
 import lombok.Data;
-import org.nd4j.shade.jackson.databind.deser.impl.CreatorCandidate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +21,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * TextRpgLocigの親クラス、ストーリーテキストの読み込み、シーンオブジェクトの生成を行う。
+ * @see jp.zenryoku.rpg.TextRpgLogic
+ */
 @Data
 public abstract class RpgLogic implements Games {
     /** デバックフラグ */
@@ -84,6 +86,7 @@ public abstract class RpgLogic implements Games {
         } catch (Exception e) {
             System.out.println("ストーリーテキストが不適切です。");
             e.printStackTrace();
+            System.exit(-1);
         }
     }
 
@@ -101,6 +104,7 @@ public abstract class RpgLogic implements Games {
      *
      * @param storyTxt　ストーリーテキスト
      * @throws Exception 想定外のエラー
+     * @see jp.zenryoku.rpg.data.ParamGenerator
      */
     private void setStoryData(BufferedReader storyTxt) throws Exception {
         // シーンオブジェクトのリスト

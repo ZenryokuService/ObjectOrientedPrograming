@@ -3,6 +3,10 @@ package jp.zenryoku.rpg.data;
 import jp.zenryoku.rpg.constants.RpgConst;
 import lombok.Data;
 
+/**
+ * RpgDataは基本的に、子クラスを生成するためのデータを保持することが多い。
+ * @see jp.zenryoku.rpg.factory.RpgDataFactory
+ */
 @Data
 public class RpgData {
     /** データタイプ */

@@ -5,10 +5,9 @@ import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
-import jp.zenryoku.rpg.data.RpgMaster;
+import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.CheckerUtils;
-import jp.zenryoku.rpg.util.StringUtils;
 import lombok.Data;
 
 import java.util.Map;
@@ -33,7 +32,7 @@ public class EffectScene extends StoryScene {
 
     /**
      * ストーリーテキスト内の次のような定義を読み込み、フィールドに対象になる「項目」「増減」「名前」「個数」を指定する。
-     * \<effect:MNY+100\>
+     * \<effect:NIG+100\>
      * -> 金額を１００追加する
      *
      * \<effect:POI+1\>
