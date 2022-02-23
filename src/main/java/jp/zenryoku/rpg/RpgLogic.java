@@ -171,6 +171,10 @@ public abstract class RpgLogic implements Games {
                     generator.createItemMap(storyTxt);
                     continue;
                 }
+                if (line.equals("CONFIG_ST_EFFECT")) {
+                    generator.createStEffect(storyTxt);
+                    continue;
+                }
 
                 //// 参照渡しを使用せず、値渡しで実装する ////
                 // シーン開始行の判定

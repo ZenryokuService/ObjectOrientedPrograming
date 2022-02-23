@@ -260,7 +260,7 @@ public class ParamGeneratorTest {
 
     }
 
-    @Test
+    //@Test
     public void testCreateRpgDataFromConfig() {
         Map<String, RpgData> map = new HashMap<>();
         RpgData parentData = new RpgData();

@@ -1,13 +1,14 @@
 package jp.zenryoku.rpg.data.status;
 
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.util.StringUtils;
 
 /**
  * 一時的なステータス変化を表す。ステータス異常、強化など。
  * ストーリーテキストから生成される。
  */
-public class StEffect {
+public class StEffect extends RpgData {
     /** 記号 */
     private String kigo;
     /** 表示文字 */

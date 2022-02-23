@@ -2,8 +2,10 @@ package jp.zenryoku.rpg.data;
 
 import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.shop.RpgShop;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgStatus;
+import jp.zenryoku.rpg.data.status.StEffect;
 import lombok.Data;
 
 import java.util.Map;
@@ -44,6 +46,10 @@ public class RpgConfig {
     /** アイテムタイプリスト */
     private Map<String, RpgData> itemTypeMap;
     /** ショップリスト */
+    private Map<String, RpgShop> shopMap;
+    /** ステータス効果リスト */
+    private Map<String, StEffect> effectMap;
+
 
     /** プレーヤーパーティ */
     private PlayerParty party;

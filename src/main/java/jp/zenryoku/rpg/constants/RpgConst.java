@@ -114,8 +114,6 @@ public enum RpgConst {
     public static final String DEF = "DEF";
     /** アイテムを表示する */
     public static final String ITEM = "アイテム";
-    /** アイテム定義のカンマ区切り数 */
-    public static final int ITEM_SIZE = 3;
     /** 通常のアイテムを示す記号 */
     public static final String ITM = "ITM";
     /** データクラスのパッケージ名 */
@@ -138,8 +136,12 @@ public enum RpgConst {
     public static final String REG_KIGO = "[A-Z]";
     /** ストーリーテキストで定義するデフォルトステータス記号判別用の正規表現 */
     public static final String REG_DEFAULT_KIGO = "[A-Z]{2}";
+    /** ステータス変化オブジェクト定義の書式正規表現 */
+    public static final String REG_EFFECT_TXT = "[A-Z]{3}[+\\-][0-9]{1,3}%*";
     /** 記号の文字数(配列の添え字番号) */
     public static final int KIGO_SIZE = 2;
+    /** アイテム定義のカンマ区切り数 */
+    public static final int ITEM_SIZE = 3;
     /** PARAM_CONFIGの分割サイズ */
     public static final int PARAM_SIZE = 6;
     /** CONFIG_MASTERの分割サイズ */
@@ -152,6 +154,10 @@ public enum RpgConst {
     public static final int ITE_LIST_SIZE = 5;
     /** PARAM_FORMULAの分割サイズ */
     public static final int FORMULA_SIZE = 3;
+    /** ST_EFFECT_SIZEの分割サイズ */
+    public static final int EFFECT_SIZE = 4;
+    /** ST_EFFECT_TXT_SIZEの分割サイズ */
+    public static final int EFFECT_TXT_SIZE = 3;
 
     /** 計算オブジェクトの保持できる項の数 */
     public static final int CALC_KO_COUNT = 2;

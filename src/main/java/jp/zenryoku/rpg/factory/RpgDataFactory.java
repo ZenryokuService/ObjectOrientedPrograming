@@ -2,12 +2,14 @@ package jp.zenryoku.rpg.factory;
 
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgStatus;
+import jp.zenryoku.rpg.data.status.StEffect;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.CalcUtils;
 
@@ -194,5 +196,34 @@ public class RpgDataFactory {
             throw new RpgException(e.getMessage() + siki + "開始位置: " + start);
         }
         return data;
+    }
+
+    /**
+     * CONFIG_ST_EFFECTから開始される１行からステータス変化オブジェクトを生成する。
+     * @param line ストーリーテキストの１行
+     * @return StEffect ステータス変化オブジェクト
+     * @throws RpgException 想定外のエラー
+     */
+    public static StEffect createStEffect(String line) throws RpgException {
+        Map<String, RpgData> paramMap = RpgConfig.getInstance().getParamMap();
+        String[] sep = line.split(":");
+
+        if (RpgConst.EFFECT_SIZE != sep.length) {
+            throw new RpgException(MessageConst.ERR_EFFECT_TXT_SIZE.toString());
+        }
+        StEffect eff = null;
+        // 記号の取得
+        String kigo = sep[0];
+        // 表示文字
+        String disp = sep[1];
+        // 効果式
+        String siki = sep[2];
+        // 表示メッセージ
+        String message = sep[3];
+
+        System.out.println("kigo: " + kigo + " disp: " + disp + " siki: " + siki + " mes: " + message);
+
+
+        return eff;
     }
 }

@@ -28,6 +28,24 @@ public class StringUtilsTest {
             assertEquals("-", res5);
 
         } catch (RpgException e) {
+            e.printStackTrace();
+            fail(e);
+        }
+    }
+
+    @Test
+    public void testCreateEffectApper() {
+        try {
+            String[] res0 = StringUtils.createEffectApeer("ZHP-10%");
+            assertEquals("ZHP", res0[0]);
+            assertEquals("-", res0[1]);
+            assertEquals("10%", res0[2]);
+            String[] res1 = StringUtils.createEffectApeer("ZMP+10");
+            assertEquals("ZMP", res1[0]);
+            assertEquals("+", res1[1]);
+            assertEquals("10", res1[2]);
+        } catch (RpgException e) {
+            e.printStackTrace();
             fail(e);
         }
     }

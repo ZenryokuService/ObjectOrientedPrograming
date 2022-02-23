@@ -5,9 +5,11 @@ import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.items.RpgItemType;
+import jp.zenryoku.rpg.data.shop.RpgShop;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgStatus;
+import jp.zenryoku.rpg.data.status.StEffect;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.factory.RpgDataFactory;
 import jp.zenryoku.rpg.util.CalcUtils;
@@ -45,6 +47,10 @@ public class ParamGenerator {
     private Map<String, RpgData> itemTypeMap;
     /** 全てのパラメータを格納するマップ */
     private Map<String, RpgData> dataMap;
+    /** 天のマップ */
+    private Map<String, RpgShop> shopMap;
+    /** ステータス変化オブジェクト */
+    private Map<String, StEffect> effectMap;
 
     /** プライベート・コンストラクタ */
     private ParamGenerator() {
@@ -58,6 +64,8 @@ public class ParamGenerator {
         config.setItemTypeMap(new HashMap<>());
         config.setJobMap(new HashMap<>());
         config.setDataMap(new HashMap<>());
+        config.setEffectMap(new HashMap<>());
+        config.setShopMap(new HashMap<>());
         // このクラス内で使用するための変数
         masterMap = config.getMasterMap();
         paramMap = config.getParamMap();
@@ -68,6 +76,9 @@ public class ParamGenerator {
         statusMap = config.getStatusMap();
         optionStatusMap = config.getOptionStatusMap();
         dataMap = config.getDataMap();
+        effectMap = config.getEffectMap();
+        shopMap = config.getShopMap();
+
     }
 
     /**
@@ -264,6 +275,35 @@ public class ParamGenerator {
     }
 
     /**
+     * アイテムの設定リストを作成する。ITEM_LIST以降の行の設定を、RpgConfigに設定する。
+     * @param buf ストーリーテキスト
+     * @throws RpgException 設定のエラー
+     */
+    public void createStEffect(BufferedReader buf) throws RpgException  {
+        String line = null;
+        RpgConfig conf = RpgConfig.getInstance();
+        try {
+            while ((line = buf.readLine()).equals("END_EFFECT") == false) {
+                if (CheckerUtils.isComment(line)) {
+                    continue;
+                }
+                // StEffectを生成する。
+                StEffect data = RpgDataFactory.createStEffect(line);
+                // アイテムリストに追加
+                itemMap.put(data.getName(), data);
+            }
+            config.setItemMap(itemMap);
+        } catch (NumberFormatException e) {
+            throw new RpgException(e.getMessage() + " : " + line);
+        } catch (IOException | RpgException e) {
+            throw new RpgException(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RpgException(MessageConst.UNEXPECTED_ERR.toString() + " " + line);
+        }
+    }
+
+    /**
      * ストーリーテキストの「CONFIG_ITEM」の部分を読み込み、RpgConfigに設定する。
      * 「CONFIG_ITEM」はストーリーテキストで定義していないので注意。
      * @param buf CONFIG_ITEM内の各行
@@ -299,6 +339,7 @@ public class ParamGenerator {
             new RpgException(MessageConst.ERR_IOEXCEPTION.toString());
         }
     }
+
 
     /**
      * ストーリーテキストのアイテムタイプの「名前(記号)」を読み込み、配列にして返却する。
