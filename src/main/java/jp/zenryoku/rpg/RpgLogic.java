@@ -172,7 +172,7 @@ public abstract class RpgLogic implements Games {
                     continue;
                 }
                 if (line.equals("CONFIG_ST_EFFECT")) {
-                    generator.createStEffect(storyTxt);
+                    generator.createEffects(storyTxt);
                     continue;
                 }
 
@@ -414,8 +414,8 @@ public abstract class RpgLogic implements Games {
         // 1行目の読み込み<effect:XXX[+\\-]NUM>
         // 記号 + (プラス) or -(マイナス) なまえ 個数の指定
         String effect = line.split(":")[1];
-        effect = effect.substring(0, effect.length() - 2);
-        System.out.println("** " + effect + " ** ");
+        effect = effect.substring(0, effect.length() - 1);
+        if (isDebug) System.out.println("** " + effect + " ** ");
         EffectScene scene = (EffectScene) sceneObj;
         // 記号
         String kigo = StringUtils.findDefaultStatus(effect);

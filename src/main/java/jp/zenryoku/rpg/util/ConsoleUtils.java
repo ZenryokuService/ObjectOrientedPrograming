@@ -15,6 +15,7 @@ import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.constants.SelectConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
+import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
@@ -181,6 +182,15 @@ public class ConsoleUtils {
 	 */
 	public void printStatus(PlayerCharactor player) {
 		StringBuilder build = new StringBuilder();
+		// 所持金の表示
+		RpgConfig conf = RpgConfig.getInstance();
+		Map<String, RpgMaster> masterMap = conf.getMasterMap();
+		Map<String, RpgData> paramMap = conf.getParamMap();
+
+		// TODO-[現状では、固定（金額)]
+		String tukaKey = masterMap.get(RpgConst.MNY).getChildList().get(0);
+		RpgData tuka = paramMap.get(tukaKey);
+		build.append(PlayerParty.getInstance().getMoney() + " " + tuka.getKigo() + SEPARATOR);
 		String name = player.getName();
 		// 必要は情報を取得する
 		boolean isMultiByte = CheckerUtils.isMultiByteStr(name);
@@ -324,9 +334,8 @@ public class ConsoleUtils {
 		atk = optMap.get(RpgConst.ATK);
 		def = optMap.get(RpgConst.DEF);
 		if (atk == null || def == null) {
-			RpgConfig conf = RpgConfig.getInstance();
-			atk = conf.getParamMap().get(RpgConst.ATK);
-			def = conf.getParamMap().get(RpgConst.DEF);
+			atk = paramMap.get(RpgConst.ATK);
+			def = paramMap.get(RpgConst.DEF);
 		}
 
 		int counter = 1;

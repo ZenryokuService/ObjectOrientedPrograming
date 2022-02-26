@@ -51,7 +51,7 @@ public class ShopScene extends StoryScene {
                         + " 説明: " + item.getDiscription());
                 count++;
             }
-            System.out.println("[1-" + max + "]");
+            if (isDebug) System.out.println("[1-" + max + "]");
             String select = console.acceptInput(MessageConst.DO_SELECT.toString(), "[1-" + max + "]");
             RpgItem it = list.get(Integer.parseInt(select));
             String res = console.acceptInput(it.getName() + MessageConst.YOU_BUY_THIS.toString(), SelectConst.YES_NO_REGREX);

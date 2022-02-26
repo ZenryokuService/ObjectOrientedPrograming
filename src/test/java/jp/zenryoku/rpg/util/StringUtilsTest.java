@@ -1,12 +1,20 @@
 package jp.zenryoku.rpg.util;
 
+import jp.zenryoku.rpg.TestUtils;
+import jp.zenryoku.rpg.data.Effects;
+import jp.zenryoku.rpg.data.status.StEffect;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class StringUtilsTest {
+    /**
+     * デフォルトステータスを取得する処理のテスト。
+     */
     @Test
     public void testFindDefaultStatus() {
         try {
@@ -16,13 +24,13 @@ public class StringUtilsTest {
             String resT = StringUtils.findDefaultStatusOperator(tes);
             assertEquals("+", resT);
 
-            String res2 = StringUtils.findDefaultStatus("HP+100>");
+            String res2 = StringUtils.findDefaultStatus("ZHP+100>");
             assertEquals("HP", res2);
 
-            String res3 = StringUtils.findDefaultStatus("HP100>");
+            String res3 = StringUtils.findDefaultStatus("ZHP100>");
             assertEquals(null, res3);
 
-            String res4 = StringUtils.findDefaultStatus("HP-100>");
+            String res4 = StringUtils.findDefaultStatus("ZHP-100>");
             assertEquals("HP", res4);
             String res5 = StringUtils.findDefaultStatusOperator("HP-100>");
             assertEquals("-", res5);
@@ -33,20 +41,7 @@ public class StringUtilsTest {
         }
     }
 
-    @Test
-    public void testCreateEffectApper() {
-        try {
-            String[] res0 = StringUtils.createEffectApeer("ZHP-10%");
-            assertEquals("ZHP", res0[0]);
-            assertEquals("-", res0[1]);
-            assertEquals("10%", res0[2]);
-            String[] res1 = StringUtils.createEffectApeer("ZMP+10");
-            assertEquals("ZMP", res1[0]);
-            assertEquals("+", res1[1]);
-            assertEquals("10", res1[2]);
-        } catch (RpgException e) {
-            e.printStackTrace();
-            fail(e);
-        }
+    //@Test
+    public void testMasterCatNum() {
     }
 }

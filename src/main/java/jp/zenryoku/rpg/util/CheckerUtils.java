@@ -367,4 +367,19 @@ public class CheckerUtils {
 		// 見つからない場合は-1を返却
 		return isFind ? pos : -1;
 	}
+
+	/**
+	 * "-"を許容する、”[A-Z]{3}[0-9]{1,2}"にマッチする文字列
+	 * @param str 検証する文字列
+	 * @return [A-Z]{3}[0-9]{1,2}にマッチする
+	 */
+	public static boolean isMasterCatNum(String str) {
+		if (str == null || "".equals(str)) {
+			return false;
+		}
+		if ("-".equals(str)) {
+			return true;
+		}
+		return str.matches(RpgConst.REG_MASTERT_DEF_FOR_PARAM);
+	}
 }

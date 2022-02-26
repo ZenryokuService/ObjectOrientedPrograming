@@ -1,5 +1,7 @@
 package jp.zenryoku.rpg;
 
+import jp.zenryoku.rpg.charactors.PlayerParty;
+import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.exception.RpgException;
@@ -26,7 +28,7 @@ public class TextRpgGameEngine extends Thread {
 		textRpgLogic = gameLogic;
 	}
 	/**
-	 * Threadクラスのメソッドをオーバーライド。
+	 * Threadクラスのメソッドをオーバーライド。コマンドの実行も行う。
 	 * これで、マルチスレッドでの処理が可能になる。
 	 */
 	@Override
@@ -66,6 +68,11 @@ public class TextRpgGameEngine extends Thread {
 				// メニューの表示
 				if (input != null && input.startsWith("menu")) {
 					MenuUtils.getInstance().printMenu();
+				}
+				// ステータスの表示
+				if (input != null && input.startsWith("status")) {
+					PlayerCharactor player = PlayerParty.getInstance().getPlayer();
+					ConsoleUtils.getInstance().printStatus(player);
 				}
 				// 6. シーンの実行
 				if (textRpgLogic.executeScene()) {

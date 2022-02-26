@@ -1,17 +1,23 @@
 package jp.zenryoku.rpg.util;
 
 import jp.zenryoku.rpg.TestUtils;
+import jp.zenryoku.rpg.charactors.Player;
+import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.data.ParamGenerator;
+import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -96,6 +102,69 @@ public class CalcUtilsTest {
             assertEquals(3, list.size());
             list.forEach(System.out::println);
         } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCalcEffect() {
+        TestUtils.initRpgConfig();
+        PlayerParty party = RpgConfig.getInstance().getParty();
+        party.setMoney(0);
+        try {
+            target.calcEffect("NIG", "+", 100);
+            assertEquals(100, party.getMoney());
+
+        } catch (RpgException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetTargetField() {
+        TestUtils.initRpgConfig();
+        PlayerParty party = PlayerParty.getInstance();
+        party.setMoney(100);
+
+        try {
+            PlayerCharactor player = new PlayerCharactor("test");
+            party.setPlayer(player);
+            player.setHP(10);
+            player.setMP(15);
+            RpgConfig conf = RpgConfig.getInstance();
+            player.setStatusMap(conf.getStatusMap());
+            player.setOptionalMap(conf.getOptionStatusMap());
+
+            List<Class<?>> inte = new ArrayList<>();
+            Field hp = target.findTargetField("HP", inte);
+            assertEquals("Player", inte.get(0).getSimpleName());
+            assertEquals(10, hp.get(player));
+            hp.set(player, 5);
+            assertEquals(5, hp.get(player));
+
+            inte.clear();
+            Field mp = target.findTargetField("MP", inte);
+            assertEquals("Player", inte.get(0).getSimpleName());
+            assertEquals(15, mp.get(player));
+            mp.set(player, 10);
+            assertEquals(10, mp.get(player));
+
+            inte.clear();
+            Field statusMap = target.findTargetField("statusMap", inte);
+            assertEquals("PlayerCharactor", inte.get(0).getSimpleName());
+            assertEquals(1, ((Map<String, RpgStatus>)statusMap.get(player)).get("POW").getValue());
+
+            inte.clear();
+            Field mon = target.findTargetField("money", inte);
+            assertEquals("PlayerParty", inte.get(0).getSimpleName());
+            assertEquals(100, mon.get(player));
+            mon.set(party, 110);
+            assertEquals(110, mon.get(player));
+
+
+        } catch (RpgException | IllegalAccessException e) {
             e.printStackTrace();
             fail(e.getMessage());
         }

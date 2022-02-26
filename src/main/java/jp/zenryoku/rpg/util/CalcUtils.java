@@ -1,12 +1,16 @@
 package jp.zenryoku.rpg.util;
 
-import jp.zenryoku.rpg.calc.CalcObj;
+import jp.zenryoku.rpg.charactors.Player;
+import jp.zenryoku.rpg.charactors.PlayerParty;
+import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.*;
+import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 
+import java.lang.reflect.Field;
 import java.nio.CharBuffer;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -161,5 +165,75 @@ public class CalcUtils {
             throw new RpgException(MessageConst.ERR_NO_KEY_GENFORMLA.toString() + " : " + siki);
         }
         return result;
+    }
+
+    public void calcEffect(String kigo, String ope, int kosu) throws RpgException {
+        RpgData dd = RpgConfig.getInstance().getParamMap().get(kigo);
+        String master = dd != null ? dd.getMaster() : null;
+        if (dd == null && master == null) {
+            throw new RpgException(MessageConst.ERR_NO_KEY_GENPARA.toString() + ": " + kigo);
+        }
+        RpgMaster mst = RpgConfig.getInstance().getMasterMap().get(master);
+        List<Class<?>> inte = new ArrayList<>();
+        System.out.println(mst);
+        Field field = findTargetField(mst.getFieldName(), inte);
+
+        Object targetObj = null;
+        String target = inte.get(0).getSimpleName();
+        PlayerParty party = PlayerParty.getInstance();
+        if ("PlayerParty".equals(target)) {
+            targetObj = party;
+        } else if ("Player".equals(target) || "PlayerCharactor".equals(target)) {
+            targetObj = party.getPlayer();
+        } else {
+            throw new RpgException(MessageConst.ERR_NO_FIELD_GENPARA.toString() + ": " + target + " = " + kigo);
+        }
+
+        PlayerCharactor player = party.getPlayer();
+
+        try {
+            if ("+".equals(ope)) {
+                Integer i = (Integer) field.get(targetObj);
+                field.set(targetObj, i + kosu);
+            } else if ("-".equals(ope)) {
+                Integer i = (Integer) field.get(targetObj);
+                field.set(targetObj, i - kosu);
+            }
+        } catch (IllegalAccessException ee) {
+            throw new RpgException(MessageConst.ERR_MISS_EFFECT_PARAM.toString());
+        }
+    }
+
+    /**
+     *
+     * @param fieldName 検索するフィールド名
+     * @param res 検索対象フラグ
+     * @return 取得したフィールド
+     * @throws RpgException フィールドが見つからない場合
+     */
+    public Field findTargetField(String fieldName, List<Class<?>> res) throws RpgException {
+        PlayerParty party = PlayerParty.getInstance();
+        Class<? extends PlayerCharactor> plCls = PlayerCharactor.class;
+        Class<? extends Player> ply = Player.class;
+        Field f = null;
+        try {
+            f = party.getClass().getDeclaredField(fieldName);
+            res.add(party.getClass());
+        } catch (NoSuchFieldException e) {
+            try {
+                f = plCls.getDeclaredField(fieldName);
+                res.add(plCls);
+            } catch (NoSuchFieldException ne) {
+                try {
+                    f = ply.getDeclaredField(fieldName);
+                    res.add(ply);
+                } catch (NoSuchFieldException ee) {
+                    throw new RpgException(MessageConst.NO_FIELD.toString() + ": " + fieldName);
+                }
+            }
+        }
+        // フィールドにアクセス可能をセット
+        f.setAccessible(true);
+        return f;
     }
 }

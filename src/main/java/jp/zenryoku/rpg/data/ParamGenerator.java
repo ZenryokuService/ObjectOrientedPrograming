@@ -3,6 +3,7 @@ package jp.zenryoku.rpg.data;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.items.EvEffect;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.items.RpgItemType;
 import jp.zenryoku.rpg.data.shop.RpgShop;
@@ -23,6 +24,7 @@ import java.util.*;
  * ステータスなどの設定情報を管理する。シングルトン実装。
  */
 public class ParamGenerator {
+    private static final boolean isDebug = false;
     /** 改行コード */
     private static final String SEP = System.lineSeparator();
     /** インスタンス */
@@ -49,8 +51,12 @@ public class ParamGenerator {
     private Map<String, RpgData> dataMap;
     /** 天のマップ */
     private Map<String, RpgShop> shopMap;
+    /** 効果オブジェクトリスト */
+    private Map<String, Effects> effectMap;
     /** ステータス変化オブジェクト */
-    private Map<String, StEffect> effectMap;
+    private Map<String, StEffect> stEffectMap;
+    /**イベント変化オブジェクト */
+    private Map<String, EvEffect> evEffectMap;
 
     /** プライベート・コンストラクタ */
     private ParamGenerator() {
@@ -66,6 +72,9 @@ public class ParamGenerator {
         config.setDataMap(new HashMap<>());
         config.setEffectMap(new HashMap<>());
         config.setShopMap(new HashMap<>());
+        config.setEffectMap(new HashMap<>());
+        config.setStEffectMap(new HashMap<>());
+        config.setEvEffectMap(new HashMap<>());
         // このクラス内で使用するための変数
         masterMap = config.getMasterMap();
         paramMap = config.getParamMap();
@@ -76,7 +85,10 @@ public class ParamGenerator {
         statusMap = config.getStatusMap();
         optionStatusMap = config.getOptionStatusMap();
         dataMap = config.getDataMap();
+        // TODO-[オブジェクトが重複しているのでのちに見直し]
         effectMap = config.getEffectMap();
+        stEffectMap = config.getStEffectMap();
+        evEffectMap = config.getEvEffectMap();
         shopMap = config.getShopMap();
 
     }
@@ -184,7 +196,7 @@ public class ParamGenerator {
             // 表示行数の指定(2行目)
             String sepLine = buf.readLine();
             setPrintLine(sepLine.startsWith("#") ? "" : sepLine);
-            this.createConfigParams(buf);
+            createConfigParams(buf);
         } catch (IOException | RpgException e) {
             throw new RpgException(e.getMessage());
         } catch (Exception e) {
@@ -279,7 +291,7 @@ public class ParamGenerator {
      * @param buf ストーリーテキスト
      * @throws RpgException 設定のエラー
      */
-    public void createStEffect(BufferedReader buf) throws RpgException  {
+    public void createEffects(BufferedReader buf) throws RpgException  {
         String line = null;
         RpgConfig conf = RpgConfig.getInstance();
         try {
@@ -288,11 +300,11 @@ public class ParamGenerator {
                     continue;
                 }
                 // StEffectを生成する。
-                StEffect data = RpgDataFactory.createStEffect(line);
-                // アイテムリストに追加
-                itemMap.put(data.getName(), data);
+                Effects data = RpgDataFactory.createEffects(line);
+                // 効果式リストに追加
+                effectMap.put(data.getName(), data);
             }
-            config.setItemMap(itemMap);
+            config.setEffectMap(effectMap);
         } catch (NumberFormatException e) {
             throw new RpgException(e.getMessage() + " : " + line);
         } catch (IOException | RpgException e) {
@@ -376,11 +388,19 @@ public class ParamGenerator {
             }
             // RpgDataを生成する。ここから子クラスを生成するものとそうでないものがある。。
             RpgData data = RpgDataFactory.createRpgDataFromConfig(line, paramMap);
+            if (isDebug) System.out.println(data);
             // オプショナルステータスの設定
             if (RpgConst.PLY.equals(data.getMaster())) {
                 optionStatusMap.put(data.getKigo(), RpgDataFactory.createOptionalRpgStatus(data));
             }
             paramMap.put(data.getKigo(), data);
+            // マスタカテゴリ設定とのリンク
+            String mstKey = data.getMaster();
+            if (masterMap.containsKey(mstKey)) {
+                RpgMaster mst = masterMap.get(mstKey);
+                // パラメータ定義のキーリストに追加
+                mst.getChildList().add(data.getKigo());
+            }
         }
     }
 

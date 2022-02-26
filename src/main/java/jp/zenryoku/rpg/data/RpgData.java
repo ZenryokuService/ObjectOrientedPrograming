@@ -9,6 +9,8 @@ import lombok.Data;
  */
 @Data
 public class RpgData {
+    /** 順番(優先順序) */
+    protected Integer priority;
     /** データタイプ */
     protected RpgConst type;
     /** パラメータ名　*/

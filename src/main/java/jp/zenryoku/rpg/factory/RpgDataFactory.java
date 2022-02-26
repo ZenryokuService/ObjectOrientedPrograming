@@ -2,9 +2,11 @@ package jp.zenryoku.rpg.factory;
 
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.Effects;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.items.EvEffect;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgJob;
@@ -12,13 +14,17 @@ import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.data.status.StEffect;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.CalcUtils;
+import jp.zenryoku.rpg.util.CheckerUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
  * RpgDataを継承する各種データオブジェクトを生成する。
  */
 public class RpgDataFactory {
+    private static boolean isDebug = false;
     /** 改行コード */
     private static final String SEP = System.lineSeparator();
 
@@ -33,11 +39,24 @@ public class RpgDataFactory {
         if (sep.length != RpgConst.PARAM_SIZE) {
             throw new RpgException(MessageConst.ERR_CONFIG_PARAM.toString() + line);
         }
+        if (isDebug) System.out.println("*** Debug: " + sep[2]);
+        if (CheckerUtils.isMasterCatNum(sep[2].trim()) == false) {
+            throw new RpgException(MessageConst.ERR_CONFIG_PARAM_MASTER.toString() + line);
+        }
         // データの設定
         RpgData data = new RpgData();
         data.setName(sep[0].trim());
         data.setKigo(sep[1].trim());
-        data.setMaster(sep[2].trim());
+        // パラメータ定義内のマスタカテゴリ設定
+        String mast = sep[2].trim();
+        if ("-".equals(mast) == false) {
+            if (isDebug) System.out.println("*** Debug2: " + sep[2]);
+            mast = mast.substring(0,3);
+            String priority = sep[2].trim().substring(3);
+            data.setPriority(Integer.parseInt(priority));
+        }
+        data.setMaster(mast);
+        // 説明
         data.setDiscription(sep[3].trim());
         int val = sep[5].trim().equals("-") || sep[5].trim().equals("") ? 0 : Integer.parseInt(sep[5].trim());
         data.setValue(val);
@@ -93,6 +112,7 @@ public class RpgDataFactory {
 
     /**
      * CONFIG_MASTERから開始される１行からマスターカテゴリのデータを生成する。
+     * 一番初めに読み込む必要がある。
      * @param line ストーリーテキストの１行
      * @return RpgMaster マスタカテゴリ
      * @throws RpgException 想定外のエラー
@@ -109,8 +129,8 @@ public class RpgDataFactory {
         data.setName(setting[1].trim());
         // 2:用途説明
         data.setDiscription(setting[2].trim());
-        // 3:読み方
-        data.setHowToRead(setting[3].trim());
+        // 3:フィールド名
+        data.setFieldName(setting[3].trim());
         data.setValue(0);
         return data;
     }
@@ -204,26 +224,80 @@ public class RpgDataFactory {
      * @return StEffect ステータス変化オブジェクト
      * @throws RpgException 想定外のエラー
      */
-    public static StEffect createStEffect(String line) throws RpgException {
+    public static Effects createEffects(String line) throws RpgException {
         Map<String, RpgData> paramMap = RpgConfig.getInstance().getParamMap();
         String[] sep = line.split(":");
 
         if (RpgConst.EFFECT_SIZE != sep.length) {
             throw new RpgException(MessageConst.ERR_EFFECT_TXT_SIZE.toString());
         }
-        StEffect eff = null;
         // 記号の取得
-        String kigo = sep[0];
+        String kigo = sep[0].trim();
         // 表示文字
-        String disp = sep[1];
+        String disp = sep[1].trim();
         // 効果式
-        String siki = sep[2];
+        String siki = sep[2].trim();
         // 表示メッセージ
-        String message = sep[3];
+        String message = sep[3].trim();
 
-        System.out.println("kigo: " + kigo + " disp: " + disp + " siki: " + siki + " mes: " + message);
-
+        if (isDebug) System.out.println("kigo: " + kigo + " disp: " + disp + " siki: " + siki + " mes: " + message);
+        Effects eff = new Effects(kigo, disp, siki, message);
+        List<Effects> effChilden = createEffectApeer(siki);
+        eff.setEffList(effChilden);
 
         return eff;
+    }
+
+    /**
+     * 効果式をオブジェクトに変換する。そして設定オブジェクトに各効果式オブジェクトを登録する。
+     * @param effectAppear 効果式
+     * @return String[] [0]記号 [1]演算子(+-) [2]効果値
+     * @throws RpgException 効果式の設定のエラー
+     */
+    public static List<Effects> createEffectApeer(String effectAppear) throws RpgException {
+        // 基本手には定義は１つ
+        String[] teigi = new String[1];
+        // 服す定義可能定、定義分割
+        if (effectAppear.contains(",")) {
+            teigi = effectAppear.split(",");
+        } else {
+            teigi[0] = effectAppear;
+        }
+        List<Effects> teigiList = new ArrayList<>();
+        Map<String, RpgStatus> stMap = RpgConfig.getInstance().getStatusMap();
+        Map<String, StEffect> stEffMap = RpgConfig.getInstance().getStEffectMap();
+        Map<String, EvEffect> evEffMap = RpgConfig.getInstance().getEvEffectMap();
+
+        // 定義を読み込む
+        for (String tei : teigi) {
+            // スペース消去
+            tei = tei.trim();
+            if (tei == null || tei.matches(RpgConst.REG_EFFECT_TXT) == false) {
+                throw new RpgException(MessageConst.ERR_EFFECT_APPEAR_SIZE.toString() + tei);
+            }
+            String[] res = new String[RpgConst.EFFECT_TXT_SIZE];
+            // 例：ZHP-10%
+            String kigo = tei.substring(0, 3);
+            res[0] = kigo;
+            // 演算子
+            String ope = tei.substring(3, 4);
+            res[1] = ope;
+            // 値
+            String val = tei.substring(4);
+            res[2] = val;
+
+            if (stMap.containsKey(kigo)) {
+                StEffect obj = new StEffect(kigo, ope, val);
+                stEffMap.put(obj.getKigo(), obj);
+                teigiList.add(obj);
+            } else {
+                EvEffect obj = new EvEffect(kigo, ope, val);
+                evEffMap.put(obj.getKigo(), obj);
+                teigiList.add(obj);
+            }
+            System.out.println("kigo: " + kigo + " ope: " + ope + " val: " + val);
+        }
+
+        return teigiList;
     }
 }

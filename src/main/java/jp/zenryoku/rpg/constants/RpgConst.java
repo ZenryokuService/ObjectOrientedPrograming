@@ -90,12 +90,26 @@ public enum RpgConst {
 
     /** 改行コード */
     public static final String SEP = System.lineSeparator();
+    /** プラス(+) */
+    public static final String PLUS = "+";
+    /** マイナス(-) */
+    public static final String MINUS = "-";
     /** マスタカテゴリのプレーヤーステータスオプション */
     public static final String PLY = "PLY";
     /** デフォルトステータスに関しては、プレフィックスに「Z」がつく */
     public static final String DEFAULT_STATUS_PREFIX = "Z";
     /** アイテム保持可能数(デフォルト) */
     public static final int ITEM_HOLD_NUM = 5;
+    /** マスタカテゴリのパラメータ定義内でのフォーマット */
+    public static final String REG_MASTERT_DEF_FOR_PARAM = "[A-Z]{3}[0-9]{1,2}";
+    /** マスタカテゴリ: ZHP */
+    public static final String ZHP = "ZHP";
+    /** マスタカテゴリ: ZMP */
+    public static final String ZMP = "ZMP";
+    /** マスタカテゴリ: ZLV */
+    public static final String ZLV = "ZLV";
+    /** マスタカテゴリ: MNY */
+    public static final String MNY = "MNY";
     /** 武器を表示する */
     public static final String BUKI = "ぶき";
     /** 武器を示す記号 */

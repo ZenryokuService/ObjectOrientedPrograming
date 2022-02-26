@@ -27,6 +27,9 @@ public class PlayerCharactor extends Player {
     protected Map<String, RpgStatus> optionalMap;
     /** ステータス異常(変化)リスト */
     protected Map<String, StEffect> effecrMap;
+    /** 動けるフラグ */
+    protected boolean canMove;
+
 
     /**
      * ストーリーテキストの設定情報を取得して、ステータスを生成する。
@@ -37,6 +40,7 @@ public class PlayerCharactor extends Player {
         super(name);
         statusMap = new LinkedHashMap<String, RpgStatus>();
         optionalMap = new LinkedHashMap<String, RpgStatus>();
+        canMove = true;
         // ステータス設定を取得する。
         Map<String, RpgStatus> map = RpgConfig.getInstance().getStatusMap();
         Set<String> keys = map.keySet();
@@ -52,18 +56,28 @@ public class PlayerCharactor extends Player {
         }
     }
 
+    /**
+     * 攻撃力を取得する
+     * @return 攻撃力
+     * @throws RpgException ステータスオブジェクトがない
+     */
     public int getAtk() throws RpgException {
         RpgStatus atk = optionalMap.get(RpgConst.ATK);
         if (atk == null) {
-            throw new RpgException("ステータスマップにオブジェクトがありません。AKT" + atk);
+            throw new RpgException(MessageConst.NO_STATUS_OBJECT.toString() + " ATK: " + atk);
         }
         return atk.getValue();
     }
 
+    /**
+     * 秒魚力を取得する
+     * @return 防御力
+     * @throws RpgException ステータスオブジェクトがない
+     */
     public int getDef() throws RpgException {
         RpgStatus def = optionalMap.get(RpgConst.DEF);
         if (def == null) {
-            throw new RpgException("ステータスマップにオブジェクトがありません。AKT" + def);
+            throw new RpgException(MessageConst.NO_STATUS_OBJECT.toString() + " DEF: " + def);
         }
         return def.getValue();
     }
@@ -71,6 +85,7 @@ public class PlayerCharactor extends Player {
     /**
      * 武器を装備する。
      * @param wepon 武器オブジェクト
+     * @throws RpgException 想定外のエラー
      */
     @Override
     public void setMainWepon(MainWepon wepon) throws RpgException {
@@ -91,6 +106,7 @@ public class PlayerCharactor extends Player {
     /**
      * 防具を装備する。
      * @param arm 防具オブジェクト
+     * @throws RpgException 想定外のエラー
      */
     @Override
     public void setArmor(Armor arm) {
@@ -105,5 +121,13 @@ public class PlayerCharactor extends Player {
         RpgStatus opt = optionalMap.get(RpgConst.ARV);
         opt.setValue(arm.getDeffence());
         def.setValue(formula.formula(this));
+    }
+
+    public void getEffect(StEffect effect) {
+        /// 対象になる項目
+        String kigo = effect.getKigo();
+        // 増減
+        //String ope = effect.get();
+
     }
 }

@@ -83,7 +83,7 @@ public class ParamGeneratorTest {
             Map<String, RpgMaster> res = target.getConfig().getMasterMap();
             //assertEquals(6, res.size());
             if (isDebug) res.forEach((key, val) -> {
-                System.out.println("Key: " + key + " CategoryId: " + val.getCategoryId() + " 読み方: " + val.getHowToRead() + " " + val.getDiscription());
+                System.out.println("Key: " + key + " CategoryId: " + val.getCategoryId() + " 読み方: " + val.getFieldName() + " " + val.getDiscription());
             });
         } catch (Exception e) {
             e.printStackTrace();

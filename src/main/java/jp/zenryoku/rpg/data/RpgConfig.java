@@ -2,6 +2,7 @@ package jp.zenryoku.rpg.data;
 
 import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.items.EvEffect;
 import jp.zenryoku.rpg.data.shop.RpgShop;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgStatus;
@@ -48,7 +49,11 @@ public class RpgConfig {
     /** ショップリスト */
     private Map<String, RpgShop> shopMap;
     /** ステータス効果リスト */
-    private Map<String, StEffect> effectMap;
+    private Map<String, Effects> effectMap;
+    /** ステータス変化オブジェクト */
+    private Map<String, StEffect> stEffectMap;
+    /**イベント変化オブジェクト */
+    private Map<String, EvEffect> evEffectMap;
 
 
     /** プレーヤーパーティ */

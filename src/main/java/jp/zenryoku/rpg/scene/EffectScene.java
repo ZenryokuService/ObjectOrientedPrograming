@@ -3,6 +3,7 @@ package jp.zenryoku.rpg.scene;
 import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.Effects;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
@@ -49,9 +50,9 @@ public class EffectScene extends StoryScene {
     @Override
     public boolean playScene() throws Exception {
         super.playScene();
-        PlayerParty party = RpgConfig.getInstance().getParty();
+
         // TODO-[エフェクトシーンの実装内容を設計する#27]
-        System.out.println("kigo: " + kigo + " ope: " + ope + " kosu: " + kosu);
+        if (isDebug) System.out.println("kigo: " + kigo + " ope: " + ope + " kosu: " + kosu);
 
         Map<String, RpgData> dataMap = RpgConfig.getInstance().getParamMap();
         Map<String, RpgMaster> mstMap = RpgConfig.getInstance().getMasterMap();
@@ -66,8 +67,9 @@ public class EffectScene extends StoryScene {
             throw new RpgException((MessageConst.ERR_NO_CONFIGS.toString() + ": " + kigo));
         }
         String name = data == null ? mst.getName() : data.getName();
-        System.out.println(name + ope + kosu);
+        System.out.println("Debug: " + name + ope + kosu);
 
+        // 効果を及ぼす
 
         return false;
     }

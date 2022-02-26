@@ -87,12 +87,12 @@ public class MenuUtils {
         if (CheckerUtils.alreadySobied(sobi, player)) {
             return;
         }
-        System.out.println(sobi.getName() + " : " + sobi.getItemType() + " : " + sobi.getItemValueKigo());
-        if (true) {
+        if (isDebug) System.out.println(sobi.getName() + " : " + sobi.getItemType() + " : " + sobi.getItemValueKigo());
+        if (isDebug) {
             Map<String, RpgData> testMap = conf.getItemMap();
             testMap.forEach((key, val) -> {
                 RpgItem item = (RpgItem) val;
-                System.out.println("Key: " + key + " : " + "Val: " + item.getItemType());
+                if (isDebug) System.out.println("Key: " + key + " : " + "Val: " + item.getItemType());
             });
         }
         RpgItem type = (RpgItem) conf.getItemMap().get(sobi.getName());

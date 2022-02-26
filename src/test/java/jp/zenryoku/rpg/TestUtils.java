@@ -1,7 +1,9 @@
 package jp.zenryoku.rpg;
 
+import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.data.*;
+import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgStatus;
@@ -17,9 +19,39 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class TestUtils {
 
     public static PlayerCharactor initRpgConfig() {
+        ParamGenerator param = ParamGenerator.getInstance();
+        Map<String, RpgMaster> masterMap = new HashMap<>();
         Map<String, RpgData> map = new HashMap<>();
         List<RpgData> list = new ArrayList<>();
         List<RpgData> optList = new ArrayList<>();
+
+        RpgMaster mny = new RpgMaster();
+        List<String> lis = new ArrayList<>();
+        lis.add("NIG");
+        mny.setKigo("MNY");
+        mny.setFieldName("money");
+        mny.setChildList(lis);
+        // NIG通貨
+        RpgData nig = new RpgData();
+        nig.setPriority(0);
+        nig.setMaster("MNY");
+        nig.setKigo("NIG");
+        map.put(nig.getKigo(), nig);
+        masterMap.put(mny.getKigo(), mny);
+
+
+        // HP
+        RpgData zhp = new RpgData();
+        zhp.setKigo("ZHP");
+        zhp.setValue(10);
+        list.add(zhp);
+        map.put(zhp.getKigo(), zhp);
+        // MP
+        RpgData zmp = new RpgData();
+        zmp.setKigo("ZMP");
+        zmp.setValue(11);
+        list.add(zmp);
+        map.put(zmp.getKigo(), zmp);
         // ちから
         RpgData pow = new RpgData();
         pow.setKigo("POW");
@@ -104,6 +136,12 @@ public class TestUtils {
         list.add(itv);
         map.put(itv.getKigo(), itv);
 
+        RpgData poi = new RpgData();
+        poi.setKigo("POI");
+        poi.setValue(14);
+        list.add(poi);
+        map.put(poi.getKigo(), poi);
+
         RpgData mpw = new RpgData();
         mpw.setKigo("MPW");
         mpw.setValue(14);
@@ -116,7 +154,14 @@ public class TestUtils {
         optList.add(tsm);
         map.put(tsm.getKigo(), tsm);
 
+        RpgData dnm = new RpgData();
+        dnm.setKigo("DNM");
+        dnm.setValue(16);
+        list.add(dnm);
+        map.put(dnm.getKigo(), dnm);
+
         RpgConfig conf = RpgConfig.getInstance();
+        conf.setMasterMap(masterMap);
         Map<String, RpgStatus> statusMap = new HashMap<>();
         Map<String, RpgStatus> optMap = new HashMap<>();
         Set<String> set = map.keySet();
@@ -134,11 +179,13 @@ public class TestUtils {
         }
         conf.setParamMap(map);
         conf.setStatusMap(statusMap);
+        conf.setParty(PlayerParty.getInstance());
 
         // 計算マップ
         createFormulaMap();
         PlayerCharactor player = null;
         try {
+
             player = new PlayerCharactor("test");
             player.setStatusMap(statusMap);
             player.setOptionalMap(optMap);

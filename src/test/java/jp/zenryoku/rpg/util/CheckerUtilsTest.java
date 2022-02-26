@@ -99,4 +99,11 @@ public class CheckerUtilsTest {
 		int res2 = CheckerUtils.indexOfNum("たかだ1234");
 		assertEquals(3, res2);
 	}
+
+	@Test
+	public void testMasterCatNum() {
+		assertFalse(CheckerUtils.isMasterCatNum("-"));
+		assertTrue(CheckerUtils.isMasterCatNum("PLY0"));
+	}
+
 }
