@@ -73,6 +73,7 @@ public class TextRpgGameEngine extends Thread {
 				if (input != null && input.startsWith("status")) {
 					PlayerCharactor player = PlayerParty.getInstance().getPlayer();
 					ConsoleUtils.getInstance().printStatus(player);
+					ConsoleUtils.getInstance().acceptInput("", false);
 				}
 				// 6. シーンの実行
 				if (textRpgLogic.executeScene()) {

@@ -139,7 +139,7 @@ public class CalcUtils {
             });
         }
 
-        Pattern pat = Pattern.compile(RpgConst.REG_KIGO);
+        Pattern pat = Pattern.compile(RpgConst.REG_KIGO_SINGLE);
         char[] ch = siki.toCharArray();
         StringBuilder build = new StringBuilder();
         for  (int i = 0; i < ch.length; i++) {
@@ -168,19 +168,33 @@ public class CalcUtils {
     }
 
     public void calcEffect(String kigo, String ope, int kosu) throws RpgException {
-        RpgData dd = RpgConfig.getInstance().getParamMap().get(kigo);
+        PlayerParty party = PlayerParty.getInstance();
+        PlayerCharactor player = party.getPlayer();
+        RpgStatus status = player.getStatusMap().get(kigo);
+
+        // ステータスの有無からチェック
+        if (status != null) {
+            status.setValue(status.getValue() + kosu);
+            return;
+        }
+        // ステータスでなければ、その他
+        RpgConfig conf = RpgConfig.getInstance();
+        RpgData dd = conf.getParamMap().get(kigo);
+        RpgMaster mst = conf.getMasterMap().get(kigo);
+
         String master = dd != null ? dd.getMaster() : null;
-        if (dd == null && master == null) {
+        if (mst == null) {
+            mst = conf.getMasterMap().get(master);
+        }
+        if (dd == null && mst == null && status == null) {
             throw new RpgException(MessageConst.ERR_NO_KEY_GENPARA.toString() + ": " + kigo);
         }
-        RpgMaster mst = RpgConfig.getInstance().getMasterMap().get(master);
         List<Class<?>> inte = new ArrayList<>();
         System.out.println(mst);
         Field field = findTargetField(mst.getFieldName(), inte);
 
         Object targetObj = null;
         String target = inte.get(0).getSimpleName();
-        PlayerParty party = PlayerParty.getInstance();
         if ("PlayerParty".equals(target)) {
             targetObj = party;
         } else if ("Player".equals(target) || "PlayerCharactor".equals(target)) {
@@ -188,8 +202,6 @@ public class CalcUtils {
         } else {
             throw new RpgException(MessageConst.ERR_NO_FIELD_GENPARA.toString() + ": " + target + " = " + kigo);
         }
-
-        PlayerCharactor player = party.getPlayer();
 
         try {
             if ("+".equals(ope)) {

@@ -21,7 +21,7 @@ public class StringUtilsTest {
             String tes = "MNY+100>";
             String res = StringUtils.findDefaultStatus(tes);
             assertEquals("MNY", res);
-            String resT = StringUtils.findDefaultStatusOperator(tes);
+            String resT = StringUtils.findOperator(tes);
             assertEquals("+", resT);
 
             String res2 = StringUtils.findDefaultStatus("ZHP+100>");
@@ -32,7 +32,7 @@ public class StringUtilsTest {
 
             String res4 = StringUtils.findDefaultStatus("ZHP-100>");
             assertEquals("HP", res4);
-            String res5 = StringUtils.findDefaultStatusOperator("HP-100>");
+            String res5 = StringUtils.findOperator("HP-100>");
             assertEquals("-", res5);
 
         } catch (RpgException e) {
@@ -41,7 +41,13 @@ public class StringUtilsTest {
         }
     }
 
-    //@Test
-    public void testMasterCatNum() {
+    @Test
+    public void testConvertFieldName() {
+        assertEquals("HP", StringUtils.convertDefaultStatusKigo("ZHP"));
+        assertEquals("MP", StringUtils.convertDefaultStatusKigo("ZMP"));
+        assertEquals("ATK", StringUtils.convertDefaultStatusKigo("ATK"));
+        assertEquals("POW", StringUtils.convertDefaultStatusKigo("POW"));
+        assertEquals("LV", StringUtils.convertDefaultStatusKigo("ZLV"));
+        assertEquals(null, StringUtils.convertDefaultStatusKigo("ZHPS"));
     }
 }

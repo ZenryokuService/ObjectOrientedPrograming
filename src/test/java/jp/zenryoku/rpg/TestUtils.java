@@ -21,8 +21,11 @@ public class TestUtils {
     public static PlayerCharactor initRpgConfig() {
         ParamGenerator param = ParamGenerator.getInstance();
         Map<String, RpgMaster> masterMap = new HashMap<>();
+        // パラメータマップ
         Map<String, RpgData> map = new HashMap<>();
+        // ステータスマップ
         List<RpgData> list = new ArrayList<>();
+        // オプショナルステータスマップ
         List<RpgData> optList = new ArrayList<>();
 
         RpgMaster mny = new RpgMaster();
@@ -41,23 +44,25 @@ public class TestUtils {
 
 
         // HP
-        RpgData zhp = new RpgData();
+        RpgMaster zhp = new RpgMaster();
         zhp.setKigo("ZHP");
         zhp.setValue(10);
-        list.add(zhp);
-        map.put(zhp.getKigo(), zhp);
+        zhp.setFieldName("HP");
+        //list.add(zhp);
+        masterMap.put(zhp.getKigo(), zhp);
         // MP
-        RpgData zmp = new RpgData();
+        RpgMaster zmp = new RpgMaster();
         zmp.setKigo("ZMP");
         zmp.setValue(11);
-        list.add(zmp);
-        map.put(zmp.getKigo(), zmp);
+        zmp.setFieldName("MP");
+        //list.add(zmp);
+        masterMap.put(zmp.getKigo(), zmp);
         // ちから
         RpgData pow = new RpgData();
         pow.setKigo("POW");
         pow.setValue(1);
         list.add(pow);
-        map.put(pow.getKigo(), pow);
+        //map.put(pow.getKigo(), pow);
 
         // 武器攻撃力
         RpgData wev = new RpgData();
@@ -78,7 +83,7 @@ public class TestUtils {
         agi.setKigo("AGI");
         agi.setValue(4);
         list.add(agi);
-        map.put(agi.getKigo(), agi);
+        //map.put(agi.getKigo(), agi);
 
         // 攻撃力
         RpgData atk = new RpgData();
@@ -104,7 +109,7 @@ public class TestUtils {
         ksm.setKigo("KSM");
         ksm.setValue(8);
         list.add(ksm);
-        map.put(ksm.getKigo(), ksm);
+        //map.put(ksm.getKigo(), ksm);
 
         RpgData dex = new RpgData();
         dex.setKigo("DEX");
@@ -122,7 +127,7 @@ public class TestUtils {
         inta.setKigo("INT");
         inta.setValue(11);
         list.add(inta);
-        map.put(inta.getKigo(), inta);
+        //map.put(inta.getKigo(), inta);
 
         RpgData jvl = new RpgData();
         jvl.setKigo("JLV");
@@ -133,13 +138,13 @@ public class TestUtils {
         RpgData itv = new RpgData();
         itv.setKigo("ITV");
         itv.setValue(13);
-        list.add(itv);
+        optList.add(itv);
         map.put(itv.getKigo(), itv);
 
         RpgData poi = new RpgData();
         poi.setKigo("POI");
         poi.setValue(14);
-        list.add(poi);
+        optList.add(poi);
         map.put(poi.getKigo(), poi);
 
         RpgData mpw = new RpgData();
@@ -157,7 +162,7 @@ public class TestUtils {
         RpgData dnm = new RpgData();
         dnm.setKigo("DNM");
         dnm.setValue(16);
-        list.add(dnm);
+        optList.add(dnm);
         map.put(dnm.getKigo(), dnm);
 
         RpgConfig conf = RpgConfig.getInstance();

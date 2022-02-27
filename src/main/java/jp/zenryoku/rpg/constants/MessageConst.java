@@ -3,7 +3,7 @@ package jp.zenryoku.rpg.constants;
 public enum MessageConst {
     //// 通常メッセージ ///
     /** ルート */
-    ON_ROOT("<Root>"),
+    ON_ROOT("<Command input>"),
     /** シーン */
     ON_SCENE("<Scene>"),
     /** ゲームオーバー */

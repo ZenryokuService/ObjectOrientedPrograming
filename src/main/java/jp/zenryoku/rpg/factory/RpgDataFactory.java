@@ -15,6 +15,7 @@ import jp.zenryoku.rpg.data.status.StEffect;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.CheckerUtils;
+import jp.zenryoku.rpg.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -295,7 +296,7 @@ public class RpgDataFactory {
                 evEffMap.put(obj.getKigo(), obj);
                 teigiList.add(obj);
             }
-            System.out.println("kigo: " + kigo + " ope: " + ope + " val: " + val);
+            if(isDebug) System.out.println("kigo: " + kigo + " ope: " + ope + " val: " + val);
         }
 
         return teigiList;

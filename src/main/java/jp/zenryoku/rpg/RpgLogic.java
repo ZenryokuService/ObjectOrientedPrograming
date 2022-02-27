@@ -418,13 +418,13 @@ public abstract class RpgLogic implements Games {
         if (isDebug) System.out.println("** " + effect + " ** ");
         EffectScene scene = (EffectScene) sceneObj;
         // 記号
-        String kigo = StringUtils.findDefaultStatus(effect);
+        String kigo = StringUtils.findKigo(effect);
         if (kigo == null) {
             throw new RpgException(MessageConst.ERR_EFFECT_SCENE_CONF.toString() + ": " + effect);
         }
         scene.setKigo(kigo);
         // 演算子(+ or -)
-        String ope = StringUtils.findDefaultStatusOperator(effect);
+        String ope = StringUtils.findOperator(effect);
         scene.setOpe(ope);
         int res = CheckerUtils.indexOfNum(effect);
         // 個数の部分をセット

@@ -247,7 +247,7 @@ public class ConsoleUtils {
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
 			build.append(wepStr + appendSpace(wepStr, resizeSotowaku) + "*" + SEPARATOR);
 		} else {
-			System.out.println("*** Other ***" + sotowaku);
+			if (isDebug) System.out.println("*** Other ***" + sotowaku);
 			//build.append(printRightSideStatus(RpgConst.BUKI, wep, isMultiByte, isGusu, sobisize, sotowaku));
 			build.append(wepStr  + appendSpace(wepStr, resizeSotowaku) + "*" + SEPARATOR);
 		}

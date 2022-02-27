@@ -109,12 +109,39 @@ public class CalcUtilsTest {
 
     @Test
     public void testCalcEffect() {
-        TestUtils.initRpgConfig();
+        PlayerCharactor player = TestUtils.initRpgConfig();
         PlayerParty party = RpgConfig.getInstance().getParty();
         party.setMoney(0);
+        player.setHP(15);
+        player.setMP(5);
+        Map<String, RpgStatus> map = player.getStatusMap();
+        map.get("POW").setValue(5);
+        map.get("INT").setValue(6);
+        map.get("AGI").setValue(7);
+        map.get("DEX").setValue(8);
+        map.get("KSM").setValue(9);
+        party.setPlayer(player);
         try {
+            // マスタカテゴリ対象の項目(通貨はパラメータマップで拡張する)
             target.calcEffect("NIG", "+", 100);
             assertEquals(100, party.getMoney());
+            target.calcEffect("ZHP", "+", 10);
+            assertEquals(25, player.getHP());
+            target.calcEffect("ZMP", "+", 10);
+            assertEquals(15, player.getMP());
+            // ステータスマップの項目
+            target.calcEffect("POW", "+", 3);
+            assertEquals(8, player.getStatusMap().get("POW").getValue());
+            target.calcEffect("INT", "+", 2);
+            assertEquals(8, player.getStatusMap().get("INT").getValue());
+            target.calcEffect("AGI", "+", 1);
+            assertEquals(8, player.getStatusMap().get("AGI").getValue());
+            target.calcEffect("DEX", "+", 0);
+            assertEquals(8, player.getStatusMap().get("DEX").getValue());
+            target.calcEffect("KSM", "+", -1);
+            assertEquals(8, player.getStatusMap().get("KSM").getValue());
+            // ステータス異常
+
 
         } catch (RpgException e) {
             e.printStackTrace();

@@ -146,8 +146,10 @@ public enum RpgConst {
     public static final String MENU_COMMAND = "menu";
     /** 終了コマンド */
     public static final String EXIR_COMMAND = "exit";
-    /** ストーリーテキストで定義する記号判別用の正規表現 */
-    public static final String REG_KIGO = "[A-Z]";
+    /** ストーリーテキストで定義する記号判別用(３文字固定)の正規表現 */
+    public static final String REG_KIGO = "[A-Z]{3}";
+    /** ストーリーテキストで定義する記号判別用(1文字)の正規表現 */
+    public static final String REG_KIGO_SINGLE = "[A-Z]";
     /** ストーリーテキストで定義するデフォルトステータス記号判別用の正規表現 */
     public static final String REG_DEFAULT_KIGO = "[A-Z]{2}";
     /** ステータス変化オブジェクト定義の書式正規表現 */

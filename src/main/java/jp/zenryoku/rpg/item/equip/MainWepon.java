@@ -34,7 +34,7 @@ public class MainWepon extends Items {
 		String kigo = valueKigo.substring(0,3);
 		String value = valueKigo.substring(3);
 
-		if (true) System.out.println("kigo: " + kigo + " : value: " + value);
+		if (isDebug) System.out.println("kigo: " + kigo + " : value: " + value);
 
 		if (RpgConst.WEV.equals(kigo) == false) {
 			throw new RpgException(MessageConst.ERR_SETTING_OBJECT.toString() + ": " + kigo);

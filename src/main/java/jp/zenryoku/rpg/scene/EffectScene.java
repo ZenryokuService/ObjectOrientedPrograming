@@ -8,6 +8,7 @@ import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import lombok.Data;
 
@@ -52,7 +53,7 @@ public class EffectScene extends StoryScene {
         super.playScene();
 
         // TODO-[エフェクトシーンの実装内容を設計する#27]
-        if (isDebug) System.out.println("kigo: " + kigo + " ope: " + ope + " kosu: " + kosu);
+        if (true) System.out.println("kigo: " + kigo + " ope: " + ope + " kosu: " + kosu);
 
         Map<String, RpgData> dataMap = RpgConfig.getInstance().getParamMap();
         Map<String, RpgMaster> mstMap = RpgConfig.getInstance().getMasterMap();
@@ -67,10 +68,10 @@ public class EffectScene extends StoryScene {
             throw new RpgException((MessageConst.ERR_NO_CONFIGS.toString() + ": " + kigo));
         }
         String name = data == null ? mst.getName() : data.getName();
-        System.out.println("Debug: " + name + ope + kosu);
+        System.out.println("Debug: " + name + "(" + kigo + ")" + ope + kosu);
 
         // 効果を及ぼす
-
+        CalcUtils.getInstance().calcEffect(kigo, ope, kosu);
         return false;
     }
 }

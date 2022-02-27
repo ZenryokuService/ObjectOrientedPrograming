@@ -148,11 +148,11 @@ CONFIG_JOB
 END_JOB
 
 CONFIG_ST_EFFECT
-POI:どく:ZHP:どくをうけた
-STN:せきか:DNV:せきかした
-MAH:まひ:NOA:まひした
-PWB:ちから:POW:ちからがみなぎる
-INB:まほう:INT:さとりをひらいた
+POI:どく:ZHP+10:どくをうけた
+STN:せきか:DNV+1:せきかした
+MAH:まひ:NOA+1:まひした
+PWB:ちから:POW+3:ちからがみなぎる
+INB:まほう:INT+2:さとりをひらいた
 END_EFFECT
 
 
@@ -219,7 +219,7 @@ END_SCENE 1
 
 5:C
 パーティーステータス変化
-<effect:HP+20>
+<effect:ZHP+20>
 タイガーマスクもびっくりだ。。。
 </effect>
 END_SCENE 1
