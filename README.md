@@ -43,6 +43,8 @@ END_SCENE
 **/src/main/resources/TextRpgClasses.mdj (using [StarUML](https://staruml.io/))**
 [Diagram HTML is here](https://zenryokuservice.github.io/ObjectOrientedPrograming/html-docs/index.html)
 
+ **[Good sample of UML](https://www.tutorialspoint.com/uml/index.htm)**
+ 
 ## 学習スタイル(学習ステップ・フロー)
 1. 実際に使用するケースを見る -> サンプルアプリより一部抜粋　```ハローワールドの実用例を見る ```
 2. 学習ポイントに沿った、内容の説明を読む　：　```ハローワールド、コンソール(標準出力)に文字を表示するということ```
