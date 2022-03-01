@@ -154,6 +154,8 @@ public enum RpgConst {
     public static final String REG_DEFAULT_KIGO = "[A-Z]{2}";
     /** ステータス変化オブジェクト定義の書式正規表現 */
     public static final String REG_EFFECT_TXT = "[A-Z]{3}[+\\-][0-9]{1,3}%*";
+    /** ステータス変化オブジェクト定義の書式正規表現 */
+    public static final String REG_EFFECT_TXT_2 = "[A-Z]{3}[+\\-][0-9]{1,3}[%|T|S]*[0-9]*";
     /** 記号の文字数(配列の添え字番号) */
     public static final int KIGO_SIZE = 2;
     /** アイテム定義のカンマ区切り数 */

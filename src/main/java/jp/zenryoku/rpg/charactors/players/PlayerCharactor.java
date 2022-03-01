@@ -3,6 +3,7 @@ package jp.zenryoku.rpg.charactors.players;
 import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.Effects;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.status.RpgFormula;
@@ -26,7 +27,7 @@ public class PlayerCharactor extends Player {
     /** オプショナルステータスリスト */
     protected Map<String, RpgStatus> optionalMap;
     /** ステータス異常(変化)リスト */
-    protected Map<String, StEffect> effecrMap;
+    protected List<Effects> effectList;
     /** 動けるフラグ */
     protected boolean canMove;
 
@@ -40,6 +41,7 @@ public class PlayerCharactor extends Player {
         super(name);
         statusMap = new LinkedHashMap<String, RpgStatus>();
         optionalMap = new LinkedHashMap<String, RpgStatus>();
+        effectList = new ArrayList<Effects>();
         canMove = true;
         // ステータス設定を取得する。
         Map<String, RpgStatus> map = RpgConfig.getInstance().getStatusMap();

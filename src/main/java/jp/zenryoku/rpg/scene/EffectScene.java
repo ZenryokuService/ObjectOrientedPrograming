@@ -12,6 +12,7 @@ import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +28,8 @@ public class EffectScene extends StoryScene {
     private String name;
     /** 対象物の個数 */
     private int kosu;
+    /** ステータス異常 */
+    private List<Effects> effList;
 
     public EffectScene(String sceneIdx, String sceneType) {
         super(sceneIdx, sceneType);
@@ -51,10 +54,15 @@ public class EffectScene extends StoryScene {
     @Override
     public boolean playScene() throws Exception {
         super.playScene();
-
+        CalcUtils util = CalcUtils.getInstance();
         // TODO-[エフェクトシーンの実装内容を設計する#27]
         if (true) System.out.println("kigo: " + kigo + " ope: " + ope + " kosu: " + kosu);
 
+        if (effList != null && effList.size() != 0) {
+            Effects eff = effList.get(0);
+            util.calcEffect(eff.getKigo(), eff.getOpe(), eff.getTurn());
+            return false;
+        }
         Map<String, RpgData> dataMap = RpgConfig.getInstance().getParamMap();
         Map<String, RpgMaster> mstMap = RpgConfig.getInstance().getMasterMap();
 
@@ -71,7 +79,7 @@ public class EffectScene extends StoryScene {
         System.out.println("Debug: " + name + "(" + kigo + ")" + ope + kosu);
 
         // 効果を及ぼす
-        CalcUtils.getInstance().calcEffect(kigo, ope, kosu);
+       util.calcEffect(kigo, ope, kosu);
         return false;
     }
 }

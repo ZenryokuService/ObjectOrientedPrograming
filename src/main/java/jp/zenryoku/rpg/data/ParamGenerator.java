@@ -287,7 +287,7 @@ public class ParamGenerator {
     }
 
     /**
-     * アイテムの設定リストを作成する。ITEM_LIST以降の行の設定を、RpgConfigに設定する。
+     * 効果オブジェクトマップを作成する。CONFIG_ST_EFFECT以降の行の設定を、RpgConfigに設定する。
      * @param buf ストーリーテキスト
      * @throws RpgException 設定のエラー
      */
@@ -299,10 +299,10 @@ public class ParamGenerator {
                 if (CheckerUtils.isComment(line)) {
                     continue;
                 }
-                // StEffectを生成する。
+                // Effectsを生成する。
                 Effects data = RpgDataFactory.createEffects(line);
                 // 効果式リストに追加
-                effectMap.put(data.getName(), data);
+                effectMap.put(data.getKigo(), data);
             }
             config.setEffectMap(effectMap);
         } catch (NumberFormatException e) {

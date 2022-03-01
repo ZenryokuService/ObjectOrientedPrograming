@@ -140,7 +140,9 @@ public class CalcUtilsTest {
             assertEquals(8, player.getStatusMap().get("DEX").getValue());
             target.calcEffect("KSM", "+", -1);
             assertEquals(8, player.getStatusMap().get("KSM").getValue());
-            // ステータス異常
+            // ステータス異常(ZHP-10TS4)
+
+            //target.calcEffect("POI", "+", 1, "");
 
 
         } catch (RpgException e) {

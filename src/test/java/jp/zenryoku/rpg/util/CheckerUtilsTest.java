@@ -66,14 +66,28 @@ public class CheckerUtilsTest {
 	@Test
 	public void testIsStartEffectScene() {
 		assertTrue(CheckerUtils.isStartEffectScene("<effect:MNY+100>"));
-		assertTrue(CheckerUtils.isStartEffectScene("<effect:POI+1>"));
+		assertFalse(CheckerUtils.isStartEffectScene("<effect:MN+1000>"));
+		assertTrue(CheckerUtils.isStartEffectScene("<effect:POI%1>"));
 		assertTrue(CheckerUtils.isStartEffectScene("<effect:ITM-たんけん3>"));
 		assertTrue(CheckerUtils.isStartEffectScene("<effect:ITM+やくそう1>"));
-		assertTrue(CheckerUtils.isStartEffectScene("<effect:MNY-200>"));
+		assertTrue(CheckerUtils.isStartEffectScene("<effect:ZHP-200>"));
+		assertFalse(CheckerUtils.isStartEffectScene("<effect:ZHP+20TS4>"));
 
 		checker("<effect:ITM+やくそう1>", "ITM", "+", "やくそう1");
 		checker("<effect:MNY-200>", "MNY", "-", "200");
 		checker("<effect:ITM-たんけん3>", "ITM", "-", "たんけん3");
+	}
+
+	@Test
+	public void testIsStartWithTSEffectScene() {
+		assertTrue(CheckerUtils.isStartWithTSEffectScene("<effect:MNY+100TS2>"));
+		assertFalse(CheckerUtils.isStartWithTSEffectScene("<effect:MN+1000TS1>"));
+		assertTrue(CheckerUtils.isStartWithTSEffectScene("<effect:POI%1TS2>"));
+		assertTrue(CheckerUtils.isStartWithTSEffectScene("<effect:ITM-たんけん3TS2>"));
+		assertTrue(CheckerUtils.isStartWithTSEffectScene("<effect:ITM+やくそう1TS2>"));
+		assertTrue(CheckerUtils.isStartWithTSEffectScene("<effect:ZHP-200TS2>"));
+		assertTrue(CheckerUtils.isStartWithTSEffectScene("<effect:ZHP+20TS4>"));
+
 	}
 
 	private void checker(String line, String k, String o, String n) {
@@ -102,8 +116,21 @@ public class CheckerUtilsTest {
 
 	@Test
 	public void testMasterCatNum() {
-		assertFalse(CheckerUtils.isMasterCatNum("-"));
+		assertTrue(CheckerUtils.isMasterCatNum("-"));
 		assertTrue(CheckerUtils.isMasterCatNum("PLY0"));
+		assertFalse(CheckerUtils.isMasterCatNum(""));
+	}
+
+	@Test
+	public void testIsTS() {
+		assertFalse(CheckerUtils.isTS("POW+10"));
+		assertFalse(CheckerUtils.isTS("POWW+10"));
+		assertFalse(CheckerUtils.isTS("POW+1000TS1"));
+		assertTrue(CheckerUtils.isTS("POW+999TS1"));
+		assertTrue(CheckerUtils.isTS("POW+10%TS3"));
+		assertTrue(CheckerUtils.isTS("POW+10T"));
+		assertTrue(CheckerUtils.isTS("AGI+10TS"));
+		assertTrue(CheckerUtils.isTS("AGI+10TS1"));
 	}
 
 }

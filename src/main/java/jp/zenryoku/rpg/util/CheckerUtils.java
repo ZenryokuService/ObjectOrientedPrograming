@@ -163,11 +163,22 @@ public class CheckerUtils {
 	}
 
 	public static boolean isStartEffectScene(String line) {
-		if (line.matches("\\<effect\\:[A-Z]{2,3}[+\\-*/%][0-9]{1,1000}\\>")) {
+		if (line.matches("\\<effect\\:[A-Z]{3}[+\\-*/%][0-9]{1,1000}\\>")) {
 			return true;
 		}
 		//if (line.matches("\\<effect:ITM[+\\-*/%][0-9]{1,1000}:\\.*,\\.*\\>")) {
 		if (line.matches("\\<effect:ITM[+\\-*/%].*[0-9]{1,1000}\\>")) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isStartWithTSEffectScene(String line) {
+		if (line.matches("\\<effect\\:[A-Z]{3}[+\\-*/%][0-9]{1,1000}[T|S]{1,2}[0-9]\\>")) {
+			return true;
+		}
+		//if (line.matches("\\<effect:ITM[+\\-*/%][0-9]{1,1000}:\\.*,\\.*\\>")) {
+		if (line.matches("\\<effect:ITM[+\\-*/%].*[0-9]{1,1000}[T|S]{1,2}[0-9]\\>")) {
 			return true;
 		}
 		return false;
@@ -381,5 +392,13 @@ public class CheckerUtils {
 			return true;
 		}
 		return str.matches(RpgConst.REG_MASTERT_DEF_FOR_PARAM);
+	}
+
+	public static boolean isTS(String kokaSiki) {
+		boolean isTS = false;
+		if (kokaSiki != null && kokaSiki.matches(RpgConst.REG_EFFECT_TXT_2)) {
+			isTS = kokaSiki.contains("T") || kokaSiki.contains("S");
+		}
+		return isTS;
 	}
 }

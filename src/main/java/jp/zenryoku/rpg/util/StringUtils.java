@@ -12,6 +12,8 @@ import jp.zenryoku.rpg.exception.RpgException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 文字列操作のユーティリティ
@@ -73,6 +75,75 @@ public class StringUtils {
         return siki.substring(idx, idx + 1);
     }
 
+    public static String findNo(String partOfSiki) {
+        char[] ch = partOfSiki.toCharArray();
+        boolean isStart = true;
+        int start = 0;
+        int end = 0;
+        Pattern pat = Pattern.compile("[0-9|%]");
+        for (int i = 0; i < ch.length; i++) {
+            Matcher mat = pat.matcher(String.valueOf(ch[i]));
+            if (mat.matches()) {
+                if (isStart) {
+                    start = i;
+                    isStart = false;
+                }
+            } else {
+                if (end == 0) {
+                    end = i;
+                    break;
+                }
+            }
+        }
+        if (isDebug) System.out.println("start: " + start + " end: " + end);
+        return partOfSiki.substring(start, end);
+    }
+
+    public static String findNoBack(String partOfSiki) {
+        char[] ch = partOfSiki.toCharArray();
+        boolean isStart = true;
+        int start = ch.length - 1;
+        int end = -1;
+        Pattern pat = Pattern.compile("[0-9]");
+        for (int i = ch.length - 1; i >= 0; i--) {
+            Matcher mat = pat.matcher(String.valueOf(ch[i]));
+            if (mat.matches()) {
+                if (isStart) {
+                    start = i + 1;
+                    isStart = false;
+                }
+            } else {
+                if (end == -1) {
+                    end = i + 1;
+                    break;
+                }
+            }
+        }
+        if (isDebug) System.out.println("start: " + start + " end: " + end);
+        return partOfSiki.substring(end, start);
+    }
+
+    public static String findTS(String partOfSiki) {
+        char[] ch = partOfSiki.toCharArray();
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < ch.length; i++) {
+            if (ch[i] == 'T' || ch[i] == 'S') {
+                if (start == 0) {
+                    start = i;
+                }
+            } else if (start != 0) {
+                if (end == 0) {
+                    end = i;
+                    break;
+                }
+            }
+        }
+        if (start == 0 && end == 0) {
+            return null;
+        }
+        return partOfSiki.substring(start, end);
+    }
     /**
      * デフォルトステータスのときは、２文字分、通常の記号の場合はそのまま返却する。
      * @param kigo 検証する文字列
@@ -100,4 +171,34 @@ public class StringUtils {
         return res;
     }
 
+    /**
+     * 効果式を分割する。デフォルトステータスのプレフィックスはつけたまま。
+     * 前提として、文字列のチェック済み
+     * @param kokaSiki　効果式：ZHP-10%, POI-10TS3
+     * @return String[] {記号, 演算子, 数字, TS, ターン数}
+     */
+    public static String[] separateEffectAppear(String kokaSiki) {
+        // TSあり
+        if (CheckerUtils.isTS(kokaSiki)) {
+            String[] res = new String[5];
+            // 記号
+            res[0] = kokaSiki.substring(0, 3);
+            // 演算子
+            res[1]  = kokaSiki.substring(3, 4);
+            String after = kokaSiki.substring(4);
+            // 数字
+            res[2] = StringUtils.findNo(after);
+            // TS
+            res[3] = StringUtils.findTS(after);
+            // ターン数
+            res[4] = StringUtils.findNoBack(after);
+            return res;
+        }
+        // TSなし
+        String[] res = new String[3];
+        res[0] = kokaSiki.substring(0, 3);
+        res[1]  = kokaSiki.substring(3, 4);
+        res[2] = kokaSiki.substring(4);
+        return res;
+    }
 }

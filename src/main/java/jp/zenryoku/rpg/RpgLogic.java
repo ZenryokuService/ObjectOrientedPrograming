@@ -7,6 +7,7 @@ import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.shop.ItemShop;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.exception.StoryTextException;
+import jp.zenryoku.rpg.factory.RpgDataFactory;
 import jp.zenryoku.rpg.scene.*;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.StringUtils;
@@ -198,7 +199,8 @@ public abstract class RpgLogic implements Games {
                 }
 
                 // エフェクトシーンの設定
-                if (CheckerUtils.isStartEffectScene(line)) {
+                if (CheckerUtils.isStartEffectScene(line) || CheckerUtils.isStartWithTSEffectScene(line)) {
+                    System.out.println("*** " + line + " ***");
                     setEffectScene(line, storyTxt, sceneObj);
                     continue;
                 }
@@ -407,6 +409,14 @@ public abstract class RpgLogic implements Games {
         sceneObj = scene;
     }
 
+    /**
+     * エフェクトシーンの生成を行う。
+     * @param line ストーリーテキストの１行
+     * @param txt 続きのストーリーテキスト
+     * @param sceneObj シーンオブジェクト
+     * @throws IOException　ファイルの読み込みエラー
+     * @throws RpgException　設定エラー
+     */
     private void setEffectScene(String line, BufferedReader txt, RpgScene sceneObj) throws IOException, RpgException {
         if ((sceneObj instanceof EffectScene) == false) {
             throw new RpgException(MessageConst.SCENE_TYPE_ERR.toString());
@@ -415,8 +425,18 @@ public abstract class RpgLogic implements Games {
         // 記号 + (プラス) or -(マイナス) なまえ 個数の指定
         String effect = line.split(":")[1];
         effect = effect.substring(0, effect.length() - 1);
-        if (isDebug) System.out.println("** " + effect + " ** ");
+        if (true) System.out.println("** " + effect + " ** ");
         EffectScene scene = (EffectScene) sceneObj;
+
+        //// ターン指定がある場合の「ZHP+10%TS3」のような効果式の場合 ////
+        if (CheckerUtils.isTS(effect)) {
+            // 効果式のリストをプレーヤーにセット
+            List<Effects> eff = RpgDataFactory.createEffectAppear(effect);
+            scene.setEffList(eff);
+            return;
+        }
+
+        //// 永続、一回のみの「ZHP+10」のような効果式の場合 ////
         // 記号
         String kigo = StringUtils.findKigo(effect);
         if (kigo == null) {
@@ -426,6 +446,7 @@ public abstract class RpgLogic implements Games {
         // 演算子(+ or -)
         String ope = StringUtils.findOperator(effect);
         scene.setOpe(ope);
+
         int res = CheckerUtils.indexOfNum(effect);
         // 個数の部分をセット
         scene.setKosu(Integer.parseInt(effect.substring(res)));

@@ -243,7 +243,7 @@ public class RpgDataFactory {
 
         if (isDebug) System.out.println("kigo: " + kigo + " disp: " + disp + " siki: " + siki + " mes: " + message);
         Effects eff = new Effects(kigo, disp, siki, message);
-        List<Effects> effChilden = createEffectApeer(siki);
+        List<Effects> effChilden = createEffectAppear(siki);
         eff.setEffList(effChilden);
 
         return eff;
@@ -255,7 +255,7 @@ public class RpgDataFactory {
      * @return String[] [0]記号 [1]演算子(+-) [2]効果値
      * @throws RpgException 効果式の設定のエラー
      */
-    public static List<Effects> createEffectApeer(String effectAppear) throws RpgException {
+    public static List<Effects> createEffectAppear(String effectAppear) throws RpgException {
         // 基本手には定義は１つ
         String[] teigi = new String[1];
         // 服す定義可能定、定義分割
@@ -265,14 +265,23 @@ public class RpgDataFactory {
             teigi[0] = effectAppear;
         }
         List<Effects> teigiList = new ArrayList<>();
+        Map<String, RpgMaster> mstMap = RpgConfig.getInstance().getMasterMap();
         Map<String, RpgStatus> stMap = RpgConfig.getInstance().getStatusMap();
-        Map<String, StEffect> stEffMap = RpgConfig.getInstance().getStEffectMap();
-        Map<String, EvEffect> evEffMap = RpgConfig.getInstance().getEvEffectMap();
+        Map<String, Effects> effMap = RpgConfig.getInstance().getEffectMap();
 
         // 定義を読み込む
         for (String tei : teigi) {
             // スペース消去
             tei = tei.trim();
+            // TSを含む効果式
+            if(CheckerUtils.isTS(tei)) {
+                // TODO-[TSを含む効果式に対応するEffectsの生成を実装する]
+                String[] pam = StringUtils.separateEffectAppear(tei);
+                Effects eff = new Effects(pam[0], pam[1], pam[2], pam[3], pam[4]);
+                teigiList.add(eff);
+                continue;
+            }
+            // TSを含まない効果式
             if (tei == null || tei.matches(RpgConst.REG_EFFECT_TXT) == false) {
                 throw new RpgException(MessageConst.ERR_EFFECT_APPEAR_SIZE.toString() + tei);
             }
@@ -287,13 +296,15 @@ public class RpgDataFactory {
             String val = tei.substring(4);
             res[2] = val;
 
-            if (stMap.containsKey(kigo)) {
+            // マスタカテゴリまたは、ステータスマップに含まれる場合
+            if (mstMap.containsKey(kigo) || stMap.containsKey(kigo)) {
                 StEffect obj = new StEffect(kigo, ope, val);
-                stEffMap.put(obj.getKigo(), obj);
+                effMap.put(obj.getKigo(), obj);
                 teigiList.add(obj);
             } else {
+                // それ以外の場合
                 EvEffect obj = new EvEffect(kigo, ope, val);
-                evEffMap.put(obj.getKigo(), obj);
+                effMap.put(obj.getKigo(), obj);
                 teigiList.add(obj);
             }
             if(isDebug) System.out.println("kigo: " + kigo + " ope: " + ope + " val: " + val);
