@@ -1,4 +1,4 @@
-package game.formula;
+package jp.zenryoku.tutorial;
 
 import java.io.File;
 import java.io.IOException;

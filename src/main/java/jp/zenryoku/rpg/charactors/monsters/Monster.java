@@ -34,6 +34,32 @@ public class Monster extends NonPlayer {
 				+ "しかし、ここがおまえのさいごだ！わがちからにくっぷくするがよい。」");
 	}
 
+
+	/**
+	 * コンストラクタ。
+	 * 今回は、まおうのみなので、コンストラクタプロパティ設定を行う。
+	 * @param name モンスターの名前
+	 */
+	public Monster(String name, int lv, int hp, int mp, int atk, int def, boolean isTalk, String message) {
+		// 名前
+		super(name);
+		// レベル
+		setLevel(lv);
+		// HP
+		setHP(hp);
+		// MP
+		setMP(mp);
+		// 攻撃力
+		setAttack(atk);
+		// 防御力
+		setDiffence(def);
+		// 話をする
+		setTalk(isTalk);
+		// 表示するメッセージ
+		setMessage(message);
+	}
+
+
 	/**
 	 * モンスターの場合、武器を使用しないケースがある。
 	 */

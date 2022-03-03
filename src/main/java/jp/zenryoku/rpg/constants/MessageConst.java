@@ -140,6 +140,8 @@ public enum MessageConst {
     ERR_MISS_EFFECT_PARAM("取得するパラメータはInt型である必要があります。"),
     /** 数字ではない値が数字に変換されました。 */
     ERR_NUMBER_FORMAT("数字ではない値が数字に変換されました。"),
+    /** XMLの返還に失敗しました。 */
+    ERR_XML_PERSE("XMLの返還に失敗しました。"),
     ;
 
     /** メッセージ */

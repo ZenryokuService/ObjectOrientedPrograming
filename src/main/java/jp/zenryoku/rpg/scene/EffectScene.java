@@ -60,7 +60,7 @@ public class EffectScene extends StoryScene {
 
         if (effList != null && effList.size() != 0) {
             Effects eff = effList.get(0);
-            util.calcEffect(eff.getKigo(), eff.getOpe(), eff.getTurn());
+            util.calcEffect(eff.getKigo(), eff.getOpe(), eff.getNum());
             return false;
         }
         Map<String, RpgData> dataMap = RpgConfig.getInstance().getParamMap();
