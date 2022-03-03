@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<class>
+	<!-- スライム -->
+    <monster>
+        <name>Slime</name>
+        <lv>1</lv>
+        <hp>5</hp>
+        <mp>0</mp>
+        <pow>1</pow>
+        <agi>1</agi>
+        <int>1</int>
+        <dex>1</dex>
+        <ksm>1</ksm>
+    </monster>
+
+    <monster>
+        <name>おおがらす</name>
+        <lv>1</lv>
+        <hp>10</hp>
+        <mp>3</mp>
+        <pow>2</pow>
+        <agi>1</agi>
+        <int>2</int>
+        <dex>1</dex>
+        <ksm>0</ksm>
+    </monster>
+
+</class>
