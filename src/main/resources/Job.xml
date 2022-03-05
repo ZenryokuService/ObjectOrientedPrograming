@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- 職業マップ -->
+<class>
+    <!-- 勇者 -->
+    <job>
+        <id>BRV</id>
+        <name>勇者</name>
+        <discription>勇気ある者。バランスよく剣と魔法を使える。</discription>
+        <commandList>ATK, DEF, MAG</commandList>
+    </job>
+</class>

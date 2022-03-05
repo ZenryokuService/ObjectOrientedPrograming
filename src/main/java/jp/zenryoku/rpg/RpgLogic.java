@@ -1,5 +1,6 @@
 package jp.zenryoku.rpg;
 
+import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.*;
@@ -11,6 +12,7 @@ import jp.zenryoku.rpg.factory.RpgDataFactory;
 import jp.zenryoku.rpg.scene.*;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.StringUtils;
+import jp.zenryoku.rpg.util.XmlUtils;
 import lombok.Data;
 
 import java.io.BufferedReader;
@@ -67,6 +69,8 @@ public abstract class RpgLogic implements Games {
         BufferedReader story = getBufferedReader("resources/story", "SampleRpg_story.txt");
         // シーンオブジェクトの生成
         createSceneObject(story);
+        // モンスターリストの読み込み
+        loadMonsters();
         // シーン開始フラグの初期化
         isSceneStarted = false;
     }
@@ -138,8 +142,8 @@ public abstract class RpgLogic implements Games {
                 // コメント行が終了
                 isComment = false;
 
-                // 改行コードのみの場合
-                if (CheckerUtils.isEmpptyOrSep(line)) {
+                // コメント行を飛ばす 改行コードのみの場合
+                if (CheckerUtils.isCommentLine(line) || CheckerUtils.isEmpptyOrSep(line)) {
                     continue;
                 }
                 // カテゴリマスターの生成
@@ -200,10 +204,18 @@ public abstract class RpgLogic implements Games {
 
                 // エフェクトシーンの設定
                 if (CheckerUtils.isStartEffectScene(line) || CheckerUtils.isStartWithTSEffectScene(line)) {
-                    System.out.println("*** " + line + " ***");
+                    if (isDebug) System.out.println("*** " + line + " ***");
                     setEffectScene(line, storyTxt, sceneObj);
                     continue;
                 }
+
+                // バトルシーンの設定
+                if (CheckerUtils.isStartBattleScene(line)) {
+                    if (isDebug) System.out.println("*** " + line + " ***");
+                    setBattleScene(line, storyTxt, sceneObj);
+                    continue;
+                }
+
                 // ストーリーテキストのシーン終了部分
                 if (line.startsWith("END_SCENE ")) {
                     sceneObj = finishSceneSetting(line, sceneObj);
@@ -269,6 +281,20 @@ public abstract class RpgLogic implements Games {
         RpgScene sceneObj = createRpgScene(sceneIndex, sceneType);
         rpgSceneList.add(sceneObj);
         return sceneObj;
+    }
+
+    /**
+     * モンスターリストを読み込み、RpgConfigに設定する。
+     */
+    private void loadMonsters() {
+        try {
+            List<Monster> list = XmlUtils.loadMonsters();
+            RpgConfig.getInstance().setMonsterList(list);
+        } catch (RpgException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
     }
 
     /**
@@ -433,6 +459,10 @@ public abstract class RpgLogic implements Games {
             // 効果式のリストをプレーヤーにセット
             List<Effects> eff = RpgDataFactory.createEffectAppear(effect);
             scene.setEffList(eff);
+            String gyo = null;
+            while ((gyo = txt.readLine()).equals("</effect>") == false) {
+                // TODO-[エフェクトシーンの仕様を考える]
+            }
             return;
         }
 
@@ -457,6 +487,26 @@ public abstract class RpgLogic implements Games {
         }
         // 改めてsceneObjにセットする
         sceneObj = scene;
+    }
+
+    /**
+     * バトルシーンの設定を行う。
+     * @param line ストーリーテキストの１行
+     * @param txt ストーリーテキスト
+     * @param sceneObj シーンオブジェクト
+     * @throws IOException ファイルの読み込みエラー
+     * @throws RpgException 設定エラー
+     */
+    private void setBattleScene(String line, BufferedReader txt, RpgScene sceneObj) throws IOException, RpgException {
+        String[] vals = StringUtils.findMonsterNo(line);
+
+        if (vals != null && vals.length == 1) {
+
+        } else if (vals != null && vals.length == 2) {
+
+        } else {
+            throw new RpgException(MessageConst.ERR_MONSTER_NO.toString() + ": " + line);
+        }
     }
 
     /**

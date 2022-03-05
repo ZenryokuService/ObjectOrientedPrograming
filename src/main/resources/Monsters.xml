@@ -1,26 +1,46 @@
 <?xml version="1.0"?>
 <class>
-	<!-- スライム -->
+    <!-- サンプルモンスター -->
     <monster>
+        <id>0</id>
+        <name>サンプル</name>
+        <lv>1</lv>
+        <hp>5</hp>
+        <mp>0</mp>
+        <atk>1</atk>
+        <def>1</def>
+        <isTalk>true</isTalk>
+        <message>
+            モンスターの定義は、Monster.xmlで定義します。(src/main/resources/Monster.xml)
+            idタグでモンスターのIDを設定しモンスターを一意に指定します。
+            つまり、idが違えば、同じモンスターでもよいということです。意味はないと思いますが。。。
+        </message>
+        <commandList>ATK</commandList>
+    </monster>
+    <!-- スライム -->
+    <monster>
+        <id>1</id>
         <name>Slime</name>
         <lv>1</lv>
         <hp>5</hp>
         <mp>0</mp>
         <atk>1</atk>
         <def>1</def>
-        <isTalk>1</isTalk>
-        <message>1</message>
+        <isTalk>false</isTalk>
+        <message></message>
+        <commandList>ATK</commandList>
     </monster>
 
     <monster>
+        <id>2</id>
         <name>おおがらす</name>
         <lv>1</lv>
         <hp>5</hp>
         <mp>0</mp>
         <atk>1</atk>
         <def>1</def>
-        <isTalk>1</isTalk>
-        <message>1</message>
+        <isTalk>false</isTalk>
+        <message></message>
     </monster>
 
 </class>

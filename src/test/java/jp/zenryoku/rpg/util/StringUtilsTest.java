@@ -95,4 +95,11 @@ public class StringUtilsTest {
         assertEquals("21", StringUtils.findNoBack("12TS21"));
     }
 
+    @Test
+    public void testFindMonsterNo() {
+        assertEquals("0", StringUtils.findMonsterNo("<monster:0>")[0]);
+        assertEquals("0", StringUtils.findMonsterNo("<monster:0-4>")[0]);
+        assertEquals("4", StringUtils.findMonsterNo("<monster:0-4>")[1]);
+    }
+
 }

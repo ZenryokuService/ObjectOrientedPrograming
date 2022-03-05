@@ -7,8 +7,10 @@ import javafx.scene.Scene;
 import jp.zenryoku.rpg.Games;
 import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.charactors.Player;
+import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
@@ -55,6 +57,23 @@ public class BattleScene extends RpgScene {
 	}
 
 	/**
+	 * コンストラクタ。
+	 * @param sceneIdex 対象のシーンインデックス
+	 * @param sceneType シーンタイプ
+	 */
+	public BattleScene(String sceneIdex, String sceneType, int monsterNo) {
+		super(sceneIdex, sceneType);
+		// コンソール出力部品
+		console = ConsoleUtils.getInstance();
+		// 入力受付部品
+		scan = new Scanner(System.in);
+		// 戦闘囚虜いうフラグの初期化
+		isBattleFinish = false;
+		// モンスターセット
+		monster = RpgConfig.getInstance().getMonsterList().get(monsterNo);
+	}
+
+	/**
 	 * 初期表示を行う。
 	 * 1. バトルステータスを表示
 	 * 2. 初期表示: 「XXXXが現れた」
@@ -64,20 +83,12 @@ public class BattleScene extends RpgScene {
 	 */
 	@Override
 	public void initScene() throws RpgException {
-		// プレーヤーの作成
-		player = new Player("プレーヤ");
-		// 装備
-		player.setMainWepon(createMainWepon());
-		player.setArmor(createArmor());
-		// 攻撃力と防御力を設定
-		player.setAttack(player.getMainWepon().getOffence());
-		player.setDiffence(player.getArmor().getDeffence());
-		// モンスターの作成
-		monster = new Monster("まおう");
+		// プレーヤーの取得
+		player = PlayerParty.getInstance().getPlayer();
 		// 初期表示: 「XXXXが現れた」
-		console.printMessage("まおうがあらわれた！" + SEP);
+		console.printMessage(monster.getName() + "があらわれた！" + SEP);
 		if (monster.isTalk()) {
-			// 魔王のセリフを表示
+			// セリフを表示
 			console.printMessage(monster.getMessage() + SEP);
 		}
 		// バトルステータスを表示

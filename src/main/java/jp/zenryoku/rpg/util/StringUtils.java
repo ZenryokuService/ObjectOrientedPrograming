@@ -201,4 +201,29 @@ public class StringUtils {
         res[2] = kokaSiki.substring(4);
         return res;
     }
+
+    public static String[] findMonsterNo(String line) {
+        String[] res = new String[2];
+        // lineの変数に対象の文字列が入っているかチェック
+        if (CheckerUtils.isStartBattleScene(line)) {
+            // 「:」で区切る
+            String[] sep = line.split(":");
+            // 区切った後の右側を取得する
+            String val = sep[1];
+            // 「>」を削除
+            val = val.replaceAll(">", "");
+            // もし「-」を含んでいるのなら
+            if (val.contains("-")) {
+                // 「-」で分割
+                String[] sep1 = val.split("-");
+                res[0] = sep1[0];
+                res[1] = sep1[1];
+            } else {
+                res[0] =val;
+            }
+        } else {
+            return null;
+        }
+        return res;
+    }
 }

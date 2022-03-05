@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<class>
+    <!-- 共通コマンド１：たたかう -->
+    <command>
+        <!-- コマンドID -->
+        <id>ATK</id>
+        <!-- コマンド名 -->
+        <name>たたかう</name>
+        <!-- コマンド効果式 -->
+        <formula>ATK</formula>
+    </command>
+    <!-- 共通コマンド２：ぼうぎょ -->
+    <command>
+        <!-- コマンドID -->
+        <id>DEF</id>
+        <!-- コマンド名 -->
+        <name>ぼうぎょ</name>
+        <!-- コマンド効果式 -->
+        <formula>DEF</formula>
+    </command>
+    <!-- まほうコマンド -->
+    <command>
+        <!-- コマンドID -->
+        <id>MAG</id>
+        <!-- コマンド名 -->
+        <name>まほう</name>
+        <!-- コマンド効果式 -->
+        <formula>MPW+MAT</formula>
+    </command>
+
+</class>

@@ -1,6 +1,7 @@
 package jp.zenryoku.rpg.data;
 
 import jp.zenryoku.rpg.charactors.PlayerParty;
+import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.items.EvEffect;
 import jp.zenryoku.rpg.data.shop.RpgShop;
@@ -9,6 +10,7 @@ import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.data.status.StEffect;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,6 +56,8 @@ public class RpgConfig {
     private Map<String, StEffect> stEffectMap;
     /**イベント変化オブジェクト */
     private Map<String, EvEffect> evEffectMap;
+    /** モンスターリスト */
+    private List<Monster> monsterList;
 
 
     /** プレーヤーパーティ */

@@ -133,4 +133,14 @@ public class CheckerUtilsTest {
 		assertTrue(CheckerUtils.isTS("AGI+10TS1"));
 	}
 
+	@Test
+	public void testIsStartBattleScene() {
+		assertTrue(CheckerUtils.isStartBattleScene("<monster:0>"));
+		assertTrue(CheckerUtils.isStartBattleScene("<monster:0-3>"));
+		assertTrue(CheckerUtils.isStartBattleScene("<monster:34-57>"));
+		assertTrue(CheckerUtils.isStartBattleScene("<monster:10-999>"));
+		assertFalse(CheckerUtils.isStartBattleScene("<monster:a-b>"));
+		assertFalse(CheckerUtils.isStartBattleScene("<monster:1-1000>"));
+	}
+
 }

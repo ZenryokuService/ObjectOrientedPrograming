@@ -184,6 +184,14 @@ public class CheckerUtils {
 		return false;
 	}
 
+	public static boolean isStartBattleScene(String line) {
+		boolean isScene = false;
+		if (line.matches("\\<monster:[0-9]{1,3}[\\-]{0,1}[0-9]{0,3}\\>")) {
+			isScene = true;
+		}
+		return isScene;
+	}
+
 	/**
 	 * 空文字もしくは、改行コードのみかどうか判定する。
 	 *

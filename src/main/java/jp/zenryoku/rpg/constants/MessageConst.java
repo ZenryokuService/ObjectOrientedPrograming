@@ -142,6 +142,8 @@ public enum MessageConst {
     ERR_NUMBER_FORMAT("数字ではない値が数字に変換されました。"),
     /** XMLの返還に失敗しました。 */
     ERR_XML_PERSE("XMLの返還に失敗しました。"),
+    /** モンスターのID設定が間違っています。 */
+    ERR_MONSTER_NO("モンスターのID設定が間違っています。"),
     ;
 
     /** メッセージ */
