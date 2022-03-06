@@ -5,11 +5,14 @@ import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.*;
 import jp.zenryoku.rpg.data.items.RpgItem;
+import jp.zenryoku.rpg.data.job.RpgCommand;
+import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.shop.ItemShop;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.exception.StoryTextException;
 import jp.zenryoku.rpg.factory.RpgDataFactory;
 import jp.zenryoku.rpg.scene.*;
+import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.StringUtils;
 import jp.zenryoku.rpg.util.XmlUtils;
@@ -65,12 +68,16 @@ public abstract class RpgLogic implements Games {
 
         // title.txtの読み込み
         reader = getBufferedReader("src/main/resources", "title.txt");
+        // コマンドリストのロード
+        loadCommands();
+        // 職業リストのロード
+        loadJobs();
+        // モンスターリストの読み込み
+        loadMonsters();
         // ストーリー.txtの読み込み
         BufferedReader story = getBufferedReader("resources/story", "SampleRpg_story.txt");
         // シーンオブジェクトの生成
         createSceneObject(story);
-        // モンスターリストの読み込み
-        loadMonsters();
         // シーン開始フラグの初期化
         isSceneStarted = false;
     }
@@ -168,10 +175,6 @@ public abstract class RpgLogic implements Games {
                     generator.createFormulaMap(storyTxt);
                     continue;
                 }
-                if (line.equals("CONFIG_JOB")) {
-                    generator.createJobMap(storyTxt);
-                    continue;
-                }
                 if (line.equals("ITEM_LIST")) {
                     generator.createItemMap(storyTxt);
                     continue;
@@ -211,7 +214,7 @@ public abstract class RpgLogic implements Games {
 
                 // バトルシーンの設定
                 if (CheckerUtils.isStartBattleScene(line)) {
-                    if (isDebug) System.out.println("*** " + line + " ***");
+                    System.out.println("*** " + line + " ***");
                     setBattleScene(line, storyTxt, sceneObj);
                     continue;
                 }
@@ -294,7 +297,27 @@ public abstract class RpgLogic implements Games {
             e.printStackTrace();
             System.exit(-1);
         }
+    }
 
+    private void loadJobs() {
+        try {
+            Map<String, RpgJob> map = XmlUtils.loadJobs();
+            if (isDebug) System.out.println("mapSize: " + map.size());
+            RpgConfig.getInstance().setJobMap(map);
+        } catch (RpgException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
+
+    private void loadCommands() {
+        try {
+            Map<String, RpgCommand> map = XmlUtils.loadCommands();
+            RpgConfig.getInstance().setCommandMap(map);
+        } catch (RpgException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
     }
 
     /**
@@ -451,7 +474,7 @@ public abstract class RpgLogic implements Games {
         // 記号 + (プラス) or -(マイナス) なまえ 個数の指定
         String effect = line.split(":")[1];
         effect = effect.substring(0, effect.length() - 1);
-        if (true) System.out.println("** " + effect + " ** ");
+        if (isDebug) System.out.println("** " + effect + " ** ");
         EffectScene scene = (EffectScene) sceneObj;
 
         //// ターン指定がある場合の「ZHP+10%TS3」のような効果式の場合 ////
@@ -499,13 +522,33 @@ public abstract class RpgLogic implements Games {
      */
     private void setBattleScene(String line, BufferedReader txt, RpgScene sceneObj) throws IOException, RpgException {
         String[] vals = StringUtils.findMonsterNo(line);
-
+        BattleScene battleScene = (BattleScene) sceneObj;
+        List<Monster> monsterList = RpgConfig.getInstance().getMonsterList();
+        if (monsterList.size() <= 0) {
+            throw new RpgException(MessageConst.NO_MONSTERS.toString());
+        }
+        System.out.println(monsterList);
+        // モンスター指定
         if (vals != null && vals.length == 1) {
-
+            int val = Integer.parseInt(vals[0]);
+            battleScene.setMonster(monsterList.get(val));
         } else if (vals != null && vals.length == 2) {
-
+            // 範囲指定でランダム取得
+            int start = Integer.parseInt(vals[0]);
+            int end = Integer.parseInt(vals[1]);
+            // 通常の定義は配列としてみていないので、0から数えるためにー１する。
+            int v = CalcUtils.getInstance().generateRandom(start, end);
+            battleScene.setMonster(monsterList.get(v));
         } else {
             throw new RpgException(MessageConst.ERR_MONSTER_NO.toString() + ": " + line);
+        }
+        String text = null;
+        try {
+            while ((text = txt.readLine()).equals("</monster>") == false) {
+                // TODO-[タグの中身を考える]
+            }
+        } catch (IOException e) {
+            throw new RpgException(MessageConst.ERR_IOEXCEPTION.toString());
         }
     }
 

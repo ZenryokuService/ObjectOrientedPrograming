@@ -1,15 +1,17 @@
 package jp.zenryoku.rpg.data.job;
 
 import jp.zenryoku.rpg.data.RpgData;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class RpgJob extends RpgData {
     /** 職業ID */
     private String jobId;
     /** コマンドリスト */
-    private List<String> commandList;
+    private List<RpgCommand> commandList;
 
     /**
      * コンストラクタ。
@@ -18,15 +20,11 @@ public class RpgJob extends RpgData {
      * @param discription 説明
      * @param commandList 使用できるコマンドの記号(複数)
      */
-    public RpgJob(String id, String name, String discription, String[] commandList) {
-        this.commandList = new ArrayList<>();
+    public RpgJob(String id, String name, String discription, List<RpgCommand> commandList) {
         this.jobId = id;
         this.name = name;
         this.discription = discription;
-        for (String s : commandList) {
-            // 余計なスペースを削除
-            this.commandList.add(s.trim());
-        }
+        this.commandList = commandList;
     }
 
 }

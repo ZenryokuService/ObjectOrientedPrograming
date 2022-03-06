@@ -17,6 +17,8 @@ import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.items.RpgItem;
+import jp.zenryoku.rpg.data.job.RpgCommand;
+import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.Items;
@@ -559,12 +561,23 @@ public class ConsoleUtils {
 		return res;
 	}
 
+	public List<RpgCommand> printCommandList(PlayerCharactor player) {
+		RpgJob job = player.getJob();
+		List<RpgCommand> cmdList = job.getCommandList();
+		for (int i = 0; i < cmdList.size(); i++) {
+			RpgCommand cmd = cmdList.get(i);
+			System.out.println((i + 1) + ". " + cmd.getName());
+		}
+		return cmdList;
+	}
+
 	/**
 	 * プレーヤーの行動選択肢を一覧表示する。
 	 *
 	 * @param player プレーヤークラス
 	 * @return コマンドマップ(indexでソート済み)
 	 */
+	@Deprecated
 	public Map<Integer, String> printCommandList(Player player) {
 		Method[] mess = player.getClass().getDeclaredMethods();
 		// 並び替え機能付きのMAP

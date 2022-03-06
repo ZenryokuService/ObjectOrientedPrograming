@@ -6,9 +6,9 @@ import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.items.EvEffect;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.items.RpgItemType;
+import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.shop.RpgShop;
 import jp.zenryoku.rpg.data.status.RpgFormula;
-import jp.zenryoku.rpg.data.status.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.data.status.StEffect;
 import jp.zenryoku.rpg.exception.RpgException;
@@ -38,7 +38,7 @@ public class ParamGenerator {
     /** ステータスオプション設定情報(順番を保持する) */
     private Map<String, RpgStatus> optionStatusMap;
     /** 職業マップ */
-    private Map<String, RpgData> jobMap;
+    private Map<String, RpgJob> jobMap;
     /** 設定クラス */
     private RpgConfig config;
     /** 各種計算式管理クラス */
@@ -68,7 +68,7 @@ public class ParamGenerator {
         config.setFormulaMap(new HashMap<>());
         config.setItemMap(new HashMap<>());
         config.setItemTypeMap(new HashMap<>());
-        config.setJobMap(new HashMap<>());
+        //config.setJobMap(new HashMap<>());
         config.setDataMap(new HashMap<>());
         config.setEffectMap(new HashMap<>());
         config.setShopMap(new HashMap<>());
@@ -78,7 +78,7 @@ public class ParamGenerator {
         // このクラス内で使用するための変数
         masterMap = config.getMasterMap();
         paramMap = config.getParamMap();
-        jobMap = config.getJobMap();
+       // jobMap = config.getJobMap();
         formulaMap = config.getFormulaMap();
         itemMap = config.getItemMap();
         itemTypeMap = config.getItemTypeMap();
@@ -111,11 +111,11 @@ public class ParamGenerator {
      */
     @Deprecated
     public void createDataMap() throws RpgException {
-        if (jobMap.size() != 0 && formulaMap.size() != 0 && itemMap.size() != 0) {
-            Set<String> jobKey = jobMap.keySet();
-            for (String key : jobKey) {
-                dataMap.put(key, jobMap.get(key));
-            }
+        if (/* jobMap.size() != 0 && */ formulaMap.size() != 0 && itemMap.size() != 0) {
+//            Set<String> jobKey = jobMap.keySet();
+//            for (String key : jobKey) {
+//                dataMap.put(key, jobMap.get(key));
+//            }
             Set<String> formulaKey = formulaMap.keySet();
             for (String key : formulaKey) {
                 dataMap.put(key, formulaMap.get(key));
@@ -208,25 +208,26 @@ public class ParamGenerator {
      * @param buf ストーリーテキスト
      * @throws RpgException 設定のエラー
      */
+    @Deprecated
     public void createJobMap(BufferedReader buf) throws RpgException {
         String line = null;
-        try {
-            Map<String, RpgData> jobMap = config.getJobMap();
-            while ((line = buf.readLine()).equals("END_JOB") == false) {
-                if (CheckerUtils.isComment(line)) {
-                    continue;
-                }
-                // 職業データの生成
-                RpgJob data = RpgDataFactory.createJobData(line);
-                // 職業リストに追加
-                jobMap.put(data.getName(), data);
-            }
-            config.setJobMap(jobMap);
-        } catch (IOException | RpgException e) {
-            throw new RpgException(e.getMessage());
-        } catch (Exception e) {
-            throw new RpgException(MessageConst.UNEXPECTED_ERR.toString() + " " + line);
-        }
+//        try {
+//            Map<String, RpgJob> jobMap = config.getJobMap();
+//            while ((line = buf.readLine()).equals("END_JOB") == false) {
+//                if (CheckerUtils.isComment(line)) {
+//                    continue;
+//                }
+//                // 職業データの生成
+//                RpgJob data = RpgDataFactory.createJobData(line);
+//                // 職業リストに追加
+//                jobMap.put(data.getName(), data);
+//            }
+//            config.setJobMap(jobMap);
+//        } catch (IOException | RpgException e) {
+//            throw new RpgException(e.getMessage());
+//        } catch (Exception e) {
+//            throw new RpgException(MessageConst.UNEXPECTED_ERR.toString() + " " + line);
+//        }
     }
 
     /**
@@ -475,12 +476,12 @@ public class ParamGenerator {
         Map<String, RpgData> item = config.getItemMap();
         Map<String, RpgData> param = config.getParamMap();
         Map<String, RpgStatus> status = config.getStatusMap();
-        Map<String, RpgData> job = config.getJobMap();
+        //Map<String, RpgJob> job = config.getJobMap();
         res.putAll(itemType);
         res.putAll(item);
         res.putAll(param);
         res.putAll(status);
-        res.putAll(job);
+        //res.putAll(job);
         return res;
     }
 

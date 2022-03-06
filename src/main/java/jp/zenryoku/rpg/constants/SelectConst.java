@@ -20,6 +20,8 @@ public enum SelectConst {
     public static final String YES_NO_EXIT_REG = "[1-2]|exit";
     /** メニューの選択に使用する */
     public static final String MENU_SELECT_REGREX = "[1-3]|exit";
+    /** 職業選択時に使用する */
+    public static final String JOB_SELECT = "職業を選択してください。";
 
 
     /** 選択時に使用する値 */

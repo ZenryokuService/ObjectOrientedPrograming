@@ -8,8 +8,8 @@ import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.items.EvEffect;
 import jp.zenryoku.rpg.data.items.RpgItem;
+import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgFormula;
-import jp.zenryoku.rpg.data.status.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.data.status.StEffect;
 import jp.zenryoku.rpg.exception.RpgException;
@@ -137,14 +137,15 @@ public class RpgDataFactory {
     }
 
     /**
-     *
+     * Job.xmlから読み込むように変更
      * CONFIG_MASTERから開始される１行からマスターカテゴリのデータを生成する。
      * @param line ストーリーテキストの１行
      * @return RpgMaster マスタカテゴリ
      * @throws RpgException 想定外のエラー
      */
+    @Deprecated
     public static RpgJob createJobData(String line) throws RpgException {
-        RpgJob data = new RpgJob();
+        RpgJob data = new RpgJob("", "", "", new ArrayList<>());
         String[] setting = line.split(":");
         if (setting.length != RpgConst.JOB_SIZE) {
             throw new RpgException(MessageConst.JOB_SEPARATE3.toString() + SEP + line);

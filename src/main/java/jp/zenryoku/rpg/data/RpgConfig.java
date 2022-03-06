@@ -4,6 +4,8 @@ import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.items.EvEffect;
+import jp.zenryoku.rpg.data.job.RpgCommand;
+import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.shop.RpgShop;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgStatus;
@@ -43,7 +45,9 @@ public class RpgConfig {
     /** 計算式リスト */
     private Map<String, RpgFormula> formulaMap;
     /** 職業リスト */
-    private Map<String, RpgData> jobMap;
+    private Map<String, RpgJob> jobMap;
+    /** 職業リスト */
+    private Map<String, RpgCommand> commandMap;
     /** アイテムリスト */
     private Map<String, RpgData> itemMap;
     /** アイテムタイプリスト */
@@ -58,6 +62,7 @@ public class RpgConfig {
     private Map<String, EvEffect> evEffectMap;
     /** モンスターリスト */
     private List<Monster> monsterList;
+
 
 
     /** プレーヤーパーティ */

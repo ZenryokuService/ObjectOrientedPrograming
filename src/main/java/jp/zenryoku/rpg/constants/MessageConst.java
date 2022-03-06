@@ -28,6 +28,10 @@ public enum MessageConst {
     NO_MUCH_STATUS("ステータスオブジェクトではありません。"),
     /** ステータスマップにオブジェクトがありません。 */
     NO_STATUS_OBJECT("ステータスマップにオブジェクトがありません。"),
+    /** 先にCommand.xmlを読み込んでください。 */
+    ERR_BEFORE_LOAD_CMD("先にCommand.xmlを読み込んでください。"),
+    /** 職業を選択してください。 */
+    SLECT_JOB("職業を選択してください。"),
     /** メニュー */
     MENU("*** メニュー ***" + RpgConst.SEP
             + "* 1. そうび    *" + RpgConst.SEP
@@ -144,6 +148,8 @@ public enum MessageConst {
     ERR_XML_PERSE("XMLの返還に失敗しました。"),
     /** モンスターのID設定が間違っています。 */
     ERR_MONSTER_NO("モンスターのID設定が間違っています。"),
+    /** モンスターリストが読み込まれていません。 */
+    NO_MONSTERS("モンスターリストが読み込まれていません。"),
     ;
 
     /** メッセージ */

@@ -1,10 +1,14 @@
 package jp.zenryoku.rpg.util;
 
 import jp.zenryoku.rpg.charactors.monsters.Monster;
+import jp.zenryoku.rpg.data.job.RpgCommand;
+import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -29,4 +33,45 @@ public class XmlUtilsTest {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void testCreateJob() {
+        try {
+            Map<String, RpgJob> map = XmlUtils.loadJobs();
+            Set<String> set = map.keySet();
+            for (String key : set) {
+                RpgJob job = map.get(key);
+                System.out.println("ID: " + job.getJobId());
+                System.out.println("Name: " + job.getName());
+                System.out.println("HP: " + job.getDiscription());
+                List<RpgCommand> cmdList = job.getCommandList();
+                System.out.print("CMD: ");
+                for (RpgCommand cmd : cmdList) {
+                    System.out.print(cmd.getCommandId() + ", ");
+                }
+                System.out.println();
+            }
+        } catch (RpgException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCreateCommand() {
+        try {
+            Map<String, RpgCommand> map = XmlUtils.loadCommands();
+            Set<String> set = map.keySet();
+            for (String st : set) {
+                RpgCommand cmd = map.get(st);
+                System.out.println("ID: " + cmd.getCommandId());
+                System.out.println("Name: " + cmd.getName());
+                System.out.println("Formula: " + cmd.getFormula());
+            }
+        } catch (RpgException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
 }

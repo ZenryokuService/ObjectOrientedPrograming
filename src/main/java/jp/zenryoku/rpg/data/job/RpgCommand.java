@@ -1,7 +1,9 @@
 package jp.zenryoku.rpg.data.job;
 
 import jp.zenryoku.rpg.data.RpgData;
+import lombok.Data;
 
+@Data
 public class RpgCommand extends RpgData {
     /** コマンドID */
     private String commandId;

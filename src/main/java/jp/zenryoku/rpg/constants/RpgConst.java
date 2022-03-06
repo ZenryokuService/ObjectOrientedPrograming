@@ -163,7 +163,7 @@ public enum RpgConst {
     /** PARAM_CONFIGの分割サイズ */
     public static final int PARAM_SIZE = 6;
     /** CONFIG_MASTERの分割サイズ */
-    public static final int MASTER_SIZE = 4;
+    public static final int MASTER_SIZE = 5;
     /** PARAM_STATUSの分割サイズ */
     public static final int STATUS_SIZE = 3;
     /** PARAM_JOBの分割サイズ */

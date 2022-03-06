@@ -2,6 +2,7 @@ package jp.zenryoku.rpg.util;
 
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.constants.MessageConst;
+import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.exception.RpgException;
@@ -19,7 +20,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class XmlUtils {
     private static final boolean isDebug = false;
@@ -119,13 +122,16 @@ public class XmlUtils {
     }
 
     /**
-     * Job.xmlを読み込む。
+     * Job.xmlを読み込む。必ず、Command.xmlを読み込んでから実行する。
      * @return Jobリスト
      * @throws RpgException XMLの設定エラー
      */
-    public static List<RpgJob> loadJobs() throws RpgException {
-        List<RpgJob> jobList = new ArrayList<>();
-
+    public static Map<String, RpgJob> loadJobs() throws RpgException {
+        Map<String, RpgJob> jobMap = new HashMap<>();
+        Map<String, RpgCommand> cmdMap = RpgConfig.getInstance().getCommandMap();
+        if (cmdMap.size() <= 0) {
+            throw new RpgException(MessageConst.ERR_BEFORE_LOAD_CMD.toString());
+        }
         try {
             Document doc = loadDocumentBuilder("src/main/resources", "Job.xml");
             if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
@@ -134,23 +140,24 @@ public class XmlUtils {
             for (int i = 0; i < list.getLength(); i++) {
                 Node node = list.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    jobList.add(createJob(node));
+                    RpgJob j = createJob(node, cmdMap);
+                    jobMap.put(j.getJobId(), j);
                 }
             }
         } catch (RpgException e) {
             e.printStackTrace();
             throw new RpgException(MessageConst.ERR_XML_PERSE.toString() + ": " + e.getMessage());
         }
-        return jobList;
+        return jobMap;
     }
 
     /**
-     * RpgCommandクラスを生成する。
-     * @param node commandタグ
-     * @return RpgCommand コマンドクラス
+     * RpgJobクラスを生成する。
+     * @param node jobタグ
+     * @return RpgJob 職業クラス
      * @throws RpgException XML設定エラー
      */
-    private static RpgJob createJob(Node node) throws RpgException {
+    private static RpgJob createJob(Node node, Map<String, RpgCommand> map) throws RpgException {
         Element e = (Element) node;
         String id = e.getElementsByTagName("id").item(0).getTextContent();
         String name = e.getElementsByTagName("name").item(0).getTextContent();
@@ -158,8 +165,14 @@ public class XmlUtils {
         String commandList =  e.getElementsByTagName("commandList").item(0).getTextContent();
         String[] list = commandList.split(",");
 
+        List<RpgCommand> cmdList = new ArrayList<>();
+        for (String cmd : list) {
+            RpgCommand cmdCls = map.get(cmd.trim());
+            cmdList.add(cmdCls);
+        }
+
         RpgJob job = null;
-        job = new RpgJob(id, name, disc, list);
+        job = new RpgJob(id, name, disc, cmdList);
         return job;
     }
 
@@ -168,8 +181,8 @@ public class XmlUtils {
      * @return Commandリスト
      * @throws RpgException XMLの設定エラー
      */
-    public static List<RpgCommand> loadCommands() throws RpgException {
-        List<RpgCommand> commandList = new ArrayList<>();
+    public static Map<String, RpgCommand> loadCommands() throws RpgException {
+        Map<String, RpgCommand> commandMap = new HashMap<>();
 
         try {
             Document doc = loadDocumentBuilder("src/main/resources", "Commands.xml");
@@ -179,14 +192,15 @@ public class XmlUtils {
             for (int i = 0; i < list.getLength(); i++) {
                 Node node = list.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    commandList.add(createCommand(node));
+                    RpgCommand cmd = createCommand(node);
+                    commandMap.put(cmd.getCommandId(), cmd);
                 }
             }
         } catch (RpgException e) {
             e.printStackTrace();
             throw new RpgException(MessageConst.ERR_XML_PERSE.toString() + ": " + e.getMessage());
         }
-        return commandList;
+        return commandMap;
     }
 
     /**
@@ -199,7 +213,7 @@ public class XmlUtils {
         Element e = (Element) node;
         String id = e.getElementsByTagName("id").item(0).getTextContent();
         String name = e.getElementsByTagName("name").item(0).getTextContent();
-        String formula =  e.getElementsByTagName("discription").item(0).getTextContent();
+        String formula =  e.getElementsByTagName("formula").item(0).getTextContent();
 
         RpgCommand com = null;
         com = new RpgCommand(id, name, formula);

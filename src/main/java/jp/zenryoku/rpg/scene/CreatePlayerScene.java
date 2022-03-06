@@ -7,12 +7,14 @@ import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.constants.SelectConst;
 import jp.zenryoku.rpg.data.*;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -95,6 +97,13 @@ public class CreatePlayerScene extends StoryScene {
             RpgFormula atkForm = fMap.get(RpgConst.ATK);
             RpgFormula defForm = fMap.get(RpgConst.DEF);
             //calUtils.relatedSymbols(atkForm.getFormulaStr(), statusMap, optMap);
+            // 職業リストと職業選択
+            Map<String, RpgJob> jobMap = printJobs();
+            int jobCount = jobMap.size();
+            String jobSelect = console.acceptInput(SelectConst.JOB_SELECT.toString(), "[1-" + jobCount + "]");
+            RpgJob job = jobMap.get(jobSelect);
+            player.setJob(job);
+            //
             // ステータス確定確認
             String select = console.acceptInput(MessageConst.CHECK_STATUS.toString()
                     + SelectConst.SELECT_YES.getSelectMessage() + " " + SelectConst.SELECT_NO.getSelectMessage()
@@ -135,5 +144,20 @@ public class CreatePlayerScene extends StoryScene {
     private RpgStatus createOptionalRpgStatus() {
         RpgStatus st = new RpgStatus();
         return st;
+    }
+
+    private Map<String, RpgJob> printJobs() {
+        Map<String, RpgJob> resMap = new HashMap<>();
+        Map<String, RpgJob> jobMap = RpgConfig.getInstance().getJobMap();
+        System.out.println("jobMap: " + jobMap.size());
+        Set<String> set = jobMap.keySet();
+        int count = 1;
+        for (String key : set) {
+            RpgJob job = jobMap.get(key);
+            System.out.println(count + ". " + job.getName() + " : " + job.getDiscription());
+            resMap.put(String.valueOf(count), job);
+            count++;
+        }
+        return resMap;
     }
 }

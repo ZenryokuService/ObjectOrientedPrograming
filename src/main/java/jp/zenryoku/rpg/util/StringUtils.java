@@ -203,7 +203,7 @@ public class StringUtils {
     }
 
     public static String[] findMonsterNo(String line) {
-        String[] res = new String[2];
+        String[] res = null;
         // lineの変数に対象の文字列が入っているかチェック
         if (CheckerUtils.isStartBattleScene(line)) {
             // 「:」で区切る
@@ -216,9 +216,11 @@ public class StringUtils {
             if (val.contains("-")) {
                 // 「-」で分割
                 String[] sep1 = val.split("-");
+                res = new String[2];
                 res[0] = sep1[0];
                 res[1] = sep1[1];
             } else {
+                res = new String[1];
                 res[0] =val;
             }
         } else {

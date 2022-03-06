@@ -6,6 +6,7 @@ import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.Effects;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
+import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.data.status.StEffect;
@@ -30,6 +31,8 @@ public class PlayerCharactor extends Player {
     protected List<Effects> effectList;
     /** 動けるフラグ */
     protected boolean canMove;
+    /** 職業 */
+    protected RpgJob job;
 
 
     /**

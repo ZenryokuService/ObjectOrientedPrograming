@@ -13,6 +13,7 @@ import jp.zenryoku.rpg.exception.RpgException;
 import java.lang.reflect.Field;
 import java.nio.CharBuffer;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +42,14 @@ public class CalcUtils {
         }
         return instance;
     }
+
+    public int generateRandom(int start, int end) {
+        int res = -1;
+        ThreadLocalRandom rnd = ThreadLocalRandom.current();
+        res = rnd.nextInt(start, end);
+        return res;
+    }
+
     /**
      * 「3D6」と書いてある場合は、６面ダイスを３回降る。
      * 「1D6」と書いてある場合は、６面ダイスを１回降る。

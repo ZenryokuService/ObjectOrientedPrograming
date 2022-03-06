@@ -1,5 +1,6 @@
 package jp.zenryoku.rpg.scene;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -9,17 +10,21 @@ import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
+import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.items.RpgItem;
+import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
+import lombok.Data;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Data
 public class BattleScene extends RpgScene {
 	/** 定数：攻撃フラグ */
 	private static final String ATTACK = "1";
@@ -32,11 +37,11 @@ public class BattleScene extends RpgScene {
 	/** 入力受付部品 */
 	private Scanner scan;
 	/** Player */
-	private Player player;
+	private PlayerCharactor player;
 	/** モンスター */
 	private Monster monster;
-	/** コマンドのマップ */
-	private Map<Integer, String> commandMap;
+	/** コマンドのリスト */
+	private List<RpgCommand> commandList;
 	/** 戦闘終了フラグ */
 	private boolean isBattleFinish;
 
@@ -86,6 +91,7 @@ public class BattleScene extends RpgScene {
 		// プレーヤーの取得
 		player = PlayerParty.getInstance().getPlayer();
 		// 初期表示: 「XXXXが現れた」
+		if (isDebug) System.out.println(monster);
 		console.printMessage(monster.getName() + "があらわれた！" + SEP);
 		if (monster.isTalk()) {
 			// セリフを表示
@@ -96,7 +102,7 @@ public class BattleScene extends RpgScene {
 		// コマンドの入力を促す
 		console.printMessage("こうどうを、せんたくしてください。");
 		// コマンドの一覧を表示する
-		commandMap = console.printCommandList(player);
+		commandList = console.printCommandList(player);
 	}
 
 	/**
@@ -157,7 +163,7 @@ public class BattleScene extends RpgScene {
 			// コマンドの入力を促す
 			console.printMessage("こうどうを、せんたくしてください。");
 			// コマンドの一覧を表示する
-			commandMap = console.printCommandList(player);
+			commandList = console.printCommandList(player);
 		}
 		return isBattleFinish;
 	}
@@ -261,7 +267,7 @@ public class BattleScene extends RpgScene {
 	 * @return コマンドの有効範囲(ex: [0-3])
 	 */
 	private String commandRegrex() {
-		int size = commandMap.size();
+		int size = commandList.size();
 		return "[1-" + String.valueOf(size) + "]";
 
 	}
