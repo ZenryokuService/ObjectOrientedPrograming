@@ -5,6 +5,7 @@ import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
+import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,10 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class XmlUtils {
     private static final boolean isDebug = false;
@@ -72,7 +70,6 @@ public class XmlUtils {
             Document doc = loadDocumentBuilder("src/main/resources", "Monsters.xml");
             if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
             NodeList list = doc.getElementsByTagName("monster");
-
             for (int i = 0; i < list.getLength(); i++) {
                 Node node = list.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -93,13 +90,39 @@ public class XmlUtils {
      * @throws RpgException XMLの設定エラー
      */
     private static Monster createMonster(Node node) throws RpgException {
+        // ステータス定義のコピー
+        Map<String, RpgStatus> stMap = RpgConfig.getInstance().getStatusMap();
+        Map<String, RpgStatus> statusMap = new HashMap<>();
+        statusMap.putAll(stMap);
+
         Element e = (Element) node;
+        // 固定値(マスタカテゴリ)
         String name = e.getElementsByTagName("name").item(0).getTextContent();
         String lv = e.getElementsByTagName("lv").item(0).getTextContent();
         String hp =  e.getElementsByTagName("hp").item(0).getTextContent();
         String mp =  e.getElementsByTagName("mp").item(0).getTextContent();
-        String atk =  e.getElementsByTagName("atk").item(0).getTextContent();
-        String def =  e.getElementsByTagName("def").item(0).getTextContent();
+
+        // その他
+        NodeList nodeList = e.getChildNodes();
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node n = nodeList.item(i);
+            String tagName = n.getNodeName().toLowerCase();
+            System.out.println("nodeName: " + tagName);
+            if (statusMap.containsKey(tagName)) {
+                continue;
+            } else {
+
+            }
+            RpgStatus status = statusMap.get(tagName);
+            String val = n.getTextContent();
+            status.setValue(Integer.parseInt(val));
+        }
+
+//        String pow =  e.getElementsByTagName("pow").item(0).getTextContent();
+//        String agi =  e.getElementsByTagName("agi").item(0).getTextContent();
+//        String inta =  e.getElementsByTagName("int").item(0).getTextContent();
+//        String dex =  e.getElementsByTagName("dex").item(0).getTextContent();
+//        String ksm =  e.getElementsByTagName("ksm").item(0).getTextContent();
         String isTalk =  e.getElementsByTagName("isTalk").item(0).getTextContent();
         String message =  e.getElementsByTagName("message").item(0).getTextContent();
 
@@ -108,12 +131,26 @@ public class XmlUtils {
             int plv = Integer.parseInt(lv);
             int php = Integer.parseInt(hp);
             int pmp = Integer.parseInt(mp);
-            int patk = Integer.parseInt(atk);
-            int pdef = Integer.parseInt(def);
+//            int ppow = Integer.parseInt(pow);
+//            int pagi = Integer.parseInt(agi);
+//            int pint = Integer.parseInt(inta);
+//            int pdex = Integer.parseInt(dex);
+//            int pksm = Integer.parseInt(ksm);
+//            int patk = Integer.parseInt(atk);
+//            int pdef = Integer.parseInt(def);
             boolean pisTalk = Boolean.parseBoolean(isTalk);
             String pmessage = message;
 
-            monster = new Monster(name, plv, php, pmp, patk, pdef, pisTalk, pmessage);
+            monster = new Monster(name/*, plv, php, pmp, pisTalk, pmessage*/);
+            Map<String, RpgStatus> status = monster.getStatusMap();
+            Set<String> keys = status.keySet();
+            for (String key : keys) {
+                RpgStatus st = status.get(key);
+                if (st == null) {
+                    throw new RpgException(MessageConst.NO_MUCH_STATUS.toString() + ": " + key);
+                }
+                //st.setValue();
+            }
         } catch (NumberFormatException ne) {
             ne.printStackTrace();
             throw new RpgException(MessageConst.ERR_NUMBER_FORMAT.toString() + ": " + ne.getMessage());

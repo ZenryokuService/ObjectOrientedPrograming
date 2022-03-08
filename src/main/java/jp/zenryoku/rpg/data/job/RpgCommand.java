@@ -10,6 +10,8 @@ public class RpgCommand extends RpgData {
     /** コマンド名は親クラス */
     /** 実行式(実行時の値を算出するための式) */
     private String formula;
+    /** 実行時のセリフ */
+    private String exeMessage;
 
     /**
      * コンストラクタ

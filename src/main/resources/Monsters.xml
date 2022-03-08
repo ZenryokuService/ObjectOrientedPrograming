@@ -7,6 +7,11 @@
         <lv>1</lv>
         <hp>5</hp>
         <mp>0</mp>
+        <pow>1</pow>
+        <agi>1</agi>
+        <int>1</int>
+        <dex>1</dex>
+        <ksm>1</ksm>
         <atk>1</atk>
         <def>1</def>
         <isTalk>true</isTalk>
@@ -24,6 +29,11 @@
         <lv>1</lv>
         <hp>5</hp>
         <mp>0</mp>
+        <pow>1</pow>
+        <agi>1</agi>
+        <int>1</int>
+        <dex>1</dex>
+        <ksm>1</ksm>
         <atk>1</atk>
         <def>1</def>
         <isTalk>false</isTalk>
@@ -37,6 +47,11 @@
         <lv>1</lv>
         <hp>5</hp>
         <mp>0</mp>
+        <pow>2</pow>
+        <agi>2</agi>
+        <int>2</int>
+        <dex>2</dex>
+        <ksm>2</ksm>
         <atk>1</atk>
         <def>1</def>
         <isTalk>false</isTalk>

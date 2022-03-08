@@ -8,6 +8,8 @@
         <name>たたかう</name>
         <!-- コマンド効果式 -->
         <formula>ATK</formula>
+        <!-- 実行時のメッセージ -->
+        <exeMessage>こうげき</exeMessage>
     </command>
     <!-- 共通コマンド２：ぼうぎょ -->
     <command>
@@ -17,6 +19,8 @@
         <name>ぼうぎょ</name>
         <!-- コマンド効果式 -->
         <formula>DEF</formula>
+        <!-- 実行時のメッセージ -->
+        <exeMessage>まもりの、かまええをとった</exeMessage>
     </command>
     <!-- まほうコマンド -->
     <command>
@@ -26,6 +30,8 @@
         <name>まほう</name>
         <!-- コマンド効果式 -->
         <formula>MPW+MAT</formula>
+        <!-- 実行時のメッセージ -->
+        <exeMessage>をつかった</exeMessage>
     </command>
 
 </class>

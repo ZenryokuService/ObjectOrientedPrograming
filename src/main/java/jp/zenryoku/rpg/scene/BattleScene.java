@@ -15,9 +15,11 @@ import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.job.RpgCommand;
+import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
+import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 import lombok.Data;
@@ -40,8 +42,6 @@ public class BattleScene extends RpgScene {
 	private PlayerCharactor player;
 	/** モンスター */
 	private Monster monster;
-	/** コマンドのリスト */
-	private List<RpgCommand> commandList;
 	/** 戦闘終了フラグ */
 	private boolean isBattleFinish;
 
@@ -97,12 +97,6 @@ public class BattleScene extends RpgScene {
 			// セリフを表示
 			console.printMessage(monster.getMessage() + SEP);
 		}
-		// バトルステータスを表示
-		console.printBattleStatus(player);
-		// コマンドの入力を促す
-		console.printMessage("こうどうを、せんたくしてください。");
-		// コマンドの一覧を表示する
-		commandList = console.printCommandList(player);
 	}
 
 	/**
@@ -115,29 +109,29 @@ public class BattleScene extends RpgScene {
 		return scan.nextLine();
 	}
 
-	/**
-	 * データの更新処理。
-	 * @param input 入力した文字列
-	 * @return true: 次の処理 false: やり直し
-	 */
-	public boolean updateData(String input) {
-		// コマンドマップのキーは入力キー(index)になる
-		// ※TreeMapなのでソート済み
-		// コマンドの正規表現
-		String reg = commandRegrex();
-		// 入力判定フラグ
-		boolean isInput = CheckerUtils.isCommandInput(input, reg);
-		if (isInput == false) {
-			System.out.println(reg + "のはんいで、にゅうりょくしてください。");
-			return false;
-		}
-
-		// データの更新処理
-		action(player, monster, input);
-
-		stopTextLoad();
-		return true;
-	}
+//	/**
+//	 * データの更新処理。
+//	 * @param input 入力した文字列
+//	 * @return true: 次の処理 false: やり直し
+//	 */
+//	public boolean updateData(String input) {
+//		// コマンドマップのキーは入力キー(index)になる
+//		// ※TreeMapなのでソート済み
+//		// コマンドの正規表現
+//		String reg = commandRegrex();
+//		// 入力判定フラグ
+//		boolean isInput = CheckerUtils.isCommandInput(input, reg);
+//		if (isInput == false) {
+//			System.out.println(reg + "のはんいで、にゅうりょくしてください。");
+//			return false;
+//		}
+//
+//		// データの更新処理
+//		action(player, monster, input);
+//
+//		stopTextLoad();
+//		return true;
+//	}
 
 	/**
 	 * テキストのロードを一時停止します。
@@ -163,7 +157,7 @@ public class BattleScene extends RpgScene {
 			// コマンドの入力を促す
 			console.printMessage("こうどうを、せんたくしてください。");
 			// コマンドの一覧を表示する
-			commandList = console.printCommandList(player);
+			//commandList = console.printCommandList(player);
 		}
 		return isBattleFinish;
 	}
@@ -266,11 +260,11 @@ public class BattleScene extends RpgScene {
 	 * コマンドは数字で、１～始まる
 	 * @return コマンドの有効範囲(ex: [0-3])
 	 */
-	private String commandRegrex() {
-		int size = commandList.size();
-		return "[1-" + String.valueOf(size) + "]";
-
-	}
+//	private String commandRegrex() {
+//		int size = commandList.size();
+//		return "[1-" + String.valueOf(size) + "]";
+//
+//	}
 	/**
 	 * 主要武器を返却する。
 	 *
@@ -306,16 +300,33 @@ public class BattleScene extends RpgScene {
 	public boolean playScene() throws Exception {
 		boolean isFinish = false;
 		initScene();
+		List<RpgCommand> list = player.getJob().getCommandList();
+		int listSize = list.size();
+
 		while(true) {
-			String command = acceptInput();
-			if (updateData(command) && render()) {
+            // バトルステータスを表示
+            console.printBattleStatus(player);
+            // コマンドの入力を促す
+            // コマンドの一覧を表示する
+            List<RpgCommand> commandList = console.printCommandList(player);
+			// プレーヤーターン、コマンド取得
+			String selectCommand = console.acceptInput("こうどうを、せんたくしてください。", "[1-" + listSize);
+			int select = Integer.parseInt(selectCommand) - 1;
+			RpgCommand command = commandList.get(select);
+			RpgFormula pFormula = new RpgFormula(command.getFormula());
+			int value = pFormula.formula(player);
+			// プレーヤー攻撃
+			console.printMessage(player.getName() + "の" + command.getExeMessage() + "!");
+			monster.setHP(monster.getHP() - value);
+
+			// モンスターの攻撃
+			monster.getJob().getCommandList();
+			CalcUtils.getInstance().generateRandom(0,1);
+			if (isFinish) {
 				break;
 			}
 		}
-		if (nextIndex == null) {
-			isFinish = true;
-		}
 
-		return isFinish;
+		return isFinish == false;
 	}
 }

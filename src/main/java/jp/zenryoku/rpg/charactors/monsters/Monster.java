@@ -1,20 +1,26 @@
 package jp.zenryoku.rpg.charactors.monsters;
 
 import jp.zenryoku.rpg.charactors.NonPlayer;
+import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
+import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 
-public class Monster extends NonPlayer {
+public class Monster extends PlayerCharactor {
 
 	/** 改行コード */
 	private final String SEP = System.lineSeparator();
+	/** 話すフラグ */
+	private boolean isTalk;
+	/** 話の内容 */
+	private String message;
 
 	/**
 	 * コンストラクタ。
 	 * 今回は、まおうのみなので、コンストラクタプロパティ設定を行う。
 	 * @param name モンスターの名前
 	 */
-	public Monster(String name) {
+	public Monster(String name) throws RpgException {
 		// 名前
 		super(name);
 		// レベル
@@ -40,7 +46,7 @@ public class Monster extends NonPlayer {
 	 * 今回は、まおうのみなので、コンストラクタプロパティ設定を行う。
 	 * @param name モンスターの名前
 	 */
-	public Monster(String name, int lv, int hp, int mp, int atk, int def, boolean isTalk, String message) {
+	public Monster(String name, int lv, int hp, int mp, int atk, int def, boolean isTalk, String message) throws RpgException {
 		// 名前
 		super(name);
 		// レベル
@@ -59,6 +65,21 @@ public class Monster extends NonPlayer {
 		setMessage(message);
 	}
 
+	public boolean isTalk() {
+		return isTalk;
+	}
+
+	public void setTalk(boolean talk) {
+		isTalk = talk;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	/**
 	 * モンスターの場合、武器を使用しないケースがある。

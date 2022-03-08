@@ -561,6 +561,11 @@ public class ConsoleUtils {
 		return res;
 	}
 
+	/**
+	 * listは０から数えるのが、入力値は1から数えるので「+1」する。
+	 * @param player
+	 * @return
+	 */
 	public List<RpgCommand> printCommandList(PlayerCharactor player) {
 		RpgJob job = player.getJob();
 		List<RpgCommand> cmdList = job.getCommandList();
