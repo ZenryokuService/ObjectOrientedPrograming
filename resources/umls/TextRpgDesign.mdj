@@ -9426,7 +9426,7 @@
 									"top": 746,
 									"width": 234,
 									"height": 13,
-									"text": "生成した乱数を書くステータスにセット",
+									"text": "生成した乱数を各ステータスにセット",
 									"wordWrap": true
 								}
 							],
@@ -9551,7 +9551,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 129,
-									"top": 729,
+									"top": 745,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -9569,7 +9569,7 @@
 								"$ref": "AAAAAAF/IE/ru/K4we4="
 							},
 							"lineStyle": 2,
-							"points": "168:736;144:736;144:632",
+							"points": "168:752;144:752;144:632",
 							"nameLabel": {
 								"$ref": "AAAAAAF/IFB8ffLVY5I="
 							}
@@ -9630,7 +9630,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 111,
-									"top": 725,
+									"top": 721,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -9648,7 +9648,7 @@
 								"$ref": "AAAAAAF/IEqIZvKkOP4="
 							},
 							"lineStyle": 2,
-							"points": "120:632;96:632;96:832;192:832",
+							"points": "120:624;96:624;96:832;192:832",
 							"nameLabel": {
 								"$ref": "AAAAAAF/IFDivvLoWtc="
 							}
@@ -9660,11 +9660,11 @@
 								"$ref": "AAAAAAF/ICtwxvG7RZo="
 							},
 							"font": "Arial;13;0",
-							"left": 472,
-							"top": 744,
+							"left": 464,
+							"top": 752,
 							"width": 341.65478515625,
 							"height": 40,
-							"text": "CONFIG_PARAMのマスタカテゴリが「PLY」のデータ"
+							"text": "CONFIG_PARAMのマスタカテゴリが「PLY」のデータ\noptionalMapにセット"
 						},
 						{
 							"_type": "UMLNoteLinkView",
@@ -9680,7 +9680,7 @@
 								"$ref": "AAAAAAF/IFFUHfLwdbM="
 							},
 							"lineStyle": 1,
-							"points": "535:784;378:815"
+							"points": "516:792;387:815"
 						},
 						{
 							"_type": "FCProcessView",
@@ -9733,8 +9733,8 @@
 										"$ref": "AAAAAAF/IFOHWfMWezU="
 									},
 									"font": "Arial;13;0",
-									"left": 181,
-									"top": 967.5,
+									"left": 157,
+									"top": 1047.5,
 									"width": 234,
 									"height": 15,
 									"text": "ステータスをこれで決定してよいか確認",
@@ -9742,8 +9742,8 @@
 								}
 							],
 							"font": "Arial;13;0",
-							"left": 64,
-							"top": 960,
+							"left": 40,
+							"top": 1040,
 							"width": 468,
 							"height": 30,
 							"nameLabel": {
@@ -9771,7 +9771,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 10,
-									"top": 789,
+									"top": 824,
 									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -9791,7 +9791,7 @@
 								"$ref": "AAAAAAF/IFOHWfMWezU="
 							},
 							"lineStyle": 2,
-							"points": "64:976;32:976;32:616;120:616",
+							"points": "40:1054;32:1054;32:608;120:608",
 							"nameLabel": {
 								"$ref": "AAAAAAF/IFO3r/Mh3go="
 							}
@@ -9863,7 +9863,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 310,
-									"top": 929,
+									"top": 969,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -9881,7 +9881,7 @@
 								"$ref": "AAAAAAF/IFLBd/L83j8="
 							},
 							"lineStyle": 2,
-							"points": "296:912;296:960",
+							"points": "296:912;296:1040",
 							"nameLabel": {
 								"$ref": "AAAAAAF/IFQyS/M3nBc="
 							}
@@ -9903,8 +9903,8 @@
 										"$ref": "AAAAAAF/IFRpbvM/oaQ="
 									},
 									"font": "Arial;13;0",
-									"left": 258,
-									"top": 1042,
+									"left": 250,
+									"top": 1122,
 									"width": 94.18017578125,
 									"height": 13,
 									"text": "falseを返却する",
@@ -9912,8 +9912,8 @@
 								}
 							],
 							"font": "Arial;13;0",
-							"left": 248,
-							"top": 1032,
+							"left": 240,
+							"top": 1112,
 							"width": 114.18017578125,
 							"height": 33,
 							"nameLabel": {
@@ -10212,7 +10212,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 312,
-									"top": 1003,
+									"top": 1083,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -10230,9 +10230,462 @@
 								"$ref": "AAAAAAF/IFOHWfMWezU="
 							},
 							"lineStyle": 2,
-							"points": "298:989;298:1032",
+							"points": "298:1069;298:1112",
 							"nameLabel": {
 								"$ref": "AAAAAAF/IFVF+PN/sEU="
+							}
+						},
+						{
+							"_type": "UMLNoteView",
+							"_id": "AAAAAAF/a+87bsELwjs=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"font": "Arial;13;0",
+							"left": 496,
+							"top": 648,
+							"width": 111,
+							"height": 25,
+							"text": "ダイスを振る形"
+						},
+						{
+							"_type": "UMLNoteLinkView",
+							"_id": "AAAAAAF/a++TYsER+7Y=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/a+87bsELwjs="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IE5RafKupXc="
+							},
+							"lineStyle": 1,
+							"points": "430:674;495:666"
+						},
+						{
+							"_type": "UMLNoteView",
+							"_id": "AAAAAAF/bZTcW8EaFF4=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"font": "Arial;13;0",
+							"left": 488,
+							"top": 696,
+							"width": 157.97265625,
+							"height": 25,
+							"text": "statusMapにセットする"
+						},
+						{
+							"_type": "UMLNoteLinkView",
+							"_id": "AAAAAAF/bZWRrcEhoWY=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/bZTcW8EaFF4="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IE/ru/K4we4="
+							},
+							"lineStyle": 1,
+							"points": "399:735;487:721"
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/bZw5TcEnFqo=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/bZw5S8ElwD8="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/bZw5TsEon8s=",
+									"_parent": {
+										"$ref": "AAAAAAF/bZw5TcEnFqo="
+									},
+									"font": "Arial;13;0",
+									"left": 394,
+									"top": 890,
+									"width": 105.46630859375,
+									"height": 13,
+									"text": "FormulaMaps取得",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 384,
+							"top": 880,
+							"width": 125.46630859375,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/bZw5TsEon8s="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/bZ04bcEx2Ys=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/bZ04bcEva4M="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/bZ04bcEyvF8=",
+									"_parent": {
+										"$ref": "AAAAAAF/bZ04bcEx2Ys="
+									},
+									"font": "Arial;13;0",
+									"left": 570,
+									"top": 890,
+									"width": 110.9951171875,
+									"height": 13,
+									"text": "ATKのFormula取得",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 560,
+							"top": 880,
+							"width": 130.9951171875,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/bZ04bcEyvF8="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/bZ6a0ME9w7c=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/bZ6az8E7/so="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/bZ6a0cE+ZEg=",
+									"_parent": {
+										"$ref": "AAAAAAF/bZ6a0ME9w7c="
+									},
+									"model": {
+										"$ref": "AAAAAAF/bZ6az8E7/so="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 364,
+									"top": 875,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/bZ6a0ME9w7c="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/bZw5TcEnFqo="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/IFLBd/L83j8="
+							},
+							"lineStyle": 2,
+							"points": "345:896;384:896",
+							"nameLabel": {
+								"$ref": "AAAAAAF/bZ6a0cE+ZEg="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/bZ6rAsFGbiY=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/bZ6rAcFEaoQ="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/bZ6rAsFHGA0=",
+									"_parent": {
+										"$ref": "AAAAAAF/bZ6rAsFGbiY="
+									},
+									"model": {
+										"$ref": "AAAAAAF/bZ6rAcFEaoQ="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 534,
+									"top": 875,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/bZ6rAsFGbiY="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/bZ04bcEx2Ys="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/bZw5TcEnFqo="
+							},
+							"lineStyle": 2,
+							"points": "508:896;560:896",
+							"nameLabel": {
+								"$ref": "AAAAAAF/bZ6rAsFHGA0="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/bZ7iHMFPjok=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/bZ7iHMFNupA="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/bZ7iHMFQYTw=",
+									"_parent": {
+										"$ref": "AAAAAAF/bZ7iHMFPjok="
+									},
+									"font": "Arial;13;0",
+									"left": 570,
+									"top": 818,
+									"width": 112.67724609375,
+									"height": 13,
+									"text": "DEFのFormula取得",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 560,
+							"top": 808,
+							"width": 132.67724609375,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/bZ7iHMFQYTw="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/bZ87J8Fad64=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/bZ87J8FYCPY="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/bZ87J8FbpWM=",
+									"_parent": {
+										"$ref": "AAAAAAF/bZ87J8Fad64="
+									},
+									"model": {
+										"$ref": "AAAAAAF/bZ87J8FYCPY="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 610,
+									"top": 853,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/bZ87J8Fad64="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/bZ7iHMFPjok="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/bZ04bcEx2Ys="
+							},
+							"lineStyle": 2,
+							"points": "625:880;625:840",
+							"nameLabel": {
+								"$ref": "AAAAAAF/bZ87J8FbpWM="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/bZ+BCsFjT0o=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/bZ+BCsFhANc="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/bZ+BCsFkHUQ=",
+									"_parent": {
+										"$ref": "AAAAAAF/bZ+BCsFjT0o="
+									},
+									"font": "Arial;13;0",
+									"left": 754,
+									"top": 818,
+									"width": 91,
+									"height": 13,
+									"text": "職業マップ取得",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 744,
+							"top": 808,
+							"width": 111,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/bZ+BCsFkHUQ="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/bZ/GeMFtil8=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/bZ/GeMFrUB8="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/bZ/GeMFu+pA=",
+									"_parent": {
+										"$ref": "AAAAAAF/bZ/GeMFtil8="
+									},
+									"model": {
+										"$ref": "AAAAAAF/bZ/GeMFrUB8="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 718,
+									"top": 803,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/bZ/GeMFtil8="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/bZ+BCsFjT0o="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/bZ7iHMFPjok="
+							},
+							"lineStyle": 2,
+							"points": "692:824;744:824",
+							"nameLabel": {
+								"$ref": "AAAAAAF/bZ/GeMFu+pA="
+							}
+						},
+						{
+							"_type": "FCProcessView",
+							"_id": "AAAAAAF/baAbBMF2mmw=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/baAbA8F0wIE="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAF/baAbBMF3Vm4=",
+									"_parent": {
+										"$ref": "AAAAAAF/baAbBMF2mmw="
+									},
+									"font": "Arial;13;0",
+									"left": 642,
+									"top": 946,
+									"width": 226.80810546875,
+									"height": 13,
+									"text": "選択したRpgJobをプレーヤーにセット",
+									"wordWrap": true
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 632,
+							"top": 936,
+							"width": 246.80810546875,
+							"height": 33,
+							"nameLabel": {
+								"$ref": "AAAAAAF/baAbBMF3Vm4="
+							}
+						},
+						{
+							"_type": "FCFlowView",
+							"_id": "AAAAAAF/baCTGsGARHc=",
+							"_parent": {
+								"$ref": "AAAAAAF/ICtwxvG7RZo="
+							},
+							"model": {
+								"$ref": "AAAAAAF/baCTGsF+5RE="
+							},
+							"subViews": [
+								{
+									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF/baCTGsGBN7c=",
+									"_parent": {
+										"$ref": "AAAAAAF/baCTGsGARHc="
+									},
+									"model": {
+										"$ref": "AAAAAAF/baCTGsF+5RE="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 807,
+									"top": 881,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF/baCTGsGARHc="
+									},
+									"edgePosition": 1
+								}
+							],
+							"font": "Arial;13;0",
+							"head": {
+								"$ref": "AAAAAAF/baAbBMF2mmw="
+							},
+							"tail": {
+								"$ref": "AAAAAAF/bZ+BCsFjT0o="
+							},
+							"lineStyle": 2,
+							"points": "793:840;793:936",
+							"nameLabel": {
+								"$ref": "AAAAAAF/baCTGsGBN7c="
 							}
 						}
 					]
@@ -13296,7 +13749,7 @@
 							"left": 504,
 							"top": 872,
 							"width": 305,
-							"height": 55,
+							"height": 68,
 							"text": "プレーヤーから攻撃したときは、\nPlayer -> Monsterの順で攻撃、ダメージを受ける\n1ターン分の処理"
 						},
 						{
@@ -13313,7 +13766,7 @@
 								"$ref": "AAAAAAF/U3KDbSN3kB4="
 							},
 							"lineStyle": 1,
-							"points": "474:935;514:927"
+							"points": "484:935;503:932"
 						},
 						{
 							"_type": "FCFlowView",
@@ -14626,7 +15079,7 @@
 									"font": "Arial;13;0",
 									"left": 623,
 									"top": 978,
-									"width": 180.6181640625,
+									"width": 187.25146484375,
 									"height": 13,
 									"text": "コマンドの値変換処理(Monster)",
 									"wordWrap": true
@@ -14635,7 +15088,7 @@
 							"font": "Arial;13;0",
 							"left": 608,
 							"top": 968,
-							"width": 205.6181640625,
+							"width": 212.25146484375,
 							"height": 33,
 							"nameLabel": {
 								"$ref": "AAAAAAF/ZvGZ8rF9ZDw="
@@ -14872,9 +15325,9 @@
 										"$ref": "AAAAAAF/ZvbWN7HC2C4="
 									},
 									"font": "Arial;13;0",
-									"left": 373.39453125,
+									"left": 375.908203125,
 									"top": 989,
-									"width": 51.28271484375,
+									"width": 53.650390625,
 									"height": 13,
 									"text": "CalcUtils"
 								},
@@ -14887,7 +15340,7 @@
 									"font": "Arial;13;1",
 									"left": 341,
 									"top": 989,
-									"width": 23.39453125,
+									"width": 25.908203125,
 									"height": 13,
 									"text": "link"
 								}
@@ -14918,7 +15371,7 @@
 								"$ref": "AAAAAAF/ZvbWN7HC2C4="
 							},
 							"lineStyle": 1,
-							"points": "436:985;648:944;684:967"
+							"points": "436:985;648:944;685:967"
 						},
 						{
 							"_type": "UMLNoteLinkView",
@@ -17538,7 +17991,7 @@
 					"_parent": {
 						"$ref": "AAAAAAF/GfBXGIAOnw0="
 					},
-					"name": "生成した乱数を書くステータスにセット",
+					"name": "生成した乱数を各ステータスにセット",
 					"ownedElements": [
 						{
 							"_type": "FCFlow",
@@ -17610,6 +18063,19 @@
 							},
 							"target": {
 								"$ref": "AAAAAAF/IFOHWPMU040="
+							}
+						},
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/bZ6az8E7/so=",
+							"_parent": {
+								"$ref": "AAAAAAF/IFLBd/L6Gf0="
+							},
+							"source": {
+								"$ref": "AAAAAAF/IFLBd/L6Gf0="
+							},
+							"target": {
+								"$ref": "AAAAAAF/bZw5S8ElwD8="
 							}
 						}
 					]
@@ -18992,6 +19458,106 @@
 					"reference": {
 						"$ref": "AAAAAAF/RG/5KxAv/E0="
 					}
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/bZw5S8ElwD8=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "FormulaMaps取得",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/bZ6rAcFEaoQ=",
+							"_parent": {
+								"$ref": "AAAAAAF/bZw5S8ElwD8="
+							},
+							"source": {
+								"$ref": "AAAAAAF/bZw5S8ElwD8="
+							},
+							"target": {
+								"$ref": "AAAAAAF/bZ04bcEva4M="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/bZ04bcEva4M=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "ATKのFormula取得",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/bZ87J8FYCPY=",
+							"_parent": {
+								"$ref": "AAAAAAF/bZ04bcEva4M="
+							},
+							"source": {
+								"$ref": "AAAAAAF/bZ04bcEva4M="
+							},
+							"target": {
+								"$ref": "AAAAAAF/bZ7iHMFNupA="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/bZ7iHMFNupA=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "DEFのFormula取得",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/bZ/GeMFrUB8=",
+							"_parent": {
+								"$ref": "AAAAAAF/bZ7iHMFNupA="
+							},
+							"source": {
+								"$ref": "AAAAAAF/bZ7iHMFNupA="
+							},
+							"target": {
+								"$ref": "AAAAAAF/bZ+BCsFhANc="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/bZ+BCsFhANc=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "職業マップ取得",
+					"ownedElements": [
+						{
+							"_type": "FCFlow",
+							"_id": "AAAAAAF/baCTGsF+5RE=",
+							"_parent": {
+								"$ref": "AAAAAAF/bZ+BCsFhANc="
+							},
+							"source": {
+								"$ref": "AAAAAAF/bZ+BCsFhANc="
+							},
+							"target": {
+								"$ref": "AAAAAAF/baAbA8F0wIE="
+							}
+						}
+					]
+				},
+				{
+					"_type": "FCProcess",
+					"_id": "AAAAAAF/baAbA8F0wIE=",
+					"_parent": {
+						"$ref": "AAAAAAF/GfBXGIAOnw0="
+					},
+					"name": "選択したRpgJobをプレーヤーにセット"
 				}
 			]
 		},
@@ -47460,7 +48026,7 @@
 											"font": "Arial;13;1",
 											"left": 709,
 											"top": 1223,
-											"width": 131.1552734375,
+											"width": 138.89306640625,
 											"height": 13,
 											"text": "Monster"
 										},
@@ -47472,7 +48038,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"width": 124.9599609375,
+											"width": 135.966796875,
 											"height": 13,
 											"text": "(from TextRpg構造図)"
 										},
@@ -47491,7 +48057,7 @@
 									"font": "Arial;13;0",
 									"left": 704,
 									"top": 1216,
-									"width": 141.1552734375,
+									"width": 148.89306640625,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF/ZtXsy24f4fo="
@@ -47528,7 +48094,7 @@
 											"font": "Arial;13;0",
 											"left": 709,
 											"top": 1246,
-											"width": 131.1552734375,
+											"width": 138.89306640625,
 											"height": 13,
 											"text": "+MonsterType: String",
 											"horizontalAlignment": 0
@@ -47545,7 +48111,7 @@
 											"font": "Arial;13;0",
 											"left": 709,
 											"top": 1261,
-											"width": 131.1552734375,
+											"width": 138.89306640625,
 											"height": 13,
 											"text": "+isTalk: boolean",
 											"horizontalAlignment": 0
@@ -47562,7 +48128,7 @@
 											"font": "Arial;13;0",
 											"left": 709,
 											"top": 1276,
-											"width": 131.1552734375,
+											"width": 138.89306640625,
 											"height": 13,
 											"text": "+message: String",
 											"horizontalAlignment": 0
@@ -47571,7 +48137,7 @@
 									"font": "Arial;13;0",
 									"left": 704,
 									"top": 1241,
-									"width": 141.1552734375,
+									"width": 148.89306640625,
 									"height": 53
 								},
 								{
@@ -47586,7 +48152,7 @@
 									"font": "Arial;13;0",
 									"left": 704,
 									"top": 1294,
-									"width": 141.1552734375,
+									"width": 148.89306640625,
 									"height": 10
 								},
 								{
@@ -47622,7 +48188,7 @@
 							"containerChangeable": true,
 							"left": 704,
 							"top": 1216,
-							"width": 141.1552734375,
+							"width": 148.89306640625,
 							"height": 88,
 							"nameCompartment": {
 								"$ref": "AAAAAAF/ZtXsy24eYEU="
@@ -47660,9 +48226,9 @@
 										"$ref": "AAAAAAF/ZtZCfHCX/nY="
 									},
 									"font": "Arial;13;0",
-									"left": 792,
+									"left": 789,
 									"top": 1184,
-									"width": 53.12353515625,
+									"width": 60.0234375,
 									"height": 13,
 									"alpha": -1.4315601910939435,
 									"distance": 28.792360097775937,
@@ -47683,7 +48249,7 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 760,
+									"left": 761,
 									"top": 1175,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -47704,7 +48270,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 804,
+									"left": 805,
 									"top": 1185,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -47723,7 +48289,7 @@
 								"$ref": "AAAAAAF/ZtXsy24dRcc="
 							},
 							"lineStyle": 1,
-							"points": "784:1215;796:1162",
+							"points": "786:1215;797:1162",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF/ZtZCfHCaJZY="
@@ -47744,7 +48310,7 @@
 							"font": "Arial;13;0",
 							"left": 912,
 							"top": 1232,
-							"width": 118.97265625,
+							"width": 128.2021484375,
 							"height": 55,
 							"text": "Monster.xml\nCommand.xml\nMonsterType.xml"
 						},
@@ -47762,7 +48328,7 @@
 								"$ref": "AAAAAAF/ZtXsy24dRcc="
 							},
 							"lineStyle": 1,
-							"points": "845:1259;911:1259"
+							"points": "853:1259;911:1259"
 						}
 					]
 				},
@@ -64576,9 +65142,9 @@
 										"$ref": "AAAAAAF/ZtKmMlStzCk="
 									},
 									"font": "Arial;13;0",
-									"left": 365,
+									"left": 362,
 									"top": 541,
-									"width": 80.1962890625,
+									"width": 86.82958984375,
 									"height": 13,
 									"alpha": 0.16941302202250588,
 									"distance": 77.10382610480494,
@@ -64660,7 +65226,7 @@
 									"font": "Arial;13;0",
 									"left": 661.39453125,
 									"top": 453,
-									"width": 46.9599609375,
+									"width": 50.82568359375,
 									"height": 13,
 									"text": "Monster"
 								},
