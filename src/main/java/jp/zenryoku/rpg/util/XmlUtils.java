@@ -7,10 +7,7 @@ import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -103,18 +100,19 @@ public class XmlUtils {
         String mp =  e.getElementsByTagName("mp").item(0).getTextContent();
 
         // その他
-        NodeList nodeList = e.getChildNodes();
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            Node n = nodeList.item(i);
-            String tagName = n.getNodeName().toLowerCase();
+//        NodeList nodeList = e.getChildNodes();
+        NamedNodeMap nodeMap = ((Element) node).getAttributes();
+        for (int i = 0; i < nodeMap.getLength(); i++) {
+            Element ele = (Element) nodeMap.item(i);
+            String tagName = ele.getTagName().toLowerCase();
             System.out.println("nodeName: " + tagName);
-            if (statusMap.containsKey(tagName)) {
+            if (statusMap.containsKey(tagName) == false) {
                 continue;
             } else {
 
             }
-            RpgStatus status = statusMap.get(tagName);
-            String val = n.getTextContent();
+            RpgStatus status = statusMap.get(tagName.toUpperCase());
+            String val = ele.getTextContent();
             status.setValue(Integer.parseInt(val));
         }
 
@@ -141,16 +139,8 @@ public class XmlUtils {
             boolean pisTalk = Boolean.parseBoolean(isTalk);
             String pmessage = message;
 
-            monster = new Monster(name/*, plv, php, pmp, pisTalk, pmessage*/);
-            Map<String, RpgStatus> status = monster.getStatusMap();
-            Set<String> keys = status.keySet();
-            for (String key : keys) {
-                RpgStatus st = status.get(key);
-                if (st == null) {
-                    throw new RpgException(MessageConst.NO_MUCH_STATUS.toString() + ": " + key);
-                }
-                //st.setValue();
-            }
+            monster = new Monster(name, plv, php, pmp, pisTalk, pmessage);
+            monster.setStatusMap(statusMap);
         } catch (NumberFormatException ne) {
             ne.printStackTrace();
             throw new RpgException(MessageConst.ERR_NUMBER_FORMAT.toString() + ": " + ne.getMessage());

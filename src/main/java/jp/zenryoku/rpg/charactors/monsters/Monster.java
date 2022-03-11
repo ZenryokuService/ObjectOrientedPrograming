@@ -65,6 +65,26 @@ public class Monster extends PlayerCharactor {
 		setMessage(message);
 	}
 
+	/**
+	 * コンストラクタ。
+	 * 今回は、まおうのみなので、コンストラクタプロパティ設定を行う。
+	 * @param name モンスターの名前
+	 */
+	public Monster(String name, int lv, int hp, int mp, boolean isTalk, String message) throws RpgException {
+		// 名前
+		super(name);
+		// レベル
+		setLevel(lv);
+		// HP
+		setHP(hp);
+		// MP
+		setMP(mp);
+		// 話をする
+		setTalk(isTalk);
+		// 表示するメッセージ
+		setMessage(message);
+	}
+
 	public boolean isTalk() {
 		return isTalk;
 	}

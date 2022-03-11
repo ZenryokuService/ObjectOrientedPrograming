@@ -1,8 +1,11 @@
 package jp.zenryoku.rpg.util;
 
+import jp.zenryoku.rpg.TestUtils;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
+import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
+import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +19,7 @@ public class XmlUtilsTest {
 
     @Test
     public void testCreateMonster() {
+        TestUtils.initRpgConfig();
         try {
             List<Monster> list = XmlUtils.loadMonsters();
             for (Monster mon : list) {
@@ -27,6 +31,12 @@ public class XmlUtilsTest {
                 System.out.println("DEF: " + mon.getDiffence());
                 System.out.println("isTalk: " + mon.isTalk());
                 System.out.println("Message: " + mon.getMessage());
+                Map<String, RpgStatus> stMap = mon.getStatusMap();
+                Set<String> keys = stMap.keySet();
+                for (String key : keys) {
+                    RpgStatus status = stMap.get(key);
+                    System.out.println(key + " : "  + status.getValue());
+                }
             }
         } catch (RpgException e) {
             e.printStackTrace();
@@ -37,6 +47,8 @@ public class XmlUtilsTest {
     @Test
     public void testCreateJob() {
         try {
+            Map<String, RpgCommand> cmdMap = XmlUtils.loadCommands();
+            RpgConfig.getInstance().setCommandMap(cmdMap);
             Map<String, RpgJob> map = XmlUtils.loadJobs();
             Set<String> set = map.keySet();
             for (String key : set) {
