@@ -7,6 +7,7 @@ import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.constants.SelectConst;
 import jp.zenryoku.rpg.data.*;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgStatus;
@@ -15,6 +16,7 @@ import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -102,6 +104,7 @@ public class CreatePlayerScene extends StoryScene {
             int jobCount = jobMap.size();
             String jobSelect = console.acceptInput(SelectConst.JOB_SELECT.toString(), "[1-" + jobCount + "]");
             RpgJob job = jobMap.get(jobSelect);
+            job.setCommandList(job.getCommandList());
             player.setJob(job);
             //
             // ステータス確定確認
@@ -109,6 +112,7 @@ public class CreatePlayerScene extends StoryScene {
                     + SelectConst.SELECT_YES.getSelectMessage() + " " + SelectConst.SELECT_NO.getSelectMessage()
                     ,SelectConst.YES_NO_REGREX);
             if (SelectConst.SELECT_YES.getValue().equals(select)) {
+                party.setPlayer(player);
                 break;
             }
         }

@@ -19,6 +19,7 @@ import java.util.Set;
  */
 @Data
 public class RpgFormula extends RpgData {
+    private static final boolean isDebug = false;
     /**　計算式(文字列) */
     private String formulaStr;
     /** 関連項目 */
@@ -49,11 +50,12 @@ public class RpgFormula extends RpgData {
         Map<String, RpgStatus> optionalMap = player.getOptionalMap();
         Set<String> set = statusMap.keySet();
         String convStr = formulaStr;
-
-        System.out.print("Key: ");
+        System.out.println("式：" + formulaStr);
+        if (isDebug) System.out.print("Key: ");
         for (String key : set) {
             RpgData data = statusMap.get(key);
-            System.out.print(data.getKigo() + ", ");
+            if (isDebug) System.out.print(data.getKigo() + ", ");
+            // ATKの類に値は背としていないので計算する必要がある。
             convStr = convStr.replaceAll(data.getKigo(), String.valueOf(data.getValue()));
         }
         Set<String> setOpt = optionalMap.keySet();

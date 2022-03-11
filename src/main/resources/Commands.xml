@@ -33,5 +33,26 @@
         <!-- 実行時のメッセージ -->
         <exeMessage>をつかった</exeMessage>
     </command>
-
+    <!-- 体当りコマンド -->
+    <command>
+        <!-- コマンドID -->
+        <id>BAT</id>
+        <!-- コマンド名 -->
+        <name>たいあたり</name>
+        <!-- コマンド効果式 -->
+        <formula>ATK+AGI</formula>
+        <!-- 実行時のメッセージ -->
+        <exeMessage>をつかった</exeMessage>
+    </command>
+    <!-- ついばみコマンド -->
+    <command>
+        <!-- コマンドID -->
+        <id>STC</id>
+        <!-- コマンド名 -->
+        <name>ついばみ</name>
+        <!-- コマンド効果式 -->
+        <formula>(INT+AGI) * 2</formula>
+        <!-- 実行時のメッセージ -->
+        <exeMessage>をつかった</exeMessage>
+    </command>
 </class>

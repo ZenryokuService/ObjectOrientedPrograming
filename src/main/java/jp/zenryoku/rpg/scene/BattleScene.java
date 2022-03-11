@@ -313,6 +313,7 @@ public class BattleScene extends RpgScene {
 			String selectCommand = console.acceptInput("こうどうを、せんたくしてください。", "[1-" + (listSize - 1) + "]");
 			int select = Integer.parseInt(selectCommand) - 1;
 			RpgCommand pCommand = commandList.get(select);
+			System.out.println("Command; " + pCommand.getName());
 //			RpgFormula pFormula = new RpgFormula(pCommand.getFormula());
 //			int pValue = pFormula.formula(player);
 			// プレーヤー攻撃

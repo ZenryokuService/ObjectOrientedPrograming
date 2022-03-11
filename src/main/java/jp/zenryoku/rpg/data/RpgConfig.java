@@ -6,6 +6,7 @@ import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.items.EvEffect;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
+import jp.zenryoku.rpg.data.job.RpgMonsterType;
 import jp.zenryoku.rpg.data.shop.RpgShop;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgStatus;
@@ -34,34 +35,36 @@ public class RpgConfig {
     private int printLine;
     /** 全ての設定を格納する */
     private Map<String, RpgData> dataMap;
-    /** マスタカテゴリ */
+    /** マスタカテゴリマップ */
     private Map<String, RpgMaster> masterMap;
-    /** パラメータリスト */
+    /** パラメータマップ */
     private Map<String, RpgData> paramMap;
-    /** ステータスリスト */
+    /** ステータスマップ */
     private Map<String, RpgStatus> statusMap;
-    /** オプショナルステータスList */
+    /** オプショナルステータスマップ */
     private Map<String, RpgStatus> optionStatusMap;
-    /** 計算式リスト */
+    /** 計算式マップ */
     private Map<String, RpgFormula> formulaMap;
-    /** 職業リスト */
+    /** 職業マップ */
     private Map<String, RpgJob> jobMap;
-    /** 職業リスト */
+    /** コマンドマップ */
     private Map<String, RpgCommand> commandMap;
-    /** アイテムリスト */
+    /** アイテムマップ */
     private Map<String, RpgData> itemMap;
-    /** アイテムタイプリスト */
+    /** アイテムタイプマップ */
     private Map<String, RpgData> itemTypeMap;
-    /** ショップリスト */
+    /** ショップマップ */
     private Map<String, RpgShop> shopMap;
-    /** ステータス効果リスト */
+    /** ステータス効果マップ */
     private Map<String, Effects> effectMap;
-    /** ステータス変化オブジェクト */
+    /** ステータス変化オブジェクトマップ */
     private Map<String, StEffect> stEffectMap;
-    /**イベント変化オブジェクト */
+    /**イベント変化オブジェクトマップ */
     private Map<String, EvEffect> evEffectMap;
     /** モンスターリスト */
     private List<Monster> monsterList;
+    /** モンスタータイプマップ */
+    private Map<String, RpgMonsterType> monsterTypeMap;
 
 
 

@@ -610,26 +610,24 @@ public class ConsoleUtils {
 	 * @return 全体の文字数を返却する(全角部分は２倍計算)
 	 */
 	private int appendLine(StringBuilder build, String name, boolean isMultiByte) {
+		if (isDebug) System.out.println("name; " + name + " sobisize; " + "Multi: " + isMultiByte);
 		// 12 - 名前の文字数
-		int nameLen = 0;
-		int astahAll = 0;
-		if (isMultiByte) {
-			// 全角の場合は２倍にする
-			nameLen = name.length() * 2;
-			astahAll = name.length() * 2 + APPEND_LEN;
-		} else {
-			nameLen = name.length();
-			astahAll = name.length() + APPEND_LEN;
-		}
+		int nameLen = toByteLength(name);
+		int astahAll = nameLen;
 		// 名前の両サイドに表示するアスタの数
 		int astah = 0;
 		// アスタの数が偶数の場合
-		boolean isGusu = CheckerUtils.isGusu(name.length());
-		if (isGusu) {
-			astah = astahAll / 2 - DEL2;
+		boolean isGusu = CheckerUtils.isGusu(astahAll);
+		if (isGusu || isMultiByte) {
+			astah = astahAll - DEL2;
+		} else if (isGusu == false & isMultiByte) {
+			astah = astahAll - DEL1;
+		} else if (isGusu == false & isMultiByte == false) {
+			astah = astahAll - DEL1;
 		} else {
-			astah = astahAll / 2 - DEL3;
+			astah = astahAll - DEL2;
 		}
+		if (isDebug) System.out.println("isGusu: " + isGusu + "isMulti: " + isMultiByte + "astahAll: " + astahAll + "astah: " + astah);
 		if (astah < 5) {
 			astah = 4;
 		}
@@ -639,7 +637,8 @@ public class ConsoleUtils {
 		String append = null;
 		String space = " ";
 		int spaceLen = 0;
-		if (isGusu == false || isMultiByte) {
+		boolean nameIsGusu = CheckerUtils.isGusu(name.length());
+		if (nameIsGusu == false || isMultiByte) {
 			spaceLen = 3;
 			append = space + name + space + space;
 		} else {

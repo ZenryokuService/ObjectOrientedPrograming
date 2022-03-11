@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- 職業マップ -->
+<class>
+    <!-- スライム・タイプ -->
+    <monsterType>
+        <id>SLM</id>
+        <name>スライムタイプ</name>
+        <discription>スライムタイプのモンスター。</discription>
+        <commandList>ATK, DEF, BAT</commandList>
+    </monsterType>
+    <!-- カラス・タイプ -->
+    <monsterType>
+        <id>CRW</id>
+        <name>カラスタイプ</name>
+        <discription>カラスタイプのモンスター。</discription>
+        <commandList>ATK, DEF, STC</commandList>
+    </monsterType>
+</class>

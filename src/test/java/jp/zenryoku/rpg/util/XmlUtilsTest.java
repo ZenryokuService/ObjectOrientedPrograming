@@ -5,6 +5,7 @@ import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
+import jp.zenryoku.rpg.data.job.RpgMonsterType;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.Test;
@@ -56,6 +57,31 @@ public class XmlUtilsTest {
                 System.out.println("ID: " + job.getJobId());
                 System.out.println("Name: " + job.getName());
                 System.out.println("HP: " + job.getDiscription());
+                List<RpgCommand> cmdList = job.getCommandList();
+                System.out.print("CMD: ");
+                for (RpgCommand cmd : cmdList) {
+                    System.out.print(cmd.getCommandId() + ", ");
+                }
+                System.out.println();
+            }
+        } catch (RpgException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCreateMonsterType() {
+        try {
+            Map<String, RpgCommand> cmdMap = XmlUtils.loadCommands();
+            RpgConfig.getInstance().setCommandMap(cmdMap);
+            Map<String, RpgMonsterType> map = XmlUtils.loadMonterType();
+            Set<String> set = map.keySet();
+            for (String key : set) {
+                RpgMonsterType job = map.get(key);
+                System.out.println("ID: " + job.getJobId());
+                System.out.println("Name: " + job.getName());
+                System.out.println("Disc: " + job.getDiscription());
                 List<RpgCommand> cmdList = job.getCommandList();
                 System.out.print("CMD: ");
                 for (RpgCommand cmd : cmdList) {

@@ -7,6 +7,7 @@ import jp.zenryoku.rpg.data.*;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
+import jp.zenryoku.rpg.data.job.RpgMonsterType;
 import jp.zenryoku.rpg.data.shop.ItemShop;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.exception.StoryTextException;
@@ -72,6 +73,8 @@ public abstract class RpgLogic implements Games {
         loadCommands();
         // 職業リストのロード
         loadJobs();
+        // モンスタータイプの読み込み
+        loadMonsterType();
         // パラメータマップ(設定情報)の読み込み
         try {
             loadParamMaps();
@@ -317,6 +320,21 @@ public abstract class RpgLogic implements Games {
             Map<String, RpgJob> map = XmlUtils.loadJobs();
             if (isDebug) System.out.println("mapSize: " + map.size());
             RpgConfig.getInstance().setJobMap(map);
+        } catch (RpgException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
+
+
+    /**
+     * MonsterType.xmlを読み込んで職業マップを作成する。
+     */
+    private void loadMonsterType() {
+        try {
+            Map<String, RpgMonsterType> map = XmlUtils.loadMonterType();
+            if (isDebug) System.out.println("mapSize: " + map.size());
+            RpgConfig.getInstance().setMonsterTypeMap(map);
         } catch (RpgException e) {
             e.printStackTrace();
             System.exit(-1);

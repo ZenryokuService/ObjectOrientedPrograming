@@ -5,6 +5,7 @@ import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
+import jp.zenryoku.rpg.data.job.RpgMonsterType;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.w3c.dom.*;
@@ -172,6 +173,7 @@ public class XmlUtils {
         return jobMap;
     }
 
+
     /**
      * RpgJobクラスを生成する。
      * @param node jobタグ
@@ -194,6 +196,61 @@ public class XmlUtils {
 
         RpgJob job = null;
         job = new RpgJob(id, name, disc, cmdList);
+        return job;
+    }
+
+    /**
+     * MonseterType.xmlを読み込む。必ず、Command.xmlを読み込んでから実行する。
+     * @return MonseterTypeリスト
+     * @throws RpgException XMLの設定エラー
+     */
+    public static Map<String, RpgMonsterType> loadMonterType() throws RpgException {
+        Map<String, RpgMonsterType> monsMap = new HashMap<>();
+        Map<String, RpgCommand> cmdMap = RpgConfig.getInstance().getCommandMap();
+        if (cmdMap.size() <= 0) {
+            throw new RpgException(MessageConst.ERR_BEFORE_LOAD_CMD.toString());
+        }
+        try {
+            Document doc = loadDocumentBuilder("src/main/resources", "MonseterType.xml");
+            if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+            NodeList list = doc.getElementsByTagName("monsterType");
+
+            for (int i = 0; i < list.getLength(); i++) {
+                Node node = list.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    RpgMonsterType j = createMonsterType(node, cmdMap);
+                    monsMap.put(j.getJobId(), j);
+                }
+            }
+        } catch (RpgException e) {
+            e.printStackTrace();
+            throw new RpgException(MessageConst.ERR_XML_PERSE.toString() + ": " + e.getMessage());
+        }
+        return monsMap;
+    }
+
+
+    /**
+     * RpgMonsterTypeクラスを生成する。
+     * @param node monsterTypeタグ
+     * @return RpgMonsterType モンスタータイプクラス
+     * @throws RpgException XML設定エラー
+     */
+    private static RpgMonsterType createMonsterType(Node node, Map<String, RpgCommand> map) throws RpgException {
+        Element e = (Element) node;
+        String id = e.getElementsByTagName("id").item(0).getTextContent();
+        String name = e.getElementsByTagName("name").item(0).getTextContent();
+        String disc =  e.getElementsByTagName("discription").item(0).getTextContent();
+        String commandList =  e.getElementsByTagName("commandList").item(0).getTextContent();
+        String[] list = commandList.split(",");
+
+        List<RpgCommand> cmdList = new ArrayList<>();
+        for (String cmd : list) {
+            RpgCommand cmdCls = map.get(cmd.trim());
+            cmdList.add(cmdCls);
+        }
+
+        RpgMonsterType job = new RpgMonsterType(id, name, disc, cmdList);
         return job;
     }
 

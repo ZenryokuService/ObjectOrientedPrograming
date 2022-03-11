@@ -5,6 +5,7 @@
         <id>0</id>
         <name>サンプル</name>
         <lv>1</lv>
+        <type>OTH</type>
         <hp>5</hp>
         <mp>0</mp>
         <pow>1</pow>
@@ -25,6 +26,7 @@
     <!-- スライム -->
     <monster>
         <id>1</id>
+        <type>SLM</type>
         <name>Slime</name>
         <lv>1</lv>
         <hp>5</hp>
@@ -43,6 +45,7 @@
 
     <monster>
         <id>2</id>
+        <type>CRW</type>
         <name>おおがらす</name>
         <lv>1</lv>
         <hp>5</hp>
