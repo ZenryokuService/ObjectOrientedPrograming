@@ -72,10 +72,18 @@ public abstract class RpgLogic implements Games {
         loadCommands();
         // 職業リストのロード
         loadJobs();
+        // パラメータマップ(設定情報)の読み込み
+        try {
+            loadParamMaps();
+        } catch (RpgException | IOException | StoryTextException e) {
+            System.out.println("cpmf.txtの読み込みに失敗しました。");
+            e.printStackTrace();
+            System.exit(-1);
+        }
         // モンスターリストの読み込み
         loadMonsters();
         // ストーリー.txtの読み込み
-        BufferedReader story = getBufferedReader("resources/story", "SampleRpg_story.txt");
+        BufferedReader story = getBufferedReader("src/main/resources/story", "Sample_story.txt");
         // シーンオブジェクトの生成
         createSceneObject(story);
         // シーン開始フラグの初期化
@@ -89,7 +97,8 @@ public abstract class RpgLogic implements Games {
      */
     private void createSceneObject(BufferedReader storyTxt) {
         try {
-            setStoryData(storyTxt);
+            loadScenes();
+            //setStoryData(storyTxt);
             // 最初のシーンを設定する
             scene = sceneList.get(0);
         } catch (IOException ie) {
@@ -317,6 +326,160 @@ public abstract class RpgLogic implements Games {
         } catch (RpgException e) {
             e.printStackTrace();
             System.exit(-1);
+        }
+    }
+
+    public void loadParamMaps() throws RpgException, IOException, StoryTextException {
+        // コメントの行リスト
+        List<String> commentList = new ArrayList<>();
+        // パラメータ設定クラス
+        ParamGenerator generator = ParamGenerator.getInstance();
+        BufferedReader storyTxt = getBufferedReader("src/main/resources", "conf.txt");
+        String line = null;
+        try {
+            // コメントフラグ:テキストのはじめのみに記載することができる
+            boolean isComment = true;
+            // 選択肢
+            boolean isSelectLine = false;
+
+            while ((line = storyTxt.readLine()) != null) {
+                // コメントの取得
+                if (CheckerUtils.isCommentLine(line) && isComment) {
+                    loadCommentLine(storyTxt, commentList);
+                    continue;
+                }
+                // コメント行が終了
+                isComment = false;
+
+                // コメント行を飛ばす 改行コードのみの場合
+                if (CheckerUtils.isCommentLine(line) || CheckerUtils.isEmpptyOrSep(line)) {
+                    continue;
+                }
+                // カテゴリマスターの生成
+                if (line.equals("CONFIG_MASTER")) {
+                    generator.createMasterCategory(storyTxt);
+                    continue;
+                }
+                // 設定オブジェクトの生成
+                if (line.equals("CONFIG_PARAM")) {
+                    generator.createParam(storyTxt);
+                    continue;
+                }
+                if (line.equals("CONFIG_STATUS")) {
+                    generator.createStatus(storyTxt);
+                    continue;
+                }
+                if (line.equals("CONFIG_ITEM")) {
+                    generator.createItemTypeMap(storyTxt);
+                    continue;
+                }
+                if (line.equals("CONFIG_FORMULA")) {
+                    generator.createFormulaMap(storyTxt);
+                    continue;
+                }
+                if (line.equals("ITEM_LIST")) {
+                    generator.createItemMap(storyTxt);
+                    continue;
+                }
+                if (line.equals("CONFIG_ST_EFFECT")) {
+                    generator.createEffects(storyTxt);
+                    continue;
+                }
+            }
+        } catch (RpgException re) {
+            System.out.println("ストーリーテキストの読み込み中にエラーがありました。: " + re.getMessage() + SEP + line);
+            re.printStackTrace();
+        } catch (IOException ie) {
+            System.out.println("ストーリーテキストの読み込みに失敗しました。。: " + ie.getMessage() + SEP + line);
+            ie.printStackTrace();
+            throw ie;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new StoryTextException("ストーリーテキスト読み込み中の想定外のエラーがありました。" + e.getMessage() + SEP + line);
+        }
+    }
+
+    public void loadScenes() throws RpgException, IOException, StoryTextException {
+        // パラメータ設定クラス
+        ParamGenerator generator = ParamGenerator.getInstance();
+        BufferedReader storyTxt = getBufferedReader("src/main/resources/story", "Sample_story.txt");
+        // シーンオブジェクトのリスト
+        List<RpgScene> rpgSceneList = new ArrayList<>();
+        // シーンオブジェクト
+        RpgScene sceneObj = null;
+
+        // 取得した1行分のデータ
+        String line = null;
+        // ストーリーテキストの行数
+        int lineIdx = 0;
+        // 読み込み行のカウント
+        int lineCount = 0;
+
+        try {
+            // 選択肢
+            boolean isSelectLine = false;
+
+            while ((line = storyTxt.readLine()) != null) {
+                //// 参照渡しを使用せず、値渡しで実装する ////
+                // シーン開始行の判定
+                if (CheckerUtils.isStartSceneLine(line)) {
+                    sceneObj = loadScene(line, rpgSceneList);
+                    isSelectLine = false;
+                    continue;
+                }
+                // これ以降は、シーンオブジェクトの生成済みの必要がある
+                throwNullPoiinter(sceneObj, "シーンオブジェクトの生成ができていません。" + line);
+                // 選択肢ありの場合
+                if (CheckerUtils.isStartSelectNextScene(line)) {
+                    setSelections(line, sceneObj);
+                    isSelectLine = true;
+                    continue;
+                }
+                // アイテムショップの設定
+                if (CheckerUtils.isStartShopScene(line)) {
+                    setItemShop(line, storyTxt, sceneObj);
+                    continue;
+                }
+
+                // エフェクトシーンの設定
+                if (CheckerUtils.isStartEffectScene(line) || CheckerUtils.isStartWithTSEffectScene(line)) {
+                    if (isDebug) System.out.println("*** " + line + " ***");
+                    setEffectScene(line, storyTxt, sceneObj);
+                    continue;
+                }
+
+                // バトルシーンの設定
+                if (CheckerUtils.isStartBattleScene(line)) {
+                    System.out.println("*** " + line + " ***");
+                    setBattleScene(line, storyTxt, sceneObj);
+                    continue;
+                }
+
+                // ストーリーテキストのシーン終了部分
+                if (line.startsWith("END_SCENE ")) {
+                    sceneObj = finishSceneSetting(line, sceneObj);
+                    isSelectLine = false;
+                    continue;
+                }
+                // 選択肢の行
+                if (isSelectLine) {
+                    setKomokuAndNextIndex(line, sceneObj);
+                }
+                // ストーリーテキストの追加
+                sceneObj.getTextList().add(line);
+                lineCount++;
+            }
+            sceneList = rpgSceneList;
+        } catch (RpgException re) {
+            System.out.println("ストーリーテキストの読み込み中にエラーがありました。: " + re.getMessage() + SEP + line);
+            re.printStackTrace();
+        } catch (IOException ie) {
+            System.out.println("ストーリーテキストの読み込みに失敗しました。。: " + ie.getMessage() + SEP + line);
+            ie.printStackTrace();
+            throw ie;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new StoryTextException("ストーリーテキスト読み込み中の想定外のエラーがありました。" + e.getMessage() + SEP + line);
         }
     }
 
