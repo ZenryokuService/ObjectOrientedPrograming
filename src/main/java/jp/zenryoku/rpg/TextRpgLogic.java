@@ -8,6 +8,7 @@ import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.scene.CreatePlayerScene;
 import jp.zenryoku.rpg.scene.StoryScene;
 import jp.zenryoku.rpg.util.CheckerUtils;
+import org.apache.commons.math3.genetics.OnePointCrossover;
 
 public class TextRpgLogic extends RpgLogic {
 

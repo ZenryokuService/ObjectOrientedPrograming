@@ -310,23 +310,55 @@ public class BattleScene extends RpgScene {
             // コマンドの一覧を表示する
             List<RpgCommand> commandList = console.printCommandList(player);
 			// プレーヤーターン、コマンド取得
-			String selectCommand = console.acceptInput("こうどうを、せんたくしてください。", "[1-" + listSize);
+			String selectCommand = console.acceptInput("こうどうを、せんたくしてください。", "[1-" + (listSize - 1) + "]");
 			int select = Integer.parseInt(selectCommand) - 1;
-			RpgCommand command = commandList.get(select);
-			RpgFormula pFormula = new RpgFormula(command.getFormula());
-			int value = pFormula.formula(player);
+			RpgCommand pCommand = commandList.get(select);
+//			RpgFormula pFormula = new RpgFormula(pCommand.getFormula());
+//			int pValue = pFormula.formula(player);
 			// プレーヤー攻撃
-			console.printMessage(player.getName() + "の" + command.getExeMessage() + "!");
-			monster.setHP(monster.getHP() - value);
-
-			// モンスターの攻撃
-			monster.getJob().getCommandList();
-			CalcUtils.getInstance().generateRandom(0,1);
+			isFinish = printAttackAndCalc(player, monster, pCommand);
 			if (isFinish) {
 				break;
 			}
+//			console.printMessage(player.getName() + "の" + pCommand.getExeMessage() + "!");
+//			monster.setHP(monster.getHP() - pValue);
+//			console.printMessage(monster.getName() + "に" + pValue + "のダメージ");
+
+			// モンスターの攻撃
+			System.out.println("monster.job: " + monster.getJob());
+			List<RpgCommand> cmdList = monster.getJob().getCommandList();
+			int monRnd = CalcUtils.getInstance().generateRandom(0,1);
+			RpgCommand mCommand = cmdList.get(monRnd);
+			isFinish = printAttackAndCalc(monster, player, mCommand);
+			if (isFinish) {
+				break;
+			}
+//			System.out.println(monster.getName() + "の" + mCommand.getExeMessage() + "!");
+//			RpgFormula mFormula = new RpgFormula(mCommand.getFormula());
+//			int mValue = mFormula.formula(monster);
+//			player.setHP(player.getHP() - mValue);
+//			console.printMessage(player.getName() + "に" + mValue + "のダメージ");
 		}
 
-		return isFinish == false;
+		return isFinish;
+	}
+
+	/**
+	 * プレーヤー、モンスターから相手絵のダメージを表示。
+	 * @param pla プレーヤー or モンスター
+	 * @param mon プレーヤー or モンスター
+	 * @param cmd コマンドオブジェクト
+	 * @return ture: 第二引数のオブジェクト#HPが0以下 false: まだ生きている。
+	 */
+	private boolean printAttackAndCalc(PlayerCharactor pla, PlayerCharactor mon, RpgCommand cmd) {
+		RpgFormula pFormula = new RpgFormula(cmd.getFormula());
+		int pValue = pFormula.formula(pla);
+		console.printMessage(pla.getName() + "の" + cmd.getExeMessage() + "!");
+		mon.setHP(mon.getHP() - pValue);
+		console.printMessage(mon.getName() + "に" + pValue + "のダメージ");
+		if (mon.getHP() <= 0) {
+			return true;
+		}
+		return false;
 	}
 }

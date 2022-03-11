@@ -127,6 +127,7 @@ public abstract class RpgLogic implements Games {
      * @throws Exception 想定外のエラー
      * @see jp.zenryoku.rpg.data.ParamGenerator
      */
+    @Deprecated
     private void setStoryData(BufferedReader storyTxt) throws Exception {
         // シーンオブジェクトのリスト
         List<RpgScene> rpgSceneList = new ArrayList<>();
@@ -308,6 +309,9 @@ public abstract class RpgLogic implements Games {
         }
     }
 
+    /**
+     * Job.xmlを読み込んで職業マップを作成する。
+     */
     private void loadJobs() {
         try {
             Map<String, RpgJob> map = XmlUtils.loadJobs();
@@ -319,6 +323,9 @@ public abstract class RpgLogic implements Games {
         }
     }
 
+    /**
+     * Command.xmlを読み込んで職業マップを作成する。
+     */
     private void loadCommands() {
         try {
             Map<String, RpgCommand> map = XmlUtils.loadCommands();
@@ -329,6 +336,21 @@ public abstract class RpgLogic implements Games {
         }
     }
 
+    /**
+     * conf.txtを読み込んで、パラメータマップを作成する。
+     * パラメータマップは以下のマップを総称している。
+     * <ol>
+     *     <li>マスタカテゴリマップ(固定)：CONFIG_MASTER</li>
+     *     <li>パラメータマップ(ユーザー定義)：CONFIG_PARAM</li>
+     *     <li>ステータスマップ(ユーザー定義)：CONFIG_STATUS </li>
+     *     <li>アイテムリスト(ユーザー定義)：ITEM_LIST</li>
+     *     <li>計算式マップ(ユーザー定義)：CONFIG_FORMULA</li>
+     *     <li>ステータス効果マップ：CONFIG_ST_EFFECT</li>
+     * </ol>
+     * @throws RpgException
+     * @throws IOException
+     * @throws StoryTextException
+     */
     public void loadParamMaps() throws RpgException, IOException, StoryTextException {
         // コメントの行リスト
         List<String> commentList = new ArrayList<>();
@@ -399,6 +421,14 @@ public abstract class RpgLogic implements Games {
         }
     }
 
+
+    /**
+     * *_story.txtを読み込んで各シーンオブジェクトを生成、シーンリストに追加する。
+     *
+     * @throws RpgException
+     * @throws IOException
+     * @throws StoryTextException
+     */
     public void loadScenes() throws RpgException, IOException, StoryTextException {
         // パラメータ設定クラス
         ParamGenerator generator = ParamGenerator.getInstance();
@@ -510,7 +540,8 @@ public abstract class RpgLogic implements Games {
 
         RpgScene sceneObj = null;
         // シーンタイプにより生成するシーンクラスを変更
-        if (RpgConst.SENE_TYPE_NEXT.getSceneType().equals(sceneType)) {
+        if (RpgConst.
+                SENE_TYPE_NEXT.getSceneType().equals(sceneType)) {
             // ストーリーシーンオブジェクトの生成
             sceneObj = new StoryScene(sceneIndex, sceneType);
         } else if (RpgConst.SENE_TYPE_SHOP.getSceneType().equals(sceneType)) {

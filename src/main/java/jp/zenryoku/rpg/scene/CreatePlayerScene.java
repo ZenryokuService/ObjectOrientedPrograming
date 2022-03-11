@@ -149,11 +149,12 @@ public class CreatePlayerScene extends StoryScene {
     private Map<String, RpgJob> printJobs() {
         Map<String, RpgJob> resMap = new HashMap<>();
         Map<String, RpgJob> jobMap = RpgConfig.getInstance().getJobMap();
-        System.out.println("jobMap: " + jobMap.size());
-        Set<String> set = jobMap.keySet();
+        resMap.putAll(jobMap);
+        if (isDebug) System.out.println("jobMap: " + resMap.size());
+        Set<String> set = resMap.keySet();
         int count = 1;
         for (String key : set) {
-            RpgJob job = jobMap.get(key);
+            RpgJob job = resMap.get(key);
             System.out.println(count + ". " + job.getName() + " : " + job.getDiscription());
             resMap.put(String.valueOf(count), job);
             count++;

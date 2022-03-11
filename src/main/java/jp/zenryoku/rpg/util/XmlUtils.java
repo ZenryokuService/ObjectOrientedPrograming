@@ -129,18 +129,12 @@ public class XmlUtils {
             int plv = Integer.parseInt(lv);
             int php = Integer.parseInt(hp);
             int pmp = Integer.parseInt(mp);
-//            int ppow = Integer.parseInt(pow);
-//            int pagi = Integer.parseInt(agi);
-//            int pint = Integer.parseInt(inta);
-//            int pdex = Integer.parseInt(dex);
-//            int pksm = Integer.parseInt(ksm);
-//            int patk = Integer.parseInt(atk);
-//            int pdef = Integer.parseInt(def);
             boolean pisTalk = Boolean.parseBoolean(isTalk);
             String pmessage = message;
 
             monster = new Monster(name, plv, php, pmp, pisTalk, pmessage);
             monster.setStatusMap(statusMap);
+
         } catch (NumberFormatException ne) {
             ne.printStackTrace();
             throw new RpgException(MessageConst.ERR_NUMBER_FORMAT.toString() + ": " + ne.getMessage());
