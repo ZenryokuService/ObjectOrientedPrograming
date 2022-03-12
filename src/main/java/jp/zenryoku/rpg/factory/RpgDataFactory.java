@@ -57,8 +57,16 @@ public class RpgDataFactory {
             data.setPriority(Integer.parseInt(priority));
         }
         data.setMaster(mast);
-        // 説明
-        data.setDiscription(sep[3].trim());
+        // 説明「式」が入っているときはFormulaを生成する。
+        String disc = sep[3].trim();
+//        if (disc.contains("式=")) {
+//            int pos = disc.indexOf("式=");
+//            String formula = disc.substring(pos + 2);
+//            System.out.println("Formula: " + formula);
+//            RpgFormula f = new RpgFormula(formula);
+//            data.setFormula(f);
+//        }
+        data.setDiscription(disc);
         int val = sep[5].trim().equals("-") || sep[5].trim().equals("") ? 0 : Integer.parseInt(sep[5].trim());
         data.setValue(val);
         // 親の設定
@@ -83,8 +91,15 @@ public class RpgDataFactory {
         RpgStatus data = new RpgStatus();
         data.setName(d.getName());
         data.setKigo(d.getKigo());
-        data.setDiscription(d.getDiscription());
-        // issue#23 アイテム装備時のValueがNullになる問題
+        String disc = d.getDiscription();
+        data.setDiscription(disc);
+        if (disc.contains("式=")) {
+            int pos = disc.indexOf("式=");
+            String formula = disc.substring(pos + 2);
+            if (isDebug) System.out.println(data.getKigo() + " : Formula: " + formula);
+            RpgFormula f = new RpgFormula(formula);
+            data.setFormula(f);
+        }
         data.setValue(d.getValue());
 
         return data;

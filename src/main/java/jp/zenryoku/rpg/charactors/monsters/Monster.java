@@ -2,6 +2,7 @@ package jp.zenryoku.rpg.charactors.monsters;
 
 import jp.zenryoku.rpg.charactors.NonPlayer;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
+import jp.zenryoku.rpg.data.job.RpgMonsterType;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
@@ -14,6 +15,8 @@ public class Monster extends PlayerCharactor {
 	private boolean isTalk;
 	/** 話の内容 */
 	private String message;
+	/** モンスタータイプ */
+	private RpgMonsterType type;
 
 	/**
 	 * コンストラクタ。
@@ -83,6 +86,7 @@ public class Monster extends PlayerCharactor {
 		setTalk(isTalk);
 		// 表示するメッセージ
 		setMessage(message);
+		//
 	}
 
 	public boolean isTalk() {
@@ -99,6 +103,14 @@ public class Monster extends PlayerCharactor {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public RpgMonsterType getType() {
+		return type;
+	}
+
+	public void setType(RpgMonsterType type) {
+		this.type = type;
 	}
 
 	/**

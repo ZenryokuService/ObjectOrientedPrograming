@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <!-- 職業マップ -->
 <class>
+    <!-- その他・タイプ -->
+    <monsterType>
+        <id>OTH</id>
+        <name>その他</name>
+        <discription>タイプにはまらないモンスター。</discription>
+        <commandList>ATK, DEF, BAT</commandList>
+    </monsterType>
     <!-- スライム・タイプ -->
     <monsterType>
         <id>SLM</id>

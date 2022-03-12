@@ -1,22 +1,37 @@
 package jp.zenryoku.rpg;
 
 import jp.zenryoku.rpg.charactors.PlayerParty;
+import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.data.*;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
 import jp.zenryoku.rpg.data.items.RpgItem;
+import jp.zenryoku.rpg.data.job.RpgCommand;
+import jp.zenryoku.rpg.data.job.RpgJob;
+import jp.zenryoku.rpg.data.job.RpgMonsterType;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.exception.StoryTextException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
+import jp.zenryoku.rpg.scene.CreatePlayerScene;
+import jp.zenryoku.rpg.util.CheckerUtils;
+import jp.zenryoku.rpg.util.XmlUtils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestUtils {
+    private static final boolean isDebug = false;
+    /** 改行コード */
+    private static final String SEP = System.lineSeparator();
 
     public static PlayerCharactor initRpgConfig() {
         ParamGenerator param = ParamGenerator.getInstance();
@@ -202,6 +217,201 @@ public class TestUtils {
         return player;
     }
 
+    public static void initRpgConfig(boolean is) {
+        RpgConfig conf = RpgConfig.getInstance();
+        PlayerParty party = PlayerParty.getInstance();
+        try {
+            loadParamMaps();
+            loadCommands();
+            loadJobs();
+            loadMonsterType();
+            loadMonsters();
+            PlayerCharactor player = new PlayerCharactor("test");
+            Map<String, RpgStatus> map =  new HashMap<>();
+            Map<String, RpgStatus> statusMap = conf.getStatusMap();
+            map.putAll(statusMap);
+            Set<String> set = map.keySet();
+            int count = 1;
+            for (String key : set) {
+                RpgStatus st = map.get(key);
+                st.setValue(count);
+                //System.out.println("Status: " + st.getKigo() + " : " + st.getValue());
+                count++;
+            }
+            Map<String, RpgStatus> optMap = conf.getOptionStatusMap();
+            Set<String> optSet = optMap.keySet();
+            count = 1;
+            for (String key : optSet) {
+                RpgStatus st = new RpgStatus();
+                st.setKigo(key);
+                st.setValue(count);
+                map.put(key, st);
+                //System.out.println("Status: " + st.getKigo() + " : " + st.getValue());
+                count++;
+            }
+            player.setStatusMap(map);
+
+            party.setPlayer(player);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
+
+    /**
+     * コメント行の追加
+     * @param storyTxt ストーリーテキスト
+     * @param commentList コメントリスト
+     * @throws IOException 想定外のエラー
+     */
+    private static void loadCommentLine(BufferedReader storyTxt, List<String> commentList) throws IOException {
+        String line = null;
+        while((line = storyTxt.readLine()).startsWith("# ")) {
+            commentList.add(line);
+        }
+    }
+
+    /**
+     * モンスターリストを読み込み、RpgConfigに設定する。
+     */
+    private static void loadMonsters() {
+        try {
+            List<Monster> list = XmlUtils.loadMonsters();
+            RpgConfig.getInstance().setMonsterList(list);
+        } catch (RpgException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
+
+    /**
+     * Job.xmlを読み込んで職業マップを作成する。
+     */
+    private static void loadJobs() {
+        try {
+            Map<String, RpgJob> map = XmlUtils.loadJobs();
+            if (isDebug) System.out.println("mapSize: " + map.size());
+            RpgConfig.getInstance().setJobMap(map);
+        } catch (RpgException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
+
+
+    /**
+     * MonsterType.xmlを読み込んで職業マップを作成する。
+     */
+    private static void loadMonsterType() {
+        try {
+            Map<String, RpgMonsterType> map = XmlUtils.loadMonterType();
+            if (isDebug) System.out.println("mapSize: " + map.size());
+            RpgConfig.getInstance().setMonsterTypeMap(map);
+        } catch (RpgException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
+
+    /**
+     * Command.xmlを読み込んで職業マップを作成する。
+     */
+    private static void loadCommands() {
+        try {
+            Map<String, RpgCommand> map = XmlUtils.loadCommands();
+            RpgConfig.getInstance().setCommandMap(map);
+        } catch (RpgException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
+
+    /**
+     * conf.txtを読み込んで、パラメータマップを作成する。
+     * パラメータマップは以下のマップを総称している。
+     * <ol>
+     *     <li>マスタカテゴリマップ(固定)：CONFIG_MASTER</li>
+     *     <li>パラメータマップ(ユーザー定義)：CONFIG_PARAM</li>
+     *     <li>ステータスマップ(ユーザー定義)：CONFIG_STATUS </li>
+     *     <li>アイテムリスト(ユーザー定義)：ITEM_LIST</li>
+     *     <li>計算式マップ(ユーザー定義)：CONFIG_FORMULA</li>
+     *     <li>ステータス効果マップ：CONFIG_ST_EFFECT</li>
+     * </ol>
+     * @throws RpgException
+     * @throws IOException
+     * @throws StoryTextException
+     */
+    public static void loadParamMaps() throws RpgException, IOException, StoryTextException {
+        // コメントの行リスト
+        List<String> commentList = new ArrayList<>();
+        // パラメータ設定クラス
+        ParamGenerator generator = ParamGenerator.getInstance();
+        BufferedReader storyTxt = getBufferedReader("src/main/resources", "conf.txt");
+        String line = null;
+        try {
+            // コメントフラグ:テキストのはじめのみに記載することができる
+            boolean isComment = true;
+            // 選択肢
+            boolean isSelectLine = false;
+
+            while ((line = storyTxt.readLine()) != null) {
+                // コメントの取得
+                if (CheckerUtils.isCommentLine(line) && isComment) {
+                    loadCommentLine(storyTxt, commentList);
+                    continue;
+                }
+                // コメント行が終了
+                isComment = false;
+
+                // コメント行を飛ばす 改行コードのみの場合
+                if (CheckerUtils.isCommentLine(line) || CheckerUtils.isEmpptyOrSep(line)) {
+                    continue;
+                }
+                // カテゴリマスターの生成
+                if (line.equals("CONFIG_MASTER")) {
+                    generator.createMasterCategory(storyTxt);
+                    continue;
+                }
+                // 設定オブジェクトの生成
+                if (line.equals("CONFIG_PARAM")) {
+                    generator.createParam(storyTxt);
+                    continue;
+                }
+                if (line.equals("CONFIG_STATUS")) {
+                    generator.createStatus(storyTxt);
+                    continue;
+                }
+                if (line.equals("CONFIG_ITEM")) {
+                    generator.createItemTypeMap(storyTxt);
+                    continue;
+                }
+                if (line.equals("CONFIG_FORMULA")) {
+                    generator.createFormulaMap(storyTxt);
+                    continue;
+                }
+                if (line.equals("ITEM_LIST")) {
+                    generator.createItemMap(storyTxt);
+                    continue;
+                }
+                if (line.equals("CONFIG_ST_EFFECT")) {
+                    generator.createEffects(storyTxt);
+                    continue;
+                }
+            }
+        } catch (RpgException re) {
+            System.out.println("ストーリーテキストの読み込み中にエラーがありました。: " + re.getMessage() + SEP + line);
+            re.printStackTrace();
+        } catch (IOException ie) {
+            System.out.println("ストーリーテキストの読み込みに失敗しました。。: " + ie.getMessage() + SEP + line);
+            ie.printStackTrace();
+            throw ie;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new StoryTextException("ストーリーテキスト読み込み中の想定外のエラーがありました。" + e.getMessage() + SEP + line);
+        }
+    }
+
+
     public static Map<String, RpgFormula> createFormulaMap() {
         Map<String, RpgFormula> map = new HashMap<>();
 
@@ -264,5 +474,23 @@ public class TestUtils {
             fail("失敗");
         }
         return armor;
+    }
+
+    /**
+     * 指定したファイルを読み込む、BufferedReaderを取得する。
+     *
+     * @param path ディレクトリのパス
+     * @param fileName ファイル名
+     * @return 対象のファイルリーダー
+     */
+    private static BufferedReader getBufferedReader(String path, String fileName) {
+        BufferedReader buf = null;
+        try {
+            buf = Files.newBufferedReader(Paths.get(path, fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        return buf;
     }
 }

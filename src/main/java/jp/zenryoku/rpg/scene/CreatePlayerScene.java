@@ -159,7 +159,7 @@ public class CreatePlayerScene extends StoryScene {
         int count = 1;
         for (String key : set) {
             RpgJob job = resMap.get(key);
-            System.out.println(count + ". " + job.getName() + " : " + job.getDiscription());
+            if(isDebug) System.out.println(count + ". " + job.getName() + " : " + job.getDiscription());
             resMap.put(String.valueOf(count), job);
             count++;
         }

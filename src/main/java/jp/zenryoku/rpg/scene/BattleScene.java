@@ -313,7 +313,7 @@ public class BattleScene extends RpgScene {
 			String selectCommand = console.acceptInput("こうどうを、せんたくしてください。", "[1-" + (listSize - 1) + "]");
 			int select = Integer.parseInt(selectCommand) - 1;
 			RpgCommand pCommand = commandList.get(select);
-			System.out.println("Command; " + pCommand.getName());
+			if (isDebug) System.out.println("Command; " + pCommand.getName());
 //			RpgFormula pFormula = new RpgFormula(pCommand.getFormula());
 //			int pValue = pFormula.formula(player);
 			// プレーヤー攻撃
@@ -326,8 +326,8 @@ public class BattleScene extends RpgScene {
 //			console.printMessage(monster.getName() + "に" + pValue + "のダメージ");
 
 			// モンスターの攻撃
-			System.out.println("monster.job: " + monster.getJob());
-			List<RpgCommand> cmdList = monster.getJob().getCommandList();
+			if (isDebug) System.out.println("monster.job: " + monster.getType());
+			List<RpgCommand> cmdList = monster.getType().getCommandList();
 			int monRnd = CalcUtils.getInstance().generateRandom(0,1);
 			RpgCommand mCommand = cmdList.get(monRnd);
 			isFinish = printAttackAndCalc(monster, player, mCommand);
@@ -352,7 +352,8 @@ public class BattleScene extends RpgScene {
 	 * @return ture: 第二引数のオブジェクト#HPが0以下 false: まだ生きている。
 	 */
 	private boolean printAttackAndCalc(PlayerCharactor pla, PlayerCharactor mon, RpgCommand cmd) {
-		RpgFormula pFormula = new RpgFormula(cmd.getFormula());
+		RpgFormula pFormula = new RpgFormula(cmd.getFormulaStr());
+		if (isDebug) System.out.println("Formula: " + pFormula.getFormulaStr());
 		int pValue = pFormula.formula(pla);
 		console.printMessage(pla.getName() + "の" + cmd.getExeMessage() + "!");
 		mon.setHP(mon.getHP() - pValue);

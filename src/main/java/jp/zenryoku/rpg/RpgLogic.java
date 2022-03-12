@@ -227,7 +227,7 @@ public abstract class RpgLogic implements Games {
 
                 // バトルシーンの設定
                 if (CheckerUtils.isStartBattleScene(line)) {
-                    System.out.println("*** " + line + " ***");
+                    if (isDebug) System.out.println("*** " + line + " ***");
                     setBattleScene(line, storyTxt, sceneObj);
                     continue;
                 }
@@ -498,7 +498,7 @@ public abstract class RpgLogic implements Games {
 
                 // バトルシーンの設定
                 if (CheckerUtils.isStartBattleScene(line)) {
-                    System.out.println("*** " + line + " ***");
+                    if (isDebug) System.out.println("*** " + line + " ***");
                     setBattleScene(line, storyTxt, sceneObj);
                     continue;
                 }
@@ -739,7 +739,7 @@ public abstract class RpgLogic implements Games {
         if (monsterList.size() <= 0) {
             throw new RpgException(MessageConst.NO_MONSTERS.toString());
         }
-        System.out.println(monsterList);
+        if (isDebug) System.out.println(monsterList);
         // モンスター指定
         if (vals != null && vals.length == 1) {
             int val = Integer.parseInt(vals[0]);

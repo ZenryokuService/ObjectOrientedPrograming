@@ -365,7 +365,7 @@ public class CalcObj {
         List<String> formulaList = new ArrayList<>();
         Map<String, Integer> formMap = new LinkedHashMap<>();
         String res = convertKigo(formula);
-        System.out.println("Formula: " + res);
+        if (isDebug) System.out.println("Formula: " + res);
         char[] ch = res.toCharArray();
 
         int startCount = 0;

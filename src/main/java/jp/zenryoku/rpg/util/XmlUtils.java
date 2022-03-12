@@ -92,10 +92,13 @@ public class XmlUtils {
         Map<String, RpgStatus> stMap = RpgConfig.getInstance().getStatusMap();
         Map<String, RpgStatus> statusMap = new HashMap<>();
         statusMap.putAll(stMap);
+        // モンスタータイプのセット
+        Map<String, RpgMonsterType> typeMap = RpgConfig.getInstance().getMonsterTypeMap();
 
         Element e = (Element) node;
         // 固定値(マスタカテゴリ)
         String name = e.getElementsByTagName("name").item(0).getTextContent();
+        String type = e.getElementsByTagName("type").item(0).getTextContent();
         String lv = e.getElementsByTagName("lv").item(0).getTextContent();
         String hp =  e.getElementsByTagName("hp").item(0).getTextContent();
         String mp =  e.getElementsByTagName("mp").item(0).getTextContent();
@@ -115,6 +118,7 @@ public class XmlUtils {
             RpgStatus status = statusMap.get(tagName.toUpperCase());
             String val = ele.getTextContent();
             status.setValue(Integer.parseInt(val));
+
         }
 
 //        String pow =  e.getElementsByTagName("pow").item(0).getTextContent();
@@ -135,6 +139,7 @@ public class XmlUtils {
 
             monster = new Monster(name, plv, php, pmp, pisTalk, pmessage);
             monster.setStatusMap(statusMap);
+            monster.setType(typeMap.get(type));
 
         } catch (NumberFormatException ne) {
             ne.printStackTrace();
@@ -292,9 +297,10 @@ public class XmlUtils {
         String id = e.getElementsByTagName("id").item(0).getTextContent();
         String name = e.getElementsByTagName("name").item(0).getTextContent();
         String formula =  e.getElementsByTagName("formula").item(0).getTextContent();
+        String exeMessage =  e.getElementsByTagName("exeMessage").item(0).getTextContent();
 
         RpgCommand com = null;
-        com = new RpgCommand(id, name, formula);
+        com = new RpgCommand(id, name, formula, exeMessage);
         return com;
     }
 }

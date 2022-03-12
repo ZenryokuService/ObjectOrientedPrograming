@@ -247,6 +247,7 @@ public class ParamGenerator {
                 // MEMO-[関連ステータスオブジェクト]
                 util.relatedSymbols(data.getFormulaStr(), statusMap, optionStatusMap);
                 // 計算式リストに追加
+                if (isDebug) System.out.println("FormulaKigo: " + data.getKigo());
                 formulaMap.put(data.getKigo().trim(), data);
             }
             config.setFormulaMap(formulaMap);

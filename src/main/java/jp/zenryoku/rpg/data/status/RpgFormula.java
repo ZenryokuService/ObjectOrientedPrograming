@@ -19,7 +19,7 @@ import java.util.Set;
  */
 @Data
 public class RpgFormula extends RpgData {
-    private static final boolean isDebug = false;
+    public boolean isDebug = false;
     /**　計算式(文字列) */
     private String formulaStr;
     /** 関連項目 */
@@ -47,18 +47,26 @@ public class RpgFormula extends RpgData {
     public int formula(PlayerCharactor player) {
         int result = 0;
         Map<String, RpgStatus> statusMap = player.getStatusMap();
-        Map<String, RpgStatus> optionalMap = player.getOptionalMap();
-        Set<String> set = statusMap.keySet();
-        String convStr = formulaStr;
-        System.out.println("式：" + formulaStr);
-        if (isDebug) System.out.print("Key: ");
-        for (String key : set) {
-            RpgData data = statusMap.get(key);
-            if (isDebug) System.out.print(data.getKigo() + ", ");
-            // ATKの類に値は背としていないので計算する必要がある。
-            convStr = convStr.replaceAll(data.getKigo(), String.valueOf(data.getValue()));
+        Map<String, RpgStatus> optionalMap = RpgConfig.getInstance().getOptionStatusMap();
+        Map<String, RpgFormula> formulaMap = RpgConfig.getInstance().getFormulaMap();
+        if (isDebug) {
+            formulaMap.forEach((key, val) -> {
+                System.out.println("key: " + key + "  val: " + val.getKigo());
+            });
         }
+        String convStr = formulaStr;
+        if (isDebug) System.out.println("formulaStr: " + formulaStr);
+
+        Set<String> setForm = formulaMap.keySet();
+        for (String key : setForm) {
+            RpgFormula f = formulaMap.get(key);
+            RpgData d = (RpgData)f;
+            if (isDebug) System.out.println("Key: " + f.getKigo());
+            convStr = convStr.replaceAll(key, f.getFormulaStr());
+        }
+        if (isDebug) System.out.println("Form: " + convStr);
         Set<String> setOpt = optionalMap.keySet();
+        if (isDebug) System.out.println("*** Opotional ***");
         for (String key : setOpt) {
             RpgData data = optionalMap.get(key);
             if (data == null) {
@@ -66,13 +74,31 @@ public class RpgFormula extends RpgData {
             } else if (data.getValue() == null) {
                 System.out.println("Value is null: " + key);
             }
-            System.out.print(data.getKigo() + " : " + data.getValue() + ", ");
+            RpgFormula form = data.getFormula();
+            if (isDebug) System.out.println(data.getKigo() + " : " + form);
+            if (form != null) {
+                if (isDebug) System.out.print(data.getKigo() + " : " + form.getFormulaStr() + ", ");
+                convStr = convStr.replaceAll(data.getKigo(), form.getFormulaStr());
+            } else {
+                if (isDebug) System.out.print(data.getKigo() + " : " + data.getValue() + ", ");
+                convStr = convStr.replaceAll(data.getKigo(), String.valueOf(data.getValue()));
+            }
+            if (isDebug) System.out.println("Convert: " + convStr);
+        }
+        if (isDebug) System.out.println();
+
+        Set<String> set = statusMap.keySet();
+        if (isDebug) System.out.println("式：" + formulaStr);
+        if (isDebug) System.out.print("Key: ");
+        for (String key : set) {
+            RpgData data = statusMap.get(key);
+            if (isDebug) System.out.print(data.getKigo() + ", ");
             convStr = convStr.replaceAll(data.getKigo(), String.valueOf(data.getValue()));
         }
-        System.out.println();
-        System.out.print("conv: " + convStr);
+        if (isDebug) System.out.print("conv: " + convStr);
+
         double res = new ExpressionBuilder(convStr).build().evaluate();
-        System.out.println(" = " + res);
+        if (isDebug) System.out.println(" = " + res);
         result = (int) Math.round(res);
         return result;
     }
@@ -91,6 +117,11 @@ public class RpgFormula extends RpgData {
         for (String key : set) {
             RpgData data = params.get(key);
             convStr = convStr.replaceAll(data.getKigo(), String.valueOf(data.getValue()));
+        }
+        Set<String> stSet = statusMap.keySet();
+        for (String key : stSet) {
+            RpgStatus st = statusMap.get(key);
+            convStr = convStr.replaceAll(st.getKigo(), String.valueOf(st.getValue()));
         }
         System.out.print("conv: " + convStr);
         double res = new ExpressionBuilder(convStr).build().evaluate();

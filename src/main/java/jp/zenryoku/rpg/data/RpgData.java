@@ -1,6 +1,7 @@
 package jp.zenryoku.rpg.data;
 
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.status.RpgFormula;
 import lombok.Data;
 
 /**
@@ -27,6 +28,8 @@ public class RpgData {
     protected RpgData parentCls;
     /** マスタカテゴリ */
     protected String master;
+    /** 計算式 */
+    protected RpgFormula formula;
 
     public RpgData() {
     }
