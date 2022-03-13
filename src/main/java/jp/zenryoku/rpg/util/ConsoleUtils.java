@@ -111,6 +111,7 @@ public class ConsoleUtils {
 		}
 		return input;
 	}
+
 	/**
 	 * メッセージ表示をして、未入力チェックを行い入力を受け付ける。
 	 * @param message 表示する文字列
@@ -131,6 +132,36 @@ public class ConsoleUtils {
 			if (input.matches(regrex) == false) {
 				System.out.println(MessageConst.ERR_OUT_OF_INPUT + ": " + regrex + "(正規表現といいます)");
 				continue;
+			}
+			isOK = true;
+		}
+		return input;
+	}
+
+	/**
+	 * メッセージ表示をして、未入力チェック、入力範囲チェックを行い入力を受け付ける。
+	 * @param message 表示する文字列
+	 * @param max 入力範囲の最大値
+	 * @return 入力文字列
+	 */
+	public String acceptInput(String message, int max) {
+		System.out.println(message);
+		boolean isOK = false;
+		String input = null;
+		while (isOK == false) {
+			input = scan.nextLine();
+//			isOK = input == null || "".equals(input) ? false : true;
+			if (input == null || "".equals(input)) {
+				System.out.println(MessageConst.ERR_NO_INPUT.toString());
+				continue;
+			}
+			if (input.matches("[0-9]{1,2}") == false) {
+				System.out.println(MessageConst.ERR_OUT_OF_INPUT + ": " + "[0-9]{1,2}" + "(正規表現といいます)");
+				continue;
+			}
+			int in = Integer.parseInt(input);
+			if (in < 1 && in > max) {
+				System.out.println(MessageConst.ERR_OUT_OF_INPUT + ": " + "1-" + max);
 			}
 			isOK = true;
 		}

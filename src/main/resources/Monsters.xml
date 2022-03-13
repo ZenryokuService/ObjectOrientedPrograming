@@ -22,6 +22,8 @@
             つまり、idが違えば、同じモンスターでもよいということです。意味はないと思いますが。。。
         </message>
         <commandList>ATK</commandList>
+        <exp>1</exp>
+        <money>1</money>
     </monster>
     <!-- スライム -->
     <monster>
@@ -41,6 +43,8 @@
         <isTalk>false</isTalk>
         <message></message>
         <commandList>ATK</commandList>
+        <exp>1</exp>
+        <money>1</money>
     </monster>
 
     <monster>
@@ -59,6 +63,9 @@
         <def>1</def>
         <isTalk>false</isTalk>
         <message></message>
+        <commandList>ATK, STC</commandList>
+        <exp>3</exp>
+        <money>5</money>
     </monster>
 
 </class>

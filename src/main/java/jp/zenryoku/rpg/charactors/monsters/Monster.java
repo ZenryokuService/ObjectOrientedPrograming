@@ -17,6 +17,10 @@ public class Monster extends PlayerCharactor {
 	private String message;
 	/** モンスタータイプ */
 	private RpgMonsterType type;
+	/** 経験値 */
+	private int exp;
+	/** お金 */
+	private int money;
 
 	/**
 	 * コンストラクタ。
@@ -111,6 +115,22 @@ public class Monster extends PlayerCharactor {
 
 	public void setType(RpgMonsterType type) {
 		this.type = type;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
 	}
 
 	/**

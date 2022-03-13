@@ -6,6 +6,7 @@ import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.Effects;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
+import jp.zenryoku.rpg.data.charactor.RpgLevel;
 import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgFormula;
 import jp.zenryoku.rpg.data.status.RpgStatus;
@@ -33,6 +34,8 @@ public class PlayerCharactor extends Player {
     protected boolean canMove;
     /** 職業 */
     protected RpgJob job;
+    /** 経験値 */
+    protected int exp;
 
 
     /**
@@ -47,18 +50,11 @@ public class PlayerCharactor extends Player {
         effectList = new ArrayList<Effects>();
         canMove = true;
         // ステータス設定を取得する。
-        Map<String, RpgStatus> map = RpgConfig.getInstance().getStatusMap();
-        Set<String> keys = map.keySet();
-        for (String key : keys) {
-            RpgStatus data = map.get(key);
-            if ((data instanceof RpgStatus) == false) {
-                throw new RpgException(MessageConst.NO_MUCH_STATUS.toString() + ": " + data.getType());
-            }
-            //RpgStatus new1 = data.clone();
-            // ダウンキャストしてリストに設定
-            // TODO-[オブジェクトが一つになっているので注意が必要]
-            statusMap.put(data.getKigo(), data);
-        }
+        Map<String, RpgStatus> stMap = RpgConfig.getInstance().getStatusMap();
+        statusMap.putAll(stMap);
+        // オプショナルステータスマップ
+        Map<String, RpgStatus> optMap = RpgConfig.getInstance().getOptionStatusMap();
+        optionalMap.putAll(optMap);
     }
 
     /**
@@ -134,5 +130,21 @@ public class PlayerCharactor extends Player {
         // 増減
         //String ope = effect.get();
 
+    }
+
+    public void levelup() {
+        Map<String, RpgLevel> levelMap = RpgConfig.getInstance().getLevelMap();
+        String jobKigo = job.getJobId();
+        if (isDebug) {
+            System.out.println("jobKigo; " + jobKigo);
+            System.out.println(levelMap);
+        }
+        RpgLevel data = levelMap.get(jobKigo);
+        if (isDebug) System.out.println(data);
+        int lv = data.getLevelup()[level - 1];
+        if (exp >= lv) {
+            level = level + 1;
+            System.out.println(name + "のレベルが上がりました。");
+        }
     }
 }

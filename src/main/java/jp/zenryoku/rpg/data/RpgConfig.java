@@ -3,6 +3,7 @@ package jp.zenryoku.rpg.data;
 import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.charactor.RpgLevel;
 import jp.zenryoku.rpg.data.items.EvEffect;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
@@ -47,6 +48,8 @@ public class RpgConfig {
     private Map<String, RpgFormula> formulaMap;
     /** 職業マップ */
     private Map<String, RpgJob> jobMap;
+    /** レベルマップ */
+    private Map<String, RpgLevel> levelMap;
     /** コマンドマップ */
     private Map<String, RpgCommand> commandMap;
     /** アイテムマップ */

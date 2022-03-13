@@ -13,6 +13,7 @@ import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgConfig;
+import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.status.RpgFormula;
@@ -44,6 +45,10 @@ public class BattleScene extends RpgScene {
 	private Monster monster;
 	/** 戦闘終了フラグ */
 	private boolean isBattleFinish;
+	/** モンスター生成乱数範囲(開始) */
+	private int startMonster;
+	/** モンスター生成乱数範囲(終了) */
+	private int endMonster;
 
 
 	/**
@@ -90,6 +95,13 @@ public class BattleScene extends RpgScene {
 	public void initScene() throws RpgException {
 		// プレーヤーの取得
 		player = PlayerParty.getInstance().getPlayer();
+		// モンスターがランダム取得の場合
+		if (monster == null) {
+			// 通常の定義は配列としてみていないので、0から数えるためにー１する。
+			int monsterId = CalcUtils.getInstance().generateRandom(startMonster, endMonster);
+			List<Monster> monsterList = RpgConfig.getInstance().getMonsterList();
+			monster = monsterList.get(monsterId);
+		}
 		// 初期表示: 「XXXXが現れた」
 		if (isDebug) System.out.println(monster);
 		console.printMessage(monster.getName() + "があらわれた！" + SEP);
@@ -108,30 +120,6 @@ public class BattleScene extends RpgScene {
 		// 入力受付を返却する(一行分)
 		return scan.nextLine();
 	}
-
-//	/**
-//	 * データの更新処理。
-//	 * @param input 入力した文字列
-//	 * @return true: 次の処理 false: やり直し
-//	 */
-//	public boolean updateData(String input) {
-//		// コマンドマップのキーは入力キー(index)になる
-//		// ※TreeMapなのでソート済み
-//		// コマンドの正規表現
-//		String reg = commandRegrex();
-//		// 入力判定フラグ
-//		boolean isInput = CheckerUtils.isCommandInput(input, reg);
-//		if (isInput == false) {
-//			System.out.println(reg + "のはんいで、にゅうりょくしてください。");
-//			return false;
-//		}
-//
-//		// データの更新処理
-//		action(player, monster, input);
-//
-//		stopTextLoad();
-//		return true;
-//	}
 
 	/**
 	 * テキストのロードを一時停止します。
@@ -314,16 +302,11 @@ public class BattleScene extends RpgScene {
 			int select = Integer.parseInt(selectCommand) - 1;
 			RpgCommand pCommand = commandList.get(select);
 			if (isDebug) System.out.println("Command; " + pCommand.getName());
-//			RpgFormula pFormula = new RpgFormula(pCommand.getFormula());
-//			int pValue = pFormula.formula(player);
 			// プレーヤー攻撃
 			isFinish = printAttackAndCalc(player, monster, pCommand);
 			if (isFinish) {
 				break;
 			}
-//			console.printMessage(player.getName() + "の" + pCommand.getExeMessage() + "!");
-//			monster.setHP(monster.getHP() - pValue);
-//			console.printMessage(monster.getName() + "に" + pValue + "のダメージ");
 
 			// モンスターの攻撃
 			if (isDebug) System.out.println("monster.job: " + monster.getType());
@@ -334,14 +317,9 @@ public class BattleScene extends RpgScene {
 			if (isFinish) {
 				break;
 			}
-//			System.out.println(monster.getName() + "の" + mCommand.getExeMessage() + "!");
-//			RpgFormula mFormula = new RpgFormula(mCommand.getFormula());
-//			int mValue = mFormula.formula(monster);
-//			player.setHP(player.getHP() - mValue);
-//			console.printMessage(player.getName() + "に" + mValue + "のダメージ");
 		}
-
-		return isFinish;
+		// 戦闘の決着がつくとisFinishはtrueになっているのでfalseにする
+		return isFinish == false;
 	}
 
 	/**
@@ -352,13 +330,26 @@ public class BattleScene extends RpgScene {
 	 * @return ture: 第二引数のオブジェクト#HPが0以下 false: まだ生きている。
 	 */
 	private boolean printAttackAndCalc(PlayerCharactor pla, PlayerCharactor mon, RpgCommand cmd) {
+		Map<String, RpgData> paramMap = RpgConfig.getInstance().getParamMap();
 		RpgFormula pFormula = new RpgFormula(cmd.getFormulaStr());
 		if (isDebug) System.out.println("Formula: " + pFormula.getFormulaStr());
 		int pValue = pFormula.formula(pla);
-		console.printMessage(pla.getName() + "の" + cmd.getExeMessage() + "!");
+		console.printMessage(pla.getName() + cmd.getExeMessage() + "!");
 		mon.setHP(mon.getHP() - pValue);
 		console.printMessage(mon.getName() + "に" + pValue + "のダメージ");
 		if (mon.getHP() <= 0) {
+			if (mon instanceof Monster) {
+				Monster monst = (Monster) mon;
+				System.out.println(mon.getName() + "をたおした。");
+				System.out.println(player.getName() + "は" + monst.getMoney() + RpgConst.getMnyName() + "を手にいれた。");
+				PlayerParty party = PlayerParty.getInstance();
+				party.setMoney(party.getMoney() + monst.getMoney());
+				System.out.println(player.getName() + "は" + monst.getExp() + "の経験値を手にいれた。");
+				player.setExp(player.getExp() + monst.getExp());
+				player.levelup();
+			} else {
+				System.out.println(mon.getName() + "はたおれた。");
+			}
 			return true;
 		}
 		return false;

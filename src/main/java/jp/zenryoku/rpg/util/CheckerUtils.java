@@ -142,7 +142,7 @@ public class CheckerUtils {
 	 * @return true: シーンを選択定義開始行 false: シーンを選択定義開始行ではない
 	 */
 	public static boolean isStartSelectNextScene(String line) {
-		if (line.matches("\\<[1-9]\\:[1-9]\\>")) {
+		if (line.matches("\\<1:[0-9]{1,2}\\>")) {
 			return true;
 		}
 		return false;
@@ -333,6 +333,16 @@ public class CheckerUtils {
 		Pattern pat = Pattern.compile("[0-9|\\.]");
 		Matcher mat = pat.matcher(String.valueOf(num));
 		return mat.matches();
+	}
+
+	/**
+	 * 指定桁数の数字であるかチェックする。
+	 * @param num 検査する数字
+	 * @param keta 何桁かを指定
+	 * @return true: 指定通りの数字 false: そうでない
+	 */
+	public static boolean isNumber(String num, String keta) {
+		return num.matches("[0-9]{1," + keta + "}");
 	}
 
 	/**

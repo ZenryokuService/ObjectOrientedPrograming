@@ -51,7 +51,7 @@ public class StoryScene extends RpgScene {
                 boolean isOK = false;
                 String selected = null;
                 // 入力チェックを行う
-                selected = ConsoleUtils.getInstance().acceptInput("選択肢を選んでください。", "[1-" + selectCount + "]");
+                selected = ConsoleUtils.getInstance().acceptInput("選択肢を選んでください。", selectCount);
                 nextIndex = nextIndexes[Integer.parseInt(selected)];
                 skipNextMessage = true;
             }

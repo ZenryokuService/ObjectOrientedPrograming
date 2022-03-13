@@ -6,6 +6,7 @@ import jp.zenryoku.rpg.data.Effects;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.charactor.RpgLevel;
 import jp.zenryoku.rpg.data.items.EvEffect;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.job.RpgJob;
@@ -327,5 +328,35 @@ public class RpgDataFactory {
         }
 
         return teigiList;
+    }
+
+    public static void createLevelConfig(String line, Map<String, RpgLevel> map) throws RpgException {
+        String[] sep = line.split(":");
+        if (sep.length != RpgConst.LEVEL_SIZE) {
+            throw new RpgException(MessageConst.LEVEL_SEPARATE3.toString() + line + ": " + sep.length);
+        }
+        // 職業記号
+        String jobKigo = sep[0].trim();
+        // レベルアップの値
+        String[] levels = sep[1].split(",");
+        // レベルアップの値
+        int[] levelups = new int[levels.length];
+        for (int i = 0; i < levels.length; i++) {
+            String num = levels[i].trim();
+            if (CheckerUtils.isNumber(num, "2")) {
+                levelups[i] = Integer.parseInt(num);
+            }
+        }
+        // レベルアップ設定の名前
+        String confName = sep[2].trim();
+        // オブジェクト生成
+        RpgLevel data = new RpgLevel();
+        data.setKigo(jobKigo);
+        data.setLevelup(levelups);
+        data.setConfName(confName);
+        // マップに登録
+        map.put(jobKigo, data);
+        // 設定オブジェクトに登録
+        RpgConfig.getInstance().setLevelMap(map);
     }
 }

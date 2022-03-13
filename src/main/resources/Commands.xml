@@ -9,7 +9,7 @@
         <!-- コマンド効果式 -->
         <formula>ATK</formula>
         <!-- 実行時のメッセージ -->
-        <exeMessage>こうげき</exeMessage>
+        <exeMessage>のこうげき</exeMessage>
     </command>
     <!-- 共通コマンド２：ぼうぎょ -->
     <command>
@@ -20,7 +20,7 @@
         <!-- コマンド効果式 -->
         <formula>DEF</formula>
         <!-- 実行時のメッセージ -->
-        <exeMessage>まもりの、かまええをとった</exeMessage>
+        <exeMessage>は、まもりのかまええをとった</exeMessage>
     </command>
     <!-- まほうコマンド -->
     <command>
@@ -31,7 +31,7 @@
         <!-- コマンド効果式 -->
         <formula>MPW+MAT</formula>
         <!-- 実行時のメッセージ -->
-        <exeMessage>をつかった</exeMessage>
+        <exeMessage>はまほうをつかった</exeMessage>
     </command>
     <!-- 体当りコマンド -->
     <command>
@@ -42,7 +42,7 @@
         <!-- コマンド効果式 -->
         <formula>ATK+AGI</formula>
         <!-- 実行時のメッセージ -->
-        <exeMessage>をつかった</exeMessage>
+        <exeMessage>のたいあたり</exeMessage>
     </command>
     <!-- ついばみコマンド -->
     <command>
@@ -53,6 +53,6 @@
         <!-- コマンド効果式 -->
         <formula>(INT+AGI) * 2</formula>
         <!-- 実行時のメッセージ -->
-        <exeMessage>をつかった</exeMessage>
+        <exeMessage>のくちばしで、つっついてきた</exeMessage>
     </command>
 </class>

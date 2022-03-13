@@ -3,6 +3,7 @@ package jp.zenryoku.rpg.data;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.categry.RpgMaster;
+import jp.zenryoku.rpg.data.charactor.RpgLevel;
 import jp.zenryoku.rpg.data.items.EvEffect;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.items.RpgItemType;
@@ -57,6 +58,8 @@ public class ParamGenerator {
     private Map<String, StEffect> stEffectMap;
     /**イベント変化オブジェクト */
     private Map<String, EvEffect> evEffectMap;
+    /** レベルマップ */
+    private Map<String, RpgLevel> levelMap;
 
     /** プライベート・コンストラクタ */
     private ParamGenerator() {
@@ -75,6 +78,7 @@ public class ParamGenerator {
         config.setEffectMap(new HashMap<>());
         config.setStEffectMap(new HashMap<>());
         config.setEvEffectMap(new HashMap<>());
+        config.setLevelMap(new HashMap<>());
         // このクラス内で使用するための変数
         masterMap = config.getMasterMap();
         paramMap = config.getParamMap();
@@ -90,6 +94,7 @@ public class ParamGenerator {
         stEffectMap = config.getStEffectMap();
         evEffectMap = config.getEvEffectMap();
         shopMap = config.getShopMap();
+        levelMap = config.getLevelMap();
 
     }
 
@@ -403,6 +408,23 @@ public class ParamGenerator {
                 // パラメータ定義のキーリストに追加
                 mst.getChildList().add(data.getKigo());
             }
+        }
+    }
+
+    /**
+     *
+     * @param buf 設定ファイル
+     * @throws IOException ファイルの読み込みエラー
+     * @throws RpgException 想定外のエラー
+     */
+    public void createLevelMap(BufferedReader buf) throws IOException, RpgException {
+        String line = null;
+        while((line = buf.readLine()).equals("END_LEVEL") == false) {
+            if (CheckerUtils.isComment(line)) {
+                continue;
+            }
+            // RpgLeveを生成。マップに登録。
+            RpgDataFactory.createLevelConfig(line, levelMap);
         }
     }
 

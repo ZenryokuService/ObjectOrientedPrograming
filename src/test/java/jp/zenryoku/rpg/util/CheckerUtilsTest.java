@@ -143,4 +143,13 @@ public class CheckerUtilsTest {
 		assertFalse(CheckerUtils.isStartBattleScene("<monster:1-1000>"));
 	}
 
+	@Test
+	public void testIsStartSelectNextScene() {
+		assertTrue(CheckerUtils.isStartSelectNextScene("<1:9>"));
+		assertTrue(CheckerUtils.isStartSelectNextScene("<1:10>"));
+		assertFalse(CheckerUtils.isStartSelectNextScene("<0:9>"));
+		assertFalse(CheckerUtils.isStartSelectNextScene("<0:10>"));
+		assertFalse(CheckerUtils.isStartSelectNextScene("<1:100>"));
+	}
+
 }

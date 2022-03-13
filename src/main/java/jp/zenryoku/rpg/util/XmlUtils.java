@@ -128,6 +128,8 @@ public class XmlUtils {
 //        String ksm =  e.getElementsByTagName("ksm").item(0).getTextContent();
         String isTalk =  e.getElementsByTagName("isTalk").item(0).getTextContent();
         String message =  e.getElementsByTagName("message").item(0).getTextContent();
+        String exp =  e.getElementsByTagName("exp").item(0).getTextContent();
+        String money =  e.getElementsByTagName("money").item(0).getTextContent();
 
         Monster monster = null;
         try {
@@ -138,6 +140,8 @@ public class XmlUtils {
             String pmessage = message;
 
             monster = new Monster(name, plv, php, pmp, pisTalk, pmessage);
+            monster.setExp(Integer.parseInt(exp));
+            monster.setMoney(Integer.parseInt(money));
             monster.setStatusMap(statusMap);
             monster.setType(typeMap.get(type));
 

@@ -47,7 +47,7 @@ public class RpgFormula extends RpgData {
     public int formula(PlayerCharactor player) {
         int result = 0;
         Map<String, RpgStatus> statusMap = player.getStatusMap();
-        Map<String, RpgStatus> optionalMap = RpgConfig.getInstance().getOptionStatusMap();
+        Map<String, RpgStatus> optionalMap = player.getOptionalMap();
         Map<String, RpgFormula> formulaMap = RpgConfig.getInstance().getFormulaMap();
         if (isDebug) {
             formulaMap.forEach((key, val) -> {

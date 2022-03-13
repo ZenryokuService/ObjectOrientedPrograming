@@ -56,7 +56,7 @@ public class EffectScene extends StoryScene {
         super.playScene();
         CalcUtils util = CalcUtils.getInstance();
         // TODO-[エフェクトシーンの実装内容を設計する#27]
-        if (true) System.out.println("kigo: " + kigo + " ope: " + ope + " kosu: " + kosu);
+        if (isDebug) System.out.println("kigo: " + kigo + " ope: " + ope + " kosu: " + kosu);
 
         if (effList != null && effList.size() != 0) {
             Effects eff = effList.get(0);
@@ -76,7 +76,7 @@ public class EffectScene extends StoryScene {
             throw new RpgException((MessageConst.ERR_NO_CONFIGS.toString() + ": " + kigo));
         }
         String name = data == null ? mst.getName() : data.getName();
-        System.out.println("Debug: " + name + "(" + kigo + ")" + ope + kosu);
+        if (isDebug) System.out.println("Debug: " + name + "(" + kigo + ")" + ope + kosu);
 
         // 効果を及ぼす
        util.calcEffect(kigo, ope, kosu);

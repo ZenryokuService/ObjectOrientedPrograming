@@ -1,5 +1,11 @@
 package jp.zenryoku.rpg.constants;
 
+import jp.zenryoku.rpg.data.RpgConfig;
+import jp.zenryoku.rpg.data.RpgData;
+import jp.zenryoku.rpg.data.categry.RpgMaster;
+
+import java.util.Map;
+
 /**
  * RPGゲームのステータスを示す定数クラスです。
  * ステータス-シーンタイプで一意にする。
@@ -168,6 +174,8 @@ public enum RpgConst {
     public static final int STATUS_SIZE = 3;
     /** PARAM_JOBの分割サイズ */
     public static final int JOB_SIZE = 3;
+    /** PARAM_JOBの分割サイズ */
+    public static final int LEVEL_SIZE = 3;
     /** ITEM_LISTの分割サイズ */
     public static final int ITE_LIST_SIZE = 5;
     /** PARAM_FORMULAの分割サイズ */
@@ -210,5 +218,18 @@ public enum RpgConst {
     public String getSceneType() {
         return sceneType;
     }
+
+    /**
+     * 通貨の名前を取得する
+     */
+    public static String getMnyName() {
+        RpgConfig conf = RpgConfig.getInstance();
+        Map<String, RpgMaster> masterMap = conf.getMasterMap();
+        Map<String, RpgData> paramMap = conf.getParamMap();
+        String tukaKey = masterMap.get(RpgConst.MNY).getChildList().get(0);
+        RpgData tuka = paramMap.get(tukaKey);
+        return tuka.getName();
+    }
+
 
 }
