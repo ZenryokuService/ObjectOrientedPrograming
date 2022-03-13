@@ -21,6 +21,14 @@ public class TextRpgLogic extends RpgLogic {
 	}
 
 	/**
+	 * コンストラクタ。
+	 * フィールド変数のインスタンスを生成
+	 */
+	public TextRpgLogic(String directory) {
+		super(directory);
+	}
+
+	/**
 	 * 初期表示を行う。
 	 * 1. タイトル表示
 	 * 2. NewGameかContinue(未実装)

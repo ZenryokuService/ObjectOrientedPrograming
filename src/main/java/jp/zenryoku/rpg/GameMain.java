@@ -1,6 +1,11 @@
 package jp.zenryoku.rpg;
 
+import java.io.BufferedReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class GameMain {
+	private static final boolean isDebug = false;
 	/**
 	 * ゲームを起動するクラス。メインメソッドがある。
 	 * 今後、DBなど使用するときにはここでDBを起動する。
@@ -9,8 +14,14 @@ public class GameMain {
 	 * @param args プログラム引数
 	 */
 	public static void main(String[] args) {
+		if (isDebug) System.out.println("Param: " + args[0]);
+		RpgLogic gameLogic = null;
 		try {
-			RpgLogic gameLogic = new TextRpgLogic();
+			if (args.length != 0) {
+				gameLogic = new TextRpgLogic(args[0]);
+			} else {
+				gameLogic = new TextRpgLogic();
+			}
 			TextRpgGameEngine engine  = new TextRpgGameEngine(gameLogic);
 
 			engine.start();

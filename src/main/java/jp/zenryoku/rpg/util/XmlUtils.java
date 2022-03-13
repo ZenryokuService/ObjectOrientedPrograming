@@ -82,6 +82,30 @@ public class XmlUtils {
     }
 
     /**
+     * Monster.xmlを読み込む。
+     * @return モンスターリスト
+     * @throws RpgException XMLからクラス生成時のエラー
+     */
+    public static List<Monster> loadMonsters(String directory) throws RpgException {
+        List<Monster> monsList = new ArrayList<>();
+
+        try {
+            Document doc = loadDocumentBuilder(directory, "Monsters.xml");
+            if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+            NodeList list = doc.getElementsByTagName("monster");
+            for (int i = 0; i < list.getLength(); i++) {
+                Node node = list.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    monsList.add(createMonster(node));
+                }
+            }
+        } catch (RpgException e) {
+            e.printStackTrace();
+            throw new RpgException(MessageConst.ERR_XML_PERSE.toString() + ": " + e.getMessage());
+        }
+        return monsList;
+    }
+    /**
      * Node(monsterタグ)からクラスを生成する。
      * @param node monsterタグ
      * @return Monsterクラス
@@ -182,6 +206,35 @@ public class XmlUtils {
         return jobMap;
     }
 
+    /**
+     * Job.xmlを読み込む。必ず、Command.xmlを読み込んでから実行する。
+     * @return Jobリスト
+     * @throws RpgException XMLの設定エラー
+     */
+    public static Map<String, RpgJob> loadJobs(String directory) throws RpgException {
+        Map<String, RpgJob> jobMap = new HashMap<>();
+        Map<String, RpgCommand> cmdMap = RpgConfig.getInstance().getCommandMap();
+        if (cmdMap.size() <= 0) {
+            throw new RpgException(MessageConst.ERR_BEFORE_LOAD_CMD.toString());
+        }
+        try {
+            Document doc = loadDocumentBuilder(directory, "Job.xml");
+            if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+            NodeList list = doc.getElementsByTagName("job");
+
+            for (int i = 0; i < list.getLength(); i++) {
+                Node node = list.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    RpgJob j = createJob(node, cmdMap);
+                    jobMap.put(j.getJobId(), j);
+                }
+            }
+        } catch (RpgException e) {
+            e.printStackTrace();
+            throw new RpgException(MessageConst.ERR_XML_PERSE.toString() + ": " + e.getMessage());
+        }
+        return jobMap;
+    }
 
     /**
      * RpgJobクラスを生成する。
@@ -238,6 +291,35 @@ public class XmlUtils {
         return monsMap;
     }
 
+    /**
+     * MonseterType.xmlを読み込む。必ず、Command.xmlを読み込んでから実行する。
+     * @return MonseterTypeリスト
+     * @throws RpgException XMLの設定エラー
+     */
+    public static Map<String, RpgMonsterType> loadMonterType(String directory) throws RpgException {
+        Map<String, RpgMonsterType> monsMap = new HashMap<>();
+        Map<String, RpgCommand> cmdMap = RpgConfig.getInstance().getCommandMap();
+        if (cmdMap.size() <= 0) {
+            throw new RpgException(MessageConst.ERR_BEFORE_LOAD_CMD.toString());
+        }
+        try {
+            Document doc = loadDocumentBuilder(directory, "MonseterType.xml");
+            if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+            NodeList list = doc.getElementsByTagName("monsterType");
+
+            for (int i = 0; i < list.getLength(); i++) {
+                Node node = list.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    RpgMonsterType j = createMonsterType(node, cmdMap);
+                    monsMap.put(j.getJobId(), j);
+                }
+            }
+        } catch (RpgException e) {
+            e.printStackTrace();
+            throw new RpgException(MessageConst.ERR_XML_PERSE.toString() + ": " + e.getMessage());
+        }
+        return monsMap;
+    }
 
     /**
      * RpgMonsterTypeクラスを生成する。
@@ -273,6 +355,33 @@ public class XmlUtils {
 
         try {
             Document doc = loadDocumentBuilder("src/main/resources", "Commands.xml");
+            if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+            NodeList list = doc.getElementsByTagName("command");
+
+            for (int i = 0; i < list.getLength(); i++) {
+                Node node = list.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    RpgCommand cmd = createCommand(node);
+                    commandMap.put(cmd.getCommandId(), cmd);
+                }
+            }
+        } catch (RpgException e) {
+            e.printStackTrace();
+            throw new RpgException(MessageConst.ERR_XML_PERSE.toString() + ": " + e.getMessage());
+        }
+        return commandMap;
+    }
+
+    /**
+     * Command.xmlを読み込む。
+     * @return Commandリスト
+     * @throws RpgException XMLの設定エラー
+     */
+    public static Map<String, RpgCommand> loadCommands(String direcory) throws RpgException {
+        Map<String, RpgCommand> commandMap = new HashMap<>();
+
+        try {
+            Document doc = loadDocumentBuilder(direcory, "Commands.xml");
             if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
             NodeList list = doc.getElementsByTagName("command");
 

@@ -70,25 +70,61 @@ public abstract class RpgLogic implements Games {
         // title.txtの読み込み
         reader = getBufferedReader("src/main/resources", "title.txt");
         // コマンドリストのロード
-        loadCommands();
+        loadCommands("");
         // 職業リストのロード
-        loadJobs();
+        loadJobs("");
         // モンスタータイプの読み込み
-        loadMonsterType();
+        loadMonsterType("");
         // パラメータマップ(設定情報)の読み込み
         try {
-            loadParamMaps();
+            loadParamMaps("");
         } catch (RpgException | IOException | StoryTextException e) {
             System.out.println("cpmf.txtの読み込みに失敗しました。");
             e.printStackTrace();
             System.exit(-1);
         }
         // モンスターリストの読み込み
-        loadMonsters();
+        loadMonsters("");
         // ストーリー.txtの読み込み
         BufferedReader story = getBufferedReader("src/main/resources/story", "Sample_story.txt");
         // シーンオブジェクトの生成
-        createSceneObject(story);
+        createSceneObject(story, "");
+        // シーン開始フラグの初期化
+        isSceneStarted = false;
+    }
+
+    public RpgLogic(String directory) {
+        // 改行コード
+        SEP = System.lineSeparator();
+        // 標準入力
+        scan = new Scanner(System.in);
+        // 冒険の記録
+        record = new AdventureRecord();
+        // シーンリスト
+        sceneList = new ArrayList<>();
+
+        // title.txtの読み込み
+        reader = getBufferedReader(directory, "title.txt");
+        // コマンドリストのロード
+        loadCommands(directory);
+        // 職業リストのロード
+        loadJobs(directory);
+        // モンスタータイプの読み込み
+        loadMonsterType(directory);
+        // パラメータマップ(設定情報)の読み込み
+        try {
+            loadParamMaps(directory);
+        } catch (RpgException | IOException | StoryTextException e) {
+            System.out.println("cpmf.txtの読み込みに失敗しました。");
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        // モンスターリストの読み込み
+        loadMonsters(directory);
+        // ストーリー.txtの読み込み
+        BufferedReader story = getBufferedReader(directory, "Sample_story.txt");
+        // シーンオブジェクトの生成
+        createSceneObject(story, directory);
         // シーン開始フラグの初期化
         isSceneStarted = false;
     }
@@ -98,9 +134,9 @@ public abstract class RpgLogic implements Games {
      *
      * @param storyTxt 対象のストーリーテキストファイル
      */
-    private void createSceneObject(BufferedReader storyTxt) {
+    private void createSceneObject(BufferedReader storyTxt, String directory) {
         try {
-            loadScenes();
+            loadScenes(directory);
             //setStoryData(storyTxt);
             // 最初のシーンを設定する
             scene = sceneList.get(0);
@@ -156,9 +192,14 @@ public abstract class RpgLogic implements Games {
     /**
      * モンスターリストを読み込み、RpgConfigに設定する。
      */
-    private void loadMonsters() {
+    private void loadMonsters(String directory) {
+        List<Monster> list = null;
         try {
-            List<Monster> list = XmlUtils.loadMonsters();
+            if ("".equals(directory)) {
+                list = XmlUtils.loadMonsters();
+            } else {
+                list = XmlUtils.loadMonsters(directory);
+            }
             RpgConfig.getInstance().setMonsterList(list);
         } catch (RpgException e) {
             e.printStackTrace();
@@ -169,9 +210,14 @@ public abstract class RpgLogic implements Games {
     /**
      * Job.xmlを読み込んで職業マップを作成する。
      */
-    private void loadJobs() {
+    private void loadJobs(String directory) {
+        Map<String, RpgJob> map = null;
         try {
-            Map<String, RpgJob> map = XmlUtils.loadJobs();
+            if ("".equals(directory)) {
+                map = XmlUtils.loadJobs();
+            } else {
+                map = XmlUtils.loadJobs(directory);
+            }
             if (isDebug) System.out.println("mapSize: " + map.size());
             RpgConfig.getInstance().setJobMap(map);
         } catch (RpgException e) {
@@ -180,13 +226,18 @@ public abstract class RpgLogic implements Games {
         }
     }
 
-
     /**
      * MonsterType.xmlを読み込んで職業マップを作成する。
      */
-    private void loadMonsterType() {
+    private void loadMonsterType(String directory) {
+        Map<String, RpgMonsterType> map = null;
         try {
-            Map<String, RpgMonsterType> map = XmlUtils.loadMonterType();
+            if ("".equals(directory)) {
+                map = XmlUtils.loadMonterType();
+            } else {
+                map = XmlUtils.loadMonterType(directory);
+            }
+
             if (isDebug) System.out.println("mapSize: " + map.size());
             RpgConfig.getInstance().setMonsterTypeMap(map);
         } catch (RpgException e) {
@@ -198,9 +249,15 @@ public abstract class RpgLogic implements Games {
     /**
      * Command.xmlを読み込んで職業マップを作成する。
      */
-    private void loadCommands() {
+    private void loadCommands(String directory) {
+        Map<String, RpgCommand> map = null;
         try {
-            Map<String, RpgCommand> map = XmlUtils.loadCommands();
+            if ("".equals(directory)) {
+                map = XmlUtils.loadCommands();
+            } else {
+                map = XmlUtils.loadCommands(directory);
+            }
+
             RpgConfig.getInstance().setCommandMap(map);
         } catch (RpgException e) {
             e.printStackTrace();
@@ -223,12 +280,17 @@ public abstract class RpgLogic implements Games {
      * @throws IOException
      * @throws StoryTextException
      */
-    public void loadParamMaps() throws RpgException, IOException, StoryTextException {
+    public void loadParamMaps(String directory) throws RpgException, IOException, StoryTextException {
         // コメントの行リスト
         List<String> commentList = new ArrayList<>();
         // パラメータ設定クラス
         ParamGenerator generator = ParamGenerator.getInstance();
-        BufferedReader storyTxt = getBufferedReader("src/main/resources", "conf.txt");
+        BufferedReader storyTxt = null;
+        if ("".equals(directory)) {
+            storyTxt = getBufferedReader("src/main/resources", "conf.txt");
+        } else {
+            storyTxt = getBufferedReader(directory, "conf.txt");
+        }
         String line = null;
         try {
             // コメントフラグ:テキストのはじめのみに記載することができる
@@ -305,10 +367,15 @@ public abstract class RpgLogic implements Games {
      * @throws IOException
      * @throws StoryTextException
      */
-    public void loadScenes() throws RpgException, IOException, StoryTextException {
+    public void loadScenes(String directory) throws RpgException, IOException, StoryTextException {
         // パラメータ設定クラス
         ParamGenerator generator = ParamGenerator.getInstance();
-        BufferedReader storyTxt = getBufferedReader("src/main/resources/story", "Sample_story.txt");
+        BufferedReader storyTxt = null;
+        if ("".equals(directory)) {
+            storyTxt = getBufferedReader("src/main/resources/story", "Sample_story.txt");
+        } else {
+            storyTxt = getBufferedReader(directory, "Sample_story.txt");
+        }
         // シーンオブジェクトのリスト
         List<RpgScene> rpgSceneList = new ArrayList<>();
         // シーンオブジェクト
