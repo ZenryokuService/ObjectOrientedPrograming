@@ -3,9 +3,16 @@
 <class>
     <!-- 勇者 -->
     <job>
+        <!-- 個定値 -->
         <id>BRV</id>
         <name>勇者</name>
         <discription>勇気ある者。バランスよく剣と魔法を使える。</discription>
         <commandList>ATK, DEF, MAG</commandList>
+        <!-- CONFIG_STSTUS参照のタグ名で増加値をセット -->
+        <pow>2</pow>
+        <agi>2</agi>
+        <int>2</int>
+        <dex>2</dex>
+        <ksm>2</ksm>
     </job>
 </class>

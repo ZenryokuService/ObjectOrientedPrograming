@@ -22,9 +22,6 @@ import java.util.Set;
 
 public class CreatePlayerScene extends StoryScene {
 
-    /** 設定クラス */
-    private RpgConfig config;
-
     /**
      * コンストラクタ
      *
@@ -33,13 +30,14 @@ public class CreatePlayerScene extends StoryScene {
      */
     public CreatePlayerScene(String sceneIdx, String sceneType) {
         super(sceneIdx, sceneType);
-        config = RpgConfig.getInstance();
+
     }
 
     /**
      * ダイスコードから何面ダイスで何回振るか表示する。
      */
     private void printDiceInfo() {
+        RpgConfig config = RpgConfig.getInstance();
         System.out.println(config.getDiceFaces() + "面ダイスを" + config.getDiceTimes() + "回振ります。");
     }
     /**
@@ -50,6 +48,7 @@ public class CreatePlayerScene extends StoryScene {
      */
     @Override
     public boolean playScene() throws Exception {
+        RpgConfig config = RpgConfig.getInstance();
         if (config.isDiceCode() == false) {
             throw new RpgException("ダイスコードを設定してください。");
         }
@@ -68,9 +67,9 @@ public class CreatePlayerScene extends StoryScene {
         System.out.println(MessageConst.INPUT_STATUS);
 
         CalcUtils calc = CalcUtils.getInstance();
-        // ステータスマップ取得
         Map<String, RpgStatus> statusMap = player.getStatusMap();
-        if (isDebug) System.out.println("map.size: " + statusMap.size());
+        // ステータスマップ取得
+        System.out.println(config.getStatusMap());
 
         printDiceInfo();
         Set<String> keySet = statusMap.keySet();
@@ -81,6 +80,7 @@ public class CreatePlayerScene extends StoryScene {
                         , val.getName() + MessageConst.CREATE_STATUS, val.getName());
                 val.setValue(res);
             }
+            System.out.println(player.getStatusMap());
             // ステータス表示
             console.printStatus(player);
             // オプショナルステータス

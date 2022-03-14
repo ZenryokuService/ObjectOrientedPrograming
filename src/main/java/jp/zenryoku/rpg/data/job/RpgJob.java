@@ -1,10 +1,12 @@
 package jp.zenryoku.rpg.data.job;
 
 import jp.zenryoku.rpg.data.RpgData;
+import jp.zenryoku.rpg.data.status.RpgStatus;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class RpgJob extends RpgData {
@@ -12,6 +14,8 @@ public class RpgJob extends RpgData {
     private String jobId;
     /** コマンドリスト */
     private List<RpgCommand> commandList;
+    /** ステータスアップマップ */
+    private Map<String, RpgStatus> statusUpMap;
 
     /**
      * コンストラクタ。

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.scene.CreatePlayerScene;
 import jp.zenryoku.rpg.scene.StoryScene;

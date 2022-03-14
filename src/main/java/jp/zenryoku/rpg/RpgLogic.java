@@ -71,8 +71,6 @@ public abstract class RpgLogic implements Games {
         reader = getBufferedReader("src/main/resources", "title.txt");
         // コマンドリストのロード
         loadCommands("");
-        // 職業リストのロード
-        loadJobs("");
         // モンスタータイプの読み込み
         loadMonsterType("");
         // パラメータマップ(設定情報)の読み込み
@@ -89,6 +87,8 @@ public abstract class RpgLogic implements Games {
         BufferedReader story = getBufferedReader("src/main/resources/story", "Sample_story.txt");
         // シーンオブジェクトの生成
         createSceneObject(story, "");
+        // 職業リストのロード
+        loadJobs("");
         // シーン開始フラグの初期化
         isSceneStarted = false;
     }
@@ -107,8 +107,6 @@ public abstract class RpgLogic implements Games {
         reader = getBufferedReader(directory, "title.txt");
         // コマンドリストのロード
         loadCommands(directory);
-        // 職業リストのロード
-        loadJobs(directory);
         // モンスタータイプの読み込み
         loadMonsterType(directory);
         // パラメータマップ(設定情報)の読み込み
@@ -119,6 +117,8 @@ public abstract class RpgLogic implements Games {
             e.printStackTrace();
             System.exit(-1);
         }
+        // 職業リストのロード
+        loadJobs(directory);
         // モンスターリストの読み込み
         loadMonsters(directory);
         // ストーリー.txtの読み込み

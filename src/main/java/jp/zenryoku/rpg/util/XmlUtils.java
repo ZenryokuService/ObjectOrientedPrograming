@@ -256,8 +256,21 @@ public class XmlUtils {
             cmdList.add(cmdCls);
         }
 
+        Map<String, RpgStatus> statusMap = RpgConfig.getInstance().getStatusMap();
+        Set<String> set = statusMap.keySet();
+        // ステータス上昇値の設定
+        for (String key : set) {
+            if (isDebug) System.out.println("Status: " + key);
+            String statsUp = e.getElementsByTagName(key.toLowerCase()).item(0).getTextContent();
+            RpgStatus st = new RpgStatus();
+            st.setKigo(key);
+            st.setValue(Integer.parseInt(statsUp));
+            statusMap.put(key, st);
+        }
         RpgJob job = null;
         job = new RpgJob(id, name, disc, cmdList);
+        // ステータス上昇値のマップを設定する。
+        job.setStatusUpMap(statusMap);
         return job;
     }
 

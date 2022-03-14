@@ -15,6 +15,7 @@ import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 import jp.zenryoku.rpg.util.CalcUtils;
+import jp.zenryoku.rpg.util.ConsoleUtils;
 import lombok.Data;
 
 import java.util.*;
@@ -51,6 +52,8 @@ public class PlayerCharactor extends Player {
         canMove = true;
         // ステータス設定を取得する。
         Map<String, RpgStatus> stMap = RpgConfig.getInstance().getStatusMap();
+//        System.out.println("*** PlayerCharactor ***");
+//        System.out.println(stMap);
         statusMap.putAll(stMap);
         // オプショナルステータスマップ
         Map<String, RpgStatus> optMap = RpgConfig.getInstance().getOptionStatusMap();
@@ -145,6 +148,18 @@ public class PlayerCharactor extends Player {
         if (exp >= lv) {
             level = level + 1;
             System.out.println(name + "のレベルが上がりました。");
+            // ステータスアップ
+
+            Map<String, RpgStatus> upMap = job.getStatusUpMap();
+            Set<String> set = upMap.keySet();
+            for (String key : set) {
+                RpgStatus upStatus = upMap.get(key);
+                RpgStatus pStatus = statusMap.get(upStatus.getKigo());
+                pStatus.setValue(pStatus.getValue() + pStatus.getValue());
+                System.out.println(getName() + "は" + pStatus.getName() + "が" + upStatus.getValue() + "あがった");
+                // 入力チェックなし
+                ConsoleUtils.getInstance().acceptInput("", false);
+            }
         }
     }
 }
