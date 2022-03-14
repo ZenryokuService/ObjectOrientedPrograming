@@ -66,8 +66,8 @@ public class ParamGenerator {
         config = RpgConfig.getInstance();
         config.setMasterMap(new HashMap<>());
         config.setParamMap(new HashMap<>());
-        config.setStatusMap(new HashMap<>());
-        config.setOptionStatusMap(new HashMap<>());
+        config.setStatusMap(new LinkedHashMap<>());
+        config.setOptionStatusMap(new LinkedHashMap<>());
         config.setFormulaMap(new HashMap<>());
         config.setItemMap(new HashMap<>());
         config.setItemTypeMap(new HashMap<>());
@@ -179,9 +179,9 @@ public class ParamGenerator {
                 // データマップに登録
                 statusMap.put(data.getKigo().trim(), data);
             }
-            System.out.println("*** Testing ***");
+            //System.out.println("*** Testing ***");
             config.setStatusMap(statusMap);
-            System.out.println(config.getStatusMap());
+            //System.out.println(config.getStatusMap());
         } catch (IOException | RpgException e) {
             e.printStackTrace();
             throw new RpgException(e.getMessage());

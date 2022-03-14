@@ -69,7 +69,7 @@ public class CreatePlayerScene extends StoryScene {
         CalcUtils calc = CalcUtils.getInstance();
         Map<String, RpgStatus> statusMap = player.getStatusMap();
         // ステータスマップ取得
-        System.out.println(config.getStatusMap());
+        if (isDebug) System.out.println(config.getStatusMap());
 
         printDiceInfo();
         Set<String> keySet = statusMap.keySet();
@@ -80,7 +80,7 @@ public class CreatePlayerScene extends StoryScene {
                         , val.getName() + MessageConst.CREATE_STATUS, val.getName());
                 val.setValue(res);
             }
-            System.out.println(player.getStatusMap());
+            if (isDebug) System.out.println(player.getStatusMap());
             // ステータス表示
             console.printStatus(player);
             // オプショナルステータス

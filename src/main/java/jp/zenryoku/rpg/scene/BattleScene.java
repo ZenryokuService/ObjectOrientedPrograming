@@ -64,6 +64,9 @@ public class BattleScene extends RpgScene {
 		scan = new Scanner(System.in);
 		// 戦闘囚虜いうフラグの初期化
 		isBattleFinish = false;
+		// モンスター番号の初期化
+		startMonster = -1;
+		endMonster = -1;
 	}
 
 	/**
@@ -95,20 +98,6 @@ public class BattleScene extends RpgScene {
 	public void initScene() throws RpgException {
 		// プレーヤーの取得
 		player = PlayerParty.getInstance().getPlayer();
-		// モンスターがランダム取得の場合
-		if (monster == null) {
-			// 通常の定義は配列としてみていないので、0から数えるためにー１する。
-			int monsterId = CalcUtils.getInstance().generateRandom(startMonster, endMonster);
-			List<Monster> monsterList = RpgConfig.getInstance().getMonsterList();
-			monster = monsterList.get(monsterId);
-		}
-		// 初期表示: 「XXXXが現れた」
-		if (isDebug) System.out.println(monster);
-		console.printMessage(monster.getName() + "があらわれた！" + SEP);
-		if (monster.isTalk()) {
-			// セリフを表示
-			console.printMessage(monster.getMessage() + SEP);
-		}
 	}
 
 	/**
@@ -282,15 +271,32 @@ public class BattleScene extends RpgScene {
 		return armor;
 	}
 
+	private void initBattle() {
+		// モンスターがランダム取得の場合
+		if (startMonster != -1 && endMonster != -1) {
+			// 通常の定義は配列としてみていないので、0から数えるためにー１する。
+			int monsterId = CalcUtils.getInstance().generateRandom(startMonster, endMonster);
+			List<Monster> monsterList = RpgConfig.getInstance().getMonsterList();
+			monster = monsterList.get(monsterId);
+		}
+		// 初期表示: 「XXXXが現れた」
+		if (isDebug) System.out.println(monster);
+		console.printMessage(monster.getName() + "があらわれた！" + SEP);
+		if (monster.isTalk()) {
+			// セリフを表示
+			console.printMessage(monster.getMessage() + SEP);
+		}
+	}
+
 	/**
 	 * バトルシーンを起動する
 	 */
 	public boolean playScene() throws Exception {
 		boolean isFinish = false;
 		initScene();
+		initBattle();
 		List<RpgCommand> list = player.getJob().getCommandList();
 		int listSize = list.size();
-
 		while(true) {
             // バトルステータスを表示
             console.printBattleStatus(player);

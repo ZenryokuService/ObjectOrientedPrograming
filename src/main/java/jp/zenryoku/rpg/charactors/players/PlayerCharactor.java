@@ -155,7 +155,7 @@ public class PlayerCharactor extends Player {
             for (String key : set) {
                 RpgStatus upStatus = upMap.get(key);
                 RpgStatus pStatus = statusMap.get(upStatus.getKigo());
-                pStatus.setValue(pStatus.getValue() + pStatus.getValue());
+                pStatus.setValue(pStatus.getValue() + upStatus.getValue());
                 System.out.println(getName() + "は" + pStatus.getName() + "が" + upStatus.getValue() + "あがった");
                 // 入力チェックなし
                 ConsoleUtils.getInstance().acceptInput("", false);

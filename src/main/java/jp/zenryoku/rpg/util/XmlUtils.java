@@ -256,7 +256,10 @@ public class XmlUtils {
             cmdList.add(cmdCls);
         }
 
-        Map<String, RpgStatus> statusMap = RpgConfig.getInstance().getStatusMap();
+        // RogConfigの値を変えないように気を付ける
+        Map<String, RpgStatus> templateMap = RpgConfig.getInstance().getStatusMap();
+        Map<String, RpgStatus> statusMap = new HashMap<>();
+        statusMap.putAll(templateMap);
         Set<String> set = statusMap.keySet();
         // ステータス上昇値の設定
         for (String key : set) {
