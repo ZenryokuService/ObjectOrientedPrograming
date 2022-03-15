@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>RpgConfig</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic|Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../assets/css/bootstrap.css">
+<link rel="stylesheet" href="../assets/css/jquery.bonsai.css">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/icon-font/icons.css">
+<script type="text/javascript" src="../assets/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="../assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.bonsai.js"></script>
+
+  </head>
+  <body>
+    <div>
+
+      <!-- Name Title -->
+
+      <h1>RpgConfig</h1>
+
+      <!-- Type and Stereotype -->
+
+      <section style="margin-top: .5em;">
+        <span class="alert alert-info">
+          <span class="node-icon staruml-icon icon-UMLClass"></span>
+          UMLClass
+        </span>
+        
+          <span style="margin-left: 10px" class="alert alert-info">«singleton»</span>
+        
+      </section>
+
+      <!-- Path -->
+
+      <section style="margin-top: 10px">
+        
+        
+        
+          
+          <span class="label label-info"><a href='cf9c8b720f3815adeccaf3ef6e48c6c4.html'><span class='node-icon staruml-icon icon-Project'></span>TextRpgDiagrams</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='594af663de577680f35b13183109d675.html'><span class='node-icon staruml-icon icon-UMLModel'></span>TextRpg構造図</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='42ae716017e35226981191cbd51e2168.html'><span class='node-icon staruml-icon icon-UMLClass'></span>«singleton»RpgConfig</a></span>
+        
+      </section>
+
+      <!-- Diagram -->
+
+      
+
+      <!-- Description -->
+
+      
+      <section>
+        <h3>Description</h3>
+        <div>
+          
+            <span class="label label-info">none</span>
+          
+        </div>
+      </section>
+      
+
+      <!-- Specification -->
+
+      
+
+      <!-- Directed Relationship -->
+
+      
+
+      <!-- Undirected Relationship -->
+
+      
+
+      <!-- Classifier -->
+
+      
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+      
+
+      <!-- Interface -->
+
+      
+
+      <!-- Component -->
+
+      
+
+      <!-- Node -->
+
+      
+
+      <!-- Actor -->
+
+      
+
+      <!-- Use Case -->
+
+      
+
+      <!-- Template Parameters -->
+
+      
+
+      <!-- Literals -->
+
+      
+
+      <!-- Attributes -->
+
+      
+      <section>
+        <h3>Attributes</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="8854471aa3dbcbe4b8aac1a8ddd9ad5c.html">masterMap</a></td>
+            <td>Map&lt;String, RpgMaster&gt;</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="394b7bc27c5a51c06435d550ac6d550d.html">paramMap</a></td>
+            <td>Map&lt;String, RpgData&gt;</td>
+            <td><p>パラメータリスト、*<em>stroy.txtで定義する
+CONFIG</em>PARAM以下の部分に定義する項目
+基本的に作成するゲームで登場する名前()</p></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="87445ee3f4390656d351d3dfd8f01192.html">statusMap</a></td>
+            <td>Map&lt;String, RpgStatus&gt;</td>
+            <td><p>ステータスリスト、プレーヤーの持っているステータスを表現する。CONFIG_STATUS以下に設定する値を格納する</p></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="5ec121c5f329b175470b209dc99d4215.html">optionStatusMap</a></td>
+            <td>Map&lt;String, RpgStatus&gt;</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="47c89565f9763fe509e871a927c0a45e.html">formulaMap</a></td>
+            <td><span class='label label-info'>none</span></td>
+            <td><p>計算式リスト、CONFIG_FORMULA以下に定義する。exp4jを利用している
+各種計算式を定義する。
+例：
+(ちから + 武器攻撃力) <em> (1 + (0.1 </em> じゅくれんど))
+→　(POW + WEV) <em> (1 + (0.1 </em> JVL))のように変換して計算を行う。</p></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="a4eba9390cc6222f65aab3817a1a0e8f.html">jobMap</a></td>
+            <td>Map&lt;String, RpgJob&gt;</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="bcdaf6a98e32e89bcf1e4c78937ddb53.html">itemMap</a></td>
+            <td>Map&lt;String,RpgData&gt;</td>
+            <td><p>アイテムリスト、ITEM_LIST以下に定義する、ゲーム内に出てくるアイテムを定義する。</p></td>
+          </tr>
+          
+          <tr>
+            <td>private</td>
+            <td><a href="35b0e8a20d33c45be17e62002849f68c.html">dataMap</a></td>
+            <td>Map&lt;String, RpgData&gt; </td>
+            <td><p>全ての設定を格納する</p></td>
+          </tr>
+          
+        </table>
+      </section>
+      
+
+      <!-- Operations -->
+
+      
+
+      <!-- Receptions -->
+
+      
+
+      <!-- Extension Points -->
+
+      
+
+      <!-- Parameters -->
+
+      
+
+      <!-- Diagrams -->
+
+      
+      
+
+      <!-- Behavior -->
+
+      
+
+      <!-- Action -->
+
+      
+
+      <!-- Interaction -->
+
+      
+
+      <!-- CombinedFragment -->
+
+      
+
+      <!-- Activity -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State -->
+
+      
+
+      <!-- Vertex -->
+
+      
+
+      <!-- Transition -->
+
+      
+
+      <!-- Data Model (ERD) -->
+
+      
+
+      <!-- Columns (ERD) -->
+
+      
+
+      <!-- Related Entities (ERD) -->
+
+      
+
+      <!-- Data Flows (DFD) -->
+
+      
+
+      <!-- Flows (Flowchart) -->
+
+      
+
+      <!-- Properties -->
+
+      <section>
+        <h3>Properties</h3>
+        
+        <table class="table table-striped table-bordered">
+    <tr>
+        <th width="50%">Name</th>
+        <th width="50%">Value</th>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>name</td>
+        <td>RpgConfig</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>stereotype</td>
+        <td>singleton</td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>visibility</td>
+        <td>public</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>isAbstract</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isFinalSpecialization</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isLeaf</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isActive</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+</table>                
+
+      </section>
+
+      <!-- Tags -->
+
+      
+
+      <!-- Constraints, Dependencies, Dependants -->
+
+      
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+      
+
+      <!-- Relationships -->
+
+      
+      
+<section class="element-list">
+    <h3>Relationships</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='469dd17de5f986d78cc84c229d2969f6.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>created form ParamGenerator (RpgConfig—ParamGenerator)</a></li>
+        
+        <li><a href='b25ace3f49f1caefbe6e06ee22d223a2.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>use (PlayerCharactor—RpgConfig)</a></li>
+        
+    </ul>
+</section>
+
+
+
+      <!-- Owned Elements -->
+
+      
+      
+<section class="element-list">
+    <h3>Owned Elements</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='469dd17de5f986d78cc84c229d2969f6.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>created form ParamGenerator (RpgConfig—ParamGenerator)</a></li>
+        
+    </ul>
+</section>
+
+
+
+    </div>
+  </body>
+</html>
