@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <class>
-    <!-- サンプルモンスター -->
+    <!-- 選抜試合１人目 -->
     <monster>
-        <id>0</id>
-        <name>サンプル</name>
+        <id>1</id>
+        <name>ならずもの</name>
         <lv>1</lv>
         <type>OTH</type>
         <hp>5</hp>
@@ -16,56 +16,53 @@
         <atk>1</atk>
         <def>1</def>
         <isTalk>true</isTalk>
-        <message>
-            モンスターの定義は、Monster.xmlで定義します。(src/main/resources/Monster.xml)
-            idタグでモンスターのIDを設定しモンスターを一意に指定します。
-            つまり、idが違えば、同じモンスターでもよいということです。意味はないと思いますが。。。
-        </message>
+        <message>しょうきんは、おれが、もらう！</message>
         <commandList>ATK</commandList>
         <exp>1</exp>
         <money>1</money>
     </monster>
-    <!-- スライム -->
-    <monster>
-        <id>1</id>
-        <type>SLM</type>
-        <name>Slime</name>
-        <lv>1</lv>
-        <hp>5</hp>
-        <mp>0</mp>
-        <pow>1</pow>
-        <agi>1</agi>
-        <int>1</int>
-        <dex>1</dex>
-        <ksm>1</ksm>
-        <atk>1</atk>
-        <def>1</def>
-        <isTalk>false</isTalk>
-        <message></message>
-        <commandList>ATK</commandList>
-        <exp>1</exp>
-        <money>1</money>
-    </monster>
-
+    <!-- 選抜試合２人目 -->
     <monster>
         <id>2</id>
-        <type>CRW</type>
-        <name>おおがらす</name>
+        <name>いかついおとこ</name>
         <lv>1</lv>
-        <hp>5</hp>
-        <mp>1</mp>
+        <type>OTH</type>
+        <hp>7</hp>
+        <mp>0</mp>
         <pow>2</pow>
         <agi>2</agi>
         <int>2</int>
         <dex>2</dex>
         <ksm>2</ksm>
-        <atk>1</atk>
-        <def>1</def>
-        <isTalk>false</isTalk>
-        <message></message>
-        <commandList>ATK, STC</commandList>
-        <exp>3</exp>
-        <money>5</money>
+        <atk>2</atk>
+        <def>2</def>
+        <isTalk>true</isTalk>
+        <message>しょうきんは、わたさぬぞ！</message>
+        <commandList>ATK</commandList>
+        <exp>2</exp>
+        <money>2</money>
     </monster>
+    <!-- 選抜試合３人目 -->
+    <monster>
+        <id>1</id>
+        <name>しょうねんけんし</name>
+        <lv>1</lv>
+        <type>OTH</type>
+        <hp>8</hp>
+        <mp>0</mp>
+        <pow>3</pow>
+        <agi>3</agi>
+        <int>3</int>
+        <dex>4</dex>
+        <ksm>3</ksm>
+        <atk>3</atk>
+        <def>3</def>
+        <isTalk>true</isTalk>
+        <message>どこまで、いけるか？いざ！</message>
+        <commandList>ATK</commandList>
+        <exp>3</exp>
+        <money>3</money>
+    </monster>
+
 
 </class>
