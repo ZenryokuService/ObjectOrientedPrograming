@@ -76,7 +76,7 @@ public abstract class RpgScene {
      */
     public void setNextIndexes(String komokuNo, String idx) {
         if (isDebug) System.out.println("選択肢配列の要素数 = " + nextIndexes.length);
-        nextIndexes[Integer.parseInt(komokuNo)] = idx;
+        nextIndexes[Integer.parseInt(komokuNo) - 1] = idx;
     }
 
     /**

@@ -132,6 +132,10 @@ ITEM_LIST
 かわのふく:ARM:ARV=6: 80: ITN - 2
 END_ITEM_LIST
 
+# KEY_ITEM
+# ちず
+# END_KEY_ITEM
+
 CONFIG_FORMULA
 物理攻撃力: 物理的な攻撃力を示す。式= (ちから + 武器攻撃力) * (1 + (0.1 * じゅくれんど)): ATK
 物理防御力: 物理的な防御力を示す。式= (ちから + すばやさ+きようさ) / 3 + 防具防御力: DEF

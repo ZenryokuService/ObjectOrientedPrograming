@@ -393,6 +393,9 @@ public abstract class RpgLogic implements Games {
             boolean isSelectLine = false;
 
             while ((line = storyTxt.readLine()) != null) {
+                if (CheckerUtils.isCommentLine(line)) {
+                    continue;
+                }
                 //// 参照渡しを使用せず、値渡しで実装する ////
                 // シーン開始行の判定
                 if (CheckerUtils.isStartSceneLine(line)) {
@@ -611,7 +614,7 @@ public abstract class RpgLogic implements Games {
      */
     private void setEffectScene(String line, BufferedReader txt, RpgScene sceneObj) throws IOException, RpgException {
         if ((sceneObj instanceof EffectScene) == false) {
-            throw new RpgException(MessageConst.SCENE_TYPE_ERR.toString());
+            throw new RpgException(MessageConst.SCENE_TYPE_ERR.toString() + ": " + sceneObj.getClass().getSimpleName());
         }
         // 1行目の読み込み<effect:XXX[+\\-]NUM>
         // 記号 + (プラス) or -(マイナス) なまえ 個数の指定
