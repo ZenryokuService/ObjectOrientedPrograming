@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <class>
-    <!-- 選抜試合１人目 -->
+    <!-- 1. 選抜試合１人目 -->
     <monster>
         <id>1</id>
         <name>ならずもの</name>
@@ -21,7 +21,7 @@
         <exp>1</exp>
         <money>1</money>
     </monster>
-    <!-- 選抜試合２人目 -->
+    <!-- 2. 選抜試合２人目 -->
     <monster>
         <id>2</id>
         <name>いかついおとこ</name>
@@ -42,9 +42,9 @@
         <exp>2</exp>
         <money>2</money>
     </monster>
-    <!-- 選抜試合３人目 -->
+    <!-- 3. 選抜試合３人目 -->
     <monster>
-        <id>1</id>
+        <id>3</id>
         <name>しょうねんけんし</name>
         <lv>1</lv>
         <type>OTH</type>
@@ -63,6 +63,68 @@
         <exp>3</exp>
         <money>3</money>
     </monster>
-
+    <!-- 4. 午前試合1人目 -->
+    <monster>
+        <id>4</id>
+        <name>ベイジン</name>
+        <lv>2</lv>
+        <type>OTH</type>
+        <hp>10</hp>
+        <mp>2</mp>
+        <pow>3</pow>
+        <agi>4</agi>
+        <int>4</int>
+        <dex>4</dex>
+        <ksm>3</ksm>
+        <atk>3</atk>
+        <def>3</def>
+        <isTalk>true</isTalk>
+        <message></message>
+        <commandList>ATK</commandList>
+        <exp>5</exp>
+        <money>0</money>
+    </monster>
+    <!-- 5. 午前試合2人目 -->
+    <monster>
+        <id>5</id>
+        <name>こじろう</name>
+        <lv>3</lv>
+        <type>OTH</type>
+        <hp>15</hp>
+        <mp>2</mp>
+        <pow>4</pow>
+        <agi>4</agi>
+        <int>4</int>
+        <dex>4</dex>
+        <ksm>3</ksm>
+        <atk>5</atk>
+        <def>5</def>
+        <isTalk>true</isTalk>
+        <message>がんりゅう！こじろうともうす。いざじんじょうに！</message>
+        <commandList>ATK</commandList>
+        <exp>5</exp>
+        <money>0</money>
+    </monster>
+    <!-- ６. 午前試合3人目 -->
+    <monster>
+        <id>6</id>
+        <name>おが</name>
+        <lv>4</lv>
+        <type>OTH</type>
+        <hp>20</hp>
+        <mp>2</mp>
+        <pow>6</pow>
+        <agi>3</agi>
+        <int>2</int>
+        <dex>4</dex>
+        <ksm>1</ksm>
+        <atk>7</atk>
+        <def>5</def>
+        <isTalk>true</isTalk>
+        <message>とのさまのまえまできたかぁ！かくごしろぉ！</message>
+        <commandList>ATK</commandList>
+        <exp>5</exp>
+        <money>0</money>
+    </monster>
 
 </class>
