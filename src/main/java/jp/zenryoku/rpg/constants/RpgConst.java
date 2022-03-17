@@ -184,6 +184,8 @@ public enum RpgConst {
     public static final int EFFECT_SIZE = 4;
     /** ST_EFFECT_TXT_SIZEの分割サイズ */
     public static final int EFFECT_TXT_SIZE = 3;
+    /** 全快の固定効果あ */
+    public static final String HMX = "HMX";
 
     /** 計算オブジェクトの保持できる項の数 */
     public static final int CALC_KO_COUNT = 2;

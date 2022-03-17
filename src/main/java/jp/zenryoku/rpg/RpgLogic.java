@@ -631,7 +631,7 @@ public abstract class RpgLogic implements Games {
         // 記号 + (プラス) or -(マイナス) なまえ 個数の指定
         String effect = line.split(":")[1];
         effect = effect.substring(0, effect.length() - 1);
-        if (isDebug) System.out.println("** " + effect + " ** ");
+        if (true) System.out.println("** " + effect + " ** ");
         EffectScene scene = (EffectScene) sceneObj;
 
         //// ターン指定がある場合の「ZHP+10%TS3」のような効果式の場合 ////
@@ -689,7 +689,7 @@ public abstract class RpgLogic implements Games {
         if (vals != null && vals.length == 1) {
             int val = Integer.parseInt(vals[0]);
             if (isDebug) System.out.println("モンスター指定: " + val);
-            battleScene.setMonster(monsterList.get(val));
+            battleScene.setMonster(monsterList.get(val - 1));
         } else if (vals != null && vals.length == 2) {
             // 範囲指定でランダム取得
             int start = Integer.parseInt(vals[0]);
@@ -703,10 +703,14 @@ public abstract class RpgLogic implements Games {
             throw new RpgException(MessageConst.ERR_MONSTER_NO.toString() + ": " + line);
         }
         String text = null;
+        StringBuilder build = new StringBuilder();
         try {
             while ((text = txt.readLine()).equals("</monster>") == false) {
                 // TODO-[タグの中身を考える]
+                build.append(text + SEP);
             }
+            // バトル後に表示するメッセ―ジ
+            battleScene.setLastMassage(build.toString());
         } catch (IOException e) {
             throw new RpgException(MessageConst.ERR_IOEXCEPTION.toString());
         }

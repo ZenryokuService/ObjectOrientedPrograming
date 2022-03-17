@@ -87,7 +87,7 @@
     <!-- 5. 午前試合2人目 -->
     <monster>
         <id>5</id>
-        <name>こじろう</name>
+        <name>ころう</name>
         <lv>3</lv>
         <type>OTH</type>
         <hp>15</hp>
@@ -100,7 +100,7 @@
         <atk>5</atk>
         <def>5</def>
         <isTalk>true</isTalk>
-        <message>がんりゅう！こじろうともうす。いざじんじょうに！</message>
+        <message>がんりゅう！ころうともうす。いざじんじょうに！</message>
         <commandList>ATK</commandList>
         <exp>5</exp>
         <money>0</money>

@@ -39,7 +39,8 @@ public abstract class RpgScene {
     protected boolean skipNextMessage;
     /** 登録されたシーンの数(List#size()) */
     protected int sceneSize;
-
+    /** シーンのあとに表示するメッセージ */
+    protected String lastMassage;
     /**
      * デフォルトコンストラクタ。
      */

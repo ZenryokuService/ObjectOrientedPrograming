@@ -1,6 +1,7 @@
 package jp.zenryoku.rpg.scene;
 
 import jp.zenryoku.rpg.charactors.PlayerParty;
+import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.Effects;
@@ -63,9 +64,18 @@ public class EffectScene extends StoryScene {
             util.calcEffect(eff.getKigo(), eff.getOpe(), eff.getNum());
             return false;
         }
-        Map<String, RpgData> dataMap = RpgConfig.getInstance().getParamMap();
-        Map<String, RpgMaster> mstMap = RpgConfig.getInstance().getMasterMap();
+        RpgConfig conf = RpgConfig.getInstance();
+        // 固定の効果
+        if (RpgConst.HMX.equals(kigo)) {
+            PlayerCharactor player = PlayerParty.getInstance().getPlayer();
+            player.setHP(player.getMaxHP());
+            player.setMP(player.getMaxMP());
+            return false;
+        }
 
+        // パラメータ・マスタのマップ
+        Map<String, RpgData> dataMap = conf.getParamMap();
+        Map<String, RpgMaster> mstMap = conf.getMasterMap();
         // CONFIG_PARAMにないときはマスタカテゴリを検索
         RpgData data = dataMap.get(kigo);
         RpgMaster mst = mstMap.get(kigo);
@@ -77,7 +87,6 @@ public class EffectScene extends StoryScene {
         }
         String name = data == null ? mst.getName() : data.getName();
         if (isDebug) System.out.println("Debug: " + name + "(" + kigo + ")" + ope + kosu);
-
         // 効果を及ぼす
        util.calcEffect(kigo, ope, kosu);
         return false;

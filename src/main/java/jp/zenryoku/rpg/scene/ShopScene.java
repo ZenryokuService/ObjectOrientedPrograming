@@ -44,7 +44,7 @@ public class ShopScene extends StoryScene {
         PlayerCharactor player = party.getPlayer();
 
         while (true) {
-            int count = 0;
+            int count = 1;
             for (RpgItem item : list) {
                 System.out.println(count + ": " + item.getName()
                         + " 金額: " + item.getMoney()
@@ -53,7 +53,7 @@ public class ShopScene extends StoryScene {
             }
             if (isDebug) System.out.println("[1-" + max + "]");
             String select = console.acceptInput(MessageConst.DO_SELECT.toString(), "[1-" + max + "]");
-            RpgItem it = list.get(Integer.parseInt(select));
+            RpgItem it = list.get(Integer.parseInt(select) - 1);
             String res = console.acceptInput(it.getName() + MessageConst.YOU_BUY_THIS.toString(), SelectConst.YES_NO_REGREX);
             if (SelectConst.SELECT_YES.getValue().equals(res)) {
                 System.out.println(MessageConst.THANKS);
