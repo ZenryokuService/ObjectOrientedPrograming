@@ -74,12 +74,22 @@ public class CreatePlayerScene extends StoryScene {
         printDiceInfo();
         Set<String> keySet = statusMap.keySet();
         while (true) {
+            int hp = 0;
+            int mp = 0;
             for (String st : keySet) {
                 RpgStatus val = statusMap.get(st);
                 int res = calc.throwDice(config.getDiceTimes(), config.getDiceFaces()
                         , val.getName() + MessageConst.CREATE_STATUS, val.getName());
                 val.setValue(res);
+                hp += res;
+                if ("POW".equals(st) == false && "AGI".equals(st) == false) {
+                    mp += res;
+                }
             }
+            player.setMaxHP(hp);
+            player.setHP(hp);
+            player.setMaxMP(mp);
+            player.setMP(mp);
             if (isDebug) System.out.println(player.getStatusMap());
             // ステータス表示
             console.printStatus(player);

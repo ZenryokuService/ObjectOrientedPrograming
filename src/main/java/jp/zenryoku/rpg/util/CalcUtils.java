@@ -199,7 +199,7 @@ public class CalcUtils {
             throw new RpgException(MessageConst.ERR_NO_KEY_GENPARA.toString() + ": " + kigo);
         }
         List<Class<?>> inte = new ArrayList<>();
-        System.out.println(mst);
+        if (isDebug) System.out.println(mst);
         Field field = findTargetField(mst.getFieldName(), inte);
 
         Object targetObj = null;

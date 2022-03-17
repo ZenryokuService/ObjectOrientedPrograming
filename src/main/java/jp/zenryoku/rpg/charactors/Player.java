@@ -31,6 +31,10 @@ public class Player {
 	protected String name;
 	/** レベル */
 	protected int level;
+	/** 最大・生命力 */
+	protected int MaxHP;
+	/** 最大・特殊能力(技能)の使用時に消費 */
+	protected int MaxMP;
 	/** 生命力 */
 	protected int HP;
 	/** 特殊能力(技能)の使用時に消費 */
@@ -65,8 +69,8 @@ public class Player {
 		this.name = name;
 		// レベル1の設定
 		setLevel(1);
-		setHP(20);
-		setMP(10);
+//		setHP(20);
+//		setMP(10);
 	}
 
 	/**

@@ -62,86 +62,85 @@ public class StoryScene extends RpgScene {
                 if (nextIdx < 0) {
                     nextIndex = String.valueOf(nextIdx);
                 }
-                System.out.println(sceneSize);
-                System.out.println(nextIndex);
+                if (isDebug) System.out.println(sceneSize);
+                if (isDebug) System.out.println(nextIndex);
                 skipNextMessage = true;
             }
         } else if ("B".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("C".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("D".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("E".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("F".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("G".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("H".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("I".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("J".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("K".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("L".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("M".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("N".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("O".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("P".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("Q".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("R".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("S".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("T".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("U".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("V".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("W".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("X".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("Y".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
+            printStory();
         } else if ("Z".equals(sceneType)) {
             // ストーリーを表示する
-            textList.forEach(value -> { System.out.println(value); });
-            //ParamGenerator
+            printStory();
         } else {
             throwRpgException("ストーリーテキストの設定が不適切です。");
         }

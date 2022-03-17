@@ -28,7 +28,7 @@ import lombok.Data;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Data
-public class BattleScene extends RpgScene {
+public class BattleScene extends StoryScene {
 	/** 定数：攻撃フラグ */
 	private static final String ATTACK = "1";
 	/** 定数：防御フラグ */
@@ -86,19 +86,6 @@ public class BattleScene extends RpgScene {
 		monster = RpgConfig.getInstance().getMonsterList().get(monsterNo);
 	}
 
-	/**
-	 * 初期表示を行う。
-	 * 1. バトルステータスを表示
-	 * 2. 初期表示: 「XXXXが現れた」
-	 * 3. コマンドの入力を促す
-	 * 4. コマンドの一覧を表示する
-	 *
-	 */
-	@Override
-	public void initScene() throws RpgException {
-		// プレーヤーの取得
-		player = PlayerParty.getInstance().getPlayer();
-	}
 
 	/**
 	 * 入力受付処理。
@@ -272,6 +259,9 @@ public class BattleScene extends RpgScene {
 	}
 
 	private void initBattle() {
+		// プレーヤーの取得
+		player = PlayerParty.getInstance().getPlayer();
+
 		// モンスターがランダム取得の場合
 		if (startMonster != -1 && endMonster != -1) {
 			// 通常の定義は配列としてみていないので、0から数えるためにー１する。
@@ -292,6 +282,7 @@ public class BattleScene extends RpgScene {
 	 * バトルシーンを起動する
 	 */
 	public boolean playScene() throws Exception {
+		super.playScene();
 		boolean isFinish = false;
 		initScene();
 		initBattle();
@@ -341,7 +332,7 @@ public class BattleScene extends RpgScene {
 		if (isDebug) System.out.println("Formula: " + pFormula.getFormulaStr());
 		int pValue = pFormula.formula(pla);
 		console.printMessage(pla.getName() + cmd.getExeMessage() + "!");
-		mon.setHP(mon.getHP() - pValue);
+		mon.getDamage(pValue);
 		console.printMessage(mon.getName() + "に" + pValue + "のダメージ");
 		if (mon.getHP() <= 0) {
 			if (mon instanceof Monster) {
@@ -355,6 +346,8 @@ public class BattleScene extends RpgScene {
 				player.levelup();
 			} else {
 				System.out.println(mon.getName() + "はたおれた。");
+				System.out.println("ゲームオーバー");
+				nextIndex = RpgConst.GAME_OVER.getSceneType();
 			}
 			return true;
 		}

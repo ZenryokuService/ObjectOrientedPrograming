@@ -66,8 +66,8 @@
 
 
 CONFIG_MASTER
-ZHP:生命力・体力:これがなくなると戦闘不能や行動不能になる:HP:PlayerCharactor
-ZMP:まほう・技術:まほうや、技などを使用するときに使用する:MP:PlayerCharactor
+ZHP:生命力・体力:これがなくなると戦闘不能や行動不能になる。ステータスの合計で初期値を算出:HP:PlayerCharactor
+ZMP:まほう・技術:まほうや、技などを使用するときに使用する。:MP:PlayerCharactor
 ZLV:レベル:対象キャラクターの強さを表す指標:level:PlayerCharactor
 MNY:通貨:ゲームブックの世界で使用する通貨:money:PlayerCharactor
 ATK:物理攻撃力:武器等の物理的な攻撃力を示す:optionalMap:PlayerCharactor

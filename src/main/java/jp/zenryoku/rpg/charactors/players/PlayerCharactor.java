@@ -160,6 +160,17 @@ public class PlayerCharactor extends Player {
                 // 入力チェックなし
                 ConsoleUtils.getInstance().acceptInput("", false);
             }
+            System.out.println(name + "のHPとMPが回復した。");
+            HP = getMaxHP();
+            MP = getMaxMP();
         }
+    }
+
+    public void getDamage(int damage) {
+        HP = HP - damage;
+    }
+
+    public void useMp(int useMp) {
+        MP = MP - useMp;
     }
 }
