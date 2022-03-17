@@ -102,4 +102,20 @@ public class StringUtilsTest {
         assertEquals("4", StringUtils.findMonsterNo("<monster:0-4>")[1]);
     }
 
+    @Test
+    public void testConvertProperty() {
+        try  {
+            assertEquals("これはてすとです。"
+                    , StringUtils.convertProperty("これは{Player.name}です。", "Player.name", "てすと"));
+            assertEquals("これは通貨です。"
+                    , StringUtils.convertProperty("これは{MNY}です。", "MNY", "通貨"));
+            assertEquals("これは{Player.aaa}です。"
+                    , StringUtils.convertProperty("これは{Player.aaa}です。", "Player.name", "てすと"));
+            assertEquals("これは{MNY}です。"
+                    , StringUtils.convertProperty("これは{MNY}です。", "MNY＠＠", "通貨"));
+        } catch (RpgException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
 }

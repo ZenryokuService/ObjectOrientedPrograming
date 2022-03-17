@@ -37,7 +37,8 @@ public abstract class RpgScene {
     protected String[] nextIndexes;
     /** 「次へ」を表示しないフラグ */
     protected boolean skipNextMessage;
-
+    /** 登録されたシーンの数(List#size()) */
+    protected int sceneSize;
 
     /**
      * デフォルトコンストラクタ。

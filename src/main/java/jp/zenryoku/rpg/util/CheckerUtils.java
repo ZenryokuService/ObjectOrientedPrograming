@@ -117,7 +117,7 @@ public class CheckerUtils {
 	 * @return true: シーン定義開始行 false: シーン開始行ではない
 	 */
 	public static boolean isStartSceneLine(String line) {
-		if (line.matches("[0-9]{0,1000}:[A-Z]")) {
+		if (line.matches("[\\-]{0,1}[0-9]{1,3}:[A-Z]")) {
 			return true;
 		}
 		return false;

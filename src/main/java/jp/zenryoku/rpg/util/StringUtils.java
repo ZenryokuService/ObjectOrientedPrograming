@@ -21,6 +21,15 @@ import java.util.regex.Pattern;
 public class StringUtils {
     private static final boolean isDebug = false;
 
+    public static String convertProperty(String target, String propName, String propValue) throws RpgException {
+        if (target == null) {
+            throw new RpgException(MessageConst.ERR_EMPTY.toString());
+        }
+        String replace = "\\{" + propName + "\\}";
+
+        return target.replaceAll(replace, propValue);
+    }
+
     /**
      * 効果式の中から、記号を取得する。。
      *
@@ -75,6 +84,11 @@ public class StringUtils {
         return siki.substring(idx, idx + 1);
     }
 
+    /**
+     * 数字、「%」を検索して切り出して返却する。
+     * @param partOfSiki 式(文字列)
+     * @return 切り出した文字列
+     */
     public static String findNo(String partOfSiki) {
         char[] ch = partOfSiki.toCharArray();
         boolean isStart = true;

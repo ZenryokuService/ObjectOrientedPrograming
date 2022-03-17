@@ -65,9 +65,10 @@ public class TextRpgLogic extends RpgLogic {
 				in = Integer.parseInt(input);
 			}
 			if (RpgConst.INIT_START.getStatus() == (in - 1)) {
-				scene = new CreatePlayerScene("0", "Z");
-				// プレーヤー生成の次は、シーンインデックス = 1に飛ぶ
-				scene.setNextIndex("1");
+				scene = sceneList.get(0);
+//				scene = new CreatePlayerScene("0", "Z");
+//				// プレーヤー生成の次は、シーンインデックス = 1に飛ぶ
+//				scene.setNextIndex("1");
 				break;
 			} else if (RpgConst.INIT_CONTINUE.getStatus() == (in - 2)) {
 				// TODO-[今後実装する]

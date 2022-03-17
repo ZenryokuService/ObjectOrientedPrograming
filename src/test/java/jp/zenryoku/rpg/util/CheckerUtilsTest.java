@@ -11,6 +11,15 @@ import org.junit.jupiter.api.Test;
  */
 public class CheckerUtilsTest {
 
+	@Test
+	public void testIsStartSceneLine() {
+		assertTrue(CheckerUtils.isStartSceneLine("0:A"));
+		assertTrue(CheckerUtils.isStartSceneLine("-1:A"));
+		assertTrue(CheckerUtils.isStartSceneLine("1:V"));
+		assertTrue(CheckerUtils.isStartSceneLine("999:X"));
+		assertFalse(CheckerUtils.isStartSceneLine("1:AA"));
+		assertFalse(CheckerUtils.isStartSceneLine("1000:A"));
+	}
 	/**
 	 * CheckerUtils#isGusuのテスト
 	 */

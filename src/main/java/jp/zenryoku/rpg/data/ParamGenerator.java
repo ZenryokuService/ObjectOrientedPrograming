@@ -60,6 +60,8 @@ public class ParamGenerator {
     private Map<String, EvEffect> evEffectMap;
     /** レベルマップ */
     private Map<String, RpgLevel> levelMap;
+    /** シーンオブジェクトの数 */
+    private int sceneSize;
 
     /** プライベート・コンストラクタ */
     private ParamGenerator() {
@@ -525,5 +527,13 @@ public class ParamGenerator {
     @Deprecated
     public void setConfig(RpgConfig config) {
         this.config = config;
+    }
+
+    public void setSceneSize(int size) {
+        this.sceneSize = size;
+    }
+
+    public int getSceneSize() {
+        return sceneSize;
     }
 }

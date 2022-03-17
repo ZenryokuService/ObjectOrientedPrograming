@@ -1,11 +1,14 @@
 package jp.zenryoku.rpg.scene;
 
 import jp.zenryoku.rpg.RpgScene;
+import jp.zenryoku.rpg.charactors.PlayerParty;
+import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.ParamGenerator;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.ConsoleUtils;
+import jp.zenryoku.rpg.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
@@ -39,6 +42,7 @@ public class StoryScene extends RpgScene {
     public boolean playScene() throws Exception {
 
         if (isDebug) System.out.println("SceneIdx: " + super.sceneIndex + "  SceneType: " + super.sceneType);
+        // TODO-[シーンタイプごとに処理を分ける必要なし削除予定]
 
         // シーンタイプごとに処理を分ける
         if ("A".equals(sceneType)) {
@@ -50,9 +54,16 @@ public class StoryScene extends RpgScene {
                 // 選択により次のシーンを設定する
                 boolean isOK = false;
                 String selected = null;
+
                 // 入力チェックを行う
                 selected = ConsoleUtils.getInstance().acceptInput("選択肢を選んでください。", selectCount);
-                nextIndex = nextIndexes[Integer.parseInt(selected)];
+                nextIndex = nextIndexes[Integer.parseInt(selected) - 1];
+                int nextIdx = Integer.parseInt(nextIndex);
+                if (nextIdx < 0) {
+                    nextIndex = String.valueOf(nextIdx);
+                }
+                System.out.println(sceneSize);
+                System.out.println(nextIndex);
                 skipNextMessage = true;
             }
         } else if ("B".equals(sceneType)) {
@@ -138,18 +149,40 @@ public class StoryScene extends RpgScene {
     }
 
     /** 表示する行数をRpgConst#PRINT_LINEに設定する */
-    protected void printStory() {
+    protected void printStory() throws RpgException {
         int count = 0;
-        int printLine = RpgConfig.getInstance().getPrintLine();
+        int printLineNo = RpgConfig.getInstance().getPrintLine();
         // ストーリーを表示する
         for (String text : textList) {
-            System.out.println(text);
-            if (printLine != 0 && count > printLine) {
+            String printLine = convertText(text);
+            System.out.println(printLine);
+            if (printLineNo != 0 && count > printLineNo) {
                 ConsoleUtils.getInstance().acceptInput("<次へ>", false);
                 count = 0;
             }
             count++;
         };
+    }
 
+    /**
+     * 変換するプロパティの書き方を固定する。
+     * ・プレーヤー名: Player.name
+     * ・MNY: MNY
+     * @param text 表示する文字列(ストーリーテキスト1行分)
+     * @return 返還後の文字列(1行分)
+     */
+    private String convertText(String text) throws RpgException {
+        String res = null;
+        PlayerCharactor player = PlayerParty.getInstance().getPlayer();
+        if (player != null) {
+            //System.out.println("*** Testing ***");
+            // プレーヤー名の変換
+            res = StringUtils.convertProperty(text, "Player.name", player.getName());
+        } else {
+            res = text;
+        }
+        // 通貨
+        res = StringUtils.convertProperty(res, "MNY", RpgConst.getMnyName());
+        return res;
     }
 }

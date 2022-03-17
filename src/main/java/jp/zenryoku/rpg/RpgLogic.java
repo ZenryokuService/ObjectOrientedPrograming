@@ -125,6 +125,8 @@ public abstract class RpgLogic implements Games {
         BufferedReader story = getBufferedReader(directory, "Sample_story.txt");
         // シーンオブジェクトの生成
         createSceneObject(story, directory);
+        // シーンオブジェクトの数を設定する
+        ParamGenerator.getInstance().setSceneSize(sceneList.size());
         // シーン開始フラグの初期化
         isSceneStarted = false;
     }
@@ -137,6 +139,7 @@ public abstract class RpgLogic implements Games {
     private void createSceneObject(BufferedReader storyTxt, String directory) {
         try {
             loadScenes(directory);
+            ParamGenerator.getInstance().setSceneSize(sceneList.size());
             //setStoryData(storyTxt);
             // 最初のシーンを設定する
             scene = sceneList.get(0);
@@ -177,9 +180,10 @@ public abstract class RpgLogic implements Games {
         // プレフィックス「シーンIndex:シーンタイプ」
         String[] preArr = line.split(":");
         // シーンインデックス
-        String sceneIndex = preArr[0];
+        String sceneIndex = preArr[0].trim();
+
         // シーンタイプ
-        String sceneType = preArr[1];
+        String sceneType = preArr[1].trim();
 
         if (isDebug) System.out.println("sceneIndex: " + sceneIndex + " sceneType: " + sceneType);
 
@@ -399,6 +403,7 @@ public abstract class RpgLogic implements Games {
                 //// 参照渡しを使用せず、値渡しで実装する ////
                 // シーン開始行の判定
                 if (CheckerUtils.isStartSceneLine(line)) {
+                    if (isDebug) System.out.println("start scene dif: " + line);
                     sceneObj = loadScene(line, rpgSceneList);
                     isSelectLine = false;
                     continue;
@@ -413,6 +418,7 @@ public abstract class RpgLogic implements Games {
                 }
                 // アイテムショップの設定
                 if (CheckerUtils.isStartShopScene(line)) {
+                    if (isDebug) System.out.println("line: " + line + SEP + " SceneType: " + sceneObj.sceneType);
                     setItemShop(line, storyTxt, sceneObj);
                     continue;
                 }
@@ -477,6 +483,7 @@ public abstract class RpgLogic implements Games {
         sceneObj.setSelectNextScene(true);
         sceneObj.setSelectCount(selectCount);
         sceneObj.createSelectSceneArray(selectCount);
+        //sceneObj.setSceneSize(ParamGenerator.getInstance().getSceneSize());
         return scene;
     }
     /**
@@ -492,8 +499,7 @@ public abstract class RpgLogic implements Games {
 
         RpgScene sceneObj = null;
         // シーンタイプにより生成するシーンクラスを変更
-        if (RpgConst.
-                SENE_TYPE_NEXT.getSceneType().equals(sceneType)) {
+        if (RpgConst.SENE_TYPE_NEXT.getSceneType().equals(sceneType)) {
             // ストーリーシーンオブジェクトの生成
             sceneObj = new StoryScene(sceneIndex, sceneType);
         } else if (RpgConst.SENE_TYPE_SHOP.getSceneType().equals(sceneType)) {
@@ -548,6 +554,11 @@ public abstract class RpgLogic implements Games {
         String komokuNo = String.valueOf(line.charAt(0));
         String selectedNextIndex = line.split(" ")[2];
         if (isDebug) System.out.println("項目番号: " + komokuNo + " 選択肢: " + selectedNextIndex);
+        int nextIdx = Integer.parseInt(selectedNextIndex);
+        if (nextIdx < 0) {
+            // 負の数なので減算される
+            selectedNextIndex = String.valueOf(sceneList.size() + nextIdx);
+        }
         sceneObj.setNextIndexes(komokuNo, selectedNextIndex);
         return sceneObj;
     }
@@ -571,7 +582,7 @@ public abstract class RpgLogic implements Games {
 
     private void setItemShop(String line, BufferedReader txt, RpgScene sceneObj) throws IOException, RpgException {
         if ((sceneObj instanceof ShopScene) == false) {
-            throw new RpgException(MessageConst.SCENE_TYPE_ERR.toString());
+            throw new RpgException(MessageConst.SCENE_TYPE_ERR.toString() + ": " + sceneObj.getClass().getSimpleName());
         }
         String shopName = line.split(":")[1];
         String items = null;
@@ -734,7 +745,15 @@ public abstract class RpgLogic implements Games {
      * @throws RpgException 想定外のエラー
      */
     protected void setNextScene(String next) throws RpgException {
-        RpgScene nextScene = getSceneList().get(Integer.parseInt(next));
+        // シーン番号を取得
+        int idxNo = Integer.parseInt(next);
+        // シーン番号が負の数の場合
+        if (idxNo < 0) {
+            // 負の数なのでマイナスされる
+            idxNo = sceneList.size() + idxNo;
+        }
+        if (isDebug) System.out.println("次は：" + idxNo);
+        RpgScene nextScene = sceneList.get(idxNo);
         if (nextScene == null) {
             if (isDebug) System.out.println("シーンインデックスが不適切です。: " + next);
             throw new RpgException("シーンインデックスが不適切です。: " + next);
