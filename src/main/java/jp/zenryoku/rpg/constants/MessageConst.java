@@ -148,6 +148,8 @@ public enum MessageConst {
     NO_FIELD("対象のフィールド変数がありません"),
     /** 取得するパラメータはInt型である必要があります。 */
     ERR_MISS_EFFECT_PARAM("取得するパラメータはInt型である必要があります。"),
+    /** STM.xml定義が不適切です。 */
+    ERR_XML_STM("STM.xml定義が不適切です。"),
     /** 数字ではない値が数字に変換されました。 */
     ERR_NUMBER_FORMAT("数字ではない値が数字に変換されました。"),
     /** XMLの返還に失敗しました。 */

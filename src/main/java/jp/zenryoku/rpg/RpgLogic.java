@@ -89,8 +89,12 @@ public abstract class RpgLogic implements Games {
         createSceneObject(story, "");
         // 職業リストのロード
         loadJobs("");
+        // STMのロード
+        loadStm("");
         // シーン開始フラグの初期化
         isSceneStarted = false;
+        // シーンオブジェクトの数を設定する
+        ParamGenerator.getInstance().setSceneSize(sceneList.size());
     }
 
     public RpgLogic(String directory) {
@@ -121,6 +125,8 @@ public abstract class RpgLogic implements Games {
         loadJobs(directory);
         // モンスターリストの読み込み
         loadMonsters(directory);
+        // STMのロード
+        loadStm(directory);
         // ストーリー.txtの読み込み
         BufferedReader story = getBufferedReader(directory, "Sample_story.txt");
         // シーンオブジェクトの生成
@@ -363,6 +369,21 @@ public abstract class RpgLogic implements Games {
         }
     }
 
+    /**
+     * STM.xmlを読み込み、設定オブジェクト(RpgConfig)に設定する。
+     * @param directory 設定ファイルのあるディレクトリ、空文字のときは"src/main/resources"以下になる。
+     *                  別な場所に配置したファイルもあるので注意が必要。
+     * @throws RpgException　XMLの定義が不適切
+     */
+    public void loadStm(String directory) {
+        try {
+            Map<String, RpgStm> map = XmlUtils.loadStm(directory);
+            RpgConfig.getInstance().setStmMap(map);
+        } catch (RpgException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
 
     /**
      * *_story.txtを読み込んで各シーンオブジェクトを生成、シーンリストに追加する。

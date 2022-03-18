@@ -3,6 +3,7 @@ package jp.zenryoku.rpg.util;
 import jp.zenryoku.rpg.TestUtils;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.data.RpgConfig;
+import jp.zenryoku.rpg.data.RpgStm;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.job.RpgMonsterType;
@@ -105,6 +106,26 @@ public class XmlUtilsTest {
                 System.out.println("ID: " + cmd.getCommandId());
                 System.out.println("Name: " + cmd.getName());
                 System.out.println("Formula: " + cmd.getFormula());
+            }
+        } catch (RpgException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testCreateStm() {
+        try {
+            Map<String, RpgStm> map = XmlUtils.loadStm("");
+
+            Set<String> set = map.keySet();
+            for (String key : set) {
+                RpgStm st = map.get(key);
+                System.out.println("ID: " + st.getMid());
+                System.out.println("Name: " + st.getName());
+                System.out.println("Orient: " + st.getOrient());
+                System.out.println("Orient: " + st.getCost());
+                System.out.println("Mpw: " + st.getMpw());
             }
         } catch (RpgException e) {
             e.printStackTrace();

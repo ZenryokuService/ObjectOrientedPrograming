@@ -3,6 +3,7 @@ package jp.zenryoku.rpg.util;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.data.RpgConfig;
+import jp.zenryoku.rpg.data.RpgStm;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.job.RpgMonsterType;
@@ -63,7 +64,8 @@ public class XmlUtils {
      */
     public static List<Monster> loadMonsters() throws RpgException {
         List<Monster> monsList = new ArrayList<>();
-
+        Map<String, RpgMonsterType> types = loadMonterType();
+        RpgConfig.getInstance().setMonsterTypeMap(types);
         try {
             Document doc = loadDocumentBuilder("src/main/resources", "Monsters.xml");
             if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
@@ -431,5 +433,62 @@ public class XmlUtils {
         RpgCommand com = null;
         com = new RpgCommand(id, name, formula, exeMessage);
         return com;
+    }
+
+    /**
+     * STM.xmlを読み込む。
+     * @return Stmリスト
+     * @throws RpgException XMLの設定エラー
+     */
+    public static Map<String, RpgStm> loadStm(String directory) throws RpgException {
+        Map<String, RpgStm> stmMap = new HashMap<>();
+
+        try {
+            Document doc = null;
+            if ("".equals(directory)) {
+                doc = loadDocumentBuilder("src/main/resources", "STM.xml");
+            } else {
+                doc = loadDocumentBuilder(directory, "STM.xml");
+            }
+            if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+            NodeList list = doc.getElementsByTagName("magic");
+
+            for (int i = 0; i < list.getLength(); i++) {
+                Node node = list.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    RpgStm stm = createStm(node);
+                    stmMap.put(stm.getMid(), stm);
+                }
+            }
+        } catch (RpgException e) {
+            e.printStackTrace();
+            throw new RpgException(MessageConst.ERR_XML_PERSE.toString() + ": " + e.getMessage());
+        }
+        return stmMap;
+    }
+
+    /**
+     * RpgJobクラスを生成する。
+     * @param node jobタグ
+     * @return RpgJob 職業クラス
+     * @throws RpgException XML設定エラー
+     */
+    private static RpgStm createStm(Node node) throws RpgException {
+        Element e = (Element) node;
+        RpgStm stm = null;
+        try {
+            String mid = e.getElementsByTagName("mid").item(0).getTextContent();
+            String name = e.getElementsByTagName("name").item(0).getTextContent();
+            String ori =  e.getElementsByTagName("ori").item(0).getTextContent();
+            String cost =  e.getElementsByTagName("cost").item(0).getTextContent();
+            int iCost = Integer.parseInt(cost);
+            String mpw =  e.getElementsByTagName("mpw").item(0).getTextContent();
+            int iMpw = Integer.parseInt(mpw);
+            stm = new RpgStm(mid, name, ori, iCost, iMpw);
+        } catch (NumberFormatException ne) {
+            ne.printStackTrace();
+            throw new RpgException(MessageConst.ERR_XML_STM.toString());
+        }
+        return stm;
     }
 }

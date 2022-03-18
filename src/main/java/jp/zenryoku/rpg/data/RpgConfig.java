@@ -68,6 +68,8 @@ public class RpgConfig {
     private List<Monster> monsterList;
     /** モンスタータイプマップ */
     private Map<String, RpgMonsterType> monsterTypeMap;
+    /** STMマップ */
+    private Map<String, RpgStm> stmMap;
 
 
 

@@ -7,28 +7,32 @@
     <!-- まほう定義 -->
     <magic>
         <!-- まほうID -->
-        <mid>1</mid>
+        <mid>knj1</mid>
         <!-- まほう名 -->
         <name>かえんじゅ</name>
         <!-- 属性 -->
         <ori>FIR</ori>
         <!-- 魔力コスト -->
-        <const>-2</const>
+        <cost>-2</cost>
         <!-- 魔法威力(パラメータ設定より -->
         <mpw>3</mpw>
+        <!-- 説明 -->
+        <discription>初級の火炎魔法</discription>
     </magic>
 
     <magic>
         <!-- まほうID -->
-        <mid>2</mid>
+        <mid>hal1</mid>
         <!-- まほう名 -->
         <name>回復</name>
         <!-- 属性 -->
         <ori>REC</ori>
         <!-- 魔力コスト -->
-        <const>-2</const>
+        <cost>-2</cost>
         <!-- 魔法威力(パラメータ設定より -->
         <mpw>3</mpw>
+        <!-- 説明 -->
+        <discription>初級の回復魔法</discription>
     </magic>
 
 </class>
