@@ -1,7 +1,10 @@
 package jp.zenryoku.rpg.data.job;
 
+import jp.zenryoku.rpg.charactors.Command;
 import jp.zenryoku.rpg.data.RpgData;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class RpgCommand extends RpgData {
@@ -12,6 +15,10 @@ public class RpgCommand extends RpgData {
     private String formulaStr;
     /** 実行時のセリフ */
     private String exeMessage;
+    /** 個ディレクトリあり */
+    private boolean childDir;
+    /** 子供ディレクトリコマンド */
+    private List<RpgCommand> childList;
 
     /**
      * コンストラクタ

@@ -298,7 +298,11 @@ public class BattleScene extends StoryScene {
 			String selectCommand = console.acceptInput("こうどうを、せんたくしてください。", "[1-" + (listSize - 1) + "]");
 			int select = Integer.parseInt(selectCommand) - 1;
 			RpgCommand pCommand = commandList.get(select);
+
 			if (isDebug) System.out.println("Command; " + pCommand.getName());
+			if (pCommand.isChildDir()) {
+				// TODO-[まほうや技などの選択実行処理]
+			}
 			// プレーヤー攻撃
 			isFinish = printAttackAndCalc(player, monster, pCommand);
 			if (isFinish) {

@@ -16,6 +16,7 @@
 # ・アイテムリスト定義；使用するアイテムの詳細を定義する。
 # ・計算式定義：各項目(記号で定義しているもの)の算出方法を定義する。
 # ・職業定義：各職業の定義
+# ・STMとは、Skill, Tech, Magicを総称したもの(造語)
 #
 # 「CONFIG_XXXXX」で始まる行から設定を開始する
 # Status Name: Discription
@@ -66,14 +67,15 @@
 
 
 CONFIG_MASTER
-ZHP:生命力・体力:これがなくなると戦闘不能や行動不能になる。ステータスの合計で初期値を算出:HP:PlayerCharactor
-ZMP:まほう・技術:まほうや、技などを使用するときに使用する。:MP:PlayerCharactor
+ZHP:生命力・体力:これがなくなると戦闘不能や行動不能になる:HP:PlayerCharactor
+ZMP:まほう・技術:まほうや、技などを使用するときに使用する:MP:PlayerCharactor
 ZLV:レベル:対象キャラクターの強さを表す指標:level:PlayerCharactor
-MNY:通貨:ゲームブックの世界で使用する通貨:money:PlayerCharactor
+MNY:通貨:ゲームブックの世界で使用する通貨:money:PlayerParty
 ATK:物理攻撃力:武器等の物理的な攻撃力を示す:optionalMap:PlayerCharactor
 DEF:物理防御力:武器等に対する物理的な防御力を示す:optionalMap:PlayerCharactor
 MAG:魔法・術:魔法や、術などの不思議な力を使用した力:optionalMap:PlayerCharactor
 MPW:魔法威力:まほう・じゅつなどの効果値:optionalMap:PlayerCharactor
+ORI:指向性:スキル、まほう、わざなどの属性(この属性はCONFIG_PARAMで定義する)
 MAT:魔法・術攻撃力:魔法・術などの効力を示す。式= (かしこさ + きようさ+カリスマ) / 3 + 魔法威力:optionalMap:PlayerCharactor
 MDE:魔法・術などの攻撃に対する耐性。式= (かしこさ + きようさ + すばやさ) / 3 + 魔よけ力:魔法防御力:optionalMap:PlayerCharactor
 PLY:プレーヤーオプションステータス:プレーヤーステータスに追加する項目、攻撃力や防御力などの拡張に使用する:optionalMap:PlayerCharactor
@@ -81,6 +83,7 @@ STO:ステータス異常拡張:毒やマヒ、石化などステータス異常
 NOA:行動不能:石化や、マヒ、何かしらのステータス異常で、行動不能になることを示す:canMove:PlayerCharactor
 DNM:移動・行動不能:シーンの移動、戦闘での行動、すべての行動ができない状態を示す:canMove:PlayerCharactor
 BST:強化:ステータスが向上する、ポジティブなステータス変化:statusMap:PlayerCharactor
+HMX:全快:HP,MPを完全回復する。固定の効果:HP,MP:PlayerCharactor
 END_MASTER
 
 CONFIG_PARAM
@@ -112,6 +115,10 @@ CONFIG_PARAM
 使役力:CST:PLY17:モンスター・動物など使役するものの力を増減する。式=( 1 + カリスマ * 0.1 ) :-:0
 回避力:EVR:PLY18:攻撃を回避する能力、パーセンテージで計算する。式=(すばやさ + かしこさ + きようさ) / 100 :-:0
 じゅくれんど:JLV:PLY19:武器を使用する回数により武器の扱いがうまくなる:-:0
+火炎属性:FIR:ORI1;火の属性を示す。水に弱い。:-:FIR
+風属性:WIN:ORI2;風の属性を示す。火に弱い。:-:WIN
+土属性:EAR:ORI3;土の属性を示す。風に弱い。:-:EAR
+水属性:WAT:ORI4:水の属性を示す。土に弱い。:-:WAT
 END_PARAM
 
 CONFIG_STATUS
@@ -123,12 +130,18 @@ CONFIG_STATUS
 END_STATUS
 
 ITEM_LIST
+やくそう:ITM:HP+10: 10: ITN-1
+どくけし: ITM:ITV=POI: 10: ITN-1
 ぼくとう:WEP:WEV=3: 30:ITN-1
-やくそう:ITM:HP+10: 30: ITN-1
-ぬののふく:ARM:ARV=3: 30: ITN- 2
-たんけん:WEP:WEV=50:50:ITN-1
-どくけし: ITM:ITV=POI: 30: ITN-1
+たんけん:WEP:WEV=4: 40:ITN-1
+ぬののふく:ARM:ARV=3: 30: ITN - 2
+わきざし:WEP:WEV=6: 80: ITN - 2
+かわのふく:ARM:ARV=6: 80: ITN - 2
 END_ITEM_LIST
+
+# KEY_ITEM
+# ちず
+# END_KEY_ITEM
 
 CONFIG_FORMULA
 物理攻撃力: 物理的な攻撃力を示す。式= (ちから + 武器攻撃力) * (1 + (0.1 * じゅくれんど)): ATK
