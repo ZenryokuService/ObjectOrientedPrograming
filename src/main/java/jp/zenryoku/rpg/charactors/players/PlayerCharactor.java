@@ -6,6 +6,7 @@ import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.Effects;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
+import jp.zenryoku.rpg.data.RpgStm;
 import jp.zenryoku.rpg.data.charactor.RpgLevel;
 import jp.zenryoku.rpg.data.job.RpgJob;
 import jp.zenryoku.rpg.data.status.RpgFormula;
@@ -37,6 +38,8 @@ public class PlayerCharactor extends Player {
     protected RpgJob job;
     /** 経験値 */
     protected int exp;
+    /** STMマップ */
+    protected List<RpgStm> stmList;
 
 
     /**
@@ -135,6 +138,9 @@ public class PlayerCharactor extends Player {
 
     }
 
+    /**
+     * 設定オブジェクトから、レベルアップマップを取得して対象の経験値を取得したらレベルアップする。
+     */
     public void levelup() {
         Map<String, RpgLevel> levelMap = RpgConfig.getInstance().getLevelMap();
         String jobKigo = job.getJobId();

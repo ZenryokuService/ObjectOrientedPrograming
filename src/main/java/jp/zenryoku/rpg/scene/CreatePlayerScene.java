@@ -110,13 +110,7 @@ public class CreatePlayerScene extends StoryScene {
             RpgFormula defForm = fMap.get(RpgConst.DEF);
             //calUtils.relatedSymbols(atkForm.getFormulaStr(), statusMap, optMap);
             // 職業リストと職業選択
-            Map<String, RpgJob> jobMap = printJobs();
-            int jobCount = jobMap.size();
-            String jobSelect = console.acceptInput(SelectConst.JOB_SELECT.toString(), "[1-" + jobCount + "]");
-            RpgJob job = jobMap.get(jobSelect);
-            job.setCommandList(job.getCommandList());
-            player.setJob(job);
-            //
+            createJob(console, player);
             // ステータス確定確認
             String select = console.acceptInput(MessageConst.CHECK_STATUS.toString()
                     + SelectConst.SELECT_YES.getSelectMessage() + " " + SelectConst.SELECT_NO.getSelectMessage()
@@ -160,6 +154,10 @@ public class CreatePlayerScene extends StoryScene {
         return st;
     }
 
+    /**
+     * RpgJobのMAP生成を行う、Command.xml, STM.xmlのロードをしておく必要がある。
+     * @return Map<String, RpgJob> JOBマップ
+     */
     private Map<String, RpgJob> printJobs() {
         Map<String, RpgJob> resMap = new HashMap<>();
         Map<String, RpgJob> jobMap = RpgConfig.getInstance().getJobMap();
@@ -174,5 +172,16 @@ public class CreatePlayerScene extends StoryScene {
             count++;
         }
         return resMap;
+    }
+
+    private void createJob(ConsoleUtils console, PlayerCharactor player) {
+        Map<String, RpgJob> jobMap = printJobs();
+        int jobCount = jobMap.size();
+        String jobSelect = console.acceptInput(SelectConst.JOB_SELECT.toString(), "[1-" + jobCount + "]");
+        RpgJob job = jobMap.get(jobSelect);
+        // Commandに依存するSTMをセットする
+        job.setCommandList(job.getCommandList());
+        player.setJob(job);
+
     }
 }

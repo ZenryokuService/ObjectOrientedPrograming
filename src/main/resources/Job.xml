@@ -14,4 +14,17 @@
         <dex>2</dex>
         <ksm>2</ksm>
     </job>
+    <!-- 戦士 -->
+    <job>
+        <id>WAR</id>
+        <name>戦士</name>
+        <discription>戦闘のスペシャリスト。</discription>
+        <commandList>ATK, DEF, TEC</commandList>
+        <!-- CONFIG_STSTUS参照のタグ名で増加値をセット -->
+        <pow>2</pow>
+        <agi>2</agi>
+        <int>2</int>
+        <dex>2</dex>
+        <ksm>2</ksm>
+    </job>
 </class>

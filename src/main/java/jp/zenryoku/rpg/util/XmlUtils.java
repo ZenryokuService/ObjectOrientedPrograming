@@ -239,7 +239,7 @@ public class XmlUtils {
     }
 
     /**
-     * RpgJobクラスを生成する。
+     * RpgJobクラスを生成する。依存するCommandListをセット。
      * @param node jobタグ
      * @return RpgJob 職業クラス
      * @throws RpgException XML設定エラー
@@ -418,7 +418,7 @@ public class XmlUtils {
     }
 
     /**
-     * RpgJobクラスを生成する。
+     * RpgCommandクラスを生成する。STMマップを生成している必要がある。
      * @param node jobタグ
      * @return RpgJob 職業クラス
      * @throws RpgException XML設定エラー
@@ -428,15 +428,23 @@ public class XmlUtils {
         String id = e.getElementsByTagName("id").item(0).getTextContent();
         String name = e.getElementsByTagName("name").item(0).getTextContent();
         String formula =  e.getElementsByTagName("formula").item(0).getTextContent();
+        String hasChild = e.getElementsByTagName("hasChild").item(0).getTextContent();
         String exeMessage =  e.getElementsByTagName("exeMessage").item(0).getTextContent();
 
         RpgCommand com = null;
         com = new RpgCommand(id, name, formula, exeMessage);
+        com.setHasChild(Boolean.parseBoolean(hasChild));
+
+        // 子ディレクトリありの場合
+        if (com.isHasChild()) {
+            // STMのマップ取得
+            //Map<Integer, RpgStm> stmMap = RpgConfig.getInstance().getStmMap();
+        }
         return com;
     }
 
     /**
-     * STM.xmlを読み込む。
+     * STM.xmlを読み込む。TODO-[XMLタグの読み込みを動的に修正する(手段の検討中)
      * @return Stmリスト
      * @throws RpgException XMLの設定エラー
      */
@@ -451,10 +459,20 @@ public class XmlUtils {
                 doc = loadDocumentBuilder(directory, "STM.xml");
             }
             if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
-            NodeList list = doc.getElementsByTagName("magic");
+            // 魔法
+            NodeList magList = doc.getElementsByTagName("mag");
 
-            for (int i = 0; i < list.getLength(); i++) {
-                Node node = list.item(i);
+            for (int i = 0; i < magList.getLength(); i++) {
+                Node node = magList.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    RpgStm stm = createStm(node);
+                    stmMap.put(stm.getMid(), stm);
+                }
+            }
+            // 技
+            NodeList tecList = doc.getElementsByTagName("tec");
+            for (int i = 0; i < tecList.getLength(); i++) {
+                Node node = tecList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     RpgStm stm = createStm(node);
                     stmMap.put(stm.getMid(), stm);
@@ -477,12 +495,12 @@ public class XmlUtils {
         Element e = (Element) node;
         RpgStm stm = null;
         try {
-            String mid = e.getElementsByTagName("mid").item(0).getTextContent();
+            String mid = e.getElementsByTagName("id").item(0).getTextContent();
             String name = e.getElementsByTagName("name").item(0).getTextContent();
             String ori =  e.getElementsByTagName("ori").item(0).getTextContent();
             String cost =  e.getElementsByTagName("cost").item(0).getTextContent();
             int iCost = Integer.parseInt(cost);
-            String mpw =  e.getElementsByTagName("mpw").item(0).getTextContent();
+            String mpw =  e.getElementsByTagName("force").item(0).getTextContent();
             int iMpw = Integer.parseInt(mpw);
             stm = new RpgStm(mid, name, ori, iCost, iMpw);
         } catch (NumberFormatException ne) {

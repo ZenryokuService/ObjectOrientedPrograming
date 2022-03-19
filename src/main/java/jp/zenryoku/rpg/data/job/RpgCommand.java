@@ -19,6 +19,8 @@ public class RpgCommand extends RpgData {
     private boolean childDir;
     /** 子供ディレクトリコマンド */
     private List<RpgCommand> childList;
+    /** 子供ディレクトリあり */
+    private boolean hasChild;
 
     /**
      * コンストラクタ

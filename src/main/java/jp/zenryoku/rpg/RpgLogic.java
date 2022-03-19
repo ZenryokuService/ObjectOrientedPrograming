@@ -77,7 +77,7 @@ public abstract class RpgLogic implements Games {
         try {
             loadParamMaps("");
         } catch (RpgException | IOException | StoryTextException e) {
-            System.out.println("cpmf.txtの読み込みに失敗しました。");
+            System.out.println("conf.txtの読み込みに失敗しました。");
             e.printStackTrace();
             System.exit(-1);
         }
@@ -87,10 +87,10 @@ public abstract class RpgLogic implements Games {
         BufferedReader story = getBufferedReader("src/main/resources/story", "Sample_story.txt");
         // シーンオブジェクトの生成
         createSceneObject(story, "");
-        // 職業リストのロード
-        loadJobs("");
         // STMのロード
         loadStm("");
+        // 職業リストのロード
+        loadJobs("");
         // シーン開始フラグの初期化
         isSceneStarted = false;
         // シーンオブジェクトの数を設定する
@@ -121,12 +121,12 @@ public abstract class RpgLogic implements Games {
             e.printStackTrace();
             System.exit(-1);
         }
+        // STMのロード
+        loadStm(directory);
         // 職業リストのロード
         loadJobs(directory);
         // モンスターリストの読み込み
         loadMonsters(directory);
-        // STMのロード
-        loadStm(directory);
         // ストーリー.txtの読み込み
         BufferedReader story = getBufferedReader(directory, "Sample_story.txt");
         // シーンオブジェクトの生成
@@ -235,6 +235,23 @@ public abstract class RpgLogic implements Games {
             System.exit(-1);
         }
     }
+
+    /**
+     * STM.xmlを読み込み、設定オブジェクト(RpgConfig)に設定する。
+     * @param directory 設定ファイルのあるディレクトリ、空文字のときは"src/main/resources"以下になる。
+     *                  別な場所に配置したファイルもあるので注意が必要。
+     * @throws RpgException　XMLの定義が不適切
+     */
+    public void loadStm(String directory) {
+        try {
+            Map<String, RpgStm> map = XmlUtils.loadStm(directory);
+            RpgConfig.getInstance().setStmMap(map);
+        } catch (RpgException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
+
 
     /**
      * MonsterType.xmlを読み込んで職業マップを作成する。
@@ -366,22 +383,6 @@ public abstract class RpgLogic implements Games {
         } catch (Exception e) {
             e.printStackTrace();
             throw new StoryTextException("設定ファイルの読み込み中の想定外のエラーがありました。" + e.getMessage() + SEP + line);
-        }
-    }
-
-    /**
-     * STM.xmlを読み込み、設定オブジェクト(RpgConfig)に設定する。
-     * @param directory 設定ファイルのあるディレクトリ、空文字のときは"src/main/resources"以下になる。
-     *                  別な場所に配置したファイルもあるので注意が必要。
-     * @throws RpgException　XMLの定義が不適切
-     */
-    public void loadStm(String directory) {
-        try {
-            Map<String, RpgStm> map = XmlUtils.loadStm(directory);
-            RpgConfig.getInstance().setStmMap(map);
-        } catch (RpgException e) {
-            e.printStackTrace();
-            System.exit(-1);
         }
     }
 

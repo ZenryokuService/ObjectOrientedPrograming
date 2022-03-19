@@ -21968,7 +21968,7 @@
 									"font": "Arial;13;0",
 									"left": 647,
 									"top": 840,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.2564257399587753,
 									"distance": 342.80023337214925,
@@ -22048,7 +22048,7 @@
 									"font": "Arial;13;0",
 									"left": 535,
 									"top": 875,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": 1.618378693161742,
 									"distance": 21.02379604162864,
@@ -22162,7 +22162,7 @@
 									"font": "Arial;13;0",
 									"left": 435,
 									"top": 960,
-									"width": 20.22998046875,
+									"width": 21.23291015625,
 									"height": 13,
 									"alpha": 3.9269902614319943,
 									"distance": 12.727922061357855,
@@ -22242,7 +22242,7 @@
 									"font": "Arial;13;0",
 									"left": 593,
 									"top": 954,
-									"width": 14.4599609375,
+									"width": 15.7548828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -68094,7 +68094,7 @@
 									"top": 821,
 									"width": 120.525390625,
 									"height": 13,
-									"text": "CONFIG_SIKILL"
+									"text": "STM"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -68105,18 +68105,35 @@
 									"model": {
 										"$ref": "AAAAAAF/U/SrHCdYjm4="
 									},
+									"subViews": [
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAF/oRRPmga3B9Q=",
+											"_parent": {
+												"$ref": "AAAAAAF/U/SrHSdcwpg="
+											},
+											"model": {
+												"$ref": "AAAAAAF/oRRNbga0+Zc="
+											},
+											"font": "Arial;13;0",
+											"left": 341,
+											"top": 844,
+											"width": 110.525390625,
+											"height": 13
+										}
+									],
 									"font": "Arial;13;0",
 									"left": 336,
 									"top": 839,
 									"width": 120.525390625,
-									"height": 10
+									"height": 23
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 336,
 							"top": 816,
 							"width": 120.525390625,
-							"height": 33,
+							"height": 46,
 							"nameLabel": {
 								"$ref": "AAAAAAF/U/SrHSdbtvM="
 							},
@@ -68141,11 +68158,11 @@
 										"$ref": "AAAAAAF/U/auFSdnGKk="
 									},
 									"font": "Arial;13;1",
-									"left": 176,
-									"top": 765,
-									"width": 121.96630859375,
+									"left": 88,
+									"top": 637,
+									"width": 134.7236328125,
 									"height": 13,
-									"text": "CONFIG_SKMAP"
+									"text": "CONFIG_LEVEL"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -68156,18 +68173,65 @@
 									"model": {
 										"$ref": "AAAAAAF/U/auFCdlrdU="
 									},
+									"subViews": [
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAF/oQRPVQac0i8=",
+											"_parent": {
+												"$ref": "AAAAAAF/U/auFSdpDgw="
+											},
+											"model": {
+												"$ref": "AAAAAAF/oQRMwwaZhgE="
+											},
+											"font": "Arial;13;0",
+											"left": 93,
+											"top": 660,
+											"width": 124.7236328125,
+											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAF/oQU2swalOds=",
+											"_parent": {
+												"$ref": "AAAAAAF/U/auFSdpDgw="
+											},
+											"model": {
+												"$ref": "AAAAAAF/oQU0TAairlo="
+											},
+											"font": "Arial;13;0",
+											"left": 93,
+											"top": 675,
+											"width": 124.7236328125,
+											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAF/oRBhHAauph0=",
+											"_parent": {
+												"$ref": "AAAAAAF/U/auFSdpDgw="
+											},
+											"model": {
+												"$ref": "AAAAAAF/oRBedwarXXA="
+											},
+											"font": "Arial;13;0",
+											"left": 93,
+											"top": 690,
+											"width": 124.7236328125,
+											"height": 13
+										}
+									],
 									"font": "Arial;13;0",
-									"left": 176,
-									"top": 783,
-									"width": 121.96630859375,
-									"height": 10
+									"left": 88,
+									"top": 655,
+									"width": 134.7236328125,
+									"height": 53
 								}
 							],
 							"font": "Arial;13;0",
-							"left": 176,
-							"top": 760,
-							"width": 121.96630859375,
-							"height": 33,
+							"left": 88,
+							"top": 632,
+							"width": 134.7236328125,
+							"height": 76,
 							"nameLabel": {
 								"$ref": "AAAAAAF/U/auFSdoyqc="
 							},
@@ -68192,11 +68256,11 @@
 										"$ref": "AAAAAAF/U/cZhid0L74="
 									},
 									"font": "Arial;13;1",
-									"left": 200,
-									"top": 821,
-									"width": 130.3642578125,
+									"left": 288,
+									"top": 645,
+									"width": 193.21728515625,
 									"height": 13,
-									"text": "CONFIG_WEPCAT"
+									"text": "CONFIG_STM"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -68207,18 +68271,65 @@
 									"model": {
 										"$ref": "AAAAAAF/U/cZhidyyho="
 									},
+									"subViews": [
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAF/oP3BCQZ/Ftc=",
+											"_parent": {
+												"$ref": "AAAAAAF/U/cZhyd2tSA="
+											},
+											"model": {
+												"$ref": "AAAAAAF/oP2/CgZ8MW4="
+											},
+											"font": "Arial;13;0",
+											"left": 293,
+											"top": 668,
+											"width": 183.21728515625,
+											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAF/oP7UaAaIhik=",
+											"_parent": {
+												"$ref": "AAAAAAF/U/cZhyd2tSA="
+											},
+											"model": {
+												"$ref": "AAAAAAF/oP7SUQaF9/8="
+											},
+											"font": "Arial;13;0",
+											"left": 293,
+											"top": 683,
+											"width": 183.21728515625,
+											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAF/oQALYAaQeeE=",
+											"_parent": {
+												"$ref": "AAAAAAF/U/cZhyd2tSA="
+											},
+											"model": {
+												"$ref": "AAAAAAF/oQAIygaNTBA="
+											},
+											"font": "Arial;13;0",
+											"left": 293,
+											"top": 698,
+											"width": 183.21728515625,
+											"height": 13
+										}
+									],
 									"font": "Arial;13;0",
-									"left": 200,
-									"top": 839,
-									"width": 130.3642578125,
-									"height": 10
+									"left": 288,
+									"top": 663,
+									"width": 193.21728515625,
+									"height": 53
 								}
 							],
 							"font": "Arial;13;0",
-							"left": 200,
-							"top": 816,
-							"width": 130.3642578125,
-							"height": 33,
+							"left": 288,
+							"top": 640,
+							"width": 193.21728515625,
+							"height": 76,
 							"nameLabel": {
 								"$ref": "AAAAAAF/U/cZhid1Cks="
 							},
@@ -68751,7 +68862,7 @@
 										"$ref": "AAAAAAF/ZtPLUlTCv5Y="
 									},
 									"font": "Arial;13;0",
-									"left": 663.908203125,
+									"left": 661.39453125,
 									"top": 453,
 									"width": 50.82568359375,
 									"height": 13,
@@ -68766,7 +68877,7 @@
 									"font": "Arial;13;1",
 									"left": 629,
 									"top": 453,
-									"width": 25.908203125,
+									"width": 23.39453125,
 									"height": 13,
 									"text": "link"
 								}
@@ -69322,7 +69433,18 @@
 					"_parent": {
 						"$ref": "AAAAAAF/U+t9ASYWzI4="
 					},
-					"name": "CONFIG_SIKILL"
+					"name": "STM",
+					"columns": [
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAF/oRRNbga0+Zc=",
+							"_parent": {
+								"$ref": "AAAAAAF/U/SrHCdYjm4="
+							},
+							"name": "STMカテゴリ",
+							"documentation": "<magic>魔法タグ\n        <!-- まほうID -->\n        <mid>rec1</mid>\n        <!-- まほう名 -->\n        <name>回復</name>\n        <!-- 属性 -->\n        <ori>REC</ori>\n        <!-- 魔力コスト -->\n        <cost>-2</cost>\n        <!-- 魔法威力(パラメータ設定より -->\n        <mpw>3</mpw>\n        <!-- 説明 -->\n        <discription>初級の回復魔法</discription>\n</magic>\n    <!-- 技の定義 -->\n    <tech>\n        <!-- わざID -->\n        <tid>swd1</tid>\n        <!-- わざ名 -->\n        <name>ましょうめんぎり</name>\n        <!-- 技の仕様コスト -->\n        <const>1</const>\n        <!-- 攻撃力 -->\n        <atk>WEV + POW + AGI</atk>\n        <!-- 説明 -->\n        <discription>基本的な剣術の技</discription>\n    </tech>"
+						}
+					]
 				},
 				{
 					"_type": "ERDEntity",
@@ -69330,7 +69452,37 @@
 					"_parent": {
 						"$ref": "AAAAAAF/U+t9ASYWzI4="
 					},
-					"name": "CONFIG_SKMAP"
+					"name": "CONFIG_LEVEL",
+					"columns": [
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAF/oQRMwwaZhgE=",
+							"_parent": {
+								"$ref": "AAAAAAF/U/auFCdlrdU="
+							},
+							"name": "JobId",
+							"type": "TEXT",
+							"length": "3"
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAF/oQU0TAairlo=",
+							"_parent": {
+								"$ref": "AAAAAAF/U/auFCdlrdU="
+							},
+							"name": "upExp",
+							"documentation": "レベルアップの経験値を配列式に定義する",
+							"type": "TEXT"
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAF/oRBedwarXXA=",
+							"_parent": {
+								"$ref": "AAAAAAF/U/auFCdlrdU="
+							},
+							"name": "用途未定"
+						}
+					]
 				},
 				{
 					"_type": "ERDEntity",
@@ -69338,7 +69490,39 @@
 					"_parent": {
 						"$ref": "AAAAAAF/U+t9ASYWzI4="
 					},
-					"name": "CONFIG_WEPCAT"
+					"name": "CONFIG_STM",
+					"columns": [
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAF/oP2/CgZ8MW4=",
+							"_parent": {
+								"$ref": "AAAAAAF/U/cZhidyyho="
+							},
+							"name": "Level",
+							"documentation": "習得レベル",
+							"type": "NUMERIC"
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAF/oP7SUQaF9/8=",
+							"_parent": {
+								"$ref": "AAAAAAF/U/cZhidyyho="
+							},
+							"name": "対象職業(JobIds)",
+							"documentation": "BRV, WAR,...と配列にして定義する。"
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAF/oQAIygaNTBA=",
+							"_parent": {
+								"$ref": "AAAAAAF/U/cZhidyyho="
+							},
+							"name": "StmId",
+							"documentation": "STM系統(ORI)+数字。\n火炎属性Lv1のまほう = FIR1\n剣技Lv1 = SWD1",
+							"type": "TEXT",
+							"length": "4"
+						}
+					]
 				},
 				{
 					"_type": "ERDEntity",

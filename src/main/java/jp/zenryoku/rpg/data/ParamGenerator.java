@@ -207,8 +207,10 @@ public class ParamGenerator {
             setPrintLine(sepLine.startsWith("#") ? "" : sepLine);
             createConfigParams(buf);
         } catch (IOException | RpgException e) {
+            e.printStackTrace();
             throw new RpgException(e.getMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RpgException(MessageConst.UNEXPECTED_ERR.toString() + " " + line);
         }
     }
@@ -261,6 +263,7 @@ public class ParamGenerator {
             }
             config.setFormulaMap(formulaMap);
         } catch (IOException | RpgException e) {
+            e.printStackTrace();
             throw new RpgException(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
@@ -288,8 +291,10 @@ public class ParamGenerator {
             }
             config.setItemMap(itemMap);
         } catch (NumberFormatException e) {
+            e.printStackTrace();
             throw new RpgException(e.getMessage() + " : " + line);
         } catch (IOException | RpgException e) {
+            e.printStackTrace();
             throw new RpgException(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
