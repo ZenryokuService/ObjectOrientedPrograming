@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class RpgJob extends RpgData {
+public class RpgJob extends RpgData implements Cloneable {
     /** 職業ID */
     private String jobId;
     /** コマンドリスト */
@@ -29,6 +29,15 @@ public class RpgJob extends RpgData {
         this.name = name;
         this.discription = discription;
         this.commandList = commandList;
+    }
+
+    /**
+     * ディープコピー用のメソッド。
+     * @return コピーした新しいインスタンス。
+     */
+    public RpgJob clone() {
+        RpgJob clone = new RpgJob(jobId, name, discription, commandList);
+        return clone;
     }
 
 }

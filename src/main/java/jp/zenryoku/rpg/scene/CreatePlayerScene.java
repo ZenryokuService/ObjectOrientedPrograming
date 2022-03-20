@@ -161,14 +161,14 @@ public class CreatePlayerScene extends StoryScene {
     private Map<String, RpgJob> printJobs() {
         Map<String, RpgJob> resMap = new HashMap<>();
         Map<String, RpgJob> jobMap = RpgConfig.getInstance().getJobMap();
-        resMap.putAll(jobMap);
+        //resMap.putAll(jobMap);
         if (isDebug) System.out.println("jobMap: " + resMap.size());
-        Set<String> set = resMap.keySet();
+        Set<String> set = jobMap.keySet();
         int count = 1;
         for (String key : set) {
-            RpgJob job = resMap.get(key);
+            RpgJob job = jobMap.get(key);
             System.out.println(count + ". " + job.getName() + " : " + job.getDiscription());
-            resMap.put(String.valueOf(count), job);
+            resMap.put(String.valueOf(count), job.clone());
             count++;
         }
         return resMap;
@@ -180,7 +180,12 @@ public class CreatePlayerScene extends StoryScene {
         String jobSelect = console.acceptInput(SelectConst.JOB_SELECT.toString(), "[1-" + jobCount + "]");
         RpgJob job = jobMap.get(jobSelect);
         // Commandに依存するSTMをセットする
-        job.setCommandList(job.getCommandList());
+        String jobId = job.getJobId();
+        List<RpgCommand> cmdList = job.getCommandList();
+        for (RpgCommand cmd : cmdList) {
+
+        }
+        job.setCommandList(cmdList);
         player.setJob(job);
 
     }

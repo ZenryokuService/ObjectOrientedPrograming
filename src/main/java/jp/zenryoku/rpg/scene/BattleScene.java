@@ -9,8 +9,10 @@ import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.constants.SelectConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgData;
+import jp.zenryoku.rpg.data.RpgStm;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.job.RpgCommand;
 import jp.zenryoku.rpg.data.status.RpgFormula;
@@ -283,7 +285,6 @@ public class BattleScene extends StoryScene {
 		initScene();
 		initBattle();
 		List<RpgCommand> list = player.getJob().getCommandList();
-		int listSize = list.size();
 		while(true) {
             // バトルステータスを表示
             console.printBattleStatus(player);
@@ -291,14 +292,12 @@ public class BattleScene extends StoryScene {
             // コマンドの一覧を表示する
             List<RpgCommand> commandList = console.printCommandList(player);
 			// プレーヤーターン、コマンド取得
-			String selectCommand = console.acceptInput("こうどうを、せんたくしてください。", "[1-" + (listSize - 1) + "]");
+			String selectCommand = console.acceptInput("こうどうを、せんたくしてください。", "[1-" + (commandList.size()) + "]");
 			int select = Integer.parseInt(selectCommand) - 1;
 			RpgCommand pCommand = commandList.get(select);
 
 			if (isDebug) System.out.println("Command; " + pCommand.getName());
-			if (pCommand.isChildDir()) {
-				// TODO-[まほうや技などの選択実行処理]
-			}
+
 			// プレーヤー攻撃
 			isFinish = printAttackAndCalc(player, monster, pCommand);
 			if (isFinish) {
@@ -328,10 +327,31 @@ public class BattleScene extends StoryScene {
 	 */
 	private boolean printAttackAndCalc(PlayerCharactor pla, PlayerCharactor mon, RpgCommand cmd) {
 		Map<String, RpgData> paramMap = RpgConfig.getInstance().getParamMap();
-		RpgFormula pFormula = new RpgFormula(cmd.getFormulaStr());
+		RpgStm stm = null;
+		if (cmd.isChildDir()) {
+			List<RpgStm> stmList = cmd.getChildList();
+			int count = 1;
+			for (RpgStm s : stmList) {
+				if (s.getJobId().equals(pla.getJob().getJobId())) {
+					System.out.println(count + ". " + s.getName());
+					count++;
+				}
+			}
+			String select = console.acceptInput(SelectConst.STM_SELECT, "[1-" + count + "]");
+			stm = stmList.get(Integer.parseInt(select) - 1);
+		}
+		RpgFormula pFormula = null;
+		String mes = null;
+		if (stm != null) {
+			pFormula = new RpgFormula(stm.getFormula());
+			mes = stm.getName();
+		} else {
+			pFormula = new RpgFormula(cmd.getFormulaStr());
+			mes = cmd.getName();
+		}
 		if (isDebug) System.out.println("Formula: " + pFormula.getFormulaStr());
 		int pValue = pFormula.formula(pla);
-		console.printMessage(pla.getName() + cmd.getExeMessage() + "!");
+		console.printMessage(pla.getName() + mes + "!");
 		mon.getDamage(pValue);
 		console.printMessage(mon.getName() + "に" + pValue + "のダメージ");
 		if (mon.getHP() <= 0) {

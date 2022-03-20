@@ -450,6 +450,7 @@ public class XmlUtils {
         if (com.isChildDir()) {
             // STMのマップ取得
             Map<String, List<RpgStm>> stmMap = RpgConfig.getInstance().getStmMap();
+
             if (isDebug) System.out.println("stmMap: " + stmMap.get(id));
             com.setChildList(stmMap.get(id));
         }

@@ -139,7 +139,6 @@ public class CalcUtils {
         List<RpgStatus> result = new ArrayList<>();
 
         if (isDebug) {
-            System.out.println("*** Testing ***");
             statusMap.forEach((key ,val) -> {
                 System.out.println("statusKey: " + key + " : " + val);
             });
