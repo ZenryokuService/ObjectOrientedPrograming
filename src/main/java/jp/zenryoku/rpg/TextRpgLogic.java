@@ -4,12 +4,8 @@ import java.io.IOException;
 
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
-import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.exception.RpgException;
-import jp.zenryoku.rpg.scene.CreatePlayerScene;
-import jp.zenryoku.rpg.scene.StoryScene;
 import jp.zenryoku.rpg.util.CheckerUtils;
-import org.apache.commons.math3.genetics.OnePointCrossover;
 
 public class TextRpgLogic extends RpgLogic {
 
@@ -104,13 +100,13 @@ public class TextRpgLogic extends RpgLogic {
 		if (next == null) {
 			throw new RpgException("次のシーン指定が不適切です。: ");
 		}
-		if (RpgConst.CLEAR.getSceneType().equals(next)) {
+		if (RpgConst.CLEAR.getType().equals(next)) {
 			status = RpgConst.CLEAR;
 			return true;
-		} else if (RpgConst.GAME_OVER.getSceneType().equals(next)) {
+		} else if (RpgConst.GAME_OVER.getType().equals(next)) {
 			status = RpgConst.GAME_OVER;
 			return true;
-		} else if (RpgConst.SAVE.getSceneType().equals(next)) {
+		} else if (RpgConst.SAVE.getType().equals(next)) {
 			status = RpgConst.SAVE;
 			return true;
 		}

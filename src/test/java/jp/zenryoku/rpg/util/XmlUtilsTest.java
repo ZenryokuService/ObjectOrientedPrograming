@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class XmlUtilsTest {
@@ -23,6 +24,7 @@ public class XmlUtilsTest {
     public void testCreateMonster() {
         TestUtils.initRpgConfig();
         try {
+            XmlUtils.loadStm("");
             List<Monster> list = XmlUtils.loadMonsters();
             for (Monster mon : list) {
                 System.out.println("Name: " + mon.getName());
@@ -74,6 +76,7 @@ public class XmlUtilsTest {
     @Test
     public void testCreateMonsterType() {
         try {
+            XmlUtils.loadStm("");
             Map<String, RpgCommand> cmdMap = XmlUtils.loadCommands();
             RpgConfig.getInstance().setCommandMap(cmdMap);
             Map<String, RpgMonsterType> map = XmlUtils.loadMonterType();
@@ -99,6 +102,7 @@ public class XmlUtilsTest {
     @Test
     public void testCreateCommand() {
         try {
+            XmlUtils.loadStm("");
             Map<String, RpgCommand> map = XmlUtils.loadCommands();
             Set<String> set = map.keySet();
             for (String st : set) {
@@ -106,6 +110,15 @@ public class XmlUtilsTest {
                 System.out.println("ID: " + cmd.getCommandId());
                 System.out.println("Name: " + cmd.getName());
                 System.out.println("Formula: " + cmd.getFormula());
+                System.out.println("childDir: " + cmd.isChildDir());
+                if (cmd.isChildDir()) {
+                    List<RpgStm> list = cmd.getChildList();
+                    for (RpgStm stm : list) {
+                        System.out.println(stm.getName());
+                        System.out.println(stm.getId());
+                        System.out.println(stm.getName());
+                    }
+                }
             }
         } catch (RpgException e) {
             e.printStackTrace();
@@ -116,16 +129,23 @@ public class XmlUtilsTest {
     @Test
     public void testCreateStm() {
         try {
-            Map<String, RpgStm> map = XmlUtils.loadStm("");
+            XmlUtils.loadStm("");
+            Map<String, List<RpgStm>> map = RpgConfig.getInstance().getStmMap();
 
+            assertNotEquals(0, map.size());
             Set<String> set = map.keySet();
             for (String key : set) {
-                RpgStm st = map.get(key);
-                System.out.println("ID: " + st.getMid());
-                System.out.println("Name: " + st.getName());
-                System.out.println("Orient: " + st.getOrient());
-                System.out.println("Orient: " + st.getCost());
-                System.out.println("Mpw: " + st.getMpw());
+                List<RpgStm> stmList = map.get(key);
+                for (RpgStm st : stmList) {
+                    System.out.println("ID: " + st.getId());
+                    System.out.println("Name: " + st.getName());
+                    System.out.println("Orient: " + st.getOrient());
+                    System.out.println("Orient: " + st.getCost());
+                    System.out.println("Mpw: " + st.getMpw());
+                    System.out.println("Mpw: " + st.getMpw());
+                    System.out.println("JobId: " + st.getJobId());
+                    System.out.println("LeanLv: " + st.getLeanLv());
+                }
             }
         } catch (RpgException e) {
             e.printStackTrace();

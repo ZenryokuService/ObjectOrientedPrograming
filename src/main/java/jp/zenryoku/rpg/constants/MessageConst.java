@@ -158,6 +158,8 @@ public enum MessageConst {
     ERR_MONSTER_NO("モンスターのID設定が間違っています。"),
     /** モンスターリストが読み込まれていません。 */
     NO_MONSTERS("モンスターリストが読み込まれていません。"),
+    /** STMリストに登録されていないコマンドIDです。 */
+    ERR_NO_STM_COMMAND_ID("STMリストに登録されていないコマンドIDです。"),
     ;
 
     /** メッセージ */

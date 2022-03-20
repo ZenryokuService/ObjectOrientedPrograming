@@ -23,7 +23,9 @@
         <!-- 魔力コスト -->
         <cost>-2</cost>
         <!-- 魔法威力(パラメータ設定より -->
-        <mpw>3</mpw>
+        <force>3</force>
+        <!-- 使用可能職業(習得レベル) -->
+        <jobs>BRV(2), MAG(1)</jobs>
         <!-- 説明 -->
         <discription>初級の火炎魔法</discription>
     </mag>
@@ -53,6 +55,8 @@
         <const>1</const>
         <!-- 攻撃力 -->
         <force>WEV + POW + AGI</force>
+        <!-- 使用可能職業(習得レベル) -->
+        <jobs>BRV(1), WAR(1)</jobs>
         <!-- 説明 -->
         <discription>基本的な剣術の技</discription>
     </tec>

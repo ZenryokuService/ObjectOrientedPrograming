@@ -2,6 +2,7 @@ package jp.zenryoku.rpg.util;
 
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.constants.MessageConst;
+import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgStm;
 import jp.zenryoku.rpg.data.job.RpgCommand;
@@ -23,6 +24,15 @@ import java.util.*;
 
 public class XmlUtils {
     private static final boolean isDebug = false;
+
+    private static NodeList getTagNode(Element e, String tagName) throws RpgException {
+        Element ele = null;
+        NodeList nodeList = e.getElementsByTagName(tagName);
+        if (nodeList.getLength() == 0) {
+            throw new RpgException("Node(" + e.getTagName() + ")に" + tagName + "はぞんざいしません。");
+        }
+        return nodeList;
+    }
 
     /**
      * XMLドキュメント(ファイル)を読み込む。
@@ -123,11 +133,11 @@ public class XmlUtils {
 
         Element e = (Element) node;
         // 固定値(マスタカテゴリ)
-        String name = e.getElementsByTagName("name").item(0).getTextContent();
-        String type = e.getElementsByTagName("type").item(0).getTextContent();
-        String lv = e.getElementsByTagName("lv").item(0).getTextContent();
-        String hp =  e.getElementsByTagName("hp").item(0).getTextContent();
-        String mp =  e.getElementsByTagName("mp").item(0).getTextContent();
+        String name = getTagNode(e, "name").item(0).getTextContent();
+        String type = getTagNode(e, "type").item(0).getTextContent();
+        String lv = getTagNode(e, "lv").item(0).getTextContent();
+        String hp =  getTagNode(e, "hp").item(0).getTextContent();
+        String mp =  getTagNode(e, "mp").item(0).getTextContent();
 
         // その他
 //        NodeList nodeList = e.getChildNodes();
@@ -147,15 +157,15 @@ public class XmlUtils {
 
         }
 
-//        String pow =  e.getElementsByTagName("pow").item(0).getTextContent();
-//        String agi =  e.getElementsByTagName("agi").item(0).getTextContent();
-//        String inta =  e.getElementsByTagName("int").item(0).getTextContent();
-//        String dex =  e.getElementsByTagName("dex").item(0).getTextContent();
-//        String ksm =  e.getElementsByTagName("ksm").item(0).getTextContent();
-        String isTalk =  e.getElementsByTagName("isTalk").item(0).getTextContent();
-        String message =  e.getElementsByTagName("message").item(0).getTextContent();
-        String exp =  e.getElementsByTagName("exp").item(0).getTextContent();
-        String money =  e.getElementsByTagName("money").item(0).getTextContent();
+//        String pow =  getTagNode(e, "pow").item(0).getTextContent();
+//        String agi =  getTagNode(e, "agi").item(0).getTextContent();
+//        String inta =  getTagNode(e, "int").item(0).getTextContent();
+//        String dex =  getTagNode(e, "dex").item(0).getTextContent();
+//        String ksm =  getTagNode(e, "ksm").item(0).getTextContent();
+        String isTalk =  getTagNode(e, "isTalk").item(0).getTextContent();
+        String message =  getTagNode(e, "message").item(0).getTextContent();
+        String exp =  getTagNode(e, "exp").item(0).getTextContent();
+        String money =  getTagNode(e, "money").item(0).getTextContent();
 
         Monster monster = null;
         try {
@@ -246,10 +256,10 @@ public class XmlUtils {
      */
     private static RpgJob createJob(Node node, Map<String, RpgCommand> map) throws RpgException {
         Element e = (Element) node;
-        String id = e.getElementsByTagName("id").item(0).getTextContent();
-        String name = e.getElementsByTagName("name").item(0).getTextContent();
-        String disc =  e.getElementsByTagName("discription").item(0).getTextContent();
-        String commandList =  e.getElementsByTagName("commandList").item(0).getTextContent();
+        String id = getTagNode(e, "id").item(0).getTextContent();
+        String name = getTagNode(e, "name").item(0).getTextContent();
+        String disc =  getTagNode(e, "discription").item(0).getTextContent();
+        String commandList =  getTagNode(e, "commandList").item(0).getTextContent();
         String[] list = commandList.split(",");
 
         List<RpgCommand> cmdList = new ArrayList<>();
@@ -266,7 +276,7 @@ public class XmlUtils {
         // ステータス上昇値の設定
         for (String key : set) {
             if (isDebug) System.out.println("Status: " + key);
-            String statsUp = e.getElementsByTagName(key.toLowerCase()).item(0).getTextContent();
+            String statsUp = getTagNode(e, key.toLowerCase()).item(0).getTextContent();
             RpgStatus st = new RpgStatus();
             st.setKigo(key);
             st.setValue(Integer.parseInt(statsUp));
@@ -347,10 +357,10 @@ public class XmlUtils {
      */
     private static RpgMonsterType createMonsterType(Node node, Map<String, RpgCommand> map) throws RpgException {
         Element e = (Element) node;
-        String id = e.getElementsByTagName("id").item(0).getTextContent();
-        String name = e.getElementsByTagName("name").item(0).getTextContent();
-        String disc =  e.getElementsByTagName("discription").item(0).getTextContent();
-        String commandList =  e.getElementsByTagName("commandList").item(0).getTextContent();
+        String id = getTagNode(e, "id").item(0).getTextContent();
+        String name = getTagNode(e, "name").item(0).getTextContent();
+        String disc =  getTagNode(e, "discription").item(0).getTextContent();
+        String commandList =  getTagNode(e, "commandList").item(0).getTextContent();
         String[] list = commandList.split(",");
 
         List<RpgCommand> cmdList = new ArrayList<>();
@@ -391,12 +401,13 @@ public class XmlUtils {
     }
 
     /**
-     * Command.xmlを読み込む。
+     * Command.xmlを読み込む。依存するSTM.xmlはロード済みの前提。
      * @return Commandリスト
      * @throws RpgException XMLの設定エラー
      */
     public static Map<String, RpgCommand> loadCommands(String direcory) throws RpgException {
         Map<String, RpgCommand> commandMap = new HashMap<>();
+        Map<String, List<RpgStm>> stmMap = RpgConfig.getInstance().getStmMap();
 
         try {
             Document doc = loadDocumentBuilder(direcory, "Commands.xml");
@@ -425,20 +436,22 @@ public class XmlUtils {
      */
     private static RpgCommand createCommand(Node node) throws RpgException {
         Element e = (Element) node;
-        String id = e.getElementsByTagName("id").item(0).getTextContent();
-        String name = e.getElementsByTagName("name").item(0).getTextContent();
-        String formula =  e.getElementsByTagName("formula").item(0).getTextContent();
-        String hasChild = e.getElementsByTagName("hasChild").item(0).getTextContent();
-        String exeMessage =  e.getElementsByTagName("exeMessage").item(0).getTextContent();
+        String id = getTagNode(e, "id").item(0).getTextContent();
+        String name = getTagNode(e, "name").item(0).getTextContent();
+        String formula =  getTagNode(e, "formula").item(0).getTextContent();
+        String hasChild = getTagNode(e, "hasChild").item(0).getTextContent();
+        String exeMessage =  getTagNode(e, "exeMessage").item(0).getTextContent();
 
         RpgCommand com = null;
         com = new RpgCommand(id, name, formula, exeMessage);
-        com.setHasChild(Boolean.parseBoolean(hasChild));
+        com.setChildDir(Boolean.parseBoolean(hasChild));
 
         // 子ディレクトリありの場合
-        if (com.isHasChild()) {
+        if (com.isChildDir()) {
             // STMのマップ取得
-            //Map<Integer, RpgStm> stmMap = RpgConfig.getInstance().getStmMap();
+            Map<String, List<RpgStm>> stmMap = RpgConfig.getInstance().getStmMap();
+            System.out.println("stmMap: " + stmMap.get(id));
+            com.setChildList(stmMap.get(id));
         }
         return com;
     }
@@ -448,8 +461,8 @@ public class XmlUtils {
      * @return Stmリスト
      * @throws RpgException XMLの設定エラー
      */
-    public static Map<String, RpgStm> loadStm(String directory) throws RpgException {
-        Map<String, RpgStm> stmMap = new HashMap<>();
+    public static void loadStm(String directory) throws RpgException {
+        Map<String, List<RpgStm>> stmMap = new HashMap<>();
 
         try {
             Document doc = null;
@@ -465,8 +478,8 @@ public class XmlUtils {
             for (int i = 0; i < magList.getLength(); i++) {
                 Node node = magList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    RpgStm stm = createStm(node);
-                    stmMap.put(stm.getMid(), stm);
+                    List<RpgStm> stmList = createStm(node);
+                    stmMap.put(RpgConst.MAG.getType(), stmList);
                 }
             }
             // 技
@@ -474,39 +487,60 @@ public class XmlUtils {
             for (int i = 0; i < tecList.getLength(); i++) {
                 Node node = tecList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    RpgStm stm = createStm(node);
-                    stmMap.put(stm.getMid(), stm);
+                    List<RpgStm> stmList = createStm(node);
+                    stmMap.put(RpgConst.TEC.toString(), stmList);
                 }
             }
+            stmMap.forEach((key, val) -> {
+                System.out.println("stmKey: " + key + " : stmValueSize: " + val.size());
+            });
+            RpgConfig.getInstance().setStmMap(stmMap);
         } catch (RpgException e) {
             e.printStackTrace();
             throw new RpgException(MessageConst.ERR_XML_PERSE.toString() + ": " + e.getMessage());
         }
-        return stmMap;
     }
 
     /**
-     * RpgJobクラスを生成する。
+     * RpgStmクラスを生成する。
      * @param node jobタグ
      * @return RpgJob 職業クラス
      * @throws RpgException XML設定エラー
      */
-    private static RpgStm createStm(Node node) throws RpgException {
+    private static List<RpgStm> createStm(Node node) throws RpgException {
+        List<RpgStm> stmList = new ArrayList<>();
         Element e = (Element) node;
-        RpgStm stm = null;
         try {
-            String mid = e.getElementsByTagName("id").item(0).getTextContent();
-            String name = e.getElementsByTagName("name").item(0).getTextContent();
-            String ori =  e.getElementsByTagName("ori").item(0).getTextContent();
-            String cost =  e.getElementsByTagName("cost").item(0).getTextContent();
+            String mid = getTagNode(e, "id").item(0).getTextContent();
+            String name = getTagNode(e, "name").item(0).getTextContent();
+            String ori =  getTagNode(e, "ori").item(0).getTextContent();
+            String cost =  getTagNode(e, "cost").item(0).getTextContent();
             int iCost = Integer.parseInt(cost);
-            String mpw =  e.getElementsByTagName("force").item(0).getTextContent();
-            int iMpw = Integer.parseInt(mpw);
-            stm = new RpgStm(mid, name, ori, iCost, iMpw);
+            String mpw =  getTagNode(e, "force").item(0).getTextContent();
+            // 最大桁数は3: 999まで
+            int iMpw = 0;
+            String formula = "";
+            if (CheckerUtils.isNumber(mpw, "3")) {
+                iMpw = Integer.parseInt(mpw);
+            } else {
+                formula = mpw;
+            }
+            String jobs = getTagNode(e, "jobs").item(0).getTextContent();
+            // ループで職業IDと習得レベルを取得RpgStmを生成する
+            String[] sep = jobs.split(",");
+            for (String st : sep) {
+                RpgStm stm = new RpgStm(mid, name, ori, iCost, iMpw);
+                String[] jobData = StringUtils.cnvertStmJObsData(st);
+                stm.setJobId(jobData[0]);
+                stm.setLeanLv(Integer.parseInt(jobData[1]));
+                stm.setFormula(formula);
+                stmList.add(stm);
+            }
+
         } catch (NumberFormatException ne) {
             ne.printStackTrace();
             throw new RpgException(MessageConst.ERR_XML_STM.toString());
         }
-        return stm;
+        return stmList;
     }
 }

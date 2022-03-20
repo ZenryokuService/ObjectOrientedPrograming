@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import javafx.scene.Scene;
-import jp.zenryoku.rpg.Games;
-import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
@@ -21,7 +18,6 @@ import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 import jp.zenryoku.rpg.util.CalcUtils;
-import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 import lombok.Data;
 
@@ -351,7 +347,7 @@ public class BattleScene extends StoryScene {
 			} else {
 				System.out.println(mon.getName() + "はたおれた。");
 				System.out.println("ゲームオーバー");
-				nextIndex = RpgConst.GAME_OVER.getSceneType();
+				nextIndex = RpgConst.GAME_OVER.getType();
 			}
 			return true;
 		}

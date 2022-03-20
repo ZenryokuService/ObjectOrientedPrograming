@@ -7,8 +7,8 @@ import lombok.Data;
  */
 @Data
 public class RpgStm {
-    /** MID */
-    private String mid;
+    /** ID */
+    private String id;
     /** 名前 */
     private String name;
     /** 指向性 */
@@ -17,12 +17,18 @@ public class RpgStm {
     private int cost;
     /** 魔法威力 */
     private int mpw;
+    /** 職業ID */
+    private String jobId;
+    /** 習得レベル */
+    private int leanLv;
+    /** 計算式 */
+    private String formula;
 
     public RpgStm() {
     }
 
     public RpgStm(String mid, String name, String ori, int cost, int mpw) {
-        this.mid = mid;
+        this.id = mid;
         this.name = name;
         this.orient = ori;
         this.cost = cost;

@@ -69,7 +69,7 @@ public class RpgConfig {
     /** モンスタータイプマップ */
     private Map<String, RpgMonsterType> monsterTypeMap;
     /** STMマップ */
-    private Map<String, RpgStm> stmMap;
+    private Map<String, List<RpgStm>> stmMap;
 
 
 

@@ -4,6 +4,7 @@ import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.Effects;
 import jp.zenryoku.rpg.data.RpgConfig;
+import jp.zenryoku.rpg.data.RpgStm;
 import jp.zenryoku.rpg.data.items.EvEffect;
 import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.data.status.StEffect;
@@ -239,6 +240,27 @@ public class StringUtils {
             }
         } else {
             return null;
+        }
+        return res;
+    }
+
+    /**
+     *
+     * @param jobs
+     * @return
+     */
+    public static String[] cnvertStmJObsData(String jobs) {
+        String[] res = new String[2];
+        String[] sep = jobs.split(",");
+        for (String job : sep) {
+            // 職業ID(習得レベル)空白の削除
+            job = job.trim();
+            // "("で分割する
+            String[] jobLv = job.split("\\(");
+            // 職業ID
+            res[0] = jobLv[0];
+            // 習得Lv
+            res[1] = jobLv[1].replaceAll("\\)", "");
         }
         return res;
     }

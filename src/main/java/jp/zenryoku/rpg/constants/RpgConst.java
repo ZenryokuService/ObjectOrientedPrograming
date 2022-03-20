@@ -92,6 +92,10 @@ public enum RpgConst {
     ITEMS(5, "item"),
     /** 魔法アイテムを示す */
     MAG_ITEMS(6, "magItem"),
+    /** 階層のあるコマンド(魔法) */
+    MAG(7, "MAG"),
+    /** 階層のあるコマンド(わざ) */
+    TEC(7, "TEC"),
     ;
 
     /** 改行コード */
@@ -217,7 +221,7 @@ public enum RpgConst {
         return status;
     }
 
-    public String getSceneType() {
+    public String getType() {
         return sceneType;
     }
 

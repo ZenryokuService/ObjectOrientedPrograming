@@ -13,7 +13,6 @@ import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.exception.StoryTextException;
 import jp.zenryoku.rpg.factory.RpgDataFactory;
 import jp.zenryoku.rpg.scene.*;
-import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.StringUtils;
 import jp.zenryoku.rpg.util.XmlUtils;
@@ -244,8 +243,7 @@ public abstract class RpgLogic implements Games {
      */
     public void loadStm(String directory) {
         try {
-            Map<String, RpgStm> map = XmlUtils.loadStm(directory);
-            RpgConfig.getInstance().setStmMap(map);
+            XmlUtils.loadStm(directory);
         } catch (RpgException e) {
             e.printStackTrace();
             System.exit(-1);
@@ -521,26 +519,26 @@ public abstract class RpgLogic implements Games {
 
         RpgScene sceneObj = null;
         // シーンタイプにより生成するシーンクラスを変更
-        if (RpgConst.SENE_TYPE_NEXT.getSceneType().equals(sceneType)) {
+        if (RpgConst.SENE_TYPE_NEXT.getType().equals(sceneType)) {
             // ストーリーシーンオブジェクトの生成
             sceneObj = new StoryScene(sceneIndex, sceneType);
-        } else if (RpgConst.SENE_TYPE_SHOP.getSceneType().equals(sceneType)) {
+        } else if (RpgConst.SENE_TYPE_SHOP.getType().equals(sceneType)) {
             // ショップシーンオブジェクトの生成
             sceneObj = new ShopScene(sceneIndex, sceneType);
-        } else if (RpgConst.SENE_TYPE_STATUS.getSceneType().equals(sceneType)) {
+        } else if (RpgConst.SENE_TYPE_STATUS.getType().equals(sceneType)) {
             // パーティーステータスシーンオブジェクトの生成
             sceneObj = new EffectScene(sceneIndex, sceneType);
-        } else if (RpgConst.SENE_TYPE_GET.getSceneType().equals(sceneType)) {
+        } else if (RpgConst.SENE_TYPE_GET.getType().equals(sceneType)) {
             // アイテムの取得シーンオブジェクトの生成
             sceneObj = new EffectScene(sceneIndex, sceneType);
-        } else if (RpgConst.SENE_TYPE_END_GAME.getSceneType().equals(sceneType)) {
+        } else if (RpgConst.SENE_TYPE_END_GAME.getType().equals(sceneType)) {
             // 終了シーンオブジェクトの生成。シーンタイプをセットする。
             sceneObj = new StoryScene(sceneIndex, sceneType);
-            sceneObj.setSceneType(RpgConst.SENE_TYPE_END_GAME.getSceneType());
-        } else if (RpgConst.SENE_TYPE_BATTLE.getSceneType().equals(sceneType)) {
+            sceneObj.setSceneType(RpgConst.SENE_TYPE_END_GAME.getType());
+        } else if (RpgConst.SENE_TYPE_BATTLE.getType().equals(sceneType)) {
             // バトルシーンオブジェクトの生成
             sceneObj = new BattleScene(sceneIndex, sceneType);
-        } else if (RpgConst.SCENE_TYPE_CREATE.getSceneType().equals(sceneType)) {
+        } else if (RpgConst.SCENE_TYPE_CREATE.getType().equals(sceneType)) {
             // プレーヤー生成シーンオブジェクトの生成
             sceneObj = new CreatePlayerScene(sceneIndex, sceneType);
         } else {
