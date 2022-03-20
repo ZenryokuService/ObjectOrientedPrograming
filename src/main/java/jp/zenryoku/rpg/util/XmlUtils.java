@@ -29,7 +29,7 @@ public class XmlUtils {
         Element ele = null;
         NodeList nodeList = e.getElementsByTagName(tagName);
         if (nodeList.getLength() == 0) {
-            throw new RpgException("Node(" + e.getTagName() + ")に" + tagName + "はぞんざいしません。");
+            throw new RpgException("Node(" + e.getTagName() + ")に" + tagName + "は存在しません。");
         }
         return nodeList;
     }
@@ -450,7 +450,7 @@ public class XmlUtils {
         if (com.isChildDir()) {
             // STMのマップ取得
             Map<String, List<RpgStm>> stmMap = RpgConfig.getInstance().getStmMap();
-            System.out.println("stmMap: " + stmMap.get(id));
+            if (isDebug) System.out.println("stmMap: " + stmMap.get(id));
             com.setChildList(stmMap.get(id));
         }
         return com;
@@ -491,9 +491,11 @@ public class XmlUtils {
                     stmMap.put(RpgConst.TEC.toString(), stmList);
                 }
             }
-            stmMap.forEach((key, val) -> {
-                System.out.println("stmKey: " + key + " : stmValueSize: " + val.size());
-            });
+            if (isDebug) {
+                stmMap.forEach((key, val) -> {
+                    System.out.println("stmKey: " + key + " : stmValueSize: " + val.size());
+                });
+            }
             RpgConfig.getInstance().setStmMap(stmMap);
         } catch (RpgException e) {
             e.printStackTrace();

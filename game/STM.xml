@@ -41,6 +41,8 @@
         <cost>-2</cost>
         <!-- 魔法威力(パラメータ設定より -->
         <force>3</force>
+        <!-- 使用可能職業(習得レベル) -->
+        <jobs>BRV(2), MAG(1)</jobs>
         <!-- 説明 -->
         <discription>初級の回復魔法</discription>
     </mag>
@@ -52,7 +54,9 @@
         <!-- わざ名 -->
         <name>ましょうめんぎり</name>
         <!-- 技の仕様コスト -->
-        <const>1</const>
+        <cost>1</cost>
+        <!-- 属性(剣技など) -->
+        <ori>SWD</ori>
         <!-- 攻撃力 -->
         <force>WEV + POW + AGI</force>
         <!-- 使用可能職業(習得レベル) -->

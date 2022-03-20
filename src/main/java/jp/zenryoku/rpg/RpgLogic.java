@@ -68,6 +68,8 @@ public abstract class RpgLogic implements Games {
 
         // title.txtの読み込み
         reader = getBufferedReader("src/main/resources", "title.txt");
+        // STMのロード
+        loadStm("");
         // コマンドリストのロード
         loadCommands("");
         // モンスタータイプの読み込み
@@ -86,8 +88,6 @@ public abstract class RpgLogic implements Games {
         BufferedReader story = getBufferedReader("src/main/resources/story", "Sample_story.txt");
         // シーンオブジェクトの生成
         createSceneObject(story, "");
-        // STMのロード
-        loadStm("");
         // 職業リストのロード
         loadJobs("");
         // シーン開始フラグの初期化
@@ -108,6 +108,8 @@ public abstract class RpgLogic implements Games {
 
         // title.txtの読み込み
         reader = getBufferedReader(directory, "title.txt");
+        // STMのロード
+        loadStm(directory);
         // コマンドリストのロード
         loadCommands(directory);
         // モンスタータイプの読み込み
@@ -120,8 +122,6 @@ public abstract class RpgLogic implements Games {
             e.printStackTrace();
             System.exit(-1);
         }
-        // STMのロード
-        loadStm(directory);
         // 職業リストのロード
         loadJobs(directory);
         // モンスターリストの読み込み
@@ -651,7 +651,7 @@ public abstract class RpgLogic implements Games {
         // 記号 + (プラス) or -(マイナス) なまえ 個数の指定
         String effect = line.split(":")[1];
         effect = effect.substring(0, effect.length() - 1);
-        if (true) System.out.println("** " + effect + " ** ");
+        if (isDebug) System.out.println("** " + effect + " ** ");
         EffectScene scene = (EffectScene) sceneObj;
 
         //// ターン指定がある場合の「ZHP+10%TS3」のような効果式の場合 ////

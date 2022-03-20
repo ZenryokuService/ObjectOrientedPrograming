@@ -75,7 +75,7 @@ ATK:物理攻撃力:武器等の物理的な攻撃力を示す:optionalMap:Playe
 DEF:物理防御力:武器等に対する物理的な防御力を示す:optionalMap:PlayerCharactor
 MAG:魔法・術:魔法や、術などの不思議な力を使用した力:optionalMap:PlayerCharactor
 MPW:魔法威力:まほう・じゅつなどの効果値:optionalMap:PlayerCharactor
-ORI:指向性:スキル、まほう、わざなどの属性(この属性はCONFIG_PARAMで定義する):stmList:PlayerCharactor
+ORI:指向性:スキル、まほう、わざなどの属性(この属性はCONFIG_PARAMで定義する):optionalMap:PlayerCharactor
 MAT:魔法・術攻撃力:魔法・術などの効力を示す。式= (かしこさ + きようさ+カリスマ) / 3 + 魔法威力:optionalMap:PlayerCharactor
 MDE:魔法・術などの攻撃に対する耐性。式= (かしこさ + きようさ + すばやさ) / 3 + 魔よけ力:魔法防御力:optionalMap:PlayerCharactor
 PLY:プレーヤーオプションステータス:プレーヤーステータスに追加する項目、攻撃力や防御力などの拡張に使用する:optionalMap:PlayerCharactor
@@ -119,8 +119,6 @@ CONFIG_PARAM
 風属性:WIN:ORI2:風の属性を示す。火に弱い。:-:0
 土属性:EAR:ORI3:土の属性を示す。風に弱い。:-:0
 水属性:WAT:ORI4:水の属性を示す。土に弱い。:-:0
-無属性:NAT:ORI5:他の属性に入らない。:-:0
-回復系:REC:ORI6:回復系のまほうを示す。:-:0
 END_PARAM
 
 CONFIG_STATUS
@@ -179,9 +177,6 @@ MON:5,20,40,120,400,900,1600:WAR1
 MAG:5,20,40,120,400,900,1600:WAR1
 END_LEVEL
 
-CONFIG_STM
-2:BRV,WAR:swd1
-END_STM
 # CONFIG_SKMAP
 # BRV1:8,9,10,12,14,16,18
 # BRV2:2,4,6,8,10,12,14,16,18,20,22
