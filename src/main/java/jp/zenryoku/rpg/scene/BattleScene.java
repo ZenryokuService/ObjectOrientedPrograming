@@ -299,7 +299,12 @@ public class BattleScene extends StoryScene {
 			if (isDebug) System.out.println("Command; " + pCommand.getName());
 
 			// プレーヤー攻撃
-			isFinish = printAttackAndCalc(player, monster, pCommand);
+			try {
+				isFinish = printAttackAndCalc(player, monster, pCommand);
+			} catch (RpgException e) {
+				console.printMessage(e.getMessage());
+				continue;
+			}
 			if (isFinish) {
 				break;
 			}
@@ -325,26 +330,32 @@ public class BattleScene extends StoryScene {
 	 * @param cmd コマンドオブジェクト
 	 * @return ture: 第二引数のオブジェクト#HPが0以下 false: まだ生きている。
 	 */
-	private boolean printAttackAndCalc(PlayerCharactor pla, PlayerCharactor mon, RpgCommand cmd) {
+	private boolean printAttackAndCalc(PlayerCharactor pla, PlayerCharactor mon, RpgCommand cmd) throws RpgException {
 		Map<String, RpgData> paramMap = RpgConfig.getInstance().getParamMap();
 		RpgStm stm = null;
 		if (cmd.isChildDir()) {
 			List<RpgStm> stmList = cmd.getChildList();
 			int count = 1;
 			for (RpgStm s : stmList) {
-				if (s.getJobId().equals(pla.getJob().getJobId())) {
+				if (s.getJobId().equals(pla.getJob().getJobId()) && pla.getLevel() >= s.getLeanLv()) {
 					System.out.println(count + ". " + s.getName());
 					count++;
 				}
+			}
+			if (count == 1) {
+				// 処理をリセットするためにthrowしている。良い子はマネしてはいけない。
+				throw new RpgException(SelectConst.NO_SELECTION);
 			}
 			String select = console.acceptInput(SelectConst.STM_SELECT, "[1-" + count + "]");
 			stm = stmList.get(Integer.parseInt(select) - 1);
 		}
 		RpgFormula pFormula = null;
 		String mes = null;
+		String orient = null;
 		if (stm != null) {
 			pFormula = new RpgFormula(stm.getFormula());
 			mes = stm.getName();
+			orient = stm.getOrient();
 		} else {
 			pFormula = new RpgFormula(cmd.getFormulaStr());
 			mes = cmd.getName();
@@ -352,8 +363,14 @@ public class BattleScene extends StoryScene {
 		if (isDebug) System.out.println("Formula: " + pFormula.getFormulaStr());
 		int pValue = pFormula.formula(pla);
 		console.printMessage(pla.getName() + mes + "!");
-		mon.getDamage(pValue);
-		console.printMessage(mon.getName() + "に" + pValue + "のダメージ");
+		if (orient != null && RpgConst.REC.toString().equals(stm.getOrient())) {
+			// プラスマイナスを反転させ回復に転じる
+			pla.getDamage(-pValue);
+			console.printMessage(pla.getName() + "は" + pValue + "回復した。");
+		} else {
+			mon.getDamage(pValue);
+			console.printMessage(mon.getName() + "に" + pValue + "のダメージ");
+		}
 		if (mon.getHP() <= 0) {
 			if (mon instanceof Monster) {
 				Monster monst = (Monster) mon;

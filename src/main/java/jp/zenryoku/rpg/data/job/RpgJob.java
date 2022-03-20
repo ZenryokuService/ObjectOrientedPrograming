@@ -37,6 +37,7 @@ public class RpgJob extends RpgData implements Cloneable {
      */
     public RpgJob clone() {
         RpgJob clone = new RpgJob(jobId, name, discription, commandList);
+        clone.setStatusUpMap(getStatusUpMap());
         return clone;
     }
 

@@ -407,7 +407,6 @@ public class XmlUtils {
      */
     public static Map<String, RpgCommand> loadCommands(String direcory) throws RpgException {
         Map<String, RpgCommand> commandMap = new HashMap<>();
-        Map<String, List<RpgStm>> stmMap = RpgConfig.getInstance().getStmMap();
 
         try {
             Document doc = loadDocumentBuilder(direcory, "Commands.xml");

@@ -84,6 +84,7 @@ NOA:行動不能:石化や、マヒ、何かしらのステータス異常で、
 DNM:移動・行動不能:シーンの移動、戦闘での行動、すべての行動ができない状態を示す:canMove:PlayerCharactor
 BST:強化:ステータスが向上する、ポジティブなステータス変化:statusMap:PlayerCharactor
 HMX:全快:HP,MPを完全回復する。固定の効果:HP,MP:PlayerCharactor
+REC:回復指向:HP,MPの回復を行うSTMを示す。:HP,MP:RpgStm
 END_MASTER
 
 CONFIG_PARAM

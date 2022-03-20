@@ -24,6 +24,8 @@ public enum SelectConst {
     public static final String JOB_SELECT = "職業を選択してください。";
     /** どれを使用しますか？ */
     public static final String STM_SELECT = "どれを使用しますか？";
+    /** 選択する項目がありません。 */
+    public static final String NO_SELECTION = "選択する項目がありません。";
 
 
     /** 選択時に使用する値 */

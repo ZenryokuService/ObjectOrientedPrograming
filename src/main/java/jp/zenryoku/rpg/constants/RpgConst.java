@@ -96,6 +96,8 @@ public enum RpgConst {
     MAG(7, "MAG"),
     /** 階層のあるコマンド(わざ) */
     TEC(7, "TEC"),
+    /** 回復系のSTMを示す */
+    REC(7, "REC"),
     ;
 
     /** 改行コード */
