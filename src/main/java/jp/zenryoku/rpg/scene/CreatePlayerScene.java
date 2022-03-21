@@ -140,14 +140,6 @@ public class CreatePlayerScene extends StoryScene {
         return data;
     }
 
-    private RpgStatus createRpgStatus(RpgMaster master) {
-        RpgStatus data = new RpgStatus();
-        data.setName(master.getName());
-        data.setKigo(master.getKigo());
-        data.setDiscription(master.getDiscription());
-
-        return data;
-    }
 
     private RpgStatus createOptionalRpgStatus() {
         RpgStatus st = new RpgStatus();

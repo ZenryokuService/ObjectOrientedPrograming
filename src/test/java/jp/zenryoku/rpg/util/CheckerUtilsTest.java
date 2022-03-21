@@ -161,4 +161,13 @@ public class CheckerUtilsTest {
 		assertFalse(CheckerUtils.isStartSelectNextScene("<1:100>"));
 	}
 
+	@Test
+	public void testIsStartEventFlgScene() {
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg:1>"));
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg:10>"));
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg:999>"));
+		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg:-1>"));
+		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg:1000>"));
+		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg:1a0>"));
+	}
 }

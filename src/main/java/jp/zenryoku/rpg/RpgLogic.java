@@ -457,6 +457,12 @@ public abstract class RpgLogic implements Games {
                     continue;
                 }
 
+                // イベントフラグ付きのシーン設定
+                if (CheckerUtils.isStartEventFlgScene(line)) {
+                    if (true) System.out.println("*** " + line + " ***");
+                    setEventFlgScene(line, storyTxt, sceneObj);
+                    continue;
+                }
                 // ストーリーテキストのシーン終了部分
                 if (line.startsWith("END_SCENE ")) {
                     sceneObj = finishSceneSetting(line, sceneObj);
@@ -582,6 +588,7 @@ public abstract class RpgLogic implements Games {
         sceneObj.setNextIndexes(komokuNo, selectedNextIndex);
         return sceneObj;
     }
+
     /**
      * 指定したファイルを読み込む、BufferedReaderを取得する。
      *
@@ -736,7 +743,7 @@ public abstract class RpgLogic implements Games {
         }
     }
 
-    public void loadLevel() {
+    public void setEventFlgScene(String line, BufferedReader buf, RpgScene sceneObj) {
 
     }
 

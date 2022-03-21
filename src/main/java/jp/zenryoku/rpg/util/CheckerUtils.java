@@ -162,6 +162,11 @@ public class CheckerUtils {
 		return false;
 	}
 
+	/**
+	 * エフェクトシーン開始の判定処理。
+	 * @param line ストーリテキストの１行
+	 * @return true: エフェクトシーン開始 false: そうではない
+	 */
 	public static boolean isStartEffectScene(String line) {
 		if (line.matches("\\<effect\\:[A-Z]{3}[+\\-*/%][0-9]{1,1000}\\>")) {
 			return true;
@@ -173,6 +178,11 @@ public class CheckerUtils {
 		return false;
 	}
 
+	/**
+	 * TS付きのエフェクトシーン開始の判定処理。
+	 * @param line ストーリテキストの１行
+	 * @return true: エフェクトシーン開始 false: そうではない
+	 */
 	public static boolean isStartWithTSEffectScene(String line) {
 		if (line.matches("\\<effect\\:[A-Z]{3}[+\\-*/%][0-9]{1,1000}[T|S]{1,2}[0-9]\\>")) {
 			return true;
@@ -184,9 +194,28 @@ public class CheckerUtils {
 		return false;
 	}
 
+	/**
+	 * バトルシーン開始の、判定処理。
+	 * @param line ストーリーテキストの１行
+	 * @return true: バトルシーン開始 false: そうではない
+	 */
 	public static boolean isStartBattleScene(String line) {
 		boolean isScene = false;
 		if (line.matches("\\<monster:[0-9]{1,3}[\\-]{0,1}[0-9]{0,3}\\>")) {
+			isScene = true;
+		}
+		return isScene;
+	}
+
+	/**
+	 * イベントフラグごとのシーン開始の判定処理。イベントフラグは0-999まで
+	 * @param line ストーリーテキストの１行
+	 * @return true: イベントフラグごとのシーン開始 false: そうではない
+	 */
+	public static boolean isStartEventFlgScene(String line) {
+		boolean isScene = false;
+		// イベントフラグは0-999まで
+		if (line.matches("\\<evflg:[0-9]{1,3}\\>")) {
 			isScene = true;
 		}
 		return isScene;

@@ -298,26 +298,47 @@ public class BattleScene extends StoryScene {
 
 			if (isDebug) System.out.println("Command; " + pCommand.getName());
 
-			// プレーヤー攻撃
-			try {
-				isFinish = printAttackAndCalc(player, monster, pCommand);
-			} catch (RpgException e) {
-				console.printMessage(e.getMessage());
-				continue;
-			}
-			if (isFinish) {
-				break;
-			}
-
-			// モンスターの攻撃
+			// モンスターコマンドの取得
 			if (isDebug) System.out.println("monster.job: " + monster.getType());
 			List<RpgCommand> cmdList = monster.getType().getCommandList();
 			int monRnd = CalcUtils.getInstance().generateRandom(0,1);
 			RpgCommand mCommand = cmdList.get(monRnd);
-			isFinish = printAttackAndCalc(monster, player, mCommand);
-			if (isFinish) {
-				break;
+
+			// 攻撃順序の判定
+			int pAgi = player.getStatusMap().get("AGI").getValue();
+			int mAgi = monster.getStatusMap().get("AGI").getValue();
+			boolean isPlayerFirst = false;
+			if (pAgi >= mAgi) {
+				isPlayerFirst = true;
 			}
+
+			// 戦闘開始
+			try {
+				if (isPlayerFirst) {
+					// プレーヤーの攻撃
+					if (printAttackAndCalc(player, monster, pCommand)) {
+						break;
+					}
+					// モンスターの攻撃
+					if (printAttackAndCalc(monster, player, mCommand)) {
+						break;
+					}
+				} else {
+					// モンスターの攻撃
+					if (printAttackAndCalc(monster, player, mCommand)) {
+						break;
+					}
+					// プレーヤーの攻撃
+					if (printAttackAndCalc(player, monster, pCommand)) {
+						break;
+					}
+				}
+			} catch (RpgException e) {
+				// 選択肢なしの場合はやり直し
+				console.printMessage(e.getMessage());
+				continue;
+			}
+
 		}
 		// 戦闘の決着がつくとisFinishはtrueになっているのでfalseにする
 		return isFinish == false;
@@ -331,7 +352,7 @@ public class BattleScene extends StoryScene {
 	 * @return ture: 第二引数のオブジェクト#HPが0以下 false: まだ生きている。
 	 */
 	private boolean printAttackAndCalc(PlayerCharactor pla, PlayerCharactor mon, RpgCommand cmd) throws RpgException {
-		Map<String, RpgData> paramMap = RpgConfig.getInstance().getParamMap();
+		// 選択したコマンドが、子階層を持っている場合STMをセットする
 		RpgStm stm = null;
 		if (cmd.isChildDir()) {
 			List<RpgStm> stmList = cmd.getChildList();
@@ -346,9 +367,16 @@ public class BattleScene extends StoryScene {
 				// 処理をリセットするためにthrowしている。良い子はマネしてはいけない。
 				throw new RpgException(SelectConst.NO_SELECTION);
 			}
-			String select = console.acceptInput(SelectConst.STM_SELECT, "[1-" + count + "]");
-			stm = stmList.get(Integer.parseInt(select) - 1);
+			int select = -1;
+			if (pla instanceof Monster) {
+				select = CalcUtils.getInstance().generateRandom(1, count);
+			} else {
+				String tmp = console.acceptInput(SelectConst.STM_SELECT, "[1-" + count + "]");
+				select = Integer.parseInt(tmp);
+			}
+			stm = stmList.get(select - 1);
 		}
+		// Command、STMからFormula(計算式)を取得
 		RpgFormula pFormula = null;
 		String mes = null;
 		String orient = null;
@@ -358,8 +386,9 @@ public class BattleScene extends StoryScene {
 			orient = stm.getOrient();
 		} else {
 			pFormula = new RpgFormula(cmd.getFormulaStr());
-			mes = cmd.getName();
+			mes = cmd.getExeMessage();
 		}
+		// Formula(計算式)を計算、値を反映する。
 		if (isDebug) System.out.println("Formula: " + pFormula.getFormulaStr());
 		int pValue = pFormula.formula(pla);
 		console.printMessage(pla.getName() + mes + "!");
@@ -371,6 +400,7 @@ public class BattleScene extends StoryScene {
 			mon.getDamage(pValue);
 			console.printMessage(mon.getName() + "に" + pValue + "のダメージ");
 		}
+		// 攻撃を受けた側のHPが０以下の場合はバトル終了
 		if (mon.getHP() <= 0) {
 			if (mon instanceof Monster) {
 				Monster monst = (Monster) mon;

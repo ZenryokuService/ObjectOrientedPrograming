@@ -1,4 +1,11 @@
 <?xml version="1.0"?>
+<!--
+    モンスタータイプ：マスタカテゴリのMTPの下に定義する形で設定する。サンプル参照
+    OTH = 固定のモンスター、イベントなどに使用する。
+    BST = ４足歩行の獣の類
+    BRD = 鳥類
+    HUM = 人型モンスター
+-->
 <class>
     <!-- 1. 選抜試合１人目 -->
     <monster>
@@ -110,7 +117,7 @@
         <id>6</id>
         <name>おが</name>
         <lv>4</lv>
-        <type>OTH</type>
+        <type>HUM</type>
         <hp>20</hp>
         <mp>2</mp>
         <pow>6</pow>
@@ -121,10 +128,97 @@
         <atk>7</atk>
         <def>5</def>
         <isTalk>true</isTalk>
-        <message>とのさまのまえまできたかぁ！かくごしろぉ！</message>
+        <message>「とのさまは、目の前だぁ！かくごしろぉ！」</message>
         <commandList>ATK</commandList>
         <exp>5</exp>
         <money>0</money>
+    </monster>
+    <!-- 7. ミナの村　門番 -->
+    <monster>
+        <id>7</id>
+        <name>門番モンスター</name>
+        <lv>5</lv>
+        <type>OTH</type>
+        <hp>25</hp>
+        <mp>6</mp>
+        <pow>6</pow>
+        <agi>5</agi>
+        <int>2</int>
+        <dex>4</dex>
+        <ksm>1</ksm>
+        <atk>10</atk>
+        <def>8</def>
+        <isTalk>true</isTalk>
+        <message>「この村に入りたくば、われをたおしてからにするんだなぁ」</message>
+        <commandList>ATK</commandList>
+        <exp>5</exp>
+        <money>0</money>
+    </monster>
+
+    <!-- 8. ヒガの町　うろついているモンスター１ -->
+    <monster>
+        <id>8</id>
+        <name>バトルラビット</name>
+        <lv>5</lv>
+        <type>BST</type>
+        <hp>23</hp>
+        <mp>6</mp>
+        <pow>4</pow>
+        <agi>7</agi>
+        <int>4</int>
+        <dex>4</dex>
+        <ksm>5</ksm>
+        <atk>10</atk>
+        <def>8</def>
+        <isTalk>false</isTalk>
+        <message></message>
+        <commandList>ATK</commandList>
+        <exp>5</exp>
+        <money>6</money>
+    </monster>
+
+    <!-- 9. ヒガの町　うろついているモンスター２ -->
+    <monster>
+        <id>9</id>
+        <name>バトルクロウ</name>
+        <lv>5</lv>
+        <type>BRD</type>
+        <hp>23</hp>
+        <mp>6</mp>
+        <pow>7</pow>
+        <agi>7</agi>
+        <int>4</int>
+        <dex>2</dex>
+        <ksm>1</ksm>
+        <atk>10</atk>
+        <def>8</def>
+        <isTalk>false</isTalk>
+        <message></message>
+        <commandList>ATK, STK</commandList>
+        <exp>5</exp>
+        <money>6</money>
+    </monster>
+
+    <!-- 10. ヒガの町　うろついているモンスター３ -->
+    <monster>
+        <id>10</id>
+        <name>バトルドック</name>
+        <lv>5</lv>
+        <type>BST</type>
+        <hp>23</hp>
+        <mp>6</mp>
+        <pow>5</pow>
+        <agi>7</agi>
+        <int>4</int>
+        <dex>5</dex>
+        <ksm>5</ksm>
+        <atk>11</atk>
+        <def>9</def>
+        <isTalk>false</isTalk>
+        <message></message>
+        <commandList>ATK, BAT</commandList>
+        <exp>5</exp>
+        <money>6</money>
     </monster>
 
 </class>

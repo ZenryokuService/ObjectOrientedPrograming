@@ -167,8 +167,7 @@ public class PlayerCharactor extends Player {
                 ConsoleUtils.getInstance().acceptInput("", false);
             }
             System.out.println(name + "のHPとMPが回復した。");
-            HP = getMaxHP();
-            MP = getMaxMP();
+            reloadHpMp();
         }
     }
 
@@ -178,5 +177,26 @@ public class PlayerCharactor extends Player {
 
     public void useMp(int useMp) {
         MP = MP - useMp;
+    }
+
+    /**
+     * 最大値のHP,MPを再設定する。
+     */
+    private void reloadHpMp() {
+        Map<String, RpgStatus> statusMap =  getStatusMap();
+        Set<String> set = statusMap.keySet();
+        int hp = 0;
+        int mp = 0;
+        for (String key : set) {
+            RpgStatus status = statusMap.get(key);
+            hp += status.getValue();
+            if ("POW".equals(status.getKigo()) == false && "AGI".equals(status.getKigo()) == false) {
+                mp += status.getValue();
+            }
+        }
+        this.HP = hp;
+        this.MP = mp;
+        setMaxHP(HP);
+        setMaxMP(MP);
     }
 }
