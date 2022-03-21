@@ -22,10 +22,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * TextRpgLocigの親クラス、ストーリーテキストの読み込み、シーンオブジェクトの生成を行う。
@@ -743,8 +740,40 @@ public abstract class RpgLogic implements Games {
         }
     }
 
-    public void setEventFlgScene(String line, BufferedReader buf, RpgScene sceneObj) {
-
+    /**
+     * ほぼ尾のシーンにも対応する必要がある。そのためRpgSceneを実装。
+     * @param line ストーリテキスト１行
+     * @param buf 残りのストーリーテキスト
+     * @param sceneObj シーンオブジェクト
+     */
+    public void setEventFlgScene(String line, BufferedReader buf, RpgScene sceneObj) throws RpgException {
+        RpgConfig conf = RpgConfig.getInstance();
+        try {
+            RpgEvFlg evflg = StringUtils.readEventFlg(line);
+            String nextLine = null;
+            List<String> list = new ArrayList<>();
+            Map<String, RpgEvFlg> map = conf.getEvFlgMap();
+            if (map == null) {
+                map = new HashMap<>();
+            }
+            while ((nextLine = buf.readLine()).equals("</evflg>")) {
+                if (CheckerUtils.isStartEventFlgScene(nextLine)) {
+                    evflg.setEvStory(list);
+                    map.put(evflg.getEvFlg(), evflg);
+                    list = new ArrayList<>();
+                    evflg = StringUtils.readEventFlg(nextLine);
+                }
+                list.add(nextLine);
+            }
+            // 設定オブジェクト
+            conf.setEvFlgMap(map);
+        } catch (RpgException e) {
+            e.printStackTrace();
+            throw new RpgException(MessageConst.ERR_EV_FLG.toString());
+        } catch (IOException ie) {
+            ie.printStackTrace();
+            throw new RpgException(MessageConst.ERR_FILE_READ.toString());
+        }
     }
 
     /**

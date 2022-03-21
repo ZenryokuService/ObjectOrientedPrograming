@@ -1,12 +1,8 @@
 package jp.zenryoku.rpg.util;
 
-import jp.zenryoku.rpg.TestUtils;
-import jp.zenryoku.rpg.data.Effects;
-import jp.zenryoku.rpg.data.status.StEffect;
+import jp.zenryoku.rpg.data.RpgEvFlg;
 import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -113,6 +109,19 @@ public class StringUtilsTest {
                     , StringUtils.convertProperty("これは{Player.aaa}です。", "Player.name", "てすと"));
             assertEquals("これは{MNY}です。"
                     , StringUtils.convertProperty("これは{MNY}です。", "MNY＠＠", "通貨"));
+        } catch (RpgException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testReadEventFlg() {
+        try {
+            RpgEvFlg evFlg = StringUtils.readEventFlg("<evflg:1:null>");
+            assertEquals("1", evFlg);
+            assertEquals("0", StringUtils.readEventFlg("<evflg: 2: flg=1>"));
+            assertEquals("4", StringUtils.readEventFlg("<evflg: 2: flg=1>"));
         } catch (RpgException e) {
             e.printStackTrace();
             fail(e.getMessage());

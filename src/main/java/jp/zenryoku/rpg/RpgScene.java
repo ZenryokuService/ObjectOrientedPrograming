@@ -1,6 +1,7 @@
 package jp.zenryoku.rpg;
 
 import jp.zenryoku.rpg.constants.RpgConst;
+import jp.zenryoku.rpg.data.RpgEvFlg;
 import jp.zenryoku.rpg.exception.RpgException;
 import lombok.Data;
 
@@ -41,6 +42,9 @@ public abstract class RpgScene {
     protected int sceneSize;
     /** シーンのあとに表示するメッセージ */
     protected String lastMassage;
+    /** イベントフラグオブジェクト */
+    protected RpgEvFlg evFlg;
+
     /**
      * デフォルトコンストラクタ。
      */

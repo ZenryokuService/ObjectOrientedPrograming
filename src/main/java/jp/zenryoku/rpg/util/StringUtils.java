@@ -2,17 +2,9 @@ package jp.zenryoku.rpg.util;
 
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
-import jp.zenryoku.rpg.data.Effects;
-import jp.zenryoku.rpg.data.RpgConfig;
-import jp.zenryoku.rpg.data.RpgStm;
-import jp.zenryoku.rpg.data.items.EvEffect;
-import jp.zenryoku.rpg.data.status.RpgStatus;
-import jp.zenryoku.rpg.data.status.StEffect;
+import jp.zenryoku.rpg.data.RpgEvFlg;
 import jp.zenryoku.rpg.exception.RpgException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -263,5 +255,15 @@ public class StringUtils {
             res[1] = jobLv[1].replaceAll("\\)", "");
         }
         return res;
+    }
+
+    public static RpgEvFlg readEventFlg(String evflg) throws RpgException {
+        RpgEvFlg flg = new RpgEvFlg();
+        String[] sep = evflg.split(":");
+        if (sep.length != RpgConst.EV_FLG_LEN) {
+            throw new RpgException(MessageConst.ERR_EV_FLG_SIZE.toString());
+        }
+
+        return flg;
     }
 }

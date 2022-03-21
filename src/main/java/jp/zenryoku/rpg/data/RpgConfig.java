@@ -70,6 +70,8 @@ public class RpgConfig {
     private Map<String, RpgMonsterType> monsterTypeMap;
     /** STMマップ */
     private Map<String, List<RpgStm>> stmMap;
+    /** エベントフラグマップ */
+    private Map<String, RpgEvFlg> evFlgMap;
 
 
 
