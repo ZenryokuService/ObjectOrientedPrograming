@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * テキストファイルを読み込み、"END_SCENE"の次に来るコマンドで、次のアクションを設定する。
@@ -158,10 +159,18 @@ public class StoryScene extends RpgScene {
         int count = 0;
         int printLineNo = RpgConfig.getInstance().getPrintLine();
         if (evFlg != null) {
-            PlayerParty party = PlayerParty.getInstance();
-            Map<String, RpgEvFlg> evMap = party.getEvflgMap();
-            if (evMap.containsKey(evFlg.getEvFlgId())) {
-
+            Map<String, String> playerKey = PlayerParty.getInstance().getEvflgKeyMap();
+            Map<String, List<String>> evMap = evFlg.getEvStoryMap();
+            Set<String> keys = playerKey.keySet();
+            List<String> story = null;
+            for (String key : keys) {
+                if (evMap.containsKey(key)) {
+                    story = evMap.get(key);
+                    break;
+                }
+            }
+            if (story == null) {
+                textList = evMap.get(RpgConst.EV_FLG_NULL);
             }
         }
         // ストーリーを表示する

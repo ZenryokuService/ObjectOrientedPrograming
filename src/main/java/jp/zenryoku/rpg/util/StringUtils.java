@@ -275,7 +275,7 @@ public class StringUtils {
         String key = sep[2].replaceAll("flg", "").replaceAll("=", "").trim();
         flg.setEvFlgId(id);
         if ("null".equals(key) || "NULL".equals(key)) {
-            flg.setEvFlgKey(null);
+            flg.setEvFlgKey(RpgConst.EV_FLG_NULL);
         } else {
             flg.setEvFlgKey(key);
         }

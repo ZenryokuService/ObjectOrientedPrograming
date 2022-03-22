@@ -18,7 +18,7 @@ public class RpgEvFlg {
     /** イベントフラグキー */
     private String evFlgKey;
     /** イベント別ストーリー */
-    private List<String> evStory;
+    private Map<String, List<String>> evStoryMap;
 
     /**
      * コンストラクタ。

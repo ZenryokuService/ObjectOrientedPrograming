@@ -240,16 +240,16 @@ END_SCENE 27
 <monster:7>
 村がかいほうされました。ミナの村に平和がおとずれました。
 </monster>
-<evflg:2:flg=1>
+<evflg:1:flg=1>
 ミナの村は今日も平和です。
 </evflg>
 END_SCENE 27
 
 29:F
-<evflg:3:null>
+<evflg:2:null>
 {Player.name}がヒガの町に着くと、入口にモンスター群れが待ち構えていました。
 これは、たちうちできない。。。たいきゃく！
-<evflg:4:flg=1>
+<evflg:2:flg=1>
 ヒガの町にいたモンスターの群れは、見当たりません、いまのうちだ！
 <monster:8-10>
 </monster>

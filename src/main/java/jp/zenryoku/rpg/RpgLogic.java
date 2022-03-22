@@ -752,21 +752,18 @@ public abstract class RpgLogic implements Games {
             RpgEvFlg evflg = StringUtils.readEventFlg(line);
             String nextLine = null;
             List<String> list = new ArrayList<>();
-            Map<String, RpgEvFlg> map = conf.getEvFlgMap();
-            if (map == null) {
-                map = new HashMap<>();
-            }
+            Map<String, List<String>> map =  new HashMap<>();
+            String evFlgKey = evflg.getEvFlgKey();
             while ((nextLine = buf.readLine()).equals("</evflg>")) {
                 if (CheckerUtils.isStartEventFlgScene(nextLine)) {
-                    evflg.setEvStory(list);
-                    map.put(evflg.getEvFlgId() + evflg.getEvFlgKey(), evflg);
+                    map.put(evFlgKey, list);
                     list = new ArrayList<>();
-                    evflg = StringUtils.readEventFlg(nextLine);
+                    evFlgKey = StringUtils.readEventFlg(nextLine).getEvFlgKey();
                 }
                 list.add(nextLine);
             }
             // 設定オブジェクト
-            conf.setEvFlgMap(map);
+            evflg.setEvStoryMap(map);
             // イベントフラグ
             sceneObj.setEvFlg(evflg);
         } catch (RpgException e) {

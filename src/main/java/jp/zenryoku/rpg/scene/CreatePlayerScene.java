@@ -123,11 +123,8 @@ public class CreatePlayerScene extends StoryScene {
             }
         }
         // イベントフラグマップをディープ・コピーしてセット
-        Map<String, RpgEvFlg> tmp = RpgConfig.getInstance().getEvFlgMap();
-        Map<String, RpgEvFlg> map = new HashMap<>();
-        map.putAll(tmp);
-
-        party.setEvflgMap(map);
+        Map<String, String> map = new HashMap<>();
+        party.setEvflgKeyMap(map);
         config.setParty(party);
         return false;
     }

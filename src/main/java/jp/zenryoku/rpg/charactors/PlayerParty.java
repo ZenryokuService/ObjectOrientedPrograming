@@ -19,7 +19,7 @@ public class PlayerParty {
     /** 所持金 */
     private static int money;
     /** イベントフラグキーのリスト */
-    private Map<String, RpgEvFlg> evflgMap;
+    private Map<String, String> evflgKeyMap;
 
     /** プライベートコンストラクタ */
     private PlayerParty() {

@@ -194,6 +194,8 @@ public enum RpgConst {
     public static final String HMX = "HMX";
     /** イベントフラグの分割サイズ */
     public static final int EV_FLG_LEN = 3;
+    /** EvFlがセットされていない場合のキー(小文字) */
+    public static final String EV_FLG_NULL = "null";
 
     /** 計算オブジェクトの保持できる項の数 */
     public static final int CALC_KO_COUNT = 2;
