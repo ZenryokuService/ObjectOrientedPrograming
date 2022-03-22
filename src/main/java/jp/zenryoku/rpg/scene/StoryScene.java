@@ -6,6 +6,7 @@ import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.data.ParamGenerator;
 import jp.zenryoku.rpg.data.RpgConfig;
+import jp.zenryoku.rpg.data.RpgEvFlg;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 import jp.zenryoku.rpg.util.StringUtils;
@@ -13,6 +14,7 @@ import jp.zenryoku.rpg.util.StringUtils;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * テキストファイルを読み込み、"END_SCENE"の次に来るコマンドで、次のアクションを設定する。
@@ -157,6 +159,10 @@ public class StoryScene extends RpgScene {
         int printLineNo = RpgConfig.getInstance().getPrintLine();
         if (evFlg != null) {
             PlayerParty party = PlayerParty.getInstance();
+            Map<String, RpgEvFlg> evMap = party.getEvflgMap();
+            if (evMap.containsKey(evFlg.getEvFlgId())) {
+
+            }
         }
         // ストーリーを表示する
         for (String text : textList) {
