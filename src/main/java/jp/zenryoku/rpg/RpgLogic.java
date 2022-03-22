@@ -456,7 +456,7 @@ public abstract class RpgLogic implements Games {
 
                 // イベントフラグ付きのシーン設定
                 if (CheckerUtils.isStartEventFlgScene(line)) {
-                    if (true) System.out.println("*** " + line + " ***");
+                    if (isDebug) System.out.println("*** " + line + " ***");
                     setEventFlgScene(line, storyTxt, sceneObj);
                     continue;
                 }
@@ -759,7 +759,7 @@ public abstract class RpgLogic implements Games {
             while ((nextLine = buf.readLine()).equals("</evflg>")) {
                 if (CheckerUtils.isStartEventFlgScene(nextLine)) {
                     evflg.setEvStory(list);
-                    map.put(evflg.getEvFlgId(), evflg);
+                    map.put(evflg.getEvFlgId() + evflg.getEvFlgKey(), evflg);
                     list = new ArrayList<>();
                     evflg = StringUtils.readEventFlg(nextLine);
                 }
@@ -767,6 +767,8 @@ public abstract class RpgLogic implements Games {
             }
             // 設定オブジェクト
             conf.setEvFlgMap(map);
+            // イベントフラグ
+            sceneObj.setEvFlg(evflg);
         } catch (RpgException e) {
             e.printStackTrace();
             throw new RpgException(MessageConst.ERR_EV_FLG.toString());

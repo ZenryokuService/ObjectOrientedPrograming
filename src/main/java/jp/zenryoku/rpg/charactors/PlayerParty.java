@@ -1,7 +1,11 @@
 package jp.zenryoku.rpg.charactors;
 
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
+import jp.zenryoku.rpg.data.RpgEvFlg;
 import lombok.Data;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * プレーヤーのパーティを管理するクラス。シングルトン実装。
@@ -14,6 +18,8 @@ public class PlayerParty {
     private PlayerCharactor player;
     /** 所持金 */
     private static int money;
+    /** イベントフラグキーのリスト */
+    private Map<String, RpgEvFlg> evflgMap;
 
     /** プライベートコンストラクタ */
     private PlayerParty() {

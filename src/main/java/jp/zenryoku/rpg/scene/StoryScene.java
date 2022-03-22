@@ -147,10 +147,17 @@ public class StoryScene extends RpgScene {
         return false;
     }
 
-    /** 表示する行数をRpgConst#PRINT_LINEに設定する */
-    protected void printStory() throws RpgException {
+    /**
+     * 表示する行数をRpgConst#PRINT_LINEに設定する
+      * @return true: イベントフラグがあり、子クラスのplayScene()を実行しない false: 子クラスのplayScene()も実行する。
+     * @throws RpgException 想定外のエラー
+     */
+    protected boolean printStory() throws RpgException {
         int count = 0;
         int printLineNo = RpgConfig.getInstance().getPrintLine();
+        if (evFlg != null) {
+            PlayerParty party = PlayerParty.getInstance();
+        }
         // ストーリーを表示する
         for (String text : textList) {
             String printLine = convertText(text);
@@ -160,7 +167,8 @@ public class StoryScene extends RpgScene {
                 count = 0;
             }
             count++;
-        };
+        }
+        return false;
     }
 
     /**

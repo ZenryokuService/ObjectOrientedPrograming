@@ -104,11 +104,13 @@ public class CreatePlayerScene extends StoryScene {
                 }
             }
             // 計算式の設定
-            CalcUtils calUtils = CalcUtils.getInstance();
             Map<String, RpgFormula> fMap = config.getFormulaMap();
             RpgFormula atkForm = fMap.get(RpgConst.ATK);
             RpgFormula defForm = fMap.get(RpgConst.DEF);
+
+            //CalcUtils calUtils = CalcUtils.getInstance();
             //calUtils.relatedSymbols(atkForm.getFormulaStr(), statusMap, optMap);
+
             // 職業リストと職業選択
             createJob(console, player);
             // ステータス確定確認
@@ -120,6 +122,12 @@ public class CreatePlayerScene extends StoryScene {
                 break;
             }
         }
+        // イベントフラグマップをディープ・コピーしてセット
+        Map<String, RpgEvFlg> tmp = RpgConfig.getInstance().getEvFlgMap();
+        Map<String, RpgEvFlg> map = new HashMap<>();
+        map.putAll(tmp);
+
+        party.setEvflgMap(map);
         config.setParty(party);
         return false;
     }
