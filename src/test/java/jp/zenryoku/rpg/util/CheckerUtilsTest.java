@@ -163,11 +163,23 @@ public class CheckerUtilsTest {
 
 	@Test
 	public void testIsStartEventFlgScene() {
-		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg:1>"));
-		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg:10>"));
-		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg:999>"));
-		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg:-1>"));
-		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg:1000>"));
-		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg:1a0>"));
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg:1:flg=1>"));
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg:10:flg=1>"));
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg:999:flg=aaa>"));
+		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg:-1:flg=1>"));
+		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg:1000:flg=1>"));
+		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg:1a01:flg=1>"));
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg:1:NULL>"));
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg:1:null>"));
+
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg: 1: flg=1>"));
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg: 10: flg=1>"));
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg: 999: flg=aaa>"));
+		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg: -1: flg=1>"));
+		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg: 1000: flg=1>"));
+		assertFalse(CheckerUtils.isStartEventFlgScene("<evflg: 1a01: flg=1>"));
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg: 1: NULL>"));
+		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg: 1: null>"));
+
 	}
 }

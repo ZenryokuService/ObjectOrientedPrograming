@@ -213,9 +213,11 @@ public class CheckerUtils {
 	 * @return true: イベントフラグごとのシーン開始 false: そうではない
 	 */
 	public static boolean isStartEventFlgScene(String line) {
+		line = line.replaceAll(" ", "");
 		boolean isScene = false;
 		// イベントフラグは0-999まで
-		if (line.matches("\\<evflg:[0-9]{1,3}\\>")) {
+		if (line.matches("\\<evflg:[0-9a-zA-Z]{1,3}:(null|NULL|flg=[0-9a-xA-Z]{1,3})\\>")) {
+//		if (line.matches("\\<evflg:[0-9a-zA-Z]{1,3}:(flg=[0-9]{1,3})|(null)|(NULL)\\>")) {
 			isScene = true;
 		}
 		return isScene;

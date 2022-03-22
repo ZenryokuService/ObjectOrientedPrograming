@@ -48,9 +48,7 @@ public class ParamGenerator {
     private Map<String, RpgData> itemMap;
     /** アイテムタイプ、アイテムの設定 */
     private Map<String, RpgData> itemTypeMap;
-    /** 全てのパラメータを格納するマップ */
-    private Map<String, RpgData> dataMap;
-    /** 天のマップ */
+    /** 店舗のマップ */
     private Map<String, RpgShop> shopMap;
     /** 効果オブジェクトリスト */
     private Map<String, Effects> effectMap;
@@ -90,7 +88,6 @@ public class ParamGenerator {
         itemTypeMap = config.getItemTypeMap();
         statusMap = config.getStatusMap();
         optionStatusMap = config.getOptionStatusMap();
-        dataMap = config.getDataMap();
         // TODO-[オブジェクトが重複しているのでのちに見直し]
         effectMap = config.getEffectMap();
         stEffectMap = config.getStEffectMap();
@@ -109,31 +106,6 @@ public class ParamGenerator {
             instance = new ParamGenerator();
         }
         return instance;
-    }
-
-    /**
-     * java.util.MapにKey=名前, Value=RpgDataとして設定情報を登録する。
-     * ストーリーテキストからそのほかのデータオブジェクトを生成する。
-     * @throws RpgException 設定のエラー
-     */
-    @Deprecated
-    public void createDataMap() throws RpgException {
-        if (/* jobMap.size() != 0 && */ formulaMap.size() != 0 && itemMap.size() != 0) {
-//            Set<String> jobKey = jobMap.keySet();
-//            for (String key : jobKey) {
-//                dataMap.put(key, jobMap.get(key));
-//            }
-            Set<String> formulaKey = formulaMap.keySet();
-            for (String key : formulaKey) {
-                dataMap.put(key, formulaMap.get(key));
-            }
-            Set<String> itemKey = itemMap.keySet();
-            for (String key : itemKey) {
-                dataMap.put(key, itemMap.get(key));
-            }
-        } else {
-            throw new RpgException("職業リスト、計算式リスト、アイテム設定リストをすべて作成してください。");
-        }
     }
 
     /**
@@ -502,6 +474,7 @@ public class ParamGenerator {
      * 各種マップのを合成して返却する
      * @return RPGデータのマップ
      */
+    @Deprecated
     public Map<String, RpgData> getAllMap() {
         Map<String, RpgData> res = new HashMap<>();
         Map<String, RpgData> itemType = config.getItemTypeMap();

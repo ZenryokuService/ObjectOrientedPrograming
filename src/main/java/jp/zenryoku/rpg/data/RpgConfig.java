@@ -55,10 +55,11 @@ public class RpgConfig {
     /** アイテムマップ */
     private Map<String, RpgData> itemMap;
     /** アイテムタイプマップ */
+    @Deprecated
     private Map<String, RpgData> itemTypeMap;
     /** ショップマップ */
     private Map<String, RpgShop> shopMap;
-    /** ステータス効果マップ */
+    /** 効果マップ */
     private Map<String, Effects> effectMap;
     /** ステータス変化オブジェクトマップ */
     private Map<String, StEffect> stEffectMap;

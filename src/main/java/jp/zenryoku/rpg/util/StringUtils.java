@@ -257,13 +257,28 @@ public class StringUtils {
         return res;
     }
 
+    /**
+     * "<evflg: 3: flg=XX>"イベントフラグは「XX]の部分がそれにあたる。
+     * @param evflg "<evflg: イベントフラグ番号(ID): flg=イベントフラグキー>"
+     * @return RpgEvFlgクラスを生成して返却する。
+     * @throws RpgException 設定エラー
+     */
     public static RpgEvFlg readEventFlg(String evflg) throws RpgException {
         RpgEvFlg flg = new RpgEvFlg();
         String[] sep = evflg.split(":");
         if (sep.length != RpgConst.EV_FLG_LEN) {
             throw new RpgException(MessageConst.ERR_EV_FLG_SIZE.toString());
         }
-
+        // イベントフラグ番号(ID)
+        String id = sep[1].trim();
+        // イベントフラグキー
+        String key = sep[2].replaceAll("flg", "").replaceAll("=", "").trim();
+        flg.setEvFlgId(id);
+        if ("null".equals(key) || "NULL".equals(key)) {
+            flg.setEvFlgKey(null);
+        } else {
+            flg.setEvFlgKey(key);
+        }
         return flg;
     }
 }

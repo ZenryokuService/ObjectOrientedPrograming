@@ -27,4 +27,18 @@
         <discription>カラスタイプのモンスター。</discription>
         <commandList>ATK, DEF, STC</commandList>
     </monsterType>
+    <!-- 人間・タイプ -->
+    <monsterType>
+        <id>HUM</id>
+        <name>人間タイプ</name>
+        <discription>人間タイプのモンスター。</discription>
+        <commandList>ATK, DEF</commandList>
+    </monsterType>
+    <!-- 獣・タイプ -->
+    <monsterType>
+        <id>BST</id>
+        <name>獣タイプ</name>
+        <discription>獣タイプのモンスター。</discription>
+        <commandList>ATK, DEF</commandList>
+    </monsterType>
 </class>

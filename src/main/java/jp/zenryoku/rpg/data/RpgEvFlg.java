@@ -13,8 +13,10 @@ import java.util.Map;
  */
 @Data
 public class RpgEvFlg {
-    /** イベントフラグ */
-    private String evFlg;
+    /** イベントフラグ番号(ID) */
+    private String evFlgId;
+    /** イベントフラグキー */
+    private String evFlgKey;
     /** イベント別ストーリー */
     private List<String> evStory;
 

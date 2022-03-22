@@ -331,7 +331,12 @@ public class XmlUtils {
             throw new RpgException(MessageConst.ERR_BEFORE_LOAD_CMD.toString());
         }
         try {
-            Document doc = loadDocumentBuilder(directory, "MonseterType.xml");
+            Document doc = null;
+            if ("".equals(directory)) {
+                doc = loadDocumentBuilder("src/main/resources", "MonseterType.xml");
+            } else {
+                doc = loadDocumentBuilder(directory, "MonseterType.xml");
+            }
             if (isDebug) System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
             NodeList list = doc.getElementsByTagName("monsterType");
 
@@ -370,6 +375,7 @@ public class XmlUtils {
         }
 
         RpgMonsterType job = new RpgMonsterType(id, name, disc, cmdList);
+        job.setCommandList(cmdList);
         return job;
     }
 

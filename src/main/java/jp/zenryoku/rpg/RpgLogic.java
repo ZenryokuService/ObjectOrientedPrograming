@@ -82,7 +82,7 @@ public abstract class RpgLogic implements Games {
         // モンスターリストの読み込み
         loadMonsters("");
         // ストーリー.txtの読み込み
-        BufferedReader story = getBufferedReader("src/main/resources/story", "Sample_story.txt");
+        BufferedReader story = getBufferedReader("src/main/resources/story", "Story.txt");
         // シーンオブジェクトの生成
         createSceneObject(story, "");
         // 職業リストのロード
@@ -124,7 +124,7 @@ public abstract class RpgLogic implements Games {
         // モンスターリストの読み込み
         loadMonsters(directory);
         // ストーリー.txtの読み込み
-        BufferedReader story = getBufferedReader(directory, "Sample_story.txt");
+        BufferedReader story = getBufferedReader(directory, "Story.txt");
         // シーンオブジェクトの生成
         createSceneObject(story, directory);
         // シーンオブジェクトの数を設定する
@@ -393,9 +393,9 @@ public abstract class RpgLogic implements Games {
         ParamGenerator generator = ParamGenerator.getInstance();
         BufferedReader storyTxt = null;
         if ("".equals(directory)) {
-            storyTxt = getBufferedReader("src/main/resources/story", "Sample_story.txt");
+            storyTxt = getBufferedReader("src/main/resources/story", "Story.txt");
         } else {
-            storyTxt = getBufferedReader(directory, "Sample_story.txt");
+            storyTxt = getBufferedReader(directory, "Story.txt");
         }
         // シーンオブジェクトのリスト
         List<RpgScene> rpgSceneList = new ArrayList<>();
@@ -759,7 +759,7 @@ public abstract class RpgLogic implements Games {
             while ((nextLine = buf.readLine()).equals("</evflg>")) {
                 if (CheckerUtils.isStartEventFlgScene(nextLine)) {
                     evflg.setEvStory(list);
-                    map.put(evflg.getEvFlg(), evflg);
+                    map.put(evflg.getEvFlgId(), evflg);
                     list = new ArrayList<>();
                     evflg = StringUtils.readEventFlg(nextLine);
                 }
