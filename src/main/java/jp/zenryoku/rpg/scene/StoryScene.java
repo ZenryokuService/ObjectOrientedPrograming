@@ -170,22 +170,27 @@ public class StoryScene extends RpgScene {
         if (isDebug) System.out.println("EvFLg: " + evFlg);
         if (evFlg != null) {
             Map<String, String> playerKey = PlayerParty.getInstance().getEvflgKeyMap();
-            Map<String, List<String>> evMap = evFlg.getEvStoryMap();
+            Map<String, List<String>> evStoryMap = evFlg.getEvStoryMap();
+            Map<String, String> evNextSceneMap = evFlg.getNextSceneMap();
             Set<String> keys = playerKey.keySet();
             List<String> story = null;
+            String evNextScene = null;
             for (String key : keys) {
-                if (evMap.containsKey(key)) {
+                if (evStoryMap.containsKey(key)) {
                     System.out.println("Contains Key: " + key);
-                    story = evMap.get(key);
+                    story = evStoryMap.get(key);
+                    evNextScene = evNextSceneMap.get(key);
                     break;
                 }
             }
             if (story != null) {
                 if (isDebug) System.out.println("story is");
                 textList = story;
+                setNextIndex(evNextScene);
             } else {
                 if (isDebug) System.out.println("no story");
-                textList = evMap.get(RpgConst.EV_FLG_NULL);
+                textList = evStoryMap.get(RpgConst.EV_FLG_NULL);
+                setNextIndex(evNextSceneMap.get(RpgConst.EV_FLG_NULL));
             }
         }
         // ストーリーを表示する

@@ -19,6 +19,8 @@ public class RpgEvFlg {
     private String evFlgKey;
     /** イベント別ストーリー */
     private Map<String, List<String>> evStoryMap;
+    /** イベント別次のシーンインデックス */
+    private Map<String, String> nextSceneMap;
 
     /**
      * コンストラクタ。

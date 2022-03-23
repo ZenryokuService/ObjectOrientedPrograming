@@ -761,8 +761,9 @@ public abstract class RpgLogic implements Games {
 
             String nextLine = null;
             List<String> list = new ArrayList<>();
-            Map<String, List<String>> map =  new HashMap<>();
-            map.put(evFlgKey, list);
+            Map<String, List<String>> storyMap =  new HashMap<>();
+            Map<String, String> nextSceneMap =  new HashMap<>();
+            storyMap.put(evFlgKey, list);
 
             if (isDebug) System.out.println("ID: " + id + " KEY: " + evFlgKey);
             while ((nextLine = buf.readLine()).equals("</evflg>") == false) {
@@ -776,15 +777,19 @@ public abstract class RpgLogic implements Games {
                     id = id2;
                     evFlgKey = evflg[1];
                     list = new ArrayList<>();
-                    map.put(evFlgKey, list);
+                    storyMap.put(evFlgKey, list);
                     continue;
+                } else if (nextLine.startsWith("NEXT_SCENE ")) {
+                    String[] sep = nextLine.split(" ");
+                    nextSceneMap.put(evFlgKey, sep[1]);
                 }
                 if (isDebug) System.out.println("add: " + nextLine);
                 list.add(nextLine);
             }
-            System.out.println(map);
-            // 設定オブジェクト
-            evFlgObj.setEvStoryMap(map);
+            if (isDebug) System.out.println(storyMap);
+            // マップの設定
+            evFlgObj.setEvStoryMap(storyMap);
+            evFlgObj.setNextSceneMap(nextSceneMap);
             // イベントフラグをシーンオブジェクトに設定
             sceneObj.setEvFlg(evFlgObj);
         } catch (RpgException e) {
