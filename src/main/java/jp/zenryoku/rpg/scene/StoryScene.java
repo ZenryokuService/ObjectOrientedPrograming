@@ -44,7 +44,7 @@ public class StoryScene extends RpgScene {
     @Override
     public boolean playScene() throws Exception {
 
-        if (true) System.out.println("SceneIdx: " + super.sceneIndex + "  SceneType: " + super.sceneType);
+        if (isDebug) System.out.println("SceneIdx: " + super.sceneIndex + "  SceneType: " + super.sceneType);
         // TODO-[シーンタイプごとに処理を分ける必要なし削除予定]
 
         // シーンタイプごとに処理を分ける
@@ -69,7 +69,7 @@ public class StoryScene extends RpgScene {
                     System.out.println("select = " + selected);
                 }
                 nextIndex = nextIndexes[Integer.parseInt(selected) - 1];
-                System.out.println("nextIdx: " + nextIndex);
+                if (isDebug) System.out.println("nextIdx: " + nextIndex);
                 int nextIdx = Integer.parseInt(nextIndex);
                 if (nextIdx < 0) {
                     nextIndex = String.valueOf(nextIdx);
@@ -167,6 +167,7 @@ public class StoryScene extends RpgScene {
     protected boolean printStory() throws RpgException {
         int count = 0;
         int printLineNo = RpgConfig.getInstance().getPrintLine();
+        if (isDebug) System.out.println("EvFLg: " + evFlg);
         if (evFlg != null) {
             Map<String, String> playerKey = PlayerParty.getInstance().getEvflgKeyMap();
             Map<String, List<String>> evMap = evFlg.getEvStoryMap();
@@ -174,11 +175,16 @@ public class StoryScene extends RpgScene {
             List<String> story = null;
             for (String key : keys) {
                 if (evMap.containsKey(key)) {
+                    System.out.println("Contains Key: " + key);
                     story = evMap.get(key);
                     break;
                 }
             }
             if (story != null) {
+                if (isDebug) System.out.println("story is");
+                textList = story;
+            } else {
+                if (isDebug) System.out.println("no story");
                 textList = evMap.get(RpgConst.EV_FLG_NULL);
             }
         }

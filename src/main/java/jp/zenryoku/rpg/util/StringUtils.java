@@ -265,6 +265,7 @@ public class StringUtils {
      */
     public static String[] readEventFlg(String evflg) throws RpgException {
         String[] res = new String[2];
+        evflg = evflg.replaceAll("<", "").replaceAll(">", "");
         String[] sep = evflg.split(":");
         if (sep.length != RpgConst.EV_FLG_LEN) {
             throw new RpgException(MessageConst.ERR_EV_FLG_SIZE.toString());
@@ -272,7 +273,7 @@ public class StringUtils {
         // イベントフラグ番号(ID)
         String id = sep[1].trim();
         // イベントフラグキー
-        String key = sep[2].replaceAll("flg", "").replaceAll("=", "").trim();
+        String key = sep[2].replaceAll("flg=", "").trim();
         res[0] = id;
 
         if ("null".equals(key) || "NULL".equals(key)) {

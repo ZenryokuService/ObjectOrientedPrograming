@@ -752,15 +752,22 @@ public abstract class RpgLogic implements Games {
         RpgEvFlg evFlgObj = new RpgEvFlg();
         try {
             String[] evflg = StringUtils.readEventFlg(line);
+            // イベントフラグ番号(ID)
             String id = evflg[0];
+            evFlgObj.setEvFlgId(id);
+            // イベントフラグキー
+            String evFlgKey = evflg[1];
+            evFlgObj.setEvFlgKey(evFlgKey);
+
             String nextLine = null;
             List<String> list = new ArrayList<>();
             Map<String, List<String>> map =  new HashMap<>();
-            String evFlgKey = evflg[1];
-            while ((nextLine = buf.readLine()).equals("</evflg>")) {
+            map.put(evFlgKey, list);
+
+            if (isDebug) System.out.println("ID: " + id + " KEY: " + evFlgKey);
+            while ((nextLine = buf.readLine()).equals("</evflg>") == false) {
+                if (isDebug) System.out.println(nextLine);
                 if (CheckerUtils.isStartEventFlgScene(nextLine)) {
-                    map.put(evFlgKey, list);
-                    list = new ArrayList<>();
                     evflg = StringUtils.readEventFlg(nextLine);
                     String id2 = evflg[0];
                     if (id.equals(id2) == false) {
@@ -768,9 +775,14 @@ public abstract class RpgLogic implements Games {
                     }
                     id = id2;
                     evFlgKey = evflg[1];
+                    list = new ArrayList<>();
+                    map.put(evFlgKey, list);
+                    continue;
                 }
+                if (isDebug) System.out.println("add: " + nextLine);
                 list.add(nextLine);
             }
+            System.out.println(map);
             // 設定オブジェクト
             evFlgObj.setEvStoryMap(map);
             // イベントフラグをシーンオブジェクトに設定
