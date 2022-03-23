@@ -160,8 +160,9 @@ public class ConsoleUtils {
 				continue;
 			}
 			int in = Integer.parseInt(input);
-			if (in < 1 && in > max) {
+			if (in < 1 || in > max) {
 				System.out.println(MessageConst.ERR_OUT_OF_INPUT + ": " + "1-" + max);
+				continue;
 			}
 			isOK = true;
 		}

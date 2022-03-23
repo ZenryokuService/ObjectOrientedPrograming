@@ -44,7 +44,7 @@ public class StoryScene extends RpgScene {
     @Override
     public boolean playScene() throws Exception {
 
-        if (isDebug) System.out.println("SceneIdx: " + super.sceneIndex + "  SceneType: " + super.sceneType);
+        if (true) System.out.println("SceneIdx: " + super.sceneIndex + "  SceneType: " + super.sceneType);
         // TODO-[シーンタイプごとに処理を分ける必要なし削除予定]
 
         // シーンタイプごとに処理を分ける
@@ -60,7 +60,16 @@ public class StoryScene extends RpgScene {
 
                 // 入力チェックを行う
                 selected = ConsoleUtils.getInstance().acceptInput("選択肢を選んでください。", selectCount);
+                if (isDebug) {
+                    int count = 0;
+                    for (String s : nextIndexes) {
+                        System.out.print(count + "=next: " + s + " ");
+                        count++;
+                    }
+                    System.out.println("select = " + selected);
+                }
                 nextIndex = nextIndexes[Integer.parseInt(selected) - 1];
+                System.out.println("nextIdx: " + nextIndex);
                 int nextIdx = Integer.parseInt(nextIndex);
                 if (nextIdx < 0) {
                     nextIndex = String.valueOf(nextIdx);
@@ -169,7 +178,7 @@ public class StoryScene extends RpgScene {
                     break;
                 }
             }
-            if (story == null) {
+            if (story != null) {
                 textList = evMap.get(RpgConst.EV_FLG_NULL);
             }
         }

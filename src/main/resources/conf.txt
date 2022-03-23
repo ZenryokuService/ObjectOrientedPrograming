@@ -75,7 +75,7 @@ ATK:物理攻撃力:武器等の物理的な攻撃力を示す:optionalMap:Playe
 DEF:物理防御力:武器等に対する物理的な防御力を示す:optionalMap:PlayerCharactor
 MAG:魔法・術:魔法や、術などの不思議な力を使用した力:optionalMap:PlayerCharactor
 MPW:魔法威力:まほう・じゅつなどの効果値:optionalMap:PlayerCharactor
-ORI:指向性:スキル、まほう、わざなどの属性(この属性はCONFIG_PARAMで定義する)
+ORI:指向性:スキル、まほう、わざなどの属性(この属性はCONFIG_PARAMで定義する):optionalMap:PlayerCharactor
 MAT:魔法・術攻撃力:魔法・術などの効力を示す。式= (かしこさ + きようさ+カリスマ) / 3 + 魔法威力:optionalMap:PlayerCharactor
 MDE:魔法・術などの攻撃に対する耐性。式= (かしこさ + きようさ + すばやさ) / 3 + 魔よけ力:魔法防御力:optionalMap:PlayerCharactor
 PLY:プレーヤーオプションステータス:プレーヤーステータスに追加する項目、攻撃力や防御力などの拡張に使用する:optionalMap:PlayerCharactor
@@ -84,6 +84,8 @@ NOA:行動不能:石化や、マヒ、何かしらのステータス異常で、
 DNM:移動・行動不能:シーンの移動、戦闘での行動、すべての行動ができない状態を示す:canMove:PlayerCharactor
 BST:強化:ステータスが向上する、ポジティブなステータス変化:statusMap:PlayerCharactor
 HMX:全快:HP,MPを完全回復する。固定の効果:HP,MP:PlayerCharactor
+REC:回復指向:HP,MPの回復を行うSTMを示す。:HP,MP:RpgStm
+MTP:モンスタータイプ:モンスターのタイプを分ける、これにより、特殊攻撃、コマンドなどの分類ができる。:jobId:Monster
 END_MASTER
 
 CONFIG_PARAM
@@ -115,10 +117,10 @@ CONFIG_PARAM
 使役力:CST:PLY17:モンスター・動物など使役するものの力を増減する。式=( 1 + カリスマ * 0.1 ) :-:0
 回避力:EVR:PLY18:攻撃を回避する能力、パーセンテージで計算する。式=(すばやさ + かしこさ + きようさ) / 100 :-:0
 じゅくれんど:JLV:PLY19:武器を使用する回数により武器の扱いがうまくなる:-:0
-火炎属性:FIR:ORI1;火の属性を示す。水に弱い。:-:FIR
-風属性:WIN:ORI2;風の属性を示す。火に弱い。:-:WIN
-土属性:EAR:ORI3;土の属性を示す。風に弱い。:-:EAR
-水属性:WAT:ORI4:水の属性を示す。土に弱い。:-:WAT
+火炎属性:FIR:ORI1:火の属性を示す。水に弱い。:-:0
+風属性:WIN:ORI2:風の属性を示す。火に弱い。:-:0
+土属性:EAR:ORI3:土の属性を示す。風に弱い。:-:0
+水属性:WAT:ORI4:水の属性を示す。土に弱い。:-:0
 END_PARAM
 
 CONFIG_STATUS

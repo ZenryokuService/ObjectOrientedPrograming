@@ -40,7 +40,7 @@ I 保存して終了する。
 7. プレーヤー生成。 9
 8. ゲームオーバー 7
 9. 終了(保存) 8
-10. aaaa 4
+10. イベントフラグテスト 11
 END_SCENE 2
 
 2:F
@@ -98,5 +98,21 @@ END_SCENE 1
 10:F
 モンスターが現れた！
 <monster:0-3>
+</monster>
+END_SCENE 1
+
+11:A
+<evflg:1:null>
+入口にモンスターが待ち構えていました。
+NEXT_SCENE 10
+<evflg:1:flg=1>
+ミナの村は今日も平和です。
+NEXT_SCENE 1
+</evflg>
+END_SCENE 1
+
+12:F
+<monster:7>
+村がかいほうされました。ミナの村に平和がおとずれました。
 </monster>
 END_SCENE 1

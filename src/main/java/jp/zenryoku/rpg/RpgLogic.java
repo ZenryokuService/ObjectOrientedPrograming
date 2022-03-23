@@ -574,8 +574,9 @@ public abstract class RpgLogic implements Games {
      * @return シーンオブジェクト
      */
     private RpgScene setKomokuAndNextIndex(String line, RpgScene sceneObj) {
-        String komokuNo = String.valueOf(line.charAt(0));
-        String selectedNextIndex = line.split(" ")[2];
+        String[] sep = line.split(" ");
+        String komokuNo = sep[0].substring(0, sep[0].length() - 1);
+        String selectedNextIndex = sep[2];
         if (isDebug) System.out.println("項目番号: " + komokuNo + " 選択肢: " + selectedNextIndex);
         int nextIdx = Integer.parseInt(selectedNextIndex);
         if (nextIdx < 0) {
@@ -748,24 +749,32 @@ public abstract class RpgLogic implements Games {
      */
     public void setEventFlgScene(String line, BufferedReader buf, RpgScene sceneObj) throws RpgException {
         RpgConfig conf = RpgConfig.getInstance();
+        RpgEvFlg evFlgObj = new RpgEvFlg();
         try {
-            RpgEvFlg evflg = StringUtils.readEventFlg(line);
+            String[] evflg = StringUtils.readEventFlg(line);
+            String id = evflg[0];
             String nextLine = null;
             List<String> list = new ArrayList<>();
             Map<String, List<String>> map =  new HashMap<>();
-            String evFlgKey = evflg.getEvFlgKey();
+            String evFlgKey = evflg[1];
             while ((nextLine = buf.readLine()).equals("</evflg>")) {
                 if (CheckerUtils.isStartEventFlgScene(nextLine)) {
                     map.put(evFlgKey, list);
                     list = new ArrayList<>();
-                    evFlgKey = StringUtils.readEventFlg(nextLine).getEvFlgKey();
+                    evflg = StringUtils.readEventFlg(nextLine);
+                    String id2 = evflg[0];
+                    if (id.equals(id2) == false) {
+                        throw new RpgException(MessageConst.ERR_EVFLG_ID.toString());
+                    }
+                    id = id2;
+                    evFlgKey = evflg[1];
                 }
                 list.add(nextLine);
             }
             // 設定オブジェクト
-            evflg.setEvStoryMap(map);
-            // イベントフラグ
-            sceneObj.setEvFlg(evflg);
+            evFlgObj.setEvStoryMap(map);
+            // イベントフラグをシーンオブジェクトに設定
+            sceneObj.setEvFlg(evFlgObj);
         } catch (RpgException e) {
             e.printStackTrace();
             throw new RpgException(MessageConst.ERR_EV_FLG.toString());

@@ -118,10 +118,10 @@ public class StringUtilsTest {
     @Test
     public void testReadEventFlg() {
         try {
-            RpgEvFlg evFlg = StringUtils.readEventFlg("<evflg:1:null>");
-            assertEquals("1", evFlg);
-            assertEquals("0", StringUtils.readEventFlg("<evflg: 2: flg=1>"));
-            assertEquals("4", StringUtils.readEventFlg("<evflg: 2: flg=1>"));
+            String[] evFlg = StringUtils.readEventFlg("<evflg:1:null>");
+            assertEquals("1", evFlg[0]);
+            assertEquals("2", StringUtils.readEventFlg("<evflg: 2: flg=1>")[0]);
+            assertEquals("1", StringUtils.readEventFlg("<evflg: 2: flg=1>")[1]);
         } catch (RpgException e) {
             e.printStackTrace();
             fail(e.getMessage());

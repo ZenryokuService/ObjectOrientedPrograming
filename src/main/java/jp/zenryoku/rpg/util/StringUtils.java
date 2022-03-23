@@ -263,8 +263,8 @@ public class StringUtils {
      * @return RpgEvFlgクラスを生成して返却する。
      * @throws RpgException 設定エラー
      */
-    public static RpgEvFlg readEventFlg(String evflg) throws RpgException {
-        RpgEvFlg flg = new RpgEvFlg();
+    public static String[] readEventFlg(String evflg) throws RpgException {
+        String[] res = new String[2];
         String[] sep = evflg.split(":");
         if (sep.length != RpgConst.EV_FLG_LEN) {
             throw new RpgException(MessageConst.ERR_EV_FLG_SIZE.toString());
@@ -273,12 +273,13 @@ public class StringUtils {
         String id = sep[1].trim();
         // イベントフラグキー
         String key = sep[2].replaceAll("flg", "").replaceAll("=", "").trim();
-        flg.setEvFlgId(id);
+        res[0] = id;
+
         if ("null".equals(key) || "NULL".equals(key)) {
-            flg.setEvFlgKey(RpgConst.EV_FLG_NULL);
+            res[1] = RpgConst.EV_FLG_NULL.toString();
         } else {
-            flg.setEvFlgKey(key);
+            res[1] = key;
         }
-        return flg;
+        return res;
     }
 }

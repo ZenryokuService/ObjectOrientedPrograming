@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
-<!-- 職業マップ -->
+<!--
+　　　＜モンスター向け職業マップ＞
+ 　　・Ver1.5以上で実装予定。
+
+ -->
+
 <class>
     <!-- その他・タイプ -->
     <monsterType>
@@ -21,5 +26,19 @@
         <name>カラスタイプ</name>
         <discription>カラスタイプのモンスター。</discription>
         <commandList>ATK, DEF, STC</commandList>
+    </monsterType>
+    <!-- 人間・タイプ -->
+    <monsterType>
+        <id>HUM</id>
+        <name>人間タイプ</name>
+        <discription>人間タイプのモンスター。</discription>
+        <commandList>ATK, DEF</commandList>
+    </monsterType>
+    <!-- 獣・タイプ -->
+    <monsterType>
+        <id>BST</id>
+        <name>獣タイプ</name>
+        <discription>獣タイプのモンスター。</discription>
+        <commandList>ATK, DEF</commandList>
     </monsterType>
 </class>

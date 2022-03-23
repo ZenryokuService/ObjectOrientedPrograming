@@ -23,7 +23,7 @@
         <!-- 魔力コスト -->
         <cost>-2</cost>
         <!-- 魔法威力(パラメータ設定より -->
-        <force>MPW=3</force>
+        <force>3</force>
         <!-- 使用可能職業(習得レベル) -->
         <jobs>BRV(2), MAG(1)</jobs>
         <!-- 説明 -->
@@ -40,7 +40,7 @@
         <!-- 魔力コスト -->
         <cost>-2</cost>
         <!-- 魔法威力(パラメータ設定より -->
-        <force>MPW=3</force>
+        <force>KSM + INT</force>
         <!-- 使用可能職業(習得レベル) -->
         <jobs>BRV(2), MAG(1)</jobs>
         <!-- 説明 -->
