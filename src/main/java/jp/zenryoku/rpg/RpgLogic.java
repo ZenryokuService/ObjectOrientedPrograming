@@ -464,6 +464,7 @@ public abstract class RpgLogic implements Games {
                 // イベントフラグキーを取得部分の設定
                 if (CheckerUtils.isGetEvFlgLine(line)) {
                     readEvFlg(line, storyTxt, sceneObj);
+                    continue;
                 }
                 // ストーリーテキストのシーン終了部分
                 if (line.startsWith("END_SCENE ")) {
@@ -837,6 +838,17 @@ public abstract class RpgLogic implements Games {
         evFlg.setEvFlgKey(evFlgKey[1]);
         sceneObj.setEvFlg(evFlg);
 
+        String nextLine = null;
+        List<String> text = new ArrayList<>();
+        try {
+            while ((nextLine = buf.readLine()).startsWith("END_SCENE") == false) {
+                text.add(nextLine);
+            }
+            finishSceneSetting(nextLine, sceneObj);
+            evFlg.getEvStoryMap().put(RpgConst.EV_FLG_NULL, text);
+        } catch (IOException e) {
+            throw new RpgException(MessageConst.ERR_FILE_READ.toString());
+        }
         //PlayerParty.getInstance().getEvflgKeyMap().put(evFlgKey[0], evFlgKey[1]);
     }
     /**
