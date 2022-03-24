@@ -127,4 +127,17 @@ public class StringUtilsTest {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void testReadEventFlgKey() {
+        try {
+            assertEquals("1", StringUtils.readEventFlgKey("<evget:1: a1")[0]);
+            assertEquals("1", StringUtils.readEventFlgKey("<evget: 1: a1")[0]);
+            assertEquals("A1", StringUtils.readEventFlgKey("<evget: 1: A1")[1]);
+            assertEquals("aa1", StringUtils.readEventFlgKey("<evget: 1:aa1")[1]);
+            assertEquals("AA1", StringUtils.readEventFlgKey("<evget: 1: AA1")[1]);
+        } catch (RpgException e) {
+            fail(e.getMessage());
+        }
+    }
 }

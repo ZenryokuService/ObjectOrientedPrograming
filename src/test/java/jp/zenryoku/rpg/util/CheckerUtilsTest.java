@@ -182,4 +182,18 @@ public class CheckerUtilsTest {
 		assertTrue(CheckerUtils.isStartEventFlgScene("<evflg: 1: null>"));
 
 	}
+
+	@Test
+	public void testIsGetEvFlgLine() {
+		assertTrue(CheckerUtils.isGetEvFlgLine("<evget:1:1>"));
+		assertTrue(CheckerUtils.isGetEvFlgLine("<evget: 1: a>"));
+		assertTrue(CheckerUtils.isGetEvFlgLine("<evget: 1: A>"));
+		assertFalse(CheckerUtils.isGetEvFlgLine("<evflg: 1: 1>"));
+		assertTrue(CheckerUtils.isGetEvFlgLine("<evget:10:1a>"));
+		assertTrue(CheckerUtils.isGetEvFlgLine("<evget: 10: 1A>"));
+		assertFalse(CheckerUtils.isGetEvFlgLine("<evflg: 10: 1A>"));
+		assertTrue(CheckerUtils.isGetEvFlgLine("<evget:999:99a>"));
+		assertTrue(CheckerUtils.isGetEvFlgLine("<evget: 999: 99A>"));
+		assertFalse(CheckerUtils.isGetEvFlgLine("<evflg: 999: 99Z>"));
+	}
 }

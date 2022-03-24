@@ -224,6 +224,18 @@ public class CheckerUtils {
 	}
 
 	/**
+	 * 引数の文字列が空文字、もしくはNULLであるときTrue
+	 *
+	 * @param str 検査対象文字列
+	 * @return true; 空文字 or NULL false:　そうではない
+	 */
+	public static boolean isEmpty(String str) {
+		if (str == null || "".equals(str)) {
+			return true;
+		}
+		return false;
+	}
+	/**
 	 * 空文字もしくは、改行コードのみかどうか判定する。
 	 *
 	 * @param line　ストーリーテキストの１行
@@ -443,11 +455,30 @@ public class CheckerUtils {
 		return str.matches(RpgConst.REG_MASTERT_DEF_FOR_PARAM);
 	}
 
+	/**
+	 * ターン指定のある効果式かどうか判定する。
+	 * ターン指定あり：「ZHP+10%TS3」　→　3ターンの間HP10%回復
+	 * ターン指定なし」「ZHP+10%」　→　一度だけHP10%回復
+	 * @param kokaSiki　効果式
+	 * @return true: TS月の効果式　false: そうではない
+	 */
 	public static boolean isTS(String kokaSiki) {
 		boolean isTS = false;
 		if (kokaSiki != null && kokaSiki.matches(RpgConst.REG_EFFECT_TXT_2)) {
 			isTS = kokaSiki.contains("T") || kokaSiki.contains("S");
 		}
 		return isTS;
+	}
+
+	/**
+	 * 	"<evget: XX>"のような書き方になっているかチェックする。
+	 * @param line チェック対象ストーリーテキストの1行
+	 * @return true: イベントフラグ取得業 false: そうでない
+	 */
+	public static boolean isGetEvFlgLine(String line) {
+		if (line != null && line.matches(RpgConst.REG_GET_EV_FLG)) {
+			return true;
+		}
+		return false;
 	}
 }

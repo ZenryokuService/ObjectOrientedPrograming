@@ -26,7 +26,8 @@ public class RpgEvFlg {
      * コンストラクタ。
      */
     public RpgEvFlg() {
-        //evStory = new HashMap<>();
+        evStoryMap =  new HashMap<>();
+        nextSceneMap =  new HashMap<>();
     }
 
 }

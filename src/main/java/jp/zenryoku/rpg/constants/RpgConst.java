@@ -168,6 +168,8 @@ public enum RpgConst {
     public static final String REG_EFFECT_TXT = "[A-Z]{3}[+\\-][0-9]{1,3}%*";
     /** ステータス変化オブジェクト定義の書式正規表現 */
     public static final String REG_EFFECT_TXT_2 = "[A-Z]{3}[+\\-][0-9]{1,3}[%|T|S]*[0-9]*";
+    /** イベントフラグを取得する行の書式正規表現 */
+    public static final String REG_GET_EV_FLG = "\\<evget: *[0-9]{1,3}: *[0-9a-zA-Z]{1,3}\\>";
     /** 記号の文字数(配列の添え字番号) */
     public static final int KIGO_SIZE = 2;
     /** アイテム定義のカンマ区切り数 */
@@ -199,6 +201,8 @@ public enum RpgConst {
 
     /** 計算オブジェクトの保持できる項の数 */
     public static final int CALC_KO_COUNT = 2;
+    /** 選択枝を設定するときに分割するサイズ　*/
+    public static final int SELECT_NEXT_SCENE_SIZE = 2;
 
     /** ゲームステータス(1:終了時に保存、2:クリア、3:次のシーン...)<br>項目インデックス */
     private int status;

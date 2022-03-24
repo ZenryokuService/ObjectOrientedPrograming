@@ -283,4 +283,20 @@ public class StringUtils {
         }
         return res;
     }
+
+    /**
+     * "<evget: XX>"のように定義している行からイベントフラグキーを取得する。
+     * イベントフラグキーはPlayerPartyクラスで保持する。
+     * @param line イベントフラグ取得行
+     * @return　イベントフラグキー
+     * @throws RpgException 設定エラー
+     */
+    public static String[] readEventFlgKey(String line) throws RpgException {
+        line = line.replaceAll("<", "").replaceAll(">", "");
+        String[] res = new String[2];
+        String[] sep = line.split(":");
+        res[0] = sep[1].trim();
+        res[1] = sep[2].trim();
+        return res;
+    }
 }

@@ -1,5 +1,6 @@
 package jp.zenryoku.rpg;
 
+import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
@@ -163,7 +164,7 @@ public abstract class RpgLogic implements Games {
      */
     private void loadCommentLine(BufferedReader storyTxt, List<String> commentList) throws IOException {
         String line = null;
-        while((line = storyTxt.readLine()).startsWith("# ")) {
+        while ((line = storyTxt.readLine()).startsWith("# ")) {
             commentList.add(line);
         }
     }
@@ -460,6 +461,10 @@ public abstract class RpgLogic implements Games {
                     setEventFlgScene(line, storyTxt, sceneObj);
                     continue;
                 }
+                // イベントフラグキーを取得部分の設定
+                if (CheckerUtils.isGetEvFlgLine(line)) {
+                    readEvFlg(line, storyTxt, sceneObj);
+                }
                 // ストーリーテキストのシーン終了部分
                 if (line.startsWith("END_SCENE ")) {
                     sceneObj = finishSceneSetting(line, sceneObj);
@@ -573,8 +578,11 @@ public abstract class RpgLogic implements Games {
      * @param sceneObj シーンオブジェクト
      * @return シーンオブジェクト
      */
-    private RpgScene setKomokuAndNextIndex(String line, RpgScene sceneObj) {
+    private RpgScene setKomokuAndNextIndex(String line, RpgScene sceneObj) throws RpgException {
         String[] sep = line.split(" ");
+        if (sep.length == RpgConst.SELECT_NEXT_SCENE_SIZE) {
+            throw new RpgException(MessageConst.ERR_SELECT_SCENE_SEP2.toString());
+        }
         String komokuNo = sep[0].substring(0, sep[0].length() - 1);
         String selectedNextIndex = sep[2];
         if (isDebug) System.out.println("項目番号: " + komokuNo + " 選択肢: " + selectedNextIndex);
@@ -605,6 +613,14 @@ public abstract class RpgLogic implements Games {
         return buf;
     }
 
+    /**
+     * 「<item:ShopName>」のように定義している行から「</item>」までの内容からShopSceneを生成する
+     * @param line ショップシーン開始行
+     * @param txt 続きのストーリーテキスト
+     * @param sceneObj　シーンオブジェクト
+     * @throws IOException ファイルの読み込みエラー
+     * @throws RpgException ストーリーテキストの設定エラー
+     */
     private void setItemShop(String line, BufferedReader txt, RpgScene sceneObj) throws IOException, RpgException {
         if ((sceneObj instanceof ShopScene) == false) {
             throw new RpgException(MessageConst.SCENE_TYPE_ERR.toString() + ": " + sceneObj.getClass().getSimpleName());
@@ -747,13 +763,16 @@ public abstract class RpgLogic implements Games {
      * @param buf 残りのストーリーテキスト
      * @param sceneObj シーンオブジェクト
      */
-    public void setEventFlgScene(String line, BufferedReader buf, RpgScene sceneObj) throws RpgException {
+    private void setEventFlgScene(String line, BufferedReader buf, RpgScene sceneObj) throws RpgException {
         RpgConfig conf = RpgConfig.getInstance();
         RpgEvFlg evFlgObj = new RpgEvFlg();
         try {
             String[] evflg = StringUtils.readEventFlg(line);
             // イベントフラグ番号(ID)
             String id = evflg[0];
+            if (id == null || "".equals(id)) {
+                throw new RpgException(MessageConst.ERR_EV_FLG.toString() + ": " + line);
+            }
             evFlgObj.setEvFlgId(id);
             // イベントフラグキー
             String evFlgKey = evflg[1];
@@ -761,8 +780,8 @@ public abstract class RpgLogic implements Games {
 
             String nextLine = null;
             List<String> list = new ArrayList<>();
-            Map<String, List<String>> storyMap =  new HashMap<>();
-            Map<String, String> nextSceneMap =  new HashMap<>();
+            Map<String, List<String>> storyMap =  evFlgObj.getEvStoryMap();
+            Map<String, String> nextSceneMap =  evFlgObj.getNextSceneMap();
             storyMap.put(evFlgKey, list);
 
             if (isDebug) System.out.println("ID: " + id + " KEY: " + evFlgKey);
@@ -782,6 +801,7 @@ public abstract class RpgLogic implements Games {
                 } else if (nextLine.startsWith("NEXT_SCENE ")) {
                     String[] sep = nextLine.split(" ");
                     nextSceneMap.put(evFlgKey, sep[1]);
+                    continue;
                 }
                 if (isDebug) System.out.println("add: " + nextLine);
                 list.add(nextLine);
@@ -801,6 +821,24 @@ public abstract class RpgLogic implements Games {
         }
     }
 
+    /**
+     * イベントフラグキーを取得できるシーンを生成する。
+     * @param line ストーリーテキストの行
+     * @param buf　続きのストーリーテキスト
+     * @param sceneObj　シーンオブジェクト
+     * @throws RpgException 設定エラー
+     */
+    private void readEvFlg(String line, BufferedReader buf, RpgScene sceneObj) throws RpgException {
+        String[] evFlgKey = StringUtils.readEventFlgKey(line);
+        if(isDebug) System.out.println("wvflgget: " + evFlgKey[0] + " : " + evFlgKey[1]);
+        // イベントフラグ取得パターン１：特定のシーンを通り過ぎる時に使用する
+        RpgEvFlg evFlg = new RpgEvFlg();
+        evFlg.setEvFlgId(evFlgKey[0]);
+        evFlg.setEvFlgKey(evFlgKey[1]);
+        sceneObj.setEvFlg(evFlg);
+
+        //PlayerParty.getInstance().getEvflgKeyMap().put(evFlgKey[0], evFlgKey[1]);
+    }
     /**
      * 入力受付処理。
      * ※JavaAPIを呼び出すだけなので、テスト不要。

@@ -8,6 +8,7 @@ import jp.zenryoku.rpg.data.ParamGenerator;
 import jp.zenryoku.rpg.data.RpgConfig;
 import jp.zenryoku.rpg.data.RpgEvFlg;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 import jp.zenryoku.rpg.util.StringUtils;
 
@@ -165,11 +166,12 @@ public class StoryScene extends RpgScene {
      * @throws RpgException 想定外のエラー
      */
     protected boolean printStory() throws RpgException {
+        PlayerParty party = PlayerParty.getInstance();
         int count = 0;
         int printLineNo = RpgConfig.getInstance().getPrintLine();
         if (isDebug) System.out.println("EvFLg: " + evFlg);
         if (evFlg != null) {
-            Map<String, String> playerKey = PlayerParty.getInstance().getEvflgKeyMap();
+            Map<String, String> playerKey = party.getEvflgKeyMap();
             Map<String, List<String>> evStoryMap = evFlg.getEvStoryMap();
             Map<String, String> evNextSceneMap = evFlg.getNextSceneMap();
             Set<String> keys = playerKey.keySet();
@@ -189,9 +191,17 @@ public class StoryScene extends RpgScene {
                 setNextIndex(evNextScene);
             } else {
                 if (isDebug) System.out.println("no story");
+                System.out.println("evStoryMap" + evStoryMap);
                 textList = evStoryMap.get(RpgConst.EV_FLG_NULL);
                 setNextIndex(evNextSceneMap.get(RpgConst.EV_FLG_NULL));
             }
+            // RpgLogic#readEvFlg()にてセットしたイベントフラグキー
+            if (CheckerUtils.isEmpty(evFlg.getEvFlgId()) == false
+                    && CheckerUtils.isEmpty(evFlg.getEvFlgKey()) == false) {
+                // イベントフラグキーをプレーヤーのマップに登録
+                party.getEvflgKeyMap().put(evFlg.getEvFlgId(), evFlg.getEvFlgKey());
+            }
+            party.getEvflgKeyMap().put(evFlg.getEvFlgId(), evFlg.getEvFlgKey());
         }
         // ストーリーを表示する
         for (String text : textList) {
