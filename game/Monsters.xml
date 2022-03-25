@@ -221,4 +221,25 @@
         <money>6</money>
     </monster>
 
+    <!-- 11. まおう -->
+    <monster>
+        <id>11</id>
+        <name>まおう</name>
+        <lv>5</lv>
+        <type>OTH</type>
+        <hp>23</hp>
+        <mp>6</mp>
+        <pow>5</pow>
+        <agi>7</agi>
+        <int>4</int>
+        <dex>5</dex>
+        <ksm>5</ksm>
+        <atk>11</atk>
+        <def>9</def>
+        <isTalk>false</isTalk>
+        <message></message>
+        <commandList>ATK, BAT</commandList>
+        <exp>5</exp>
+        <money>6</money>
+    </monster>
 </class>

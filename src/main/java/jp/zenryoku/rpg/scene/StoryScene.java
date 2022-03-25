@@ -169,7 +169,7 @@ public class StoryScene extends RpgScene {
         PlayerParty party = PlayerParty.getInstance();
         int count = 0;
         int printLineNo = RpgConfig.getInstance().getPrintLine();
-        if (isDebug) System.out.println("EvFLg: " + evFlg);
+        if (true) System.out.println("EvFLg: " + evFlg);
         if (evFlg != null) {
             Map<String, String> playerKey = party.getEvflgKeyMap();
             Map<String, List<String>> evStoryMap = evFlg.getEvStoryMap();
@@ -188,12 +188,13 @@ public class StoryScene extends RpgScene {
             if (story != null) {
                 if (isDebug) System.out.println("story is");
                 textList = story;
+                System.out.println("evNextScene: " + evNextScene);
                 setNextIndex(evNextScene);
             } else {
                 if (isDebug) System.out.println("no story");
-                if (isDebug) System.out.println("evStoryMap" + evStoryMap);
+                String nextIdx = evNextSceneMap.get(RpgConst.EV_FLG_NULL) == null ? nextIndex : evNextSceneMap.get(RpgConst.EV_FLG_NULL);
                 textList = evStoryMap.get(RpgConst.EV_FLG_NULL);
-                //setNextIndex(evNextSceneMap.get(RpgConst.EV_FLG_NULL));
+                setNextIndex(nextIdx);
             }
             // RpgLogic#readEvFlg()にてセットしたイベントフラグキー
             if (CheckerUtils.isEmpty(evFlg.getEvFlgId()) == false
@@ -201,7 +202,6 @@ public class StoryScene extends RpgScene {
                 // イベントフラグキーをプレーヤーのマップに登録
                 party.getEvflgKeyMap().put(evFlg.getEvFlgId(), evFlg.getEvFlgKey());
             }
-            party.getEvflgKeyMap().put(evFlg.getEvFlgId(), evFlg.getEvFlgKey());
         }
         // ストーリーを表示する
         for (String text : textList) {

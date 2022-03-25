@@ -570,6 +570,11 @@ public abstract class RpgLogic implements Games {
         }
         String[] last = line.split(" ");
         sceneObj.setNextIndex(last[1]);
+//        if (sceneObj.getEvFlg() != null) {
+//            RpgEvFlg ev = sceneObj.getEvFlg();
+//            ev.getNextSceneMap().put(RpgConst.EV_FLG_NULL,last[1]);
+//        }
+
         return sceneObj;
     }
 
@@ -748,7 +753,10 @@ public abstract class RpgLogic implements Games {
         StringBuilder build = new StringBuilder();
         try {
             while ((text = txt.readLine()).equals("</monster>") == false) {
-                // TODO-[タグの中身を考える]
+                if (CheckerUtils.isGetEvFlgLine(text)) {
+                    readEvFlg(text, txt, battleScene);
+                }
+                // 戦闘後に表示する
                 build.append(text + SEP);
             }
             // バトル後に表示するメッセ―ジ
@@ -785,6 +793,7 @@ public abstract class RpgLogic implements Games {
             Map<String, String> nextSceneMap =  evFlgObj.getNextSceneMap();
             storyMap.put(evFlgKey, list);
 
+            boolean isSelectLine = false;
             if (isDebug) System.out.println("ID: " + id + " KEY: " + evFlgKey);
             while ((nextLine = buf.readLine()).equals("</evflg>") == false) {
                 if (isDebug) System.out.println(nextLine);
@@ -802,6 +811,14 @@ public abstract class RpgLogic implements Games {
                 } else if (nextLine.startsWith("NEXT_SCENE ")) {
                     String[] sep = nextLine.split(" ");
                     nextSceneMap.put(evFlgKey, sep[1]);
+                    continue;
+                } else if (CheckerUtils.isStartBattleScene(nextLine)) {
+                    setBattleScene(line, buf, sceneObj);
+                    continue;
+                }
+                // 選択肢の行
+                if (isSelectLine) {
+                    setKomokuAndNextIndex(line, sceneObj);
                     continue;
                 }
                 if (isDebug) System.out.println("add: " + nextLine);
@@ -843,11 +860,11 @@ public abstract class RpgLogic implements Games {
         String nextLine = null;
         List<String> text = new ArrayList<>();
         try {
-            while ((nextLine = buf.readLine()).startsWith("END_SCENE") == false) {
+            while ((nextLine = buf.readLine()).startsWith("</evget>") == false) {
                 text.add(nextLine);
             }
             if (isDebug) System.out.println("nextLine: " + nextLine);
-            finishSceneSetting(nextLine, sceneObj);
+            //finishSceneSetting(nextLine, sceneObj);
             evFlg.getEvStoryMap().put(RpgConst.EV_FLG_NULL, text);
         } catch (IOException e) {
             throw new RpgException(MessageConst.ERR_FILE_READ.toString());
