@@ -229,13 +229,11 @@ END_SCENE 27
 <1:2>
 1. ミナの村 28
 2. ヒガの町 29
-END_SCENE 27
-<evflg:3:3>
+<evflg:1:flg=3>
 <1:3>
 1. ミナの村 28
 2. ヒガの町 29
 3. まおうじょう 35
-NEXT_SCENE 27
 </evflg>
 END_SCENE 27
 
@@ -243,10 +241,10 @@ END_SCENE 27
 
 # ミナの野村
 28:A
-<evflg:1:null>
+<evflg:2:null>
 {Player.name}がミナの村に着くと、入口にモンスターが待ち構えていました。
 NEXT_SCENE 33
-<evflg:1:flg=1>
+<evflg:2:flg=1>
 ミナの村は今日も平和です。
 NEXT_SCENE 27
 </evflg>
