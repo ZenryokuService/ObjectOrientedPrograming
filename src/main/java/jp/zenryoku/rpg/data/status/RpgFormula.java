@@ -41,8 +41,13 @@ public class RpgFormula extends RpgData {
 
     /**
      * 計算結果の小数点以下は四捨五入する。
+     * <ol>
+     *     <li>プレーヤーのステータス、オプショナルステータス、設定オブジェクトから計算岸マップを取得する</li>
+     *     <li>計算式 → オプショナルステータス → ステータスの順で記号を数字(プレーヤーの状態値)に変換する</li>
+     *     <li>変換した数字をexp4jで計算、欠課をdouble型で返却する。</li>
+     * </ol>
      * @param player
-     * @return
+     * @return 計算結果
      */
     public int formula(PlayerCharactor player) {
         int result = 0;
@@ -106,7 +111,7 @@ public class RpgFormula extends RpgData {
     /**
      * 計算結果の小数点以下は四捨五入する。
      * @param player
-     * @return
+     * @return 計算結果
      */
     public double formula(PlayerCharactor player, boolean isDouble) {
         double result = 0.0;
