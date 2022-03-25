@@ -811,15 +811,19 @@ public abstract class RpgLogic implements Games {
                 } else if (nextLine.startsWith("NEXT_SCENE ")) {
                     String[] sep = nextLine.split(" ");
                     nextSceneMap.put(evFlgKey, sep[1]);
+                    isSelectLine = false;
                     continue;
                 } else if (CheckerUtils.isStartBattleScene(nextLine)) {
-                    setBattleScene(line, buf, sceneObj);
+                    setBattleScene(nextLine, buf, sceneObj);
+                    continue;
+                } else if (CheckerUtils.isStartSelectNextScene(nextLine)) {
+                    setSelections(nextLine, sceneObj);
+                    isSelectLine = true;
                     continue;
                 }
                 // 選択肢の行
                 if (isSelectLine) {
-                    setKomokuAndNextIndex(line, sceneObj);
-                    continue;
+                    setKomokuAndNextIndex(nextLine, sceneObj);
                 }
                 if (isDebug) System.out.println("add: " + nextLine);
                 list.add(nextLine);

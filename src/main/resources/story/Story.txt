@@ -119,7 +119,6 @@ END_SCENE 1
 12:A
 <evget: 1: 1>
 村がかいほうされました。ミナの村に平和がおとずれました。
-NEXT_SCENE 0
 </evget>
 END_SCENE 1
 
