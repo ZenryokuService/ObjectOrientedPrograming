@@ -191,9 +191,9 @@ public class StoryScene extends RpgScene {
                 setNextIndex(evNextScene);
             } else {
                 if (isDebug) System.out.println("no story");
-                System.out.println("evStoryMap" + evStoryMap);
+                if (isDebug) System.out.println("evStoryMap" + evStoryMap);
                 textList = evStoryMap.get(RpgConst.EV_FLG_NULL);
-                setNextIndex(evNextSceneMap.get(RpgConst.EV_FLG_NULL));
+                //setNextIndex(evNextSceneMap.get(RpgConst.EV_FLG_NULL));
             }
             // RpgLogic#readEvFlg()にてセットしたイベントフラグキー
             if (CheckerUtils.isEmpty(evFlg.getEvFlgId()) == false

@@ -824,6 +824,8 @@ public abstract class RpgLogic implements Games {
 
     /**
      * イベントフラグキーを取得できるシーンを生成する。
+     * StorySceneにてハンドルを行うため、RpgEvFlgを生成している。
+     *
      * @param line ストーリーテキストの行
      * @param buf　続きのストーリーテキスト
      * @param sceneObj　シーンオブジェクト
@@ -844,12 +846,12 @@ public abstract class RpgLogic implements Games {
             while ((nextLine = buf.readLine()).startsWith("END_SCENE") == false) {
                 text.add(nextLine);
             }
+            if (isDebug) System.out.println("nextLine: " + nextLine);
             finishSceneSetting(nextLine, sceneObj);
             evFlg.getEvStoryMap().put(RpgConst.EV_FLG_NULL, text);
         } catch (IOException e) {
             throw new RpgException(MessageConst.ERR_FILE_READ.toString());
         }
-        //PlayerParty.getInstance().getEvflgKeyMap().put(evFlgKey[0], evFlgKey[1]);
     }
     /**
      * 入力受付処理。
