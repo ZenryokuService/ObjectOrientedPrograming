@@ -184,22 +184,24 @@ public class StoryScene extends RpgScene {
                     System.out.println("Contains Key: " + key);
                     story = evStoryMap.get(key);
                     evNextScene = evNextSceneMap.get(key);
-                    break;
+                    // FIXME-[マップの登録順序が保持されているので上書きすることで最新のキーで上書きしている]
+                    //break;
                 }
             }
             // TODO-[イベントフラグのハンドルができていない]
             System.out.println();
             if (story != null) {
-                if (isDebug) System.out.println("story is");
+                if (true) System.out.println("story is");
                 textList = story;
                 System.out.println("evNextScene: " + evNextScene);
                 setNextIndex(evNextScene);
             } else {
-                if (true) System.out.println("no story");
+                if (true) System.out.print("no story");
                 textList = evStoryMap.get(RpgConst.EV_FLG_NULL);
+                String nextIdx = evNextSceneMap.get(RpgConst.EV_FLG_NULL) == null ? nextIndex : evNextSceneMap.get(RpgConst.EV_FLG_NULL);
+                if (true) System.out.println(" next " + nextIdx);
+                setNextIndex(nextIdx);
             }
-            String nextIdx = evNextSceneMap.get(RpgConst.EV_FLG_NULL) == null ? nextIndex : evNextSceneMap.get(RpgConst.EV_FLG_NULL);
-            setNextIndex(nextIdx);
             // RpgLogic#readEvFlg()にてセットしたイベントフラグキー
             if (CheckerUtils.isEmpty(evFlg.getEvFlgId()) == false
                     && CheckerUtils.isEmpty(evFlg.getEvFlgKey()) == false) {

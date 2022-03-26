@@ -110,7 +110,7 @@ END_SCENE 11
 11:A
 <evflg:1:null>
 入口にモンスターが待ち構えていました。
-NEXT_SCENE 6
+NEXT_SCENE 10
 <evflg:1:flg=a1>
 ミナの村は今日も平和です。
 NEXT_SCENE 12
@@ -127,7 +127,7 @@ END_SCENE 1
 <evflg: 2: null>
 <1:2>
 1. ミナの村 14
-2. ヒガの町 19
+2. ヒガの町 16
 <evflg: 2: flg=b1>
 <1:3>
 1. ミナの村 11
@@ -158,7 +158,7 @@ END_SCENE 12
 NEXT_SCENE 13
 <evflg:3:flg=a1>
 ヒガの町にいたモンスターの群れは、見当たりません、いまのうちだ！
-NEXT_SCENE 18
+NEXT_SCENE 15
 <evflg:3:flg=b2>
 とりあえず、ヒガの町に平和が訪れた。
 NEXT_SCENE 13

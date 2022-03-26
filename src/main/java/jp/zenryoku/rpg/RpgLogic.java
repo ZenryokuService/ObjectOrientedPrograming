@@ -576,7 +576,10 @@ public abstract class RpgLogic implements Games {
         }
         if (sceneObj.getEvFlg() != null) {
             RpgEvFlg ev = sceneObj.getEvFlg();
-            ev.getNextSceneMap().put(RpgConst.EV_FLG_NULL,last[1]);
+            Map<String, String> ma =  ev.getNextSceneMap();
+            if (ma.containsKey(RpgConst.EV_FLG_NULL) == false) {
+                ma.put(RpgConst.EV_FLG_NULL,last[1]);
+            }
         }
 
         return sceneObj;
