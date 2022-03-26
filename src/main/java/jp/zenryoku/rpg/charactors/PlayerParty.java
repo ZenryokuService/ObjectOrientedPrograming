@@ -18,7 +18,7 @@ public class PlayerParty {
     private PlayerCharactor player;
     /** 所持金 */
     private static int money;
-    /** イベントフラグキーのリスト */
+    /** イベントフラグキーのマップ */
     private Map<String, String> evflgKeyMap;
 
     /** プライベートコンストラクタ */

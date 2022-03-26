@@ -15,10 +15,7 @@ import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class CreatePlayerScene extends StoryScene {
 
@@ -122,8 +119,8 @@ public class CreatePlayerScene extends StoryScene {
                 break;
             }
         }
-        // イベントフラグマップをディープ・コピーしてセット
-        Map<String, String> map = new HashMap<>();
+        // イベントフラグマップをセット
+        Map<String, String> map = new LinkedHashMap<>();
         party.setEvflgKeyMap(map);
         config.setParty(party);
         return false;

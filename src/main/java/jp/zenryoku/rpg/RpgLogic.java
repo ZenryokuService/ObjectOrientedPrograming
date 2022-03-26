@@ -451,7 +451,7 @@ public abstract class RpgLogic implements Games {
                 // バトルシーンの設定
                 if (CheckerUtils.isStartBattleScene(line)) {
                     if (isDebug) System.out.println("*** " + line + " ***");
-                    setBattleScene(line, storyTxt, sceneObj);
+                    sceneObj = setBattleScene(line, storyTxt, sceneObj);
                     continue;
                 }
 
@@ -570,10 +570,14 @@ public abstract class RpgLogic implements Games {
         }
         String[] last = line.split(" ");
         sceneObj.setNextIndex(last[1]);
-//        if (sceneObj.getEvFlg() != null) {
-//            RpgEvFlg ev = sceneObj.getEvFlg();
-//            ev.getNextSceneMap().put(RpgConst.EV_FLG_NULL,last[1]);
-//        }
+
+        if (isDebug && sceneObj instanceof BattleScene) {
+            System.out.println(">>> nextScene: " + last[1]);
+        }
+        if (sceneObj.getEvFlg() != null) {
+            RpgEvFlg ev = sceneObj.getEvFlg();
+            ev.getNextSceneMap().put(RpgConst.EV_FLG_NULL,last[1]);
+        }
 
         return sceneObj;
     }
@@ -724,7 +728,7 @@ public abstract class RpgLogic implements Games {
      * @throws IOException ファイルの読み込みエラー
      * @throws RpgException 設定エラー
      */
-    private void setBattleScene(String line, BufferedReader txt, RpgScene sceneObj) throws IOException, RpgException {
+    private RpgScene setBattleScene(String line, BufferedReader txt, RpgScene sceneObj) throws IOException, RpgException {
         String[] vals = StringUtils.findMonsterNo(line);
         BattleScene battleScene = (BattleScene) sceneObj;
         List<Monster> monsterList = RpgConfig.getInstance().getMonsterList();
@@ -764,6 +768,7 @@ public abstract class RpgLogic implements Games {
         } catch (IOException e) {
             throw new RpgException(MessageConst.ERR_IOEXCEPTION.toString());
         }
+        return sceneObj;
     }
 
     /**

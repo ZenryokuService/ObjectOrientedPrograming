@@ -340,6 +340,8 @@ public class BattleScene extends StoryScene {
 			}
 
 		}
+		//
+		System.out.println("次のシーンへ: " + nextIndex);
 		// 戦闘の決着がつくとisFinishはtrueになっているのでfalseにする
 		return isFinish == false;
 	}

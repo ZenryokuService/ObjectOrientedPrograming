@@ -239,7 +239,7 @@ END_SCENE 27
 
 # ストーリー・フラグを設けて町に移動したときのイベントを変更する。
 
-# ミナの野村
+# ミナの村
 28:A
 <evflg:2:null>
 {Player.name}がミナの村に着くと、入口にモンスターが待ち構えていました。
@@ -252,14 +252,14 @@ END_SCENE 27
 
 # ヒガの町
 29:A
-<evflg:2:null>
+<evflg:3:null>
 {Player.name}がヒガの町に着くと、入口にモンスター群れが待ち構えていました。
 これは、たちうちできない。。。たいきゃく！
 NEXT_SCENE 27
-<evflg:2:flg=1>
+<evflg:3:flg=1>
 ヒガの町にいたモンスターの群れは、見当たりません、いまのうちだ！
 NEXT_SCENE 34
-<evflg:2:flg=2>
+<evflg:3:flg=2>
 とりあえず、ヒガの町に平和が訪れた。
 NEXT_SCENE 27
 </evflg>
@@ -276,7 +276,7 @@ END_SCENE 27
 END_SCENE 27
 
 32:A
-<evget: 2:1>
+<evget: 3:1>
 </evget>
 ヒガの町を開放しました。
 END_SCENE 27
@@ -284,7 +284,7 @@ END_SCENE 27
 ## ミナの村のモンスター
 33:F
 <monster:7>
-<evget:1:1>
+<evget:2:1>
 </evget>
 </monster>
 END_SCENE 28
@@ -295,7 +295,7 @@ END_SCENE 28
 <evget:2:2>
 </evget>
 </monster>
-END_SCENE 29
+END_SCENE 27
 
 # まおうじょう
 35:F

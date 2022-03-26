@@ -101,36 +101,67 @@ END_SCENE 1
 モンスターが現れた！
 <monster:0-3>
 入口が開かれた！
-<evget:1: 1>
+<evget:1: a1>
 </evget>
 </monster>
-END_SCENE 1
+END_SCENE 11
 
+# ミナの村
 11:A
 <evflg:1:null>
 入口にモンスターが待ち構えていました。
-NEXT_SCENE 10
-<evflg:1:flg=1>
-ミナの村は今日も平和です。しかし世の中そんなに甘くない！
-NEXT_SCENE 10
+NEXT_SCENE 6
+<evflg:1:flg=a1>
+ミナの村は今日も平和です。
+NEXT_SCENE 12
 </evflg>
 END_SCENE 1
 
 12:A
-<evget: 1: 1>
-村がかいほうされました。ミナの村に平和がおとずれました。
+<evget: 1: a1>
+入口がかいほうされました。ヒガの町にはいれるようになりました。
 </evget>
 END_SCENE 1
 
 13:A
 <evflg: 2: null>
 <1:2>
-1. ミナの村 1
-2. ヒガの町 1
-<evflg: 2: flg=1>
+1. ミナの村 14
+2. ヒガの町 19
+<evflg: 2: flg=b1>
 <1:3>
-1. ミナの村 1
-2. ヒガの町 1
-3. 魔王電 1
+1. ミナの村 11
+2. ヒガの町 16
+3. 魔王電 14
 </evflg>
 END_SCENE 1
+
+# 魔王電
+14:A
+魔王電です。
+END_SCENE 1
+
+15:F
+ヒガのモンスターが現れた！
+<monster:0-3>
+町が解放された！
+<evget:3: b2>
+</evget>
+</monster>
+END_SCENE 12
+
+# ヒガの町
+16:A
+<evflg:3:null>
+{Player.name}がヒガの町に着くと、入口にモンスター群れが待ち構えていました。
+これは、たちうちできない。。。たいきゃく！
+NEXT_SCENE 13
+<evflg:3:flg=a1>
+ヒガの町にいたモンスターの群れは、見当たりません、いまのうちだ！
+NEXT_SCENE 18
+<evflg:3:flg=b2>
+とりあえず、ヒガの町に平和が訪れた。
+NEXT_SCENE 13
+</evflg>
+END_SCENE 1
+
