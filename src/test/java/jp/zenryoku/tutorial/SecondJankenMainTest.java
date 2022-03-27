@@ -1,17 +1,19 @@
 package jp.zenryoku.tutorial;
 
 import static jp.zenryoku.tutorial.calsses.JankenConst.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
@@ -27,6 +29,7 @@ import jp.zenryoku.tutorial.calsses.JankenConst;
  *
  * @author 実装者の名前
  */
+@TestInstance(Lifecycle.PER_CLASS)
 public class SecondJankenMainTest {
 	/** テストクラス */
 	private static SecondJankenMain target;
@@ -51,7 +54,8 @@ public class SecondJankenMainTest {
 	 *
 	 * @param clazz テスト対象クラス
 	 * @param methodName テストするメソッド名
-	 * @args 起動するメソッドの引数
+	 * @param paramType 起動するメソッドの引数
+	 * @return メソッド
 	 */
 	private Method getPrivateMethod(Class clazz, String methodName, Class<?> ... paramType) {
 		// テスト対象クラスを返却する
@@ -69,7 +73,7 @@ public class SecondJankenMainTest {
 	/**
 	 * すべてのテストケースを実行するための準備をする。
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		// テスト対象クラスのインスタンス生成
 		target = new SecondJankenMain();
@@ -82,7 +86,7 @@ public class SecondJankenMainTest {
 	 * 基本的には、フィールド変数のインスタンスなどを開放するが、今回のフィールド変数は
 	 * 静的フィールド(staticフィールド)なので、アプリ終了時に解放されるので処理なし。
 	 */
-	@AfterClass
+	@AfterAll
 	public static void terminatedClass() {
 		// 標準出力を元に戻す
 		System.setOut(System.out);
@@ -91,7 +95,7 @@ public class SecondJankenMainTest {
 	/**
 	 * 勝敗判定MAP作成処理。
 	 */
-	@Before
+	@BeforeEach
 	public void testInit() {
 /* *** 勝敗判定MAP作成は別クラスで行っているのでテスト対象外 ***/
 //		// テストするメソッドを取得する ※警告が出るが、引数なし、返却ちなしのメソッドなので良しとする
@@ -104,13 +108,13 @@ public class SecondJankenMainTest {
 //			test.invoke(target, null);
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
 	}
 // 勝敗MAP作成は別クラスで行ているのでテスト対象外
@@ -136,7 +140,7 @@ public class SecondJankenMainTest {
 //			if (judgeField != null && teField != null) {
 //				LOG.info(() ->"フィールド取得成功 ");
 //			} else {
-//				Assert.fail("フィールド変数が生成されていません。");
+//				fail("フィールド変数が生成されていません。");
 //			}
 //			// アクセス権を変更する
 //			judgeField.setAccessible(true);
@@ -145,34 +149,34 @@ public class SecondJankenMainTest {
 //			mapTe = (Map<String, String>) teField.get(target);
 //			if (mapJudge != null && mapTe != null) {
 //				// judgeMapの内容確認
-//				Assert.assertEquals(YOU_WIN, mapJudge.get(GU.toString() + CHOKI.toString())) ;
-//				Assert.assertEquals(YOU_WIN, mapJudge.get(CHOKI.toString() + PA.toString())) ;
-//				Assert.assertEquals(YOU_WIN, mapJudge.get(PA.toString() + GU.toString())) ;
-//				Assert.assertEquals(YOU_LOOSE, mapJudge.get(GU.toString() + PA.toString())) ;
-//				Assert.assertEquals(YOU_LOOSE, mapJudge.get(CHOKI.toString() + GU.toString())) ;
-//				Assert.assertEquals(YOU_LOOSE, mapJudge.get(PA.toString() + CHOKI.toString())) ;
-//				Assert.assertEquals(AIKO, mapJudge.get(GU.toString() + GU.toString())) ;
-//				Assert.assertEquals(AIKO, mapJudge.get(CHOKI.toString() + CHOKI.toString())) ;
-//				Assert.assertEquals(AIKO, mapJudge.get(PA.toString() + PA.toString())) ;
+//				assertEquals(YOU_WIN, mapJudge.get(GU.toString() + CHOKI.toString())) ;
+//				assertEquals(YOU_WIN, mapJudge.get(CHOKI.toString() + PA.toString())) ;
+//				assertEquals(YOU_WIN, mapJudge.get(PA.toString() + GU.toString())) ;
+//				assertEquals(YOU_LOOSE, mapJudge.get(GU.toString() + PA.toString())) ;
+//				assertEquals(YOU_LOOSE, mapJudge.get(CHOKI.toString() + GU.toString())) ;
+//				assertEquals(YOU_LOOSE, mapJudge.get(PA.toString() + CHOKI.toString())) ;
+//				assertEquals(AIKO, mapJudge.get(GU.toString() + GU.toString())) ;
+//				assertEquals(AIKO, mapJudge.get(CHOKI.toString() + CHOKI.toString())) ;
+//				assertEquals(AIKO, mapJudge.get(PA.toString() + PA.toString())) ;
 //				// teMapの内容確認
-//				Assert.assertEquals("グー", mapTe.get(GU)) ;
-//				Assert.assertEquals("チョキ", mapTe.get(CHOKI)) ;
-//				Assert.assertEquals("パー", mapTe.get(PA)) ;
+//				assertEquals("グー", mapTe.get(GU)) ;
+//				assertEquals("チョキ", mapTe.get(CHOKI)) ;
+//				assertEquals("パー", mapTe.get(PA)) ;
 //			} else {
-//				Assert.fail("インスタンスが生成されていません");
+//				fail("インスタンスが生成されていません");
 //			}
 //		} catch (ClassCastException e) {
 //			e.printStackTrace();
-//			Assert.fail("クラスのキャストに失敗しました。");
+//			fail("クラスのキャストに失敗しました。");
 //		} catch (NoSuchFieldException e) {
 //			e.printStackTrace();
-//			Assert.fail("フィールド変数:が見つかりません");
+//			fail("フィールド変数:が見つかりません");
 //		} catch (SecurityException e) {
 //			e.printStackTrace();
-//			Assert.fail("セキュリティ違反がありました。");
+//			fail("セキュリティ違反がありました。");
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスができません。");
+//			fail("アクセスができません。");
 //		}
 //	}
 
@@ -183,25 +187,25 @@ public class SecondJankenMainTest {
 	public void testPrintJankenAiko_Called() {
 		console.reset();
 		// テストするメソッドを取得する
-		Method test = getPrivateMethod(target.getClass(), "printJankenAiko", null);
+		Method test = getPrivateMethod(target.getClass(), "printJankenAiko", boolean.class);
 		// テストを実行する
 		try {
 			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
 			test.setAccessible(true);
 			// ※警告が出るが、引数なし、返却ちなしのメソッドなので良しとする
-			test.invoke(target, null);
+			test.invoke(target, true);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
-			Assert.fail("アクセスの仕方に問題があります。");
+			fail("アクセスの仕方に問題があります。");
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
-			Assert.fail("引数に問題があります。");
+			fail("引数に問題があります。");
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
-			Assert.fail("メソッドの起動時に問題が発生しました。");
+			fail("メソッドの起動時に問題が発生しました。");
 		}
 		// println()で出力されたものには改行コードがついている。
-//		Assert.assertEquals(printTable + "じゃんけん ..." + lineSeparator, console.toString());
+//		assertEquals(printTable + "じゃんけん ..." + lineSeparator, console.toString());
 	}
 
 //	/**
@@ -222,15 +226,15 @@ public class SecondJankenMainTest {
 //			res = test.invoke(target, null);
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
-//		Assert.assertEquals("じゃんけん ..." + lineSeparator, console.toString());
+//		assertEquals("じゃんけん ..." + lineSeparator, console.toString());
 //	}
 //
 //	/** クラスを継承したのでテスト不要
@@ -253,16 +257,16 @@ public class SecondJankenMainTest {
 //			res = test.invoke(target, null);
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
 //		// 標準入力なので、入力値を固定する必要がある。
-//		Assert.assertEquals("Hello", res.toString());
+//		assertEquals("Hello", res.toString());
 //	}
 //
 //	/**
@@ -283,16 +287,16 @@ public class SecondJankenMainTest {
 //			test.invoke(target, null);
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
 //
-//		Assert.assertEquals("ポン！" + lineSeparator, console.toString());
+//		assertEquals("ポン！" + lineSeparator, console.toString());
 //	}
 
 	/**
@@ -313,16 +317,16 @@ public class SecondJankenMainTest {
 			test.invoke(target, true);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
-			Assert.fail("アクセスの仕方に問題があります。");
+			fail("アクセスの仕方に問題があります。");
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
-			Assert.fail("引数に問題があります。");
+			fail("引数に問題があります。");
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
-			Assert.fail("メソッドの起動時に問題が発生しました。");
+			fail("メソッドの起動時に問題が発生しました。");
 		}
 
-		Assert.assertEquals("ポン！" + lineSeparator, console.toString());
+		assertEquals("ポン！" + lineSeparator, console.toString());
 	}
 
 //	/** クラスを継承したのでテスト不要
@@ -342,13 +346,13 @@ public class SecondJankenMainTest {
 //			res = (JankenConst) test.invoke(target, GU.toString(), CHOKI.toString());
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
 //	}
 //
@@ -370,15 +374,15 @@ public class SecondJankenMainTest {
 //			res = test.invoke(target, CHOKI.toString(), PA.toString());
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
-//		Assert.assertEquals(YOU_WIN, (JankenConst) res);
+//		assertEquals(YOU_WIN, (JankenConst) res);
 //	}
 //
 //	/**
@@ -398,15 +402,15 @@ public class SecondJankenMainTest {
 //			res = test.invoke(target, PA.toString(), GU.toString());
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
-//		Assert.assertEquals(YOU_WIN, (JankenConst) res);
+//		assertEquals(YOU_WIN, (JankenConst) res);
 //	}
 //
 //	/**
@@ -426,15 +430,15 @@ public class SecondJankenMainTest {
 //			res = test.invoke(target, GU.toString(), PA.toString());
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
-//		Assert.assertEquals(YOU_LOOSE, (JankenConst) res);
+//		assertEquals(YOU_LOOSE, (JankenConst) res);
 //	}
 //
 //	/**
@@ -454,15 +458,15 @@ public class SecondJankenMainTest {
 //			res = test.invoke(target, CHOKI.toString(), GU.toString());
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
-//		Assert.assertEquals(YOU_LOOSE, (JankenConst) res);
+//		assertEquals(YOU_LOOSE, (JankenConst) res);
 //	}
 //
 //	/**
@@ -482,15 +486,15 @@ public class SecondJankenMainTest {
 //			res = test.invoke(target, PA.toString(), CHOKI.toString());
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
-//		Assert.assertEquals(YOU_LOOSE, (JankenConst) res);
+//		assertEquals(YOU_LOOSE, (JankenConst) res);
 //	}
 
 	/**
@@ -510,13 +514,13 @@ public class SecondJankenMainTest {
 			res = (boolean) test.invoke(target, YOU_WIN);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
-			Assert.fail("アクセスの仕方に問題があります。");
+			fail("アクセスの仕方に問題があります。");
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
-			Assert.fail("引数に問題があります。");
+			fail("引数に問題があります。");
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
-			Assert.fail("メソッドの起動時に問題が発生しました。");
+			fail("メソッドの起動時に問題が発生しました。");
 		}
 	}
 
@@ -540,15 +544,15 @@ public class SecondJankenMainTest {
 //			res = (boolean) test.invoke(YOU_LOOSE);
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
-//		Assert.assertEquals(FINISH, res);
+//		assertEquals(FINISH, res);
 //	}
 //
 // 追加実装のため除外する
@@ -571,15 +575,15 @@ public class SecondJankenMainTest {
 //			res = (boolean) test.invoke(target, AIKO);
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
-//		Assert.assertEquals(ONE_MORE, res);
+//		assertEquals(ONE_MORE, res);
 //	}
 //	/** クラスを継承したのでテスト不要
 //	 * ＜追加実装＞
@@ -600,15 +604,15 @@ public class SecondJankenMainTest {
 //			test.invoke(target, GU.toString(), CHOKI.toString());
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
-//		Assert.assertEquals("ユーザー：グー" + lineSeparator + "CPU：チョキ" + lineSeparator, console.toString());
+//		assertEquals("ユーザー：グー" + lineSeparator + "CPU：チョキ" + lineSeparator, console.toString());
 //	}
 //
 //	/** クラスを継承したのでテスト不要
@@ -624,22 +628,22 @@ public class SecondJankenMainTest {
 //			// プライベートメソッドのアクセスを可能にする(テストの時だけ使用するようにする)
 //			test.setAccessible(true);
 //			// プレーヤーの勝ち(文字列からINT型に変換
-//			Assert.assertTrue((boolean) test.invoke(target, GU.toString()));
-//			Assert.assertTrue((boolean) test.invoke(target, CHOKI.toString()));
-//			Assert.assertTrue((boolean) test.invoke(target, PA.toString()));
+//			assertTrue((boolean) test.invoke(target, GU.toString()));
+//			assertTrue((boolean) test.invoke(target, CHOKI.toString()));
+//			assertTrue((boolean) test.invoke(target, PA.toString()));
 //			// 想定外の値１
-//			Assert.assertFalse((boolean) test.invoke(target, "3"));
+//			assertFalse((boolean) test.invoke(target, "3"));
 //			// 想定外の値２
-//			Assert.assertFalse((boolean) test.invoke(target, "-1"));
+//			assertFalse((boolean) test.invoke(target, "-1"));
 //		} catch (IllegalAccessException e) {
 //			e.printStackTrace();
-//			Assert.fail("アクセスの仕方に問題があります。");
+//			fail("アクセスの仕方に問題があります。");
 //		} catch (IllegalArgumentException e) {
 //			e.printStackTrace();
-//			Assert.fail("引数に問題があります。");
+//			fail("引数に問題があります。");
 //		} catch (InvocationTargetException e) {
 //			e.printStackTrace();
-//			Assert.fail("メソッドの起動時に問題が発生しました。");
+//			fail("メソッドの起動時に問題が発生しました。");
 //		}
 //	}
 

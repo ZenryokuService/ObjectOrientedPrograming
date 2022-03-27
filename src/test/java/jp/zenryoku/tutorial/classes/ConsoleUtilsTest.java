@@ -5,16 +5,19 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
-import jp.zenryoku.tutorial.calsses.ConsoleUtils;
+import jp.zenryoku.tutorial.calsses.JankenConsoleUtils;
 import jp.zenryoku.tutorial.calsses.JankenConst;
 
+@TestInstance(Lifecycle.PER_CLASS)
 public class ConsoleUtilsTest {
 //	/** テスト対象クラス */
 //	private static ConsoleUtils target;
@@ -34,7 +37,7 @@ public class ConsoleUtilsTest {
 	/**
 	 * すべてのテストケースを実行するための準備をする。
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		// 静的メソッドに修正したのでインスタンス化は不要
 //		target = new ConsoleUtils();
@@ -46,7 +49,7 @@ public class ConsoleUtilsTest {
 	 * 基本的には、フィールド変数のインスタンスなどを開放するが、今回のフィールド変数は
 	 * 静的フィールド(staticフィールド)なので、アプリ終了時に解放されるので処理なし。
 	 */
-	@AfterClass
+	@AfterAll
 	public static void terminatedClass() {
 		// 標準出力を元に戻す
 		System.setOut(System.out);
@@ -55,7 +58,7 @@ public class ConsoleUtilsTest {
 	/**
 	 * テストを実行する準備をする
 	 */
-	@Before
+	@BeforeEach
 	public void testInit() {
 		// 標準出力を空にする
 		console.reset();
@@ -66,7 +69,7 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintJankenAiko_True() {
-		ConsoleUtils.printJankenAiko(true);
+		JankenConsoleUtils.printJankenAiko(true);
 		assertEquals(printTable + "じゃんけん ..." + lineSeparator, console.toString());
 	}
 
@@ -75,7 +78,7 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintJankenAiko_False() {
-		ConsoleUtils.printJankenAiko(false);
+		JankenConsoleUtils.printJankenAiko(false);
 		assertEquals(printTable + "あいこで ..." + lineSeparator, console.toString());
 	}
 
@@ -93,7 +96,7 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintPonOrSho_True() {
-		ConsoleUtils.printPonOrSho(true);
+		JankenConsoleUtils.printPonOrSho(true);
 		assertEquals("ポン！" + lineSeparator, console.toString());
 	}
 
@@ -102,7 +105,7 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintPonOrSho_False() {
-		ConsoleUtils.printPonOrSho(false);
+		JankenConsoleUtils.printPonOrSho(false);
 		assertEquals("しょ！" + lineSeparator, console.toString());
 	}
 
@@ -113,7 +116,8 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintJudge_WIN() throws Exception {
-		ConsoleUtils.printJudge(JankenConst.YOU_WIN);
+		console.reset();
+		JankenConsoleUtils.printJudge(JankenConst.YOU_WIN);
 		assertEquals("YOU WIN!" + lineSeparator, console.toString());
 	}
 
@@ -124,7 +128,7 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintJudge_LOOSE() throws Exception {
-		ConsoleUtils.printJudge(JankenConst.YOU_LOOSE);
+		JankenConsoleUtils.printJudge(JankenConst.YOU_LOOSE);
 		assertEquals("YOU LOOSE!" + lineSeparator, console.toString());
 	}
 
@@ -135,7 +139,7 @@ public class ConsoleUtilsTest {
 	 */
 	@Test
 	public void testPrintJudge() throws Exception {
-		ConsoleUtils.printJudge(JankenConst.AIKO);
+		JankenConsoleUtils.printJudge(JankenConst.AIKO);
 		assertEquals("DRAW!" + lineSeparator, console.toString());
 	}
 

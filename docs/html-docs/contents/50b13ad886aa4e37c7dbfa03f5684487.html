@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>PlayerCharactor</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic|Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../assets/css/bootstrap.css">
+<link rel="stylesheet" href="../assets/css/jquery.bonsai.css">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/icon-font/icons.css">
+<script type="text/javascript" src="../assets/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="../assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.bonsai.js"></script>
+
+  </head>
+  <body>
+    <div>
+
+      <!-- Name Title -->
+
+      <h1>PlayerCharactor</h1>
+
+      <!-- Type and Stereotype -->
+
+      <section style="margin-top: .5em;">
+        <span class="alert alert-info">
+          <span class="node-icon staruml-icon icon-UMLClass"></span>
+          UMLClass
+        </span>
+        
+      </section>
+
+      <!-- Path -->
+
+      <section style="margin-top: 10px">
+        
+        
+        
+          
+          <span class="label label-info"><a href='cf9c8b720f3815adeccaf3ef6e48c6c4.html'><span class='node-icon staruml-icon icon-Project'></span>TextRpgDiagrams</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='594af663de577680f35b13183109d675.html'><span class='node-icon staruml-icon icon-UMLModel'></span>TextRpg構造図</a></span>
+        
+          <span>::</span>
+          <span class="label label-info"><a href='50b13ad886aa4e37c7dbfa03f5684487.html'><span class='node-icon staruml-icon icon-UMLClass'></span>PlayerCharactor</a></span>
+        
+      </section>
+
+      <!-- Diagram -->
+
+      
+
+      <!-- Description -->
+
+      
+      <section>
+        <h3>Description</h3>
+        <div>
+          
+            <span class="label label-info">none</span>
+          
+        </div>
+      </section>
+      
+
+      <!-- Specification -->
+
+      
+
+      <!-- Directed Relationship -->
+
+      
+
+      <!-- Undirected Relationship -->
+
+      
+
+      <!-- Classifier -->
+
+      
+        
+        
+<section class="element-list">
+    <h3>Generalized Elements</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='a5ac11df982052a9c4535119edc319f7.html'><span class='node-icon staruml-icon icon-UMLClass'></span>Player</a></li>
+        
+    </ul>
+</section>
+
+
+
+        
+        
+<section class="element-list">
+    <h3>Specialized Elements</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='f39a8c73d2f60ebd8efd50253e38dec8.html'><span class='node-icon staruml-icon icon-UMLClass'></span>Monster</a></li>
+        
+    </ul>
+</section>
+
+
+
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+      
+
+      <!-- Interface -->
+
+      
+
+      <!-- Component -->
+
+      
+
+      <!-- Node -->
+
+      
+
+      <!-- Actor -->
+
+      
+
+      <!-- Use Case -->
+
+      
+
+      <!-- Template Parameters -->
+
+      
+
+      <!-- Literals -->
+
+      
+
+      <!-- Attributes -->
+
+      
+      <section>
+        <h3>Attributes</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="7be478fa74c9af58ebbab50589e57030.html">statusMap</a></td>
+            <td>Map&lt;String, RpgStatus&gt;</td>
+            <td><p>パラメータ(ステータス)リスト</p></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="448c023d6ae26cd490caf05670ed7330.html">optionalMap</a></td>
+            <td>Map&lt;String, RpgStatus&gt;</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="b1de99c6d381ca373414abf4df19283a.html">effectList</a></td>
+            <td>List&lt;String, stEffect&gt;</td>
+            <td></td>
+          </tr>
+          
+        </table>
+      </section>
+      
+
+      <!-- Operations -->
+
+      
+      <section>
+        <h3>Operations</h3>
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>Visibility</th>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="7ed0e3d5e1df43bf25585463a9147315.html">getAtk()</a></td>
+            <td><p>物理攻撃力を返却する</p></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="127c8c5c4237fc8c7a55a8a7664a5ebc.html">getDef()</a></td>
+            <td><p>物理防御力を返却する</p></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="d45197d44b9e88b4fc09f5316c310cc0.html">setMainWepon()</a></td>
+            <td><p>武器を装備する。
+ステータスマップよりATKを取得し、付随する計算式を取得
+プレーヤーのステータスと武器の攻撃力を計算して物理攻撃力を設定する。</p></td>
+          </tr>
+          
+          <tr>
+            <td>public</td>
+            <td><a href="c785c0f8c0c2b0f20a429c3a88eae3a9.html">setArmor()</a></td>
+            <td><p>防具を装備する。
+ステータスマップよりDEFを取得し、付随する計算式を取得
+プレーヤーのステータスと防具の防御力を計算して物理防御力を設定する。</p></td>
+          </tr>
+          
+        </table>
+      </section>
+      
+
+      <!-- Receptions -->
+
+      
+
+      <!-- Extension Points -->
+
+      
+
+      <!-- Parameters -->
+
+      
+
+      <!-- Diagrams -->
+
+      
+      
+
+      <!-- Behavior -->
+
+      
+
+      <!-- Action -->
+
+      
+
+      <!-- Interaction -->
+
+      
+
+      <!-- CombinedFragment -->
+
+      
+
+      <!-- Activity -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State Machine -->
+
+      
+
+      <!-- State -->
+
+      
+
+      <!-- Vertex -->
+
+      
+
+      <!-- Transition -->
+
+      
+
+      <!-- Data Model (ERD) -->
+
+      
+
+      <!-- Columns (ERD) -->
+
+      
+
+      <!-- Related Entities (ERD) -->
+
+      
+
+      <!-- Data Flows (DFD) -->
+
+      
+
+      <!-- Flows (Flowchart) -->
+
+      
+
+      <!-- Properties -->
+
+      <section>
+        <h3>Properties</h3>
+        
+        <table class="table table-striped table-bordered">
+    <tr>
+        <th width="50%">Name</th>
+        <th width="50%">Value</th>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>name</td>
+        <td>PlayerCharactor</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>stereotype</td>
+        <td><span class='label label-info'>null</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>visibility</td>
+        <td>public</td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <tr>
+        <td>isAbstract</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isFinalSpecialization</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isLeaf</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+    
+    
+    <tr>
+        <td>isActive</td>
+        <td><span class='label label-info'>false</span></td>
+    </tr>
+    
+    
+    
+</table>                
+
+      </section>
+
+      <!-- Tags -->
+
+      
+
+      <!-- Constraints, Dependencies, Dependants -->
+
+      
+        
+        
+
+
+        
+        
+
+
+        
+        
+
+      
+
+      <!-- Relationships -->
+
+      
+      
+<section class="element-list">
+    <h3>Relationships</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='90e3191163e5979f119605ae77bad94a.html'><span class='node-icon staruml-icon icon-UMLGeneralization'></span>(PlayerCharactor→Player)</a></li>
+        
+        <li><a href='b25ace3f49f1caefbe6e06ee22d223a2.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>use (PlayerCharactor—RpgConfig)</a></li>
+        
+        <li><a href='b0819027a73c7e37acae8656dabcc67d.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>calcurate (RpgFormula—PlayerCharactor)</a></li>
+        
+        <li><a href='4a2907e4123c302f8b98ee229427f05d.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>即時効果 (Effects—PlayerCharactor)</a></li>
+        
+        <li><a href='4992028db55ec32ab2a889d0152f4a4c.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>ターン毎効果 (StEffect—PlayerCharactor)</a></li>
+        
+        <li><a href='1a3802879846950be6fa3f485e29263b.html'><span class='node-icon staruml-icon icon-UMLGeneralization'></span>extends (Monster→PlayerCharactor)</a></li>
+        
+    </ul>
+</section>
+
+
+
+      <!-- Owned Elements -->
+
+      
+      
+<section class="element-list">
+    <h3>Owned Elements</h3>
+    <ul class="nav nav-list">
+        
+        <li><a href='90e3191163e5979f119605ae77bad94a.html'><span class='node-icon staruml-icon icon-UMLGeneralization'></span>(PlayerCharactor→Player)</a></li>
+        
+        <li><a href='b25ace3f49f1caefbe6e06ee22d223a2.html'><span class='node-icon staruml-icon icon-UMLAssociation'></span>use (PlayerCharactor—RpgConfig)</a></li>
+        
+    </ul>
+</section>
+
+
+
+    </div>
+  </body>
+</html>

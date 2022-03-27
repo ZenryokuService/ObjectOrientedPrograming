@@ -1,0 +1,41 @@
+.root {
+	-fx-background-image: url('file:D:/github/ObjectOrientedPrograming/src/main/resources/views/cssImage/ProConMap.png');
+	-fx-background-size: 600 400;
+}
+
+.titleText {
+   -fx-font-size: 64px;
+   -fx-font-family: "Impact";
+   -fx-text-fill: rgb(0, 0, 0);
+   -fx-text-alignment: center;
+}
+
+
+
+.playerArea {
+   -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+   -fx-background-color: rgba(0,0,0,0.8);
+   -fx-fixed-cell-size:15;
+   -fx-padding: 15;
+   -fx-border-color: rgb(255, 255, 255);
+   -fx-border-radius: 5;
+   -fx-border-width: 5;
+   -fx-fixed-cell-size: -1;
+}
+
+.playerBox {
+   -fx-font-family: "Impact";
+   -fx-fill-width: true;
+}
+
+
+.playerName {
+   -fx-font-size: 16px;
+   -fx-font-family: "Arial Black";
+	-fx-text-fill: rgb(255, 255, 255);
+
+}
+
+.titleButton {
+   -fx-font-family: "Impact";
+}

@@ -1,0 +1,5 @@
+ITEM_LIST
+ぼくとう:WEP:WEV 3: 30:ITN-1
+やくそう:ITM:ITV 10: 30: ITN-1
+ぬののふく:ARM:ARV 3: 30: ITN - 2
+END_ITEM_LIST

@@ -21,7 +21,6 @@ public class Slime extends Monster implements CommandIF {
 	/* (non-Javadoc)
 	 * @see jp.zenryoku.practice.train2.cls.game.util.CommandIF#exeCommand(java.lang.String)
 	 */
-	@Override
 	public int exeCommand(String index) {
 		int val = 0;
 		String name = getName();

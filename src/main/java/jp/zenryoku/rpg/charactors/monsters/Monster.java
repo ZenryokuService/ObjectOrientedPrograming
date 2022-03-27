@@ -1,20 +1,33 @@
 package jp.zenryoku.rpg.charactors.monsters;
 
 import jp.zenryoku.rpg.charactors.NonPlayer;
+import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
+import jp.zenryoku.rpg.data.job.RpgMonsterType;
+import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.item.equip.Armor;
 import jp.zenryoku.rpg.item.equip.MainWepon;
 
-public class Monster extends NonPlayer {
+public class Monster extends PlayerCharactor {
 
 	/** 改行コード */
 	private final String SEP = System.lineSeparator();
+	/** 話すフラグ */
+	private boolean isTalk;
+	/** 話の内容 */
+	private String message;
+	/** モンスタータイプ */
+	private RpgMonsterType type;
+	/** 経験値 */
+	private int exp;
+	/** お金 */
+	private int money;
 
 	/**
 	 * コンストラクタ。
 	 * 今回は、まおうのみなので、コンストラクタプロパティ設定を行う。
-	 * @param name
+	 * @param name モンスターの名前
 	 */
-	public Monster(String name) {
+	public Monster(String name) throws RpgException {
 		// 名前
 		super(name);
 		// レベル
@@ -32,6 +45,92 @@ public class Monster extends NonPlayer {
 		// 表示するメッセージ
 		setMessage("「がっはっは！よくきたなぁ、おまえのゆうきに、さんじをおくろう。" + SEP
 				+ "しかし、ここがおまえのさいごだ！わがちからにくっぷくするがよい。」");
+	}
+
+
+	/**
+	 * コンストラクタ。
+	 * 今回は、まおうのみなので、コンストラクタプロパティ設定を行う。
+	 * @param name モンスターの名前
+	 */
+	public Monster(String name, int lv, int hp, int mp, int atk, int def, boolean isTalk, String message) throws RpgException {
+		// 名前
+		super(name);
+		// レベル
+		setLevel(lv);
+		// HP
+		setHP(hp);
+		// MP
+		setMP(mp);
+		// 攻撃力
+		setAttack(atk);
+		// 防御力
+		setDiffence(def);
+		// 話をする
+		setTalk(isTalk);
+		// 表示するメッセージ
+		setMessage(message);
+	}
+
+	/**
+	 * コンストラクタ。
+	 * 今回は、まおうのみなので、コンストラクタプロパティ設定を行う。
+	 * @param name モンスターの名前
+	 */
+	public Monster(String name, int lv, int hp, int mp, boolean isTalk, String message) throws RpgException {
+		// 名前
+		super(name);
+		// レベル
+		setLevel(lv);
+		// HP
+		setHP(hp);
+		// MP
+		setMP(mp);
+		// 話をする
+		setTalk(isTalk);
+		// 表示するメッセージ
+		setMessage(message);
+		//
+	}
+
+	public boolean isTalk() {
+		return isTalk;
+	}
+
+	public void setTalk(boolean talk) {
+		isTalk = talk;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public RpgMonsterType getType() {
+		return type;
+	}
+
+	public void setType(RpgMonsterType type) {
+		this.type = type;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
 	}
 
 	/**
@@ -54,7 +153,7 @@ public class Monster extends NonPlayer {
 		Armor armor = getArmor();
 		int diffenceValue = getDiffence();
 		if (armor != null) {
-			diffenceValue = armor.getDiffence() + getDiffence();
+			diffenceValue = armor.getDeffence() + getDiffence();
 		}
 		return diffenceValue;
 	}

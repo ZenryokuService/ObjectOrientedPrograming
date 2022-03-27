@@ -1,118 +1,91 @@
-# ObjectOrientedPrograming
-オブジェクト指向プログラミングのサンプルコード
+## Folder list
 
-#### 使用する外部アプリケーション
-1. [StarUML](http://staruml.io/)
-2. [Github](https://git-scm.com/book/ja/v2)
-    * 文字コードを変更するために環境変数を追加するコマンド「set LESSCHARSET=utf-8」
+|　on The work | Category | pakage name |
+| ------------ | -------- | ----------- |
+| - | Root Directory | jp.zenryoku |
+| - | for Main classes | jp.zenryoku.main |
+| - | for Practice sources | jp.zenryoku.practice |
+| - | for Procon server | jp.zenryoku.procon |
+| ☆ | <b>for Text RPG</b> | jp.zenryoku.rpg |
+| - | for Janken game | jp.zenryoku.tutorial |
 
-#### 他のUMLツール
-* [astah](https://astah.change-vision.com/ja/download.html)
+# About Text RPG
+1. Target sources is **src/main/java/jp.zenryoku.rpg**
+2. Main method is in GameMain
+3. use ["exp4j"](https://lallafa.objecthunter.net/exp4j/) for FORMULAS defined in *_story.txt
 
-## フローチャートを作る
-1. 必要な処理をリストアップする
-2. 処理の順序を矢印で作成する
-3. 条件分岐なども作成する
-4. 事前準備する変数を作成
-5. 事前準備するメソッド(通常のメソッド)を作成する
+## TextRpg in Console.
+1. Load text file created by users.
+2. create RpgConfig and load story like Game Book(日本のゲームブック)
 
-## フローチャート通りにメインメソッドを作成する
-1. mainメソッドを作成する
-2. フローチャートで作成した処理(process, predefined process)を作成する
-  ※メソッドの枠のみを作成する
-3. 作成したコードを見直す
+### User defined
+* PARAM_CONFIG: you can defined categories use in game book. like wepons(WEP), items(ITM), magic(MAG) .. 
+* STATUS: you can defind statuses in game book like power(POW), intelligence(INT) ...
 
-## テストケースを作成する
-参考サイト
-* java.lang.refrectionの使い方に関して、[JavaDocAPI](https://docs.oracle.com/javase/jp/8/docs/api/java/lang/Class.html#getDeclaredMethod-java.lang.String-java.lang.Class...-)を参照
-* [Functionalインターフェースの使い方に関して１](https://codechacha.com/ja/java8-functional-interface/)を参照
-* [Gitブランチ操作](https://git-scm.com/book/ja/v2/Git-%E3%81%AE%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81%E6%A9%9F%E8%83%BD-%E3%83%AA%E3%83%99%E3%83%BC%E3%82%B9)
+### User created story
+**this program load "*_story.txt". this text file written story.** And users are able to create original story in this story text file.
+<EX>
+1:A
+one day, you are on the bed. and you find ...
+1. chocorate 2
+2. ice 3
+END_SCENE
 
-# 手順メモ
-## Part1
-#### Chapter1: オブジェクト指向ではない方法でじゃんけんゲームを作ってみよう
-1. FirstJankenMain.java
-  * クラスを作成して、フローチャートにある処理をメソッドを作成する。※処理の中身は作成しない。
+2:A
+you find a chocorate.
+END_SCENE
 
-2. FirstJankenMainTest.java
-  * フィールド変数にテスト対象クラスを宣言する(FirstJankenMain)
-  * テストを実行するのに、privateメソッド、フィールド変数は外側から呼び出せないのでjava.lang.refrectionを使用する
-  * Field変数を取得するのにはClass.
-  * コンソール出力した値を確認する方法はここの[サイトを参考](https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println)にする
-  * 改行コードの取得はこのサイトを[参照](https://techacademy.jp/magazine/19071)
-  * リフレクションを使用するので、テストクラスの起動確認コードを実装
-  * テストクラスの実装後に、実態クラスの実装を行う
-  * JUnitでログ出力するときに[Supplierインターフェースを使用するのに参照](https://stackabuse.com/unit-testing-in-java-with-junit-5/)
+3:B
+you find a ice.
+END_SCENE
 
-3. 頭の中で用意したテストケースを実行した後に、テストケースの不足がないか確認、修正・追加する
-  * [カバレッジ](https://zenryokuservice.com/wp/2020/09/01/%e9%96%8b%e7%99%ba%e7%92%b0%e5%a2%83%e6%a7%8b%e7%af%89%ef%bd%9ewindows%e7%89%88eclipse%e3%81%ae%e8%a8%ad%e5%ae%9a%ef%bd%9e/)を起動して、テストケースが網羅できているか確認する。
+## UML Diagrams
+**/src/main/resources/TextRpgClasses.mdj (using [StarUML](https://staruml.io/))**
+[Diagram HTML is here](https://zenryokuservice.github.io/ObjectOrientedPrograming/html-docs/index.html)
 
-4. テストケースを作り終わって、実際にじゃんけんゲームを起動してみると、ユーザーの手とCUPの手が何を出しているのかわからないという結果になったのでわかるように修正する必要がある。＝メインメソッドの修正
-  * ユーザーの手とCPUの手がわからない(表示されない) -> 表示するように修正
-  * 「じゃんけん」と「あいこ」のハンドルができていなかった
-  * じゃんけんの各手と入力値の表を表示する(手Mapとテストケースの追加)
-  * 入力チェックの処理を追加実装
+ **[Good sample of UML](https://www.tutorialspoint.com/uml/index.htm)**
+ 
+## 学習スタイル(学習ステップ・フロー)
+1. 実際に使用するケースを見る -> サンプルアプリより一部抜粋　```ハローワールドの実用例を見る ```
+2. 学習ポイントに沿った、内容の説明を読む　：　```ハローワールド、コンソール(標準出力)に文字を表示するということ```
+3. 実際にコードを書いて、動かしてみる　：　```自分で作成したコードで「Hello world!」を表示する
+4. 書いたプログラムの内容を理解する　：　```実行したプログラム、メインメソッドと「System.out.println(文字列)」で標準出力に文字を表示できることを理解```
+ 
+## 学習する事一覧
+* メインメソッド: プログラム引数、(※後半にビルドパス、VM引数)
+* 演算子：四則演算で使用する演算子、剰余残、論理演算(AND OR)、三項演算子
+* 基本文法
+  - 条件分岐(if, switch)
+  - 繰り返し(for, while)
+  - 例外処理
+* 配列
+* クラスの構成要素
+* クラスの使い方(呼び出して使用する)
+* 各種JavaAPIの使い方(Date、コレクション、FileIO)
+* クラスとクラスの関係を作る
+  - 親子関係を作ることでできること(JavaFXで画面表示)
+  - イベントリスナーの実装とインターフェース
+* デザインパターン
 
-#### Chapter2: オブジェクト指向プログラミングでじゃんけんゲームを作ってみよう
-1. Part1.Chapter2.Section1で作成したフローチャートのプロセスを参考にクラスの役割分担を考え、処理の塊一覧を作成(この一覧はメモのため省略(未コミット)
-2. 上のフローチャートと処理の塊一覧よりクラス図を作成する
-3. 列挙型の書き方を参考にした[サイト](https://techacademy.jp/magazine/9244)
-
-## Part2
-#### Chapter1: テキストRPG(戦闘シーンのみ)を作ってみよう
-1. Part2.Chapter1.Section1は、ユーズケース図でやりたいことを可視化する([参考](https://www.uml-diagrams.org/use-case-subject.html))
-    ユースケース図(イメージ図)の作成としているが、クラス図(イメージ)、フローチャートも一緒に作成する。
-2. [STAR UMLの使い方](https://docs.staruml.io/user-guide/formatting-diagram)を参照
-    実際の処理を行うことを考え、どのようにアプリを起動するか？、メインメソッドの実装イメージを作る。
-3. まずは、ユーズケース、フローチャート、クラス図を作成する。(ざっくりでよい)
-4. 次は、プログラムレベルで、実装する処理を考えながら(コメントをソースに書きながら)上記のドキュメントを**追加修正**する。
-  主なクラスとしては以下のクラスを使用して起動するようにして、マルチスレッド対応にする。
-    * GameMain: メインメソッドを実装
-    * TextRpgGameEngine: Threadクラスを継承してマルチスレッド対応にする
-    * TextRpgLogic: Gamesインターフェースを実装したクラスで、GameEngineクラスで使用するクラスを変更できるようにする。
-    * ConsoleUtils: コンソール出力する処理を実装する、ステータス、メッセージ、行動選択肢などを表示する。
-    * CheclerUtils: 各種チェック処理を実装する。コンストラクタを起動する必要がないので、静的(static)メソッドにする。
-5. データクラスのテストケースは実装しない
-6. 作成する順序は、以下の通り。
-    1. 初期表示を行うConsoleUtils#printBattleStatus()のテストケース
-    2. TextRpgLogicのテストケース
-
-7. ビルドパスにresourcesを追加する(src/mainとsrc/testの両方追加)：resources読み込みの[参考サイト](https://qiita.com/ka2kama/items/9e16cc6d1019838770cc)
-8. [アノテーションの実装方法](https://www.techscore.com/tech/Java/JavaSE/JavaLanguage/7-3/)を参考にする
-9. アノテーションのついたメソッドの取得方法。特殊なのでサンプルコードを以下に示す。
-    <pre>
-    public void printCommandList() {<br/>
-        Player player = new Player();<br/>
-        Method[] mess = player.getClass().getDeclaredMethods();<br/>
-        for(Method mes : mess) {<br/>
-            Command ano = mes.getAnnotation(Command.class);<br/>
-            if (ano != null) {<br/>
-                LOG.info(() -> mes.getName());<br/>
-            }<br/>
-        }<br/>
-    }
-    </pre>
-
-#### テキストRPG(戦闘シーンのみ)の仕様
-1. 戦闘審開始時に「XXXが現れた！」を表示する。
-2. プレーヤーのステータスを表示する ※テストプログラムの作成をするのも良い。
-    * プレーヤーの名前は全角4文字まで、半角で8文字までとする。
-    * 1人分の表示はプレーヤーの名前が半角で奇数の場合はアスタリスク15個分、偶数の場合は14個分とする。
-    * ステータスに表示する項目はレベル、HP、MPとする。
-3. モンスターのトークフラグ(isTalk)がtrueの場合は、メッセージを出力する。
-4. プレーヤーの行動選択肢は行動を表すメソッドのに**@Command**アノテーションを付与する。
-5. プレーヤーの行動選択肢(コマンド)は、indexの番号を入力することで実行する。
-    * public @insterface Command()にindexとcommandNameを保持。
-6. 行動選択肢(コマンド)は数字で、１から始まる数字とする。
-7. メインメソッドの処理は、以下のようにGameMainクラスから、TextRpgGameEngineを使用して実行する。
-    * TextRpgGameEngineはThreadクラスを継承し、Tread#start()で実行、マルチスレッド対応とする。
-    * 作成するXXXLogicクラスはGamesインターフェースを実装する。
-    * ゲームループで行う処理はTextRpgLogicクラス以下のメソッドにまとめる。
-        1. 「初期表示(init())」
-        2. 「入力受付(acceptInput())」
-        3. 「データ更新(updateData())」
-        4. 「画面更新(render()」
-8. 攻撃力コマンドは武器の攻撃力を使用し、ダメージを受けるときは、防御力を使用する。
-9. 防御コマンドを使用したときは、防御力を1.5倍にして攻撃はしない。
-10. **updateData()**の返却値がfalseの時は、ユーザーエラーのハンドル処理を行う。
-11. **render()**の返却値がtrueの場合ループ処理を抜け、戦闘シーンを終了する。、
+## 学習フロー
+* プログラムの動かし方
+  - メインメソッドを動かす(Hello World)
+  - 「*(アスタリスク)」で図形を描こう。※自分で考えてプログラムを組む
+* 演算子の使い方
+  - 文字列の連結「+」演算子
+  - 四則演算、剰余、2条など
+  - 「=」演算子
+  - int型とString型
+  - 論理演算、booleanの計算をしてみる
+  - 三項演算子の使い方
+* 基本文法
+  - 条件分岐(if, switch)
+  - 繰り返し(for, while)
+  - 例外処理
+  - ファイル読み込み、書き込み、業追加アプリ
+* じゃんけんゲームの作成
+  - プログラムの設計をする(フローチャート作成)
+  - フローチャートをコードに落とす(コメント)
+  - コメントをコードにする
+  - メソッドを作ってコメント部分を実装する
+ 

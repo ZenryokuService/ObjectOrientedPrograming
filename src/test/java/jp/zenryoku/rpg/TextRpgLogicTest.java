@@ -1,20 +1,24 @@
 package jp.zenryoku.rpg;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 /**
  * テキストRPGのロジッククラスのテスト
  *
  * @author 実装者の名前
  */
+@TestInstance(Lifecycle.PER_CLASS)
 public class TextRpgLogicTest {
 	/** テスト対象クラス */
 	private TextRpgLogic target;
 
-	@Before
+
+	@BeforeAll
 	public void init() {
 		target = new TextRpgLogic();
 	}
@@ -26,7 +30,7 @@ public class TextRpgLogicTest {
 	@Test
 	public void testInit() {
 		try {
-			target.init();
+			target.init("title");
 		} catch (Exception e) {
 			fail();
 		}
@@ -37,21 +41,11 @@ public class TextRpgLogicTest {
 	 */
 	@Test
 	public void testUpateData() {
-		// マップを作成する必要があるため、初期表示を行う
-		target.init();
-		assertTrue(target.updateData("1"));
-		assertTrue(target.updateData("2"));
-		assertTrue(target.updateData("3"));
-		assertFalse(target.updateData("4"));
 	}
 
 	/**
 	 * 画面更新のテスト。
 	 */
-	@Test
 	public void testRender() {
-		target.init();
-		assertTrue(target.updateData("1"));
-		target.render();
 	}
 }
