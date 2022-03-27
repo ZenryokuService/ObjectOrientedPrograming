@@ -169,7 +169,7 @@ public class StoryScene extends RpgScene {
         PlayerParty party = PlayerParty.getInstance();
         int count = 0;
         int printLineNo = RpgConfig.getInstance().getPrintLine();
-        if (true) System.out.println("EvFLg: " + evFlg + " evKeys: " + party.getEvflgKeyMap());
+        if (isDebug) System.out.println("EvFLg: " + evFlg + " evKeys: " + party.getEvflgKeyMap());
         if (evFlg != null) {
             Map<String, String> playerKey = party.getEvflgKeyMap();
             Map<String, List<String>> evStoryMap = evFlg.getEvStoryMap();
@@ -191,15 +191,15 @@ public class StoryScene extends RpgScene {
             // TODO-[イベントフラグのハンドルができていない]
             System.out.println();
             if (story != null) {
-                if (true) System.out.println("story is");
+                if (isDebug) System.out.println("story is");
                 textList = story;
-                System.out.println("evNextScene: " + evNextScene);
+                System.out.println(" evNextScene: " + evNextScene);
                 setNextIndex(evNextScene);
             } else {
-                if (true) System.out.print("no story");
+                if (isDebug) System.out.print("no story");
                 textList = evStoryMap.get(RpgConst.EV_FLG_NULL);
                 String nextIdx = evNextSceneMap.get(RpgConst.EV_FLG_NULL) == null ? nextIndex : evNextSceneMap.get(RpgConst.EV_FLG_NULL);
-                if (true) System.out.println(" next " + nextIdx);
+                if (isDebug) System.out.println(" next " + nextIdx);
                 setNextIndex(nextIdx);
             }
             // RpgLogic#readEvFlg()にてセットしたイベントフラグキー

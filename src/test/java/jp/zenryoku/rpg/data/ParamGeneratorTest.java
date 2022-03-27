@@ -148,7 +148,7 @@ public class ParamGeneratorTest {
             assertEquals("CONFIG_FORMULA", buf.readLine());
             target.createFormulaMap(buf);
             Map<String, RpgFormula> map = target.getConfig().getFormulaMap();
-            if (true) map.forEach((key, val) -> { System.out.println(key + " : "+ val);});
+            if (isDebug) map.forEach((key, val) -> { System.out.println(key + " : "+ val);});
 
             // 計算式の生成を行う。
             RpgFormula f = map.get("ATK");

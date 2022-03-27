@@ -229,11 +229,17 @@ END_SCENE 27
 <1:2>
 1. ミナの村 28
 2. ヒガの町 29
-<evflg:1:flg=3>
+<evflg:1:flg=a2>
 <1:3>
 1. ミナの村 28
 2. ヒガの町 29
-3. まおうじょう 35
+3. ニシの町 30
+<evflg:1:flg=a3>
+<1:4>
+1. ミナの村 28
+2. ヒガの町 29
+3. ニシの町 30
+4. まおうじょう 35
 </evflg>
 END_SCENE 27
 
@@ -244,7 +250,7 @@ END_SCENE 27
 <evflg:2:null>
 {Player.name}がミナの村に着くと、入口にモンスターが待ち構えていました。
 NEXT_SCENE 33
-<evflg:2:flg=1>
+<evflg:2:flg=a1>
 ミナの村は今日も平和です。
 NEXT_SCENE 27
 </evflg>
@@ -256,10 +262,10 @@ END_SCENE 27
 {Player.name}がヒガの町に着くと、入口にモンスター群れが待ち構えていました。
 これは、たちうちできない。。。たいきゃく！
 NEXT_SCENE 27
-<evflg:3:flg=1>
+<evflg:3:flg=a1>
 ヒガの町にいたモンスターの群れは、見当たりません、いまのうちだ！
 NEXT_SCENE 34
-<evflg:3:flg=2>
+<evflg:3:flg=a2>
 とりあえず、ヒガの町に平和が訪れた。
 NEXT_SCENE 27
 </evflg>
@@ -267,7 +273,10 @@ END_SCENE 27
 
 # ニシの町
 30:A
-未実装です。
+<evget:4:a3>
+</evget>
+{Player.name}が町に入ると、おばあさんが「まおうじょうは、あそこぢゃ！」と教えてくれた。
+
 END_SCENE 27
 
 # キタの町
@@ -276,29 +285,31 @@ END_SCENE 27
 END_SCENE 27
 
 32:A
-<evget: 3:1>
+<evget: 3:a1>
 </evget>
 ヒガの町を開放しました。
 END_SCENE 27
 
-## ミナの村のモンスター
 33:F
+ミナの村のモンスターでした。
 <monster:7>
-<evget:2:1>
+<evget:2:a1>
 </evget>
 </monster>
-END_SCENE 28
+END_SCENE 27
 
 ## ヒガの町のモンスター
 34:F
+ヒガの町のモンスターでした。
 <monster:6>
-<evget:2:2>
+<evget:2:a2>
 </evget>
 </monster>
 END_SCENE 27
 
 # まおうじょう
 35:F
+まおうじょうのモンスターでした。
 <monster:11>
 平和が訪れた。
 </monster>

@@ -254,7 +254,7 @@ public class CheckerUtils {
 	 * @return true: コメント行 false: コメント行でない
 	 */
 	public static boolean isCommentLine(String line) {
-		if (line.startsWith("# ")) {
+		if (line.startsWith("# ") || line.startsWith("##")) {
 			return true;
 		}
 		return false;

@@ -224,7 +224,7 @@
     <!-- 11. まおう -->
     <monster>
         <id>11</id>
-        <name>まおう</name>
+        <name>まおP</name>
         <lv>5</lv>
         <type>OTH</type>
         <hp>23</hp>

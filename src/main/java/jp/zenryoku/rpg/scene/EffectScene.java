@@ -57,7 +57,7 @@ public class EffectScene extends StoryScene {
         super.playScene();
         CalcUtils util = CalcUtils.getInstance();
         // TODO-[エフェクトシーンの実装内容を設計する#27]
-        if (true) System.out.println("kigo: " + kigo + " ope: " + ope + " kosu: " + kosu);
+        if (isDebug) System.out.println("kigo: " + kigo + " ope: " + ope + " kosu: " + kosu);
 
         if (effList != null && effList.size() != 0) {
             Effects eff = effList.get(0);

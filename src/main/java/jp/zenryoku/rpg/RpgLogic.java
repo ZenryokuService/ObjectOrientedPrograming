@@ -581,7 +581,7 @@ public abstract class RpgLogic implements Games {
                 ma.put(RpgConst.EV_FLG_NULL,last[1]);
             }
         }
-
+        if (isDebug) System.out.println("sceneIdx: " +  sceneObj.sceneIndex + " type: " + sceneObj.sceneType + " next: " + sceneObj.nextIndex);
         return sceneObj;
     }
 
