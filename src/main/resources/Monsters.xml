@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<<<<<<< HEAD
 <!--
     モンスタータイプ：マスタカテゴリのMTPの下に定義する形で設定する。サンプル参照
     OTH = 固定のモンスター、イベントなどに使用する。
@@ -13,6 +14,13 @@
         <name>ならずもの</name>
         <lv>1</lv>
         <type>OTH</type>
+=======
+<class>
+	<!-- スライム -->
+    <monster>
+        <name>Slime</name>
+        <lv>1</lv>
+>>>>>>> d9add3a958b4312694035d7325f4cfa92ccbc38e
         <hp>5</hp>
         <mp>0</mp>
         <pow>1</pow>
@@ -20,6 +28,7 @@
         <int>1</int>
         <dex>1</dex>
         <ksm>1</ksm>
+<<<<<<< HEAD
         <atk>1</atk>
         <def>1</def>
         <isTalk>true</isTalk>
@@ -242,4 +251,20 @@
         <exp>5</exp>
         <money>6</money>
     </monster>
+=======
+    </monster>
+
+    <monster>
+        <name>おおがらす</name>
+        <lv>1</lv>
+        <hp>10</hp>
+        <mp>3</mp>
+        <pow>2</pow>
+        <agi>1</agi>
+        <int>2</int>
+        <dex>1</dex>
+        <ksm>0</ksm>
+    </monster>
+
+>>>>>>> d9add3a958b4312694035d7325f4cfa92ccbc38e
 </class>
