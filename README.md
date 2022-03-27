@@ -1,3 +1,9 @@
+## TextRPG Version 9.X
+it's a pre release version. but you can play original your original story like game book that like [this](https://ja.wikipedia.org/wiki/%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%96%E3%83%83%E3%82%AF)
+
+**Youtube Video**  
+[![Alt text](https://img.youtube.com/vi/kMOwbxlu0xE/0.jpg)](https://www.youtube.com/watch?v=kMOwbxlu0xE)
+
 ## Folder list
 
 |　on The work | Category | pakage name |
