@@ -29,21 +29,21 @@ it's a pre release version. but you can play original your original story like g
 * STATUS: you can defind statuses in game book like power(POW), intelligence(INT) ...
 
 ### User created story
-**this program load "*_story.txt". this text file written story.** And users are able to create original story in this story text file.
-<EX>
-1:A
-one day, you are on the bed. and you find ...
+**this program load "*_story.txt". this text file written story.** And users are able to create original story in this story text file.  
+<EX>  
+1:A  
+one day, you are on the bed. and you find ...  
 1. chocorate 2
 2. ice 3
-END_SCENE
+END_SCENE  
 
-2:A
-you find a chocorate.
-END_SCENE
-
-3:B
-you find a ice.
-END_SCENE
+2:A  
+you find a chocorate.  
+END_SCENE  
+  
+3:B  
+you find a ice.  
+END_SCENE  
 
 ## JavaDoc
 text rpg program in **jp.zenryoku.rpg**  
