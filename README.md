@@ -22,7 +22,7 @@ it's a pre release version. but you can play original your original story like g
 
 ## TextRpg in Console.
 1. Load text file created by users.
-2. create RpgConfig and load story like Game Book(日本のゲームブック)
+2. create RpgConfig and load story like Game Book(japanese game book)
 
 ### User defined
 * PARAM_CONFIG: you can defined categories use in game book. like wepons(WEP), items(ITM), magic(MAG) .. 
