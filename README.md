@@ -45,6 +45,11 @@ END_SCENE
 you find a ice.
 END_SCENE
 
+## JavaDoc
+text rpg program in **jp.zenryoku.rpg**  
+* Main Method in [GameMain.java](https://zenryokuservice.github.io/ObjectOrientedPrograming/jp/zenryoku/rpg/GameMain.html)    
+* [About TextRPG is here (root package)](https://zenryokuservice.github.io/ObjectOrientedPrograming/index.html)  
+* [Overview is here](https://zenryokuservice.github.io/ObjectOrientedPrograming/index.html)
 ## UML Diagrams
 **/src/main/resources/TextRpgClasses.mdj (using [StarUML](https://staruml.io/))**
 [Diagram HTML is here](https://zenryokuservice.github.io/ObjectOrientedPrograming/html-docs/index.html)
