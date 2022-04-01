@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 
 /**
  * ストーリーテキスト(Story.txt)のチェック処理を行う。
+ * <h3>Story.txtの書き方ルール</h3>
+ *
  */
 public class StoryTextChecker {
     /** ファイルまでのパス */

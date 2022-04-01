@@ -1,22 +1,18 @@
 package jp.zenryoku.rpg.scene;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import jp.zenryoku.rpg.RpgScene;
 import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.RpgConst;
-import jp.zenryoku.rpg.data.ParamGenerator;
 import jp.zenryoku.rpg.data.RpgConfig;
-import jp.zenryoku.rpg.data.RpgEvFlg;
 import jp.zenryoku.rpg.exception.RpgException;
 import jp.zenryoku.rpg.util.CheckerUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 import jp.zenryoku.rpg.util.StringUtils;
-
-import java.io.BufferedReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * テキストファイルを読み込み、"END_SCENE"の次に来るコマンドで、次のアクションを設定する。
@@ -177,7 +173,7 @@ public class StoryScene extends RpgScene {
            Set<String> keys = playerKey.keySet();
             List<String> story = null;
             String evNextScene = null;
-            System.out.print("Party.key: ");
+            if (isDebug) System.out.print("Party.key: ");
             for (String key : keys) {
                 System.out.print(key + " ");
                 if (evStoryMap.containsKey(key)) {
@@ -193,7 +189,7 @@ public class StoryScene extends RpgScene {
             if (story != null) {
                 if (isDebug) System.out.println("story is");
                 textList = story;
-                System.out.println(" evNextScene: " + evNextScene);
+                if (isDebug) System.out.println(" evNextScene: " + evNextScene);
                 setNextIndex(evNextScene);
             } else {
                 if (isDebug) System.out.print("no story");
@@ -205,7 +201,7 @@ public class StoryScene extends RpgScene {
             // RpgLogic#readEvFlg()にてセットしたイベントフラグキー
             if (CheckerUtils.isEmpty(evFlg.getEvFlgId()) == false
                     && CheckerUtils.isEmpty(evFlg.getEvFlgKey()) == false) {
-                System.out.println("GET: ID=" + evFlg.getEvFlgId() + " KEY=" + evFlg.getEvFlgKey());
+                if (isDebug) System.out.println("GET: ID=" + evFlg.getEvFlgId() + " KEY=" + evFlg.getEvFlgKey());
                 // イベントフラグキーをプレーヤーのマップに登録
                 party.getEvflgKeyMap().put(evFlg.getEvFlgKey(), evFlg.getEvFlgId());
             }

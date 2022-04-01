@@ -1,7 +1,6 @@
 package jp.zenryoku.rpg.scene;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import jp.zenryoku.rpg.charactors.Player;
@@ -11,7 +10,6 @@ import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.constants.SelectConst;
 import jp.zenryoku.rpg.data.RpgConfig;
-import jp.zenryoku.rpg.data.RpgData;
 import jp.zenryoku.rpg.data.RpgStm;
 import jp.zenryoku.rpg.data.items.RpgItem;
 import jp.zenryoku.rpg.data.job.RpgCommand;
@@ -22,8 +20,6 @@ import jp.zenryoku.rpg.item.equip.MainWepon;
 import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.ConsoleUtils;
 import lombok.Data;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Data
 public class BattleScene extends StoryScene {
@@ -341,7 +337,7 @@ public class BattleScene extends StoryScene {
 
 		}
 		//
-		System.out.println("Battle=次のシーンへ: " + nextIndex);
+		if (isDebug) System.out.println("Battle=次のシーンへ: " + nextIndex);
 		// 戦闘の決着がつくとisFinishはtrueになっているのでfalseにする
 		return isFinish == false;
 	}

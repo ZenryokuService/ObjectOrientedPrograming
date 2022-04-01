@@ -156,7 +156,15 @@ public class CheckerUtils {
 	 * @return true: アイテムショップ定義開始行 false: アイテムショップ開始行ではない
 	 */
 	public static boolean isStartShopScene(String line) {
-		if (line.matches("\\<item\\:[a-zA-Z]{3,10}\\>")) {
+//		if (line.matches("\\<item\\:(^[^ -~｡-ﾟ]{3,10}|[a-zA-Z]{3,10})\\>")) {
+		if (line.matches("\\<item\\:[^-~｡-ﾟ]{3,10}\\>")) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isZenkaku(String line) {
+		if (line.matches("[^ -~｡-ﾟ]{3,10}")) {
 			return true;
 		}
 		return false;

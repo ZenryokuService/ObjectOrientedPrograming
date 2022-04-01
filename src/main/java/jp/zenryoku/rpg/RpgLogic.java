@@ -639,6 +639,7 @@ public abstract class RpgLogic implements Games {
             throw new RpgException(MessageConst.SCENE_TYPE_ERR.toString() + ": " + sceneObj.getClass().getSimpleName());
         }
         String shopName = line.split(":")[1];
+        System.out.println("ShopName: " + shopName);
         String items = null;
         RpgConfig conf = RpgConfig.getInstance();
         ShopScene scene = (ShopScene) sceneObj;

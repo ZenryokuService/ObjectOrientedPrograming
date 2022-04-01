@@ -143,6 +143,25 @@ public class CheckerUtilsTest {
 	}
 
 	@Test
+	public void testIsStartShopScene() {
+		assertTrue(CheckerUtils.isStartShopScene("<item:駅前店>"));
+		assertTrue(CheckerUtils.isStartShopScene("<item:ShopName>"));
+		assertTrue(CheckerUtils.isStartShopScene("<item:店舗A>"));
+		assertFalse(CheckerUtils.isStartShopScene("<item:店舗１２３４５６７８９>"));
+		assertFalse(CheckerUtils.isStartShopScene("<monster:0>"));
+	}
+
+	@Test
+	public void testIsZenkaku() {
+		assertTrue(CheckerUtils.isZenkaku("店舗１２３４５６７"));
+		assertTrue(CheckerUtils.isZenkaku("駅前店"));
+		assertTrue(CheckerUtils.isZenkaku("店舗あああ"));
+		assertFalse(CheckerUtils.isZenkaku("店舗１２３４５６７８９"));
+		assertFalse(CheckerUtils.isZenkaku("itemA"));
+		assertFalse(CheckerUtils.isZenkaku("店舗A"));
+	}
+
+	@Test
 	public void testIsStartBattleScene() {
 		assertTrue(CheckerUtils.isStartBattleScene("<monster:0>"));
 		assertTrue(CheckerUtils.isStartBattleScene("<monster:0-3>"));
