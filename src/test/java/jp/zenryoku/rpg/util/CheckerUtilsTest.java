@@ -2,6 +2,7 @@ package jp.zenryoku.rpg.util;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import jp.zenryoku.rpg.exception.RpgException;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -214,5 +215,37 @@ public class CheckerUtilsTest {
 		assertTrue(CheckerUtils.isGetEvFlgLine("<evget:999:99a>"));
 		assertTrue(CheckerUtils.isGetEvFlgLine("<evget: 999: 99A>"));
 		assertFalse(CheckerUtils.isGetEvFlgLine("<evflg: 999: 99Z>"));
+	}
+
+	@Test
+	public void testLikeSceDef() {
+		assertTrue(CheckerUtils.likeSceneDef("0:a"));
+		assertTrue(CheckerUtils.likeSceneDef("1:a"));
+		assertTrue(CheckerUtils.likeSceneDef("1111:a"));
+		assertTrue(CheckerUtils.likeSceneDef("1:A"));
+		assertFalse(CheckerUtils.likeSceneDef("0番目から"));
+		assertFalse(CheckerUtils.likeSceneDef("0getFirstLine"));
+	}
+
+	@Test
+	public void testIsEND_SCENE() {
+		assertTrue(CheckerUtils.isEndScene("END_SCENE 1"));
+		assertTrue(CheckerUtils.isEndScene("END_SCENE 12"));
+		assertTrue(CheckerUtils.isEndScene("END_SCENE 123"));
+		assertFalse(CheckerUtils.isEndScene("END_SCENE 1234"));
+		assertFalse(CheckerUtils.isEndScene("END_SCENE A"));
+		assertFalse(CheckerUtils.isEndScene("END_SCNE 1"));
+		assertFalse(CheckerUtils.isEndScene("EMD_SCEN 8"));
+	}
+
+	@Test
+	public void testLikeEND_SCENE() {
+		assertTrue(CheckerUtils.likeEND_SCENE("END_SCENE 1"));
+		assertTrue(CheckerUtils.likeEND_SCENE("END_SCENE A"));
+		assertTrue(CheckerUtils.likeEND_SCENE("END_SCNE 1"));
+		assertTrue(CheckerUtils.likeEND_SCENE("EMD_SCEN 8"));
+		assertFalse(CheckerUtils.likeEND_SCENE("END_番目から"));
+		assertFalse(CheckerUtils.likeEND_SCENE("E_tFirstLine 2"));
+		assertFalse(CheckerUtils.likeEND_SCENE("EtFirstLine 2"));
 	}
 }

@@ -489,4 +489,41 @@ public class CheckerUtils {
 		}
 		return false;
 	}
+
+	/**
+	 * シーン番号:シーンタイプのような形になっていたらTRUEを返す。
+	 * @param line チェック対象文字列
+	 * @return true: シーン番号:シーンタイプのような形になってる false: そうでない
+	 */
+	public static boolean likeSceneDef(String line) {
+		boolean isError = false;
+		// シーン番号:シーンタイプのような形になっていたら
+		if (line.matches("^[0-9].*:.*")) {
+			return true;
+		}
+		return isError;
+	}
+
+	/**
+	 * END_SCENE XXXの形になっているかチェックする。
+	 * @param line ストーリーテキストの１行
+	 * @return true: END_SCENE XXXの形になってる false: そうでない
+	 */
+	public static boolean isEndScene(String line ) {
+		if (line.matches("END_SCENE [0-9]{1,3}")) {
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * END_SCENEのような形になっていたらTRUEを返す。
+	 * @param line チェック対象文字列
+	 * @return true: シーン番号:シーンタイプのような形になってる false: そうでない
+	 */
+	public static boolean likeEND_SCENE(String line) {
+		if (line.matches("E.*_S.* .*")) {
+			return true;
+		}
+		return false;
+	}
 }

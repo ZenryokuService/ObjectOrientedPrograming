@@ -198,4 +198,21 @@ public class CalcUtilsTest {
             fail(e.getMessage());
         }
     }
+
+    //@Test
+    public void testTestMuch() {
+        assertEquals(100, target.testMutch("3:A", "0:A"));
+    }
+
+    @Test
+    public void testCalcEndSceneProbablity() {
+        assertEquals(100.0, target.calcEndSceneProbablity("END_SCENE 1"));
+        assertEquals(100.0, target.calcEndSceneProbablity("END_SCENE 10"));
+        assertEquals(100.0, target.calcEndSceneProbablity("END_SCENE 999"));
+        assertEquals(100.0, target.calcEndSceneProbablity("END_SCENE C"));
+        assertFalse(target.calcEndSceneProbablity("END_SCENE a1") == 100.0);
+        assertFalse(target.calcEndSceneProbablity("END_SCWNE 1") == 100.0);
+        assertFalse(target.calcEndSceneProbablity("END_SCEN 1") == 100.0);
+        assertFalse(target.calcEndSceneProbablity("END_SCWNE1") == 100.0);
+    }
 }

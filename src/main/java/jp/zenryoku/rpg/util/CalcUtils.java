@@ -11,6 +11,7 @@ import jp.zenryoku.rpg.data.status.RpgStatus;
 import jp.zenryoku.rpg.exception.RpgException;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.nio.CharBuffer;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -256,4 +257,99 @@ public class CalcUtils {
         f.setAccessible(true);
         return f;
     }
+
+    /**
+     * 1. <1D6>: ダイスコード
+     * 2. 1:A: シーン定義
+     * 3. END_SCENE C: シーンの終了
+     * 4. <1:13>: 選択定義
+     * 5. <monster:1>：モンスター定義
+     * 6. <item:店舗名>: アイテムショップ
+     * 7. <effect:ZHP+20TS4>: イベント効果定義
+     * 8. <evget:1: a1>: イベントフラグの取得
+     *
+     * @param testStr 検証元文字列
+     * @param target 検証文字列
+     * @return 合致率
+     */
+    public int testMutch(String testStr, String target) {
+        // 固定文字列「END_SCENE」の場合
+        /* シンプルに一致率を算出する */
+        double mutch = 0.0;
+        // 1. 文字列の長さ取得
+        int len = testStr.length();
+        // 2. 文字列長と同じBoolean配列
+        boolean[] bArr = new boolean[len];
+
+        // 3. それぞれの文字列が等しいかチェック
+        char[] testChs = testStr.toCharArray();
+        char[] targetChs = target.toCharArray();
+
+        /* 検証する文字列のタイプを判別 */
+        // コロンの有無
+        boolean isColon = testStr.indexOf(":") > 0;
+
+        // . マッチする数を計算
+        for (char c : targetChs) {
+
+
+        }
+
+        return (int) mutch;
+    }
+
+    /**
+     * boolean配列(probablity)を以下のように定義する。
+     * probablity[0]-probablity[9] => END_SCENEまでの固定文字が等しい
+     * probablity[10]: パラメータの有無(スペースがあるか)の判定
+     * probablity[11]: パラメータが[0-9]{1,3}または[A-Z]
+     *
+     * @param testStr 検証文字列
+     * @return 合致率
+     */
+    public double calcEndSceneProbablity(String testStr) {
+        final String endScene = "END_SCENE";
+        final int endLen = endScene.length();
+        final char[] endChs = endScene.toCharArray();
+        final boolean[] probablity = new boolean[endLen + 2];
+
+        // 検証文字列が正しいか
+        int testLen = testStr.length();
+        char[] testChs = testStr.toCharArray();
+        for (int i = 0; i < endLen; i++) {
+            if (i >= testLen) {
+                probablity[i] = false;
+            }
+            if (testChs[i] == endChs[i]) {
+                probablity[i] = true;
+            } else {
+                probablity[i] = false;
+            }
+        }
+        // パラメータの有無
+        if (testStr.contains(" ")) {
+            String[] sep = testStr.split(" ");
+            String param = sep[1];
+            probablity[endLen + 1] = param.matches("[0-9]{1,3}|[A-Z]");
+            probablity[endLen] = true;
+        } else {
+            probablity[endLen + 1] = false;
+            probablity[endLen] = false;
+        }
+
+        int trueCount = 0;
+        for (boolean isTrue : probablity) {
+            if (isTrue) {
+                trueCount++;
+            }
+        }
+
+        // 合致率を計算する
+        BigDecimal mutch = new BigDecimal(trueCount)
+                .divide(new BigDecimal(endLen + 2), 2, BigDecimal.ROUND_DOWN)
+                .multiply(new BigDecimal(100));
+        return Double.parseDouble(mutch.toString());
+    }
+
+
 }

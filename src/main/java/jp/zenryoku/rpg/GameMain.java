@@ -1,5 +1,7 @@
 package jp.zenryoku.rpg;
 
+import jp.zenryoku.rpg.bat.BatExcuter;
+
 import java.io.BufferedReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,8 +20,10 @@ public class GameMain {
 		RpgLogic gameLogic = null;
 		try {
 			if (args.length != 0) {
+				BatExcuter.executeChecker(args[0]);
 				gameLogic = new TextRpgLogic(args[0]);
 			} else {
+				BatExcuter.executeChecker(args[0]);
 				gameLogic = new TextRpgLogic();
 			}
 			TextRpgGameEngine engine  = new TextRpgGameEngine(gameLogic);

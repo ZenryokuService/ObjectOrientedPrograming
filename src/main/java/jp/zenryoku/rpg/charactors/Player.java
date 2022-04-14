@@ -68,7 +68,7 @@ public class Player {
 		this();
 		this.name = name;
 		// レベル1の設定
-		setLevel(1);
+		//setLevel(1);
 //		setHP(20);
 //		setMP(10);
 	}
