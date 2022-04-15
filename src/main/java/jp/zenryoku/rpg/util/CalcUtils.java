@@ -299,57 +299,172 @@ public class CalcUtils {
     }
 
     /**
-     * boolean配列(probablity)を以下のように定義する。
-     * probablity[0]-probablity[9] => END_SCENEまでの固定文字が等しい
-     * probablity[10]: パラメータの有無(スペースがあるか)の判定
-     * probablity[11]: パラメータが[0-9]{1,3}または[A-Z]
+     * END_SCENEの文字列、区切り文字、パラメータのブロック(prbablity)11個に分ける。
+     * boolean配列(probability)を以下のように定義する。
+     * probability[0]-probability[9] => END_SCENEまでの固定文字が等しい
+     * probability[10]: パラメータの有無(スペースがあるか)の判定
+     * probability[11]: パラメータが[0-9]{1,3}または[A-Z]
+     *
+     * 合致率 = 各ブロックの判定 / ブロック数(11) * 100
      *
      * @param testStr 検証文字列
      * @return 合致率
      */
-    public double calcEndSceneProbablity(String testStr) {
+    public double calcEndSceneProbability(String testStr) {
         final String endScene = "END_SCENE";
         final int endLen = endScene.length();
         final char[] endChs = endScene.toCharArray();
-        final boolean[] probablity = new boolean[endLen + 2];
+        final boolean[] probability = new boolean[endLen + 2];
 
         // 検証文字列が正しいか
         int testLen = testStr.length();
         char[] testChs = testStr.toCharArray();
         for (int i = 0; i < endLen; i++) {
             if (i >= testLen) {
-                probablity[i] = false;
+                probability[i] = false;
             }
             if (testChs[i] == endChs[i]) {
-                probablity[i] = true;
+                probability[i] = true;
             } else {
-                probablity[i] = false;
+                probability[i] = false;
             }
         }
         // パラメータの有無
         if (testStr.contains(" ")) {
             String[] sep = testStr.split(" ");
             String param = sep[1];
-            probablity[endLen + 1] = param.matches("[0-9]{1,3}|[A-Z]");
-            probablity[endLen] = true;
+            probability[endLen + 1] = param.matches("[0-9]{1,3}|[A-Z]");
+            probability[endLen] = true;
         } else {
-            probablity[endLen + 1] = false;
-            probablity[endLen] = false;
+            probability[endLen + 1] = false;
+            probability[endLen] = false;
         }
 
         int trueCount = 0;
-        for (boolean isTrue : probablity) {
+        for (boolean isTrue : probability) {
             if (isTrue) {
                 trueCount++;
             }
         }
-
         // 合致率を計算する
-        BigDecimal mutch = new BigDecimal(trueCount)
-                .divide(new BigDecimal(endLen + 2), 2, BigDecimal.ROUND_DOWN)
-                .multiply(new BigDecimal(100));
+        BigDecimal mutch = percent(trueCount, endLen + 2);
         return Double.parseDouble(mutch.toString());
     }
 
+    /**
+     * シーン定義として正しい割合を算出する。計算方法は以下の通り。
+     * シーン定義(シーン番号:シーンタイプ)を次のブロックに分ける。
+     * ブロック１：シーン番号
+     * ブロック２：区切り文字「:(コロン)」
+     * ブロック３：シーンタイプ
+     *
+     * 合致率 = 各ブロックの判定 / ブロック数(3) * 100
+     *
+     * @param testStr 検査対象文字列
+     * @return 合致率：シーン定義として正しい割合を算出する。
+     */
+    public double calcSceneDefProbability(String testStr) {
+        double mutch = 0.0;
+        boolean[] probability = new boolean[3];
+        // ブロック２： 区切り文字が正しいか
+        boolean isColon = testStr.contains(":");
+        probability[1] = isColon;
+        if (isColon) {
+            String[] sep = testStr.split(":");
+            // ブロック１：シーン番号
+            probability[0] = sep[0].matches("[0-9]{1,3}");
+            // ブロック３：シーンタイプ
+            probability[2] = sep[1].matches("[A-Z]");
+        } else {
+            // 区切り位置がない場合は、全て不正とする
+            probability[0] = false;
+            probability[2] = false;
+        }
+        // trueの数を算出
+        int trueCount = 0;
+        for (boolean b : probability) {
+            if (b) {
+                trueCount++;
+            }
+        }
+        //　パーセンテージの算出
+        System.out.println("true; " + trueCount);
+        mutch = Double.parseDouble(percent(trueCount, 3).toString());
+        return mutch;
+    }
+
+    /** TODO-[選択肢の定義行も必要になるのでちょっと保留]
+     * シーン定義として正しい割合を算出する。計算方法は以下の通り。
+     * シーン定義(シーン番号:シーンタイプ)を次のブロックに分ける。
+     * ブロック１：１であるか
+     * ブロック２：区切り文字「:(コロン)」
+     * ブロック３：数字であるか
+     *
+     * 合致率 = 各ブロックの判定 / ブロック数(3) * 100
+     *
+     * @param testStr 検査対象文字列
+     * @return 合致率：選択肢開始行として正しい割合を算出する。
+     */
+    public double calcSelectNextProbability(String testStr) {
+        double mutch = 0.0;
+        boolean[] probability = new boolean[3];
+        return 0.0;
+    }
+
+    /**
+     * アイテムショップシーン定義として正しい割合を算出する。
+     * シーン定義(シーン番号:シーンタイプ)を次のブロックに分ける。
+     * ブロック１：「<>」で囲まれているか
+     * ブロック２：区切り文字「:(コロン)」
+     * ブロック３：「item」になっているか
+     * ブロック４：メタ文字が使われていない,かつ３文字以上、１０文字以内
+     *
+     * 合致率 = 各ブロックの判定 / ブロック数(4) * 100
+     *
+     * @param testStr 検証文字列
+     * @return 合致率：アイテムショップシーン開始行として正しい割合を算出する。
+     */
+    public double calcItemProbability(String testStr) {
+        double mutch = 0.0;
+        boolean[] probability = new boolean[4];
+        // 1. 「<>」で囲まれているか
+        String first = testStr.substring(0,1);
+        String last = testStr.substring(testStr.length() - 1, testStr.length());
+        System.out.println("last : " + last);
+        probability[0] = "<".equals(first) && ">".equals(last);
+
+        // 2. 区切り文字「:(コロン)」
+        probability[1] = testStr.contains(":");
+
+        String target = testStr.substring(1, testStr.length() - 1);
+        String[] sep = target.split(":");
+        // 3. 「item」になっているか
+        probability[2] = "item".equals(sep[0]);
+        // 4. メタ文字が使われていない,かつ３文字以上、１０文字以内
+        probability[3] = sep[1].matches("[^-~｡ﾟ ]{3,10}"); // && sep[1].matches("[^!#$%&'()=\\-+*/~@;:?<>]");
+
+        // 計算する。
+        int trueCount = 0;
+        for (boolean b : probability) {
+            if (b) {
+                trueCount++;
+            }
+        }
+        mutch = Double.parseDouble(percent(trueCount, 4).toString());
+        return mutch;
+    }
+
+    /**
+     * 分子 / 分母 * 100の計算結果をBigDecimalで返却する。
+     * @param bunsi 分子(double型)
+     * @param bunbo 分母(double型)
+     * @return 算出したパーセンテージ
+     */
+    public BigDecimal percent(double bunsi, double bunbo) {
+        BigDecimal mutch = new BigDecimal(bunsi)
+                .divide(new BigDecimal(bunbo), 2, BigDecimal.ROUND_DOWN)
+                .multiply(new BigDecimal(100));
+        return mutch;
+    }
 
 }

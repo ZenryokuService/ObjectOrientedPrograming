@@ -401,6 +401,8 @@ public class BattleScene extends StoryScene {
 		// 攻撃を受けた側のHPが０以下の場合はバトル終了
 		if (mon.getHP() <= 0) {
 			if (mon instanceof Monster) {
+				// バトル終了後のメッセージ
+				System.out.println(getLastMassage());
 				Monster monst = (Monster) mon;
 				System.out.println(mon.getName() + "をたおした。");
 				System.out.println(player.getName() + "は" + monst.getMoney() + RpgConst.getMnyName() + "を手にいれた。");

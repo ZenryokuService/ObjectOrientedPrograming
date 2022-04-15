@@ -761,6 +761,7 @@ public abstract class RpgLogic implements Games {
         StringBuilder build = new StringBuilder();
         try {
             while ((text = txt.readLine()).equals("</monster>") == false) {
+                // イベントフラグの取得処理
                 if (CheckerUtils.isGetEvFlgLine(text)) {
                     readEvFlg(text, txt, battleScene);
                 }

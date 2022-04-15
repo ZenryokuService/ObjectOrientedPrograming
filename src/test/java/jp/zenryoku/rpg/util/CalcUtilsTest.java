@@ -204,15 +204,45 @@ public class CalcUtilsTest {
         assertEquals(100, target.testMutch("3:A", "0:A"));
     }
 
+    /** END_SCENEのパーセンテージ処理 */
     @Test
     public void testCalcEndSceneProbablity() {
-        assertEquals(100.0, target.calcEndSceneProbablity("END_SCENE 1"));
-        assertEquals(100.0, target.calcEndSceneProbablity("END_SCENE 10"));
-        assertEquals(100.0, target.calcEndSceneProbablity("END_SCENE 999"));
-        assertEquals(100.0, target.calcEndSceneProbablity("END_SCENE C"));
-        assertFalse(target.calcEndSceneProbablity("END_SCENE a1") == 100.0);
-        assertFalse(target.calcEndSceneProbablity("END_SCWNE 1") == 100.0);
-        assertFalse(target.calcEndSceneProbablity("END_SCEN 1") == 100.0);
-        assertFalse(target.calcEndSceneProbablity("END_SCWNE1") == 100.0);
+        assertEquals(100.0, target.calcEndSceneProbability("END_SCENE 1"));
+        assertEquals(100.0, target.calcEndSceneProbability("END_SCENE 10"));
+        assertEquals(100.0, target.calcEndSceneProbability("END_SCENE 999"));
+        assertEquals(100.0, target.calcEndSceneProbability("END_SCENE C"));
+        assertFalse(target.calcEndSceneProbability("END_SCENE a1") == 100.0);
+        assertFalse(target.calcEndSceneProbability("END_SCWNE 1") == 100.0);
+        assertFalse(target.calcEndSceneProbability("END_SCEN 1") == 100.0);
+        assertFalse(target.calcEndSceneProbability("END_SCWNE1") == 100.0);
     }
+
+    /** シーン定義のパーセンテージ処理 */
+    @Test
+    public void testCalcSceneDefProbablity() {
+        assertEquals(100, target.calcSceneDefProbability("0:A"));
+        assertEquals(100, target.calcSceneDefProbability("10:Z"));
+        assertEquals(100, target.calcSceneDefProbability("999:A"));
+        assertFalse(target.calcSceneDefProbability("0;A") == 100);
+        assertFalse(target.calcSceneDefProbability("0:1") == 100);
+        assertFalse(target.calcSceneDefProbability("0:AA") == 100);
+        assertFalse(target.calcSceneDefProbability("1000:B") == 100);
+    }
+
+    /** シーン選択肢の定義のパーセンテージ処理 */
+    @Test
+    public void testCalcSelectNextProbability() {
+        assertEquals(100, target.calcSelectNextProbability("0:A"));
+        assertFalse(target.calcSelectNextProbability("1000:B") == 100);
+    }
+
+    /** アイテムショップシーンの定義のパーセンテージ処理 */
+    @Test
+    public void testCalcItemShopProbability() {
+        assertEquals(100, target.calcItemProbability("<item:ShopName>"));
+        assertEquals(100, target.calcItemProbability("<item:店舗S>"));
+        assertFalse(target.calcItemProbability("<item:S1234567890>") == 100);
+        assertFalse(target.calcItemProbability("<item:ShopName A>") == 100);
+    }
+
 }
