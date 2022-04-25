@@ -455,6 +455,118 @@ public class CalcUtils {
     }
 
     /**
+     * バトルシーン定義として正しい割合を算出する。
+     * ブロック１：「<>」で囲まれているか
+     * ブロック２：区切り文字「:(コロン)」
+     * ブロック３：「monster」になっているか
+     * ブロック４：[0-9]{1,3}[\-]{0,1}[0-9]{0,3}にマッチするか
+     *
+     * 合致率 = 各ブロックの判定 / ブロック数(4) * 100
+     *
+     * @param testStr 検証文字列
+     * @return 合致率：アイテムショップシーン開始行として正しい割合を算出する。
+     */
+    public double calcMonsterProbability(String testStr) {
+        // 各ブロックの正否をセットするための変数を定義
+        boolean[] probability = new boolean[4];
+        // 「<>」で囲われているチェック
+        String start = testStr.substring(0, 1);
+        String end = testStr.substring(testStr.length() - 1);
+        probability[0] = "<".equals(start) && ">".equals(end);
+
+        // コロンがあるかチェック
+        boolean isColon = testStr.contains(":");
+        if (isColon) {
+            probability[1] = true;
+            if (probability[0]) {
+                // <と>を削除
+                testStr = testStr.substring(1, testStr.length() - 1);
+            }
+            // 文字列を分割
+            String[] sep = testStr.split(":");
+            // monsterになっているか
+            if (isDebug) System.out.println("sep[0]: " + sep[0]);
+            probability[2] = "monster".equals(sep[0]);
+            // 「XXX」もしくは、「XXX-XXX」になっているか
+            probability[3] = sep[1].trim().matches("[0-9]{1,3}[\\-]{0,1}[0-9]{0,3}");
+        } else {
+            probability[1] = false;
+            probability[2] = false;
+            probability[3] = false;
+        }
+        // trueの数をカウントアップします。
+        int trueCount = 0;
+        for (boolean isTrue : probability) {
+            if (isDebug) System.out.print("probability: " + isTrue + "  ");
+            if (isTrue) {
+                trueCount++;
+            }
+        }
+        if (isDebug) System.out.println();
+        // trueの数 / ブロックの数で割合を算出する
+        double mutch = Double.parseDouble(percent(trueCount, 4).toString());
+        return mutch;
+    }
+
+    /**
+     * イベントフラグ取得シーン定義として正しい割合を算出する。
+     * ブロック１：「<>」で囲まれているか
+     * ブロック２：区切り文字「:(コロン)」が２つあるか
+     * ブロック３：「evget」になっているか
+     * ブロック４：３分割した、真ん中(<evget:AA:XX>の「AA」部分)が半角英数か
+     * ブロック５：３分割した、最後(<evget:XX:AA>の「AA」部分)が半角英数か
+     *
+     * 合致率 = 各ブロックの判定 / ブロック数(4) * 100
+     *
+     * @param testStr 検証文字列
+     * @return 合致率：アイテムショップシーン開始行として正しい割合を算出する。
+     */
+    public double calcEvgetProbability(String testStr) {
+        // 各ブロックの正否をセットするための変数を定義
+        boolean[] probability = new boolean[5];
+        // 「<>」で囲われているチェック
+        String start = testStr.substring(0, 1);
+        String end = testStr.substring(testStr.length() - 1);
+        probability[0] = "<".equals(start) && ">".equals(end);
+
+        // コロンがあるかチェック
+        boolean isColon = testStr.contains(":");
+        if (isColon) {
+            if (probability[0]) {
+                // <と>を削除
+                testStr = testStr.substring(1, testStr.length() - 1);
+            }
+            // 文字列を分割
+            String[] sep = testStr.split(":");
+            // 配列長が３になっている
+            probability[1] = sep.length == 3;
+            // monsterになっているか
+            System.out.println("sep[0]: " + sep[0]);
+            probability[2] = "evget".equals(sep[0]);
+            // 半角英数字になっているか
+            probability[3] = sep[1].trim().matches("[0-9a-zA-Z]{1,3}");
+            probability[4] = sep[2].trim().matches("[0-9a-zA-Z]{1,3}");
+        } else {
+            probability[1] = false;
+            probability[2] = false;
+            probability[3] = false;
+            probability[4] = false;
+        }
+        // trueの数をカウントアップします。
+        int trueCount = 0;
+        for (boolean isTrue : probability) {
+            System.out.print("probability: " + isTrue + "  ");
+            if (isTrue) {
+                trueCount++;
+            }
+        }
+        System.out.println();
+        // trueの数 / ブロックの数で割合を算出する
+        double mutch = Double.parseDouble(percent(trueCount, 5).toString());
+        return mutch;
+    }
+
+    /**
      * 分子 / 分母 * 100の計算結果をBigDecimalで返却する。
      * @param bunsi 分子(double型)
      * @param bunbo 分母(double型)

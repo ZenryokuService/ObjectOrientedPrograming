@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * 計算ユーティリティクラスのテスト
  */
 public class CalcUtilsTest {
+    /** テスト対象クラス */
     private static CalcUtils target;
 
     @BeforeAll
@@ -245,4 +246,39 @@ public class CalcUtilsTest {
         assertFalse(target.calcItemProbability("<item:ShopName A>") == 100);
     }
 
+    /** モンスター定義のパーセンテージ処理 */
+    @Test
+    public void testCalcMonsterProbability() {
+        // 引数に「<monster:1>」を渡し１００％が返ってくることを確認
+        assertEquals(100, target.calcMonsterProbability("<monster:1>"));
+        assertEquals(100, target.calcMonsterProbability("<monster:1-3>"));
+        assertEquals(75, target.calcMonsterProbability("<monstr:1>"));
+        assertEquals(75, target.calcMonsterProbability("<monstr:1-3>"));
+        assertEquals(50, target.calcMonsterProbability("<monster:1"));
+        assertEquals(50, target.calcMonsterProbability("monster:1>"));
+    }
+
+    /** イベントフラグ定義のパーセンテージ処理 */
+    //@Test
+    public void testCalcEvflgProbability() {
+        // 引数に「<evget:1a>」を渡し１００％が返ってくることを確認
+        assertEquals(100, target.calcEvgetProbability("<evflg: 2: null>"));
+        assertEquals(100, target.calcEvgetProbability("<evflg: 2: null>"));
+        assertEquals(75, target.calcEvgetProbability("<evflg: 2: null>"));
+        assertEquals(75, target.calcEvgetProbability("<evflg: 2: null>"));
+        assertEquals(50, target.calcEvgetProbability("<evflg: 2: null"));
+        assertEquals(50, target.calcEvgetProbability("evflg: 2: null>"));
+    }
+
+    /** イベントフラグ取得定義のパーセンテージ処理 */
+    @Test
+    public void testCalcEvgetProbability() {
+        // 引数に「<evget:1a>」を渡し１００％が返ってくることを確認
+        assertEquals(100, target.calcEvgetProbability("<evget: 1: a1>"));
+        assertEquals(100, target.calcEvgetProbability("<evget: 1: 1>"));
+        assertEquals(100, target.calcEvgetProbability("<evget: 1: 999>"));
+        assertEquals(80, target.calcEvgetProbability("<evget: 1: 1000>"));
+        assertEquals(60, target.calcEvgetProbability("<evget: 1: a1"));
+        assertEquals(60, target.calcEvgetProbability("evget: 1: a1>"));
+    }
 }
