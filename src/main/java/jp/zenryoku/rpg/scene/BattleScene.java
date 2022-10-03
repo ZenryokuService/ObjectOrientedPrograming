@@ -7,6 +7,7 @@ import jp.zenryoku.rpg.charactors.Player;
 import jp.zenryoku.rpg.charactors.PlayerParty;
 import jp.zenryoku.rpg.charactors.monsters.Monster;
 import jp.zenryoku.rpg.charactors.players.PlayerCharactor;
+import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.constants.RpgConst;
 import jp.zenryoku.rpg.constants.SelectConst;
 import jp.zenryoku.rpg.data.RpgConfig;
@@ -31,6 +32,8 @@ public class BattleScene extends StoryScene {
 	private static final String ESCAPE = "3";
 	/** コンソール出力 */
 	private ConsoleUtils console;
+	/** 計算処理のユーティリティクラス */
+	private CalcUtils calcUtils;
 	/** 入力受付部品 */
 	private Scanner scan;
 	/** Player */
@@ -54,6 +57,8 @@ public class BattleScene extends StoryScene {
 		super(sceneIdex, sceneType);
 		// コンソール出力部品
 		console = ConsoleUtils.getInstance();
+		// 計算ユーティリティ
+		calcUtils = CalcUtils.getInstance();
 		// 入力受付部品
 		scan = new Scanner(System.in);
 		// 戦闘囚虜いうフラグの初期化
@@ -223,34 +228,34 @@ public class BattleScene extends StoryScene {
 //		return "[1-" + String.valueOf(size) + "]";
 //
 //	}
-	/**
-	 * 主要武器を返却する。
-	 *
-	 * @return MainWepon
-	 */
-	private MainWepon createMainWepon() {
-		RpgItem item = new RpgItem();
-		item.setName("ひのきのぼう");
-		item.setItemValueKigo("WEV+1");
-		MainWepon wepon = null;
-		try {
-			wepon = new MainWepon(item);
-		} catch(RpgException e) {
-			return null;
-		}
-		return wepon;
-	}
-
-	/**
-	 * 防具を返却する。
-	 * @return Armor
-	 */
-	private Armor createArmor() {
-		Armor armor = new Armor("ぬののふく");
-		armor.setDiffence(4);
-
-		return armor;
-	}
+//	/**
+//	 * 主要武器を返却する。
+//	 *
+//	 * @return MainWepon
+//	 */
+//	private MainWepon createMainWepon() {
+//		RpgItem item = new RpgItem();
+//		item.setName("ひのきのぼう");
+//		item.setItemValueKigo("WEV+1");
+//		MainWepon wepon = null;
+//		try {
+//			wepon = new MainWepon(item);
+//		} catch(RpgException e) {
+//			return null;
+//		}
+//		return wepon;
+//	}
+//
+//	/**
+//	 * 防具を返却する。
+//	 * @return Armor
+//	 */
+//	private Armor createArmor() {
+//		Armor armor = new Armor("ぬののふく");
+//		armor.setDiffence(4);
+//
+//		return armor;
+//	}
 
 	private void initBattle() {
 		// プレーヤーの取得
@@ -284,21 +289,13 @@ public class BattleScene extends StoryScene {
 		while(true) {
             // バトルステータスを表示
             console.printBattleStatus(player);
-            // コマンドの入力を促す
-            // コマンドの一覧を表示する
-            List<RpgCommand> commandList = console.printCommandList(player);
 			// プレーヤーターン、コマンド取得
-			String selectCommand = console.acceptInput("こうどうを、せんたくしてください。", "[1-" + (commandList.size()) + "]");
-			int select = Integer.parseInt(selectCommand) - 1;
-			RpgCommand pCommand = commandList.get(select);
+			RpgCommand pCommand = selectedCommand(true);
 
 			if (isDebug) System.out.println("Command; " + pCommand.getName());
 
 			// モンスターコマンドの取得
-			if (isDebug) System.out.println("monster.job: " + monster.getType());
-			List<RpgCommand> cmdList = monster.getType().getCommandList();
-			int monRnd = CalcUtils.getInstance().generateRandom(0,1);
-			RpgCommand mCommand = cmdList.get(monRnd);
+			RpgCommand mCommand = selectedCommand(false);
 
 			// 攻撃順序の判定
 			int pAgi = player.getStatusMap().get("AGI").getValue();
@@ -308,6 +305,7 @@ public class BattleScene extends StoryScene {
 				isPlayerFirst = true;
 			}
 
+			// TODO-[アイテムを使用する場合の実装]
 			// 戦闘開始
 			try {
 				if (isPlayerFirst) {
@@ -343,46 +341,74 @@ public class BattleScene extends StoryScene {
 	}
 
 	/**
+	 * プレーヤー、モンスターのコマンドを取得する。
+	 * @param isPlayer true: プレーヤー  false: モンスター
+	 * @return RpgCommand
+	 */
+	private RpgCommand selectedCommand(boolean isPlayer) {
+		// コマンドの一覧を表示する
+		List<RpgCommand> commandList = null;
+		int selected = -1;
+		if (isPlayer) {
+			commandList = console.printCommandList(player);
+			String selectCommand = console.acceptInput("こうどうを、せんたくしてください。", "[1-" + (commandList.size()) + "]");
+			selected = Integer.parseInt(selectCommand) - 1;
+		} else {
+			if (isDebug) System.out.println("monster.type: " + monster.getType());
+			commandList = monster.getType().getCommandList();
+			selected = CalcUtils.getInstance().generateRandom(0,1);
+		}
+		RpgCommand pCommand = commandList.get(selected);
+
+		if (isDebug) System.out.println("Command; " + pCommand.getName());
+		return pCommand;
+	}
+
+	/**
 	 * プレーヤー、モンスターから相手絵のダメージを表示。
-	 * @param pla プレーヤー or モンスター
-	 * @param mon プレーヤー or モンスター
+	 * @param pla プレーヤー or モンスター: 攻撃側
+	 * @param mon プレーヤー or モンスター: 防御側
 	 * @param cmd コマンドオブジェクト
 	 * @return ture: 第二引数のオブジェクト#HPが0以下 false: まだ生きている。
 	 */
 	private boolean printAttackAndCalc(PlayerCharactor pla, PlayerCharactor mon, RpgCommand cmd) throws RpgException {
 		// 選択したコマンドが、子階層を持っている場合STMをセットする
 		RpgStm stm = null;
-		if (cmd.isChildDir()) {
-			List<RpgStm> stmList = cmd.getChildList();
-			int count = 1;
-			for (RpgStm s : stmList) {
-				if (s.getJobId().equals(pla.getJob().getJobId()) && pla.getLevel() >= s.getLeanLv()) {
-					System.out.println(count + ". " + s.getName());
-					count++;
-				}
+		RpgItem item = null;
+		// アイテム使用時
+		if (cmd.getCommandId().equals(RpgConst.ITM.toString())) {
+			item = console.printItems(pla);
+			if (item == null) {
+				return false;
 			}
-			if (count == 1) {
-				// 処理をリセットするためにthrowしている。良い子はマネしてはいけない。
-				throw new RpgException(SelectConst.NO_SELECTION);
-			}
-			int select = -1;
-			if (pla instanceof Monster) {
-				select = CalcUtils.getInstance().generateRandom(1, count);
-			} else {
-				String tmp = console.acceptInput(SelectConst.STM_SELECT, "[1-" + count + "]");
-				select = Integer.parseInt(tmp);
-			}
-			stm = stmList.get(select - 1);
+		} else if (cmd.isChildDir()) {
+			stm = selectStm(cmd, pla);
 		}
 		// Command、STMからFormula(計算式)を取得
 		RpgFormula pFormula = null;
 		String mes = null;
 		String orient = null;
 		if (stm != null) {
+			// STMを取得した場合
 			pFormula = new RpgFormula(stm.getFormula());
 			mes = stm.getName();
 			orient = stm.getOrient();
-		} else {
+		} else if (item != null) {
+			// アイテムを取得した場合
+			String itemName = item.getName();
+			String itemValueKigo = item.getItemValueKigo();
+			String[] itemEff = calcUtils.convertItemValueKigo(itemValueKigo);
+			if (itemEff == null) {
+				console.printMessage(pla.getName() + "は"
+						+ itemName + "を使った。" + SEP + "しかし何も起こらなかった");
+			} else if ("+".equals(itemEff[1])) {
+				calcUtils.calcEffect(itemEff[0], itemEff[1], Integer.parseInt(itemEff[2]));
+				console.printMessage(pla.getName() + "は" + itemName + "を使った。");
+				console.printMessage(pla.getName() + "は" + itemEff[2] + "回復した。");
+			}
+			return false;
+ 		} else {
+			// コマンドの場合
 			pFormula = new RpgFormula(cmd.getFormulaStr());
 			mes = cmd.getExeMessage();
 		}
@@ -419,5 +445,37 @@ public class BattleScene extends StoryScene {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 選択したコマンドが子改装を持っている場合
+	 * @param cmd コマンド
+	 * @param pla プレーヤー
+	 * @return STM
+	 * @throws RpgException
+	 */
+	private RpgStm selectStm(RpgCommand cmd, PlayerCharactor pla) throws RpgException {
+		RpgStm stm = null;
+		List<RpgStm> stmList = cmd.getChildList();
+		int count = 1;
+		for (RpgStm s : stmList) {
+			if (s.getJobId().equals(pla.getJob().getJobId()) && pla.getLevel() >= s.getLeanLv()) {
+				System.out.println(count + ". " + s.getName());
+				count++;
+			}
+		}
+		if (count == 1) {
+			// 処理をリセットするためにthrowしている。良い子はマネしてはいけない。
+			throw new RpgException(SelectConst.NO_SELECTION);
+		}
+		int select = -1;
+		if (pla instanceof Monster) {
+			select = CalcUtils.getInstance().generateRandom(1, count);
+		} else {
+			String tmp = console.acceptInput(SelectConst.STM_SELECT, "[1-" + count + "]");
+			select = Integer.parseInt(tmp);
+		}
+		stm = stmList.get(select - 1);
+		return stm;
 	}
 }

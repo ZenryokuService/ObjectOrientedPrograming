@@ -58,7 +58,10 @@ public class ShopScene extends StoryScene {
             if (SelectConst.SELECT_YES.getValue().equals(res)) {
                 System.out.println(MessageConst.THANKS);
                 cash(party, it);
-                player.addItem(it);
+                if (player.addItem(it) == false) {
+                    // アイテムが持ちきれない場合
+                    break;
+                }
             }
             String res1 = console.acceptInput(MessageConst.DO_YOU_WANT_MORE.toString(), SelectConst.YES_NO_REGREX);
             if (SelectConst.SELECT_NO.getValue().equals(res1)) {

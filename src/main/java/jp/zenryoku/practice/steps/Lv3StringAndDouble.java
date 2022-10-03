@@ -19,6 +19,8 @@ public class Lv3StringAndDouble {
 		if (cls.checkIsNumber(input)) {
 			System.out.println("2進数: " + cls.converBinary(input, input.contains(".")));
 		}
+		System.out.println(input.substring(1,2));
+		System.out.println(input.split("。")[1]);
 	}
 
 	/**
@@ -28,6 +30,7 @@ public class Lv3StringAndDouble {
 	 * @return true: 数字(小数点を含む) false; 数字でない
 	 */
 	public boolean checkIsNumber(String input) {
+		Integer.parseInt("2");
 		boolean isNumber = false;
 		if (input.matches("[0-9]{0,2}\\.[0-9]{0,3}|[0-9]{1,5}")) {
 			isNumber = true;

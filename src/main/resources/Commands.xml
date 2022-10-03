@@ -24,7 +24,20 @@
         <!-- 下の階層を持つ -->
         <hasChild>false</hasChild>
         <!-- 実行時のメッセージ -->
-        <exeMessage>は、まもりのかまええをとった</exeMessage>
+        <exeMessage>は、まもりのかまえをとった</exeMessage>
+    </command>
+    <!-- 共通コマンド３：アイテム -->
+    <command>
+        <!-- コマンドID -->
+        <id>ITM</id>
+        <!-- コマンド名 -->
+        <name>アイテム</name>
+        <!-- コマンド効果式 -->
+        <formula></formula>
+        <!-- 下の階層を持つ -->
+        <hasChild>true</hasChild>
+        <!-- 実行時のメッセージ -->
+        <exeMessage></exeMessage>
     </command>
     <!-- まほうコマンド -->
     <command>
@@ -39,7 +52,7 @@
         <!-- 実行時のメッセージ -->
         <exeMessage>はまほうをつかった</exeMessage>
     </command>
-    <!-- まほうコマンド -->
+    <!-- わざコマンド -->
     <command>
         <!-- コマンドID -->
         <id>TEC</id>
@@ -50,7 +63,7 @@
         <!-- 下の階層を持つ -->
         <hasChild>true</hasChild>
         <!-- 実行時のメッセージ -->
-        <exeMessage>はまほうをつかった</exeMessage>
+        <exeMessage>のわざ</exeMessage>
     </command>
     <!-- 体当りコマンド -->
     <command>

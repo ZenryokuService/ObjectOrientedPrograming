@@ -114,14 +114,19 @@ public class Player {
 		System.out.println(player.getName() + "たちは、にげだした。");
 	}
 
-	public void addItem(RpgItem item) {
-		// TODO-[アイテム保持可能数の実装]
+	/**
+	 * アイテムをアイテムボックスに追加する。
+	 * @param item RpgItem
+	 * @return true: アイテムの追加成功 false: アイテムボックスがいっぱい
+	 */
+	public boolean addItem(RpgItem item) {
 		int current = itemBag.size();
 		if (current > RpgConst.ITEM_HOLD_NUM) {
 			System.out.println(MessageConst.CANNOT_HOLD.toString());
-			return;
+			return false;
 		}
 		itemBag.add(item);
+		return true;
 	}
 	/**
 	 * 戦闘不能か判定する。

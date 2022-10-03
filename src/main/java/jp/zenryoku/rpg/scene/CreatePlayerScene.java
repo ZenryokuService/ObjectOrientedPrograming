@@ -83,6 +83,7 @@ public class CreatePlayerScene extends StoryScene {
                     mp += res;
                 }
             }
+            player.setLevel(1);
             player.setMaxHP(hp);
             player.setHP(hp);
             player.setMaxMP(mp);
@@ -105,8 +106,8 @@ public class CreatePlayerScene extends StoryScene {
             RpgFormula atkForm = fMap.get(RpgConst.ATK);
             RpgFormula defForm = fMap.get(RpgConst.DEF);
 
-            //CalcUtils calUtils = CalcUtils.getInstance();
-            //calUtils.relatedSymbols(atkForm.getFormulaStr(), statusMap, optMap);
+            CalcUtils calUtils = CalcUtils.getInstance();
+            calUtils.relatedSymbols(atkForm.getFormulaStr(), statusMap, optMap);
 
             // 職業リストと職業選択
             createJob(console, player);

@@ -3,7 +3,7 @@ package jp.zenryoku.rpg.constants;
 public enum MessageConst {
     //// 通常メッセージ ///
     /** ルート */
-    ON_ROOT("<Command input>"),
+    ON_ROOT("<Command: help, menu, status, bye>"),
     /** シーン */
     ON_SCENE("<Scene>"),
     /** ゲームオーバー */
@@ -82,6 +82,8 @@ public enum MessageConst {
     JOB_SEPARATE3("職業は「名前:説明:記号」のように設定してください。"),
     /** アイテム設定エラー：コロン区切り */
     ITEM_SEPARATE5("アイテムは「名前:記号:効果値:金額:副作用」のように設定してください。"),
+    /** アイテム保持エラー：アイテムを持っていない */
+    ITEM_NO_HAS_ONE("アイテムを１つも持っていません"),
     /** レベル設定は「職業記号:レベルアップのレベル数値:レベル設定名」 */
     LEVEL_SEPARATE3("レベル設定は「職業記号:レベルアップのレベル数値:レベル設定名」"),
     /** 選択肢は「<1:[0-9]{1,2}>」のように指定してください。 */

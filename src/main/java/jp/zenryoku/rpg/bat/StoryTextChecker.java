@@ -2,6 +2,7 @@ package jp.zenryoku.rpg.bat;
 
 import jp.zenryoku.rpg.constants.MessageConst;
 import jp.zenryoku.rpg.exception.RpgException;
+import jp.zenryoku.rpg.util.CalcUtils;
 import jp.zenryoku.rpg.util.CheckerUtils;
 
 import java.io.BufferedReader;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -23,13 +25,15 @@ public class StoryTextChecker {
     private String directory;
     /** ストーリーテキストのファイル名 */
     private final String TXT_FILE = "Story.txt";
+    /** 合致したときの割合 */
+    private final double CHK_OK = 100.0;
 
     /**
      * コンストラクタ。固定のチェック対象ファイルのディレクトリを指定する。
      * @throws RpgException
      */
     public StoryTextChecker() throws RpgException {
-        path = "src/main/resources/" + TXT_FILE;
+        path = "src/main/resources/story/" + TXT_FILE;
         BufferedReader buf = getBufferedReader();
         // チェック開始
         try {
@@ -69,7 +73,7 @@ public class StoryTextChecker {
     public BufferedReader getBufferedReader() throws RpgException {
         BufferedReader buf = null;
         try {
-            Path p = Paths.get(path, TXT_FILE);
+            Path p = Paths.get(path);
             buf = Files.newBufferedReader(p);
         } catch (IOException ie) {
             ie.printStackTrace();
@@ -79,7 +83,16 @@ public class StoryTextChecker {
     }
 
     /**
-     * Story.txtの内容をチェックします。ただしコメント行はチェックしません。
+     * Story.txtの内容をチェックします。ただしコメント行はチェックしません。<br/>
+     * 必ず、シーン定義の中に、以下の定義がある。※アイテム取得は未実装。
+     * <ol>
+     *     <li>選択肢の定義</li>
+     *     <li>モンスター定義</li>
+     *     <li>店舗の定義</li>
+     *     <li>アイテム・お金の取得、ステータス変化の定義</li>
+     *     <li>イベントフラグ(シーンの分岐に使用)の定義</li>
+     *     <li>イベントフラグ取得シーン(対象のシーンにたどり着くとフラグを取得する)の定義</li>
+     * </ol>
      * <dl>
      *     <dt>シーン定義のチェック</dt>
      *     <dd>
@@ -100,14 +113,25 @@ public class StoryTextChecker {
                 continue;
             }
             // シーン定義の場合
-            if (CheckerUtils.likeSceneDef(line)) {
-                // シーン開始行のチェック
-                doCheck(line, "シーン定義が不適切です。" + line, li -> CheckerUtils.isStartSceneLine(li));
-                // END_CENE XXで終わる
-                doInnerCheck(buf, "シーンが閉じられていません。");
+            if (CalcUtils.calcSceneDefProbability(line) == CHK_OK) {
+                String chkLine = buf.readLine();
+                // シーンの内容が終わることをチェック
+                doCheck(chkLine, "シーン定義の最終行が不適切です。"
+                        , chk -> {return CalcUtils.calcEndSceneProbability(chk);});
+            } else {
+                throw createErMessage(line);
             }
 
         }
+    }
+
+    /**
+     * 対象行が不適切であることを例外として作成する
+     * @param line 検査対象行
+     * @return 対象行が不適切であることの例外
+     */
+    private RpgException createErMessage(String line) {
+        return new RpgException("「" + line + "」が不適切です。");
     }
 
     /**
@@ -117,10 +141,11 @@ public class StoryTextChecker {
      * @param fun　チェック用のメソッド(ラムダ)
      * @throws RpgException チェックでエラーになったとき
      */
-    private void doCheck(String line , String message, Predicate<String> fun) throws RpgException {
-        if (fun.test(line) == false) {
-            throw new RpgException(message);
+    private void doCheck(String line , String message, Function<String, Double> fun) throws RpgException {
+        if (fun.apply(line) != CHK_OK) {
+            throw new RpgException(message + "「" + line + "」");
         }
+        System.out.println(line + " is" + fun.apply(line));
     }
 
     /**

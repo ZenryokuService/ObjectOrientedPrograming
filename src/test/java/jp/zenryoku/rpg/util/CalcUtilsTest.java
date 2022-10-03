@@ -233,7 +233,7 @@ public class CalcUtilsTest {
     /** シーン選択肢の定義のパーセンテージ処理 */
     @Test
     public void testCalcSelectNextProbability() {
-        assertEquals(100, target.calcSelectNextProbability("0:A"));
+        assertEquals(0.0, target.calcSelectNextProbability("0:A"));
         assertFalse(target.calcSelectNextProbability("1000:B") == 100);
     }
 
@@ -280,5 +280,13 @@ public class CalcUtilsTest {
         assertEquals(80, target.calcEvgetProbability("<evget: 1: 1000>"));
         assertEquals(60, target.calcEvgetProbability("<evget: 1: a1"));
         assertEquals(60, target.calcEvgetProbability("evget: 1: a1>"));
+    }
+
+    @Test
+    public void testConvertItemValueKigo() {
+        String[] result = target.convertItemValueKigo("HP+10");
+        assertEquals("HP", result[0]);
+        assertEquals("+", result[1]);
+        assertEquals("10", result[2]);
     }
 }

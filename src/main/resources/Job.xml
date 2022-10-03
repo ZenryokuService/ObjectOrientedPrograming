@@ -6,7 +6,7 @@
         <id>BRV</id>
         <name>勇者</name>
         <discription>勇気ある者。バランスよく剣と魔法を使える。</discription>
-        <commandList>ATK, DEF, MAG, TEC</commandList>
+        <commandList>ATK, DEF, ITM, MAG, TEC</commandList>
         <!-- CONFIG_STSTUS参照のタグ名で増加値をセット -->
         <pow>2</pow>
         <agi>2</agi>
@@ -19,7 +19,7 @@
         <id>WAR</id>
         <name>戦士</name>
         <discription>戦闘のスペシャリスト。</discription>
-        <commandList>ATK, DEF, TEC</commandList>
+        <commandList>ATK, DEF, ITM, TEC</commandList>
         <!-- CONFIG_STSTUS参照のタグ名で増加値をセット -->
         <pow>2</pow>
         <agi>2</agi>

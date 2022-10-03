@@ -212,6 +212,7 @@ public class CalcUtils {
             throw new RpgException(MessageConst.ERR_NO_FIELD_GENPARA.toString() + ": " + target + " = " + kigo);
         }
 
+        // TODO-[改修し、メソッド化する: リフレクション処理]
         try {
             if ("+".equals(ope)) {
                 Integer i = (Integer) field.get(targetObj);
@@ -310,7 +311,7 @@ public class CalcUtils {
      * @param testStr 検証文字列
      * @return 合致率
      */
-    public double calcEndSceneProbability(String testStr) {
+    public static double calcEndSceneProbability(String testStr) {
         final String endScene = "END_SCENE";
         final int endLen = endScene.length();
         final char[] endChs = endScene.toCharArray();
@@ -363,7 +364,7 @@ public class CalcUtils {
      * @param testStr 検査対象文字列
      * @return 合致率：シーン定義として正しい割合を算出する。
      */
-    public double calcSceneDefProbability(String testStr) {
+    public static double calcSceneDefProbability(String testStr) {
         double mutch = 0.0;
         boolean[] probability = new boolean[3];
         // ブロック２： 区切り文字が正しいか
@@ -405,7 +406,7 @@ public class CalcUtils {
      * @param testStr 検査対象文字列
      * @return 合致率：選択肢開始行として正しい割合を算出する。
      */
-    public double calcSelectNextProbability(String testStr) {
+    public static double calcSelectNextProbability(String testStr) {
         double mutch = 0.0;
         boolean[] probability = new boolean[3];
         return 0.0;
@@ -424,7 +425,7 @@ public class CalcUtils {
      * @param testStr 検証文字列
      * @return 合致率：アイテムショップシーン開始行として正しい割合を算出する。
      */
-    public double calcItemProbability(String testStr) {
+    public static double calcItemProbability(String testStr) {
         double mutch = 0.0;
         boolean[] probability = new boolean[4];
         // 1. 「<>」で囲まれているか
@@ -466,7 +467,7 @@ public class CalcUtils {
      * @param testStr 検証文字列
      * @return 合致率：アイテムショップシーン開始行として正しい割合を算出する。
      */
-    public double calcMonsterProbability(String testStr) {
+    public static double calcMonsterProbability(String testStr) {
         // 各ブロックの正否をセットするための変数を定義
         boolean[] probability = new boolean[4];
         // 「<>」で囲われているチェック
@@ -521,7 +522,7 @@ public class CalcUtils {
      * @param testStr 検証文字列
      * @return 合致率：アイテムショップシーン開始行として正しい割合を算出する。
      */
-    public double calcEvgetProbability(String testStr) {
+    public static double calcEvgetProbability(String testStr) {
         // 各ブロックの正否をセットするための変数を定義
         boolean[] probability = new boolean[5];
         // 「<>」で囲われているチェック
@@ -572,11 +573,40 @@ public class CalcUtils {
      * @param bunbo 分母(double型)
      * @return 算出したパーセンテージ
      */
-    public BigDecimal percent(double bunsi, double bunbo) {
+    public static BigDecimal percent(double bunsi, double bunbo) {
         BigDecimal mutch = new BigDecimal(bunsi)
                 .divide(new BigDecimal(bunbo), 2, BigDecimal.ROUND_DOWN)
                 .multiply(new BigDecimal(100));
         return mutch;
     }
 
+    /**
+     * アイテムの効果式を分解し、String[]に変換する。
+     * 効果式が「+」「*」以外の場合nulを返却する。
+     * <b>例</b><br/>
+     * 「やくそう:ITM:HP+10: 10: ITN-1」とconf.txtにあれば<br/>
+     * 「ITM:HP+10(２番目)」のアイテム効果式を忌避数に渡して、returnの項目を返却する
+     *
+     * @param itemValueKigo アイテム効果式
+     * @return [0]: 対象記号 [1]: オペレーター(+, -, *, /, =) [2]: 値
+     */
+    public String[] convertItemValueKigo(String itemValueKigo) {
+        String[] res = new String[3];
+        String[] sep = itemValueKigo.split("[+\\-*/=]");
+        String target = sep[0];
+        String value = sep[1];
+
+        int len = target.length();
+        String ope = itemValueKigo.substring(len, len + 1);
+
+        if (isDebug) System.out.println("target: " + target + " value: " + value + " ope: " + ope);
+        if ("+".equals(ope) || "*".equals(ope)) {
+            res[0] = target;
+            res[1] = ope;
+            res[2] = value;
+        } else {
+            res = null;
+        }
+        return res;
+    }
 }

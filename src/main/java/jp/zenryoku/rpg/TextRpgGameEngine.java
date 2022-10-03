@@ -14,7 +14,7 @@ import jp.zenryoku.rpg.util.MenuUtils;
  * @author 作成者の名前
  */
 public class TextRpgGameEngine extends Thread {
-	/** でバックモード */
+	/** デバックモード */
 	public final boolean isDebug = false;
 	/** テキストRPGクラス */
 	private RpgLogic textRpgLogic;

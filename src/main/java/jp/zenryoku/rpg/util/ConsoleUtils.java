@@ -963,6 +963,37 @@ public class ConsoleUtils {
 	}
 
 	/**
+	 * アイテムを表示する。ステータス画面に使わない形
+	 * @param player プレーヤー
+	 */
+	public RpgItem printItems(PlayerCharactor player) {
+		List<RpgItem> itemList = player.getItemBag();
+		if (itemList.size() == 0) {
+			System.out.println(player.getName() + "はアイテムを持っていない");
+			return null;
+		}
+		MainWepon wepon = player.getMainWepon();
+		String wepStr = wepon == null ? "なし" : wepon.getName();
+
+		Armor arm = player.getArmor();
+		String armStr = arm == null ? "なし" : arm.getName();
+
+		System.out.println("＜アイテム＞");
+		// 所持アイテムの表示
+		for (int i = 0; i < itemList.size(); i++) {
+			RpgItem item = itemList.get(i);
+			String itemStr = item.getName();
+			if (wepStr.equals(itemStr) || armStr.equals(itemStr)) {
+				itemStr = "E-" + itemStr;
+			}
+			System.out.println((i + 1) + ". " + itemStr);
+		}
+		String select = acceptInput(MessageConst.DO_SELECT.toString(), "[1-9]");
+		int selected = Integer.parseInt(select);
+		return itemList.get(selected - 1);
+	}
+
+	/**
 	 * 引数のリストのサイズが0であるときにtrue;
 	 *
 	 * @param itemList チェックするリスト

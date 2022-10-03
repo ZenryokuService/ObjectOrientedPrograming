@@ -20,10 +20,10 @@ public class GameMain {
 		RpgLogic gameLogic = null;
 		try {
 			if (args.length != 0) {
-				BatExcuter.executeChecker(args[0]);
+				//BatExcuter.executeChecker(args[0]);
 				gameLogic = new TextRpgLogic(args[0]);
 			} else {
-				BatExcuter.executeChecker(args[0]);
+				//BatExcuter.executeChecker(args[0]);
 				gameLogic = new TextRpgLogic();
 			}
 			TextRpgGameEngine engine  = new TextRpgGameEngine(gameLogic);
