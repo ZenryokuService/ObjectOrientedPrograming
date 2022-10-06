@@ -1,3 +1,5 @@
+# プロジェクトの内容
+Javaの学習ように、作成したクラスなどのサンプルいコードとテキストRPGで実際に動くものとコードの関係をみる。
 ## Folder list
 **フォルダー(パッケージ)の構成**
 
@@ -26,6 +28,7 @@
 | for Data classes about status, job, category etc ... | jp.zenryoku.rpg.data |
 | for Scene system like StoryScene, BattleScene, EffectScene | jp.zenryoku.rpg.scene |
 
+5. [テキストRPGの書き方](./テキストRPG書き方.md)
 
 ## Progress of TextRpg in Console.
 1. Load text file created by users.  
@@ -61,6 +64,157 @@ You can defined your setting in this game using default setting files in "game" 
 * STATUS: you can defind statuses in game book like power(POW), intelligence(INT) ...  
 (同様にステータスも定義できます。POW, INTなど)
 
+#### configuration of job and monster type
+1. Job.xml
+   Job(職業)毎に使用できるコマンドの記号(ATKなど)を定義  
+   コマンドの定義はCommand.xmlに依存する
+```
+<class>
+    <!-- 勇者 -->
+    <job>
+        <id>BRV</id>
+        <name>勇者</name>
+        <discription>勇気ある者。バランスよく剣と魔法を使える。</discription>
+        <commandList>ATK, DEF, ITM, MAG, TEC</commandList>
+        <!-- CONFIG_STSTUS参照のタグ名で増加値をセット -->
+        <pow>2</pow>
+        <agi>2</agi>
+        <int>2</int>
+        <dex>2</dex>
+        <ksm>2</ksm>
+    </job>
+</class>
+```
+2. Commands.xml
+   Job(職業)毎に定義した、記号(ATKなど)の内容を定義する   
+   「まほう」や「わざ」などの子階層を持つものはhasChildタグにtrueを設定する
+   **Job.xmlのidタグとCommand.xmlに定義したcommandタグ**がリンクする
+```
+<class>
+    <!-- 共通コマンド１：たたかう -->
+    <command>
+        <!-- コマンドID -->
+        <id>ATK</id>
+        <!-- コマンド名 -->
+        <name>たたかう</name>
+        <!-- コマンド効果式 -->
+        <formula>ATK</formula>
+        <!-- 下の階層を持つ -->
+        <hasChild>false</hasChild>
+        <!-- 実行時のメッセージ -->
+        <exeMessage>のこうげき</exeMessage>
+    </command>
+    <!-- まほうコマンド -->
+    <command>
+        <!-- コマンドID -->
+        <id>MAG</id>
+        <!-- コマンド名 -->
+        <name>まほう</name>
+        <!-- コマンド効果式 -->
+        <formula></formula>
+        <!-- 下の階層を持つ -->
+        <hasChild>true</hasChild>
+        <!-- 実行時のメッセージ -->
+        <exeMessage>はまほうをつかった</exeMessage>
+    </command>
+</class>
+```
+3. STM.xml
+   使用するコマンドないのスキルやわざ、魔法を定義する。
+   **Job設定にある記号とjobsタグに定義した記号**が対応する。
+```
+<class>
+    <!-- まほう定義 -->
+    <mag>
+        <!-- まほうID -->
+        <id>fir1</id>
+        <!-- まほう名 -->
+        <name>かえんじゅ</name>
+        <!-- 属性 -->
+        <ori>FIR</ori>
+        <!-- 魔力コスト -->
+        <cost>-2</cost>
+        <!-- 魔法威力(パラメータ設定より -->
+        <force>3</force>
+        <!-- 使用可能職業(習得レベル) -->
+        <jobs>BRV(2), MAG(1)</jobs>
+        <!-- 説明 -->
+        <discription>初級の火炎魔法</discription>
+    </mag>
+    <!-- 技の定義 -->
+    <tec>
+        <!-- わざID -->
+        <id>swd1</id>
+        <!-- わざ名 -->
+        <name>ましょうめんぎり</name>
+        <!-- 技の仕様コスト -->
+        <cost>1</cost>
+        <!-- 属性(剣技など) -->
+        <ori>SWD</ori>
+        <!-- 攻撃力 -->
+        <force>WEV + POW + AGI</force>
+        <!-- 使用可能職業(習得レベル) -->
+        <jobs>BRV(1), WAR(1)</jobs>
+        <!-- 説明 -->
+        <discription>基本的な剣術の技</discription>
+    </tec>
+</class>
+```
+4. Monsters.xml
+   モンスターの定義を行う  
+   typeタグとMonsterType.xmlのidタグがリンクする。
+```
+<class>
+    <!-- 1. 選抜試合１人目 -->
+    <monster>
+        <id>1</id>
+        <name>ならずもの</name>
+        <lv>1</lv>
+        <type>OTH</type>
+        <hp>5</hp>
+        <mp>0</mp>
+        <pow>1</pow>
+        <agi>1</agi>
+        <int>1</int>
+        <dex>1</dex>
+        <ksm>1</ksm>
+        <atk>1</atk>
+        <def>1</def>
+        <isTalk>true</isTalk>
+        <message>しょうきんは、おれが、もらう！</message>
+        <commandList>ATK</commandList>
+        <exp>1</exp>
+        <money>1</money>
+    </monster>
+</class>
+```
+5. MonseterType.xml
+   モンスターのタイプを定義する、プレーヤーの職業と同様なもの
+```
+<class>
+    <!-- スライム・タイプ -->
+    <monsterType>
+        <id>SLM</id>
+        <name>スライムタイプ</name>
+        <discription>スライムタイプのモンスター。</discription>
+        <commandList>ATK, DEF, BAT</commandList>
+    </monsterType>
+    <!-- カラス・タイプ -->
+    <monsterType>
+        <id>CRW</id>
+        <name>カラスタイプ</name>
+        <discription>カラスタイプのモンスター。</discription>
+        <commandList>ATK, DEF, STC</commandList>
+    </monsterType>
+    <!-- 人間・タイプ -->
+    <monsterType>
+        <id>HUM</id>
+        <name>人間タイプ</name>
+        <discription>人間タイプのモンスター。</discription>
+        <commandList>ATK, DEF</commandList>
+    </monsterType>
+</class>
+```
 ### User created story
 **this program load "*_story.txt". this text file written story.** And users are able to create original story in this story text file.
 <EX>
@@ -105,25 +259,7 @@ END_SCENE
   - 親子関係を作ることでできること(JavaFXで画面表示)
   - イベントリスナーの実装とインターフェース
 * デザインパターン
+  - シングルトン・パターン
+  - デコレーター・パターン
+  - コマンド・パターン
 
-## 学習フロー
-* プログラムの動かし方
-  - メインメソッドを動かす(Hello World)
-  - 「*(アスタリスク)」で図形を描こう。※自分で考えてプログラムを組む
-* 演算子の使い方
-  - 文字列の連結「+」演算子
-  - 四則演算、剰余、2条など
-  - 「=」演算子
-  - int型とString型
-  - 論理演算、booleanの計算をしてみる
-  - 三項演算子の使い方
-* 基本文法
-  - 条件分岐(if, switch)
-  - 繰り返し(for, while)
-  - 例外処理
-  - ファイル読み込み、書き込み、業追加アプリ
-* じゃんけんゲームの作成
-  - プログラムの設計をする(フローチャート作成)
-  - フローチャートをコードに落とす(コメント)
-  - コメントをコードにする
-  - メソッドを作ってコメント部分を実装する
