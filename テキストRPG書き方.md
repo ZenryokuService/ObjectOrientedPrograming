@@ -1,7 +1,7 @@
 # テキストRPGの書き方
 **【前提】**  
 テキストRPGゲームの圧縮ファイルをダウンロードしていること。
-ファイルは**[textRpg.zip](https://zenryokuservice.com/served/textRpg.zip)**という名前です。リンクをクリックするとダウンロードが始まります。
+ファイルは**[textRpg.zip](https://zenryokuservice.com/served/textRpg.zip)という名前です。リンクをクリックするとダウンロードが始まります。
 
 
 ### 編集可能なファイルの一覧
