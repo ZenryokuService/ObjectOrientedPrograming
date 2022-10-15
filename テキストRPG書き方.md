@@ -1,6 +1,8 @@
 # テキストRPGの書き方
 **【前提】**  
 テキストRPGゲームの圧縮ファイルをダウンロードしていること。
+ファイルは**[textRpg.zip](https://zenryokuservice.com/served/textRpg.zip)**という名前です。リンクをクリックするとダウンロードが始まります。
+
 
 ### 編集可能なファイルの一覧
 textRpg.zipを展開すると下のようなファイル(フォルダ含む)が入っています。
@@ -145,12 +147,12 @@ END_SCENE 1
 3. 「public」とついているフィールド、メソッドは**どのクラスからでも参照できます**。
 
 **フィールド変数**  
-```java
+```
 /** 生年月日(これは定義済み) */
 private String birthDay;
 ```
 **lombokで書いたことにできるコード**
-```java
+```
 /** Getter */
 public String getBirthDay() {
 	return this.birthDay;
