@@ -1,16 +1,16 @@
 package jp.zenryoku.procon;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import javafx.application.Platform;
 import jp.zenryoku.procon.server.ProConServer;
 import jp.zenryoku.procon.server.ProConServerConst;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * クライアントのリクエストを受け付けるサーバー。
