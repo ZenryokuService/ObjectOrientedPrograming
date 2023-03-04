@@ -1,3 +1,5 @@
+## TextRPG with Swing
+[Remake TextRPG](https://github.com/ZenryokuService/TextRPG/tree/master) with Java Swing in here. and [wiki](https://github.com/ZenryokuService/TextRPG/wiki)
 ## TextRPG Version 9.X
 it's a pre release version. but you can play original your original story like game book that like [this](https://ja.wikipedia.org/wiki/%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%96%E3%83%83%E3%82%AF)
 
